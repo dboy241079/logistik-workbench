@@ -1,0 +1,693 @@
+/* ==========================================================================
+   navbar.css — Logistik-Workbench Navbar (Bootstrap + Custom Styles)
+   ========================================================================== */
+
+/* -----------------------------
+   1) Basis: Glas-Effekt
+------------------------------ */
+
+.navbar.nav-glass {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+/* Akzentlinie unten */
+.navbar.nav-glass::after {
+  content: "";
+  position: absolute;
+  inset-inline: 10%;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #22c55e, #eab308, #f97316);
+  opacity: 0.7;
+}
+
+/* -----------------------------
+   2) Rote Glas-Navbar (Logo-Rot)
+   Verwendung:
+   <nav class="navbar navbar-expand-lg navbar-dark nav-red nav-glass">
+------------------------------ */
+
+.navbar.nav-glass.nav-red {
+  background: linear-gradient(135deg, #7f1d1d, #b91c1c);
+  border-bottom: 1px solid rgba(248, 250, 252, 0.25);
+}
+
+.navbar.nav-glass.nav-red::after {
+  background: linear-gradient(90deg, #f97316, #facc15, #22c55e);
+  opacity: 0.8;
+}
+
+/* Brand (Logo + Untertitel) */
+.navbar.nav-red .navbar-brand {
+  min-width: 0; /* wichtig für Ellipsis */
+}
+
+.navbar.nav-red .navbar-brand span {
+  color: #fee2e2 !important;
+}
+
+.navbar.nav-red .navbar-brand small {
+  display: block;
+  min-width: 0;
+  max-width: 60vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #fecaca !important;
+}
+
+/* Burger sichtbar */
+.navbar.nav-red .navbar-toggler {
+  border-color: rgba(254, 242, 242, 0.7);
+}
+
+.navbar.nav-red .navbar-toggler-icon {
+  filter: brightness(1.4);
+}
+
+/* -----------------------------
+   3) Tabs in der Navbar
+------------------------------ */
+
+.navbar.nav-red .nav-tabs {
+  border-bottom: none;
+}
+
+.navbar.nav-red .nav-tabs .nav-link {
+  color: #ffe4e6;
+  border: none;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  margin: 0.15rem 0.15rem;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+  background: transparent;
+  transition:
+    color .15s ease,
+    background-color .15s ease,
+    transform .12s ease,
+    box-shadow .15s ease;
+}
+
+.navbar.nav-red .nav-tabs .nav-link i {
+  font-size: 1rem;
+}
+
+.navbar.nav-red .nav-tabs .nav-link:hover {
+  color: #ffffff;
+  background: rgba(254, 242, 242, 0.18);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(127, 29, 29, 0.6);
+}
+
+.navbar.nav-red .nav-tabs .nav-link.active {
+  color: #7f1d1d;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(127, 29, 29, 0.4),
+    0 10px 25px rgba(127, 29, 29, 0.65);
+}
+
+/* Fokus sichtbar */
+.navbar.nav-red .nav-tabs .nav-link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+
+/* -----------------------------
+   4) User-Block rechts (Text darf nicht überlaufen)
+------------------------------ */
+
+.navbar.nav-red .navbar-nav {
+  min-width: 0;
+}
+
+.navbar.nav-red .navbar-nav .d-flex.flex-column {
+  min-width: 0;
+}
+
+.navbar.nav-red .navbar-nav .d-flex.flex-column > span {
+  min-width: 0;
+}
+
+.navbar.nav-red .navbar-nav .d-flex.flex-column .fw-semibold {
+  display: inline-block;
+  max-width: 24ch; /* anpassen wenn du willst */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+/* -----------------------------
+   5) Mobile: Tabs nicht umbrechen, sondern horizontal scrollen
+------------------------------ */
+
+@media (max-width: 991.98px) {
+  .nav-glass.nav-red .nav-tabs {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    gap: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .nav-glass.nav-red .nav-tabs::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .nav-glass.nav-red .navbar-nav.ms-lg-3 {
+    margin-top: 0.75rem !important;
+  }
+
+  /* Untertitel darf auf Mobile breiter sein */
+  .navbar.nav-red .navbar-brand small {
+    max-width: 90vw;
+  }
+}
+
+/* ==========================================================================
+   6) Fahrer-Dropdown (Hover-Panel)
+   HTML erwartet:
+   .nav-item.dropdown.dropdown-hover (parent)
+   .driver-dropdown (Panel)
+   ========================================================================== */
+
+/* Parent braucht position */
+.navbar.nav-red .nav-item.dropdown.dropdown-hover {
+  position: relative;
+}
+
+/* Panel (Whitelist: funktioniert auch wenn es ein div statt dropdown-menu ist) */
+.navbar.nav-red .driver-dropdown,
+.navbar.nav-red .dropdown-menu.driver-dropdown {
+  min-width: 280px;
+  max-width: 360px;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+  padding-top: 0.35rem;
+  padding-bottom: 0.4rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+
+  /* Wichtig: immer lesbarer Text */
+  color: #111827;
+}
+
+/* Desktop: unter Tab zentriert und per Hover/Fokus anzeigen */
+@media (min-width: 992px) {
+  .navbar.nav-red .nav-item.dropdown.dropdown-hover .driver-dropdown,
+  .navbar.nav-red .nav-item.dropdown.dropdown-hover .dropdown-menu.driver-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 6px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity .15s ease,
+      transform .15s ease,
+      visibility 0s linear .15s;
+    z-index: 1050;
+  }
+
+  .navbar.nav-red .nav-item.dropdown.dropdown-hover:hover .driver-dropdown,
+  .navbar.nav-red .nav-item.dropdown.dropdown-hover:focus-within .driver-dropdown,
+  .navbar.nav-red .nav-item.dropdown.dropdown-hover:hover .dropdown-menu.driver-dropdown,
+  .navbar.nav-red .nav-item.dropdown.dropdown-hover:focus-within .dropdown-menu.driver-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+  }
+
+  /* Bootstrap-Klick setzt oft .show -> auch dann sichtbar */
+  .navbar.nav-red .nav-item.dropdown.dropdown-hover .driver-dropdown.show,
+  .navbar.nav-red .nav-item.dropdown.dropdown-hover .dropdown-menu.driver-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+  }
+}
+
+/* Dropdown-Header (dein Kopfbereich: <div class="small text-muted"> ...) */
+.navbar.nav-red .driver-dropdown > .small.text-muted,
+.navbar.nav-red .dropdown-menu.driver-dropdown > .small.text-muted {
+  background: #fef2f2;
+  color: #4b5563 !important;
+  padding: 0.6rem 1rem 0.5rem;
+  border-bottom: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+.navbar.nav-red .driver-dropdown > .small.text-muted .fw-semibold,
+.navbar.nav-red .dropdown-menu.driver-dropdown > .small.text-muted .fw-semibold {
+  color: #7f1d1d !important;
+  margin-bottom: 0.15rem;
+}
+
+/* Items */
+.navbar.nav-red .driver-dropdown .dropdown-divider,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dropdown-divider {
+  margin: 0.3rem 0;
+}
+
+/* Wichtig: kein "weiß auf weiß" + lange Strings umbrechen */
+.navbar.nav-red .driver-dropdown .dropdown-item,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dropdown-item,
+.navbar.nav-red .driver-dropdown .driver-dd-item {
+  font-size: 0.9rem;
+  padding: 0.45rem 1rem;
+  border-radius: 0.55rem;
+  margin: 0.1rem 0.4rem;
+  display: block;
+
+  white-space: normal;
+  overflow-wrap: anywhere;  /* bricht auch ohne Leerzeichen */
+  word-break: break-word;   /* Fallback */
+
+  color: #111827 !important;
+}
+
+/* Falls du d-flex in Items nutzt: Kinder dürfen schrumpfen */
+.navbar.nav-red .driver-dropdown .dropdown-item > *,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dropdown-item > * {
+  min-width: 0;
+}
+
+/* Muted Farben im Dropdown */
+.navbar.nav-red .driver-dropdown .text-muted,
+.navbar.nav-red .dropdown-menu.driver-dropdown .text-muted {
+  color: #6b7280 !important;
+}
+
+.navbar.nav-red .driver-dropdown .fw-semibold,
+.navbar.nav-red .dropdown-menu.driver-dropdown .fw-semibold {
+  color: #111827 !important;
+}
+
+/* Icon-Badge links */
+.navbar.nav-red .driver-dropdown .dd-icon-wrap,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dd-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 250, 252, 0.9);
+  font-size: 1.1rem;
+}
+
+/* Hover */
+.navbar.nav-red .driver-dropdown .dropdown-item:hover,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dropdown-item:hover,
+.navbar.nav-red .driver-dropdown .driver-dd-item:hover {
+  background: #fef2f2;
+}
+
+/* Active-State (Bootstrap-Blau killen) */
+.navbar.nav-red .driver-dropdown .dropdown-item:active,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dropdown-item:active,
+.navbar.nav-red .driver-dropdown .dropdown-item.active,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dropdown-item.active {
+  background: #fee2e2 !important;
+  color: #111827 !important;
+}
+
+.navbar.nav-red .driver-dropdown .dropdown-item:active .text-muted,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dropdown-item:active .text-muted,
+.navbar.nav-red .driver-dropdown .dropdown-item.active .text-muted,
+.navbar.nav-red .dropdown-menu.driver-dropdown .dropdown-item.active .text-muted {
+  color: #111827 !important;
+}
+
+/* kleiner „extern“-Badge (Klasse im HTML: bg-outline-light) */
+.navbar.nav-red .driver-dropdown .bg-outline-light,
+.navbar.nav-red .dropdown-menu.driver-dropdown .bg-outline-light {
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: transparent;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+}
+
+/* Pfeil des Dropdown-Toggles */
+.navbar.nav-red .nav-item.dropdown .nav-link.dropdown-toggle::after {
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+/* Warenfluss Dropdown (Bootstrap dropdown-menu im Navbar-Tab-Style) */
+.navbar.nav-red .nav-dropdown-menu {
+  border-radius: 0.75rem;
+  /* padding: 0.35rem; */
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+}
+
+.navbar.nav-red .nav-dropdown-menu .dropdown-item {
+  border-radius: 0.55rem;
+  padding: 0.5rem 0.75rem;
+  color: #111827 !important;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.navbar.nav-red .nav-dropdown-menu .dropdown-item:hover {
+  background: #fef2f2;
+}
+
+.navbar.nav-red .nav-dropdown-menu .dropdown-item.active,
+.navbar.nav-red .nav-dropdown-menu .dropdown-item:active {
+  background: #fee2e2 !important;
+  color: #111827 !important;
+}
+/* =========================================================
+   Mobile-Responsive Ergänzungen (Bootstrap Navbar + Tabs)
+   ========================================================= */
+
+/* Avatar responsiv skalieren */
+.navbar .nav-avatar{
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+}
+
+@media (max-width: 991.98px){
+  .navbar .nav-avatar{
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* User-Text: nicht rausdrücken, sondern sauber kürzen */
+.navbar .nav-usertext{
+  min-width: 0;
+}
+.navbar .nav-usertext .fw-semibold{
+  display: inline-block;
+  max-width: 18ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Tabs auf Mobile: horizontal scrollen statt umbrechen */
+@media (max-width: 991.98px){
+  .navbar .nav-tabs-scroll{
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: .25rem;
+    padding-bottom: .25rem;
+  }
+  .navbar .nav-tabs-scroll::-webkit-scrollbar{ display:none; }
+
+  /* Touch-Ziele etwas größer */
+  .navbar .nav-tabs-scroll .nav-link{
+    padding: .45rem .85rem;
+  }
+
+  /* Collapse: nicht endlos hoch, sondern scrollbar */
+  #mainTabsCollapse{
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: .5rem;
+  }
+
+  /* Dropdown-Menüs innerhalb Collapse: volle Breite, kein “rausfliegen” */
+  .navbar .dropdown-menu{
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Optional: damit Dropdown im Navbar-Tabstyle sauber aussieht */
+.navbar.nav-red .dropdown-menu{
+  border-radius: .75rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+}
+
+/* Online-Badge auf Mobile: nicht zu fett */
+@media (max-width: 991.98px){
+  #onlineCountBadge{
+    font-size: .75rem;
+    padding: .25rem .5rem;
+  }
+}
+.tab-embed-iframe{
+  border: 0;
+  width: 100%;
+  min-height: calc(100vh - var(--nav-h, 140px));
+}
+/* =========================================================
+   Mobile App-Behavior: Navbar fade out/in on scroll
+   ========================================================= */
+
+.nav-fade{
+  transition: opacity .18s ease, transform .18s ease;
+  will-change: opacity, transform;
+}
+
+@media (max-width: 991.98px){
+  #mainNavbar.nav-hidden{
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none; /* verhindert Klicks wenn unsichtbar */
+  }
+}
+/* Workbench Offcanvas (Mobile) */
+.wb-offcanvas{
+  background: linear-gradient(135deg, #7f1d1d, #b91c1c);
+  color: #fff;
+}
+
+.wb-offcanvas .offcanvas-header{
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.wb-offcanvas-list .list-group-item{
+  background: transparent;
+  color: rgba(255,255,255,0.92);
+  border: 0;
+  padding: .75rem .25rem;
+}
+
+.wb-offcanvas-list .list-group-item:hover{
+  background: rgba(255,255,255,0.10);
+}
+
+.wb-offcanvas-list .list-group-item.active{
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+
+.wb-oc-sub{
+  padding-left: 1rem !important;
+  font-size: .95rem;
+}
+
+/* Mobile Offcanvas = 75% vom Screen */
+@media (max-width: 991.98px) {
+  #wbOffcanvas{
+    --bs-offcanvas-width: 75vw;   /* <- DAS ist der richtige Hebel */
+    max-width: 420px;            /* optional: nicht zu breit auf großen Phones */
+    min-width: 280px;            /* optional */
+  }
+}
+
+/* optional: nicer Look */
+#wbOffcanvas{
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+.wb-bell-glow {
+  color: #ffc107 !important;
+  text-shadow: 0 0 10px rgba(255,193,7,.85);
+  animation: wbBellPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes wbBellPulse {
+  0%   { transform: rotate(0deg); }
+  10%  { transform: rotate(-10deg); }
+  20%  { transform: rotate(10deg); }
+  30%  { transform: rotate(-6deg); }
+  40%  { transform: rotate(6deg); }
+  50%  { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* =========================================================
+   MOBILE NAV / OFFCANVAS OVERRIDES
+   Ganz unten einfügen
+========================================================= */
+
+@media (max-width: 991.98px) {
+  /* Navbar oben kompakter */
+  #mainNavbar {
+    padding-top: 0.45rem;
+    padding-bottom: 0.45rem;
+  }
+
+  #mainNavbar .navbar-brand {
+    max-width: calc(100% - 64px);
+    min-width: 0;
+  }
+
+  #mainNavbar .brand-logo {
+    height: 24px !important;
+  }
+
+  #mainNavbar .navbar-brand .fw-semibold {
+    font-size: 0.98rem;
+  }
+
+  #mainNavbar .navbar-brand small {
+    display: none !important;
+  }
+
+  /* Offcanvas-Breite für Handy */
+  #wbOffcanvas {
+    --bs-offcanvas-width: min(88vw, 360px);
+    max-width: 360px;
+    min-width: 280px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+
+  /* Panel-Look */
+  .wb-offcanvas {
+    background: linear-gradient(180deg, #1f2328 0%, #181c20 100%);
+    color: #fff;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .wb-offcanvas .offcanvas-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1rem 1rem 0.85rem;
+  }
+
+  .wb-offcanvas .offcanvas-body {
+    padding: 0.85rem 0.85rem 1rem;
+  }
+
+  /* Userbereich oben */
+  .wb-offcanvas #wbOffcanvasLabel {
+    font-size: 1rem;
+    line-height: 1.15;
+  }
+
+  .wb-offcanvas .badge.bg-secondary {
+    background: rgba(255, 255, 255, 0.16) !important;
+  }
+
+  .wb-offcanvas .badge.bg-success {
+    background: #198754 !important;
+  }
+
+  /* Nav-Liste */
+  .wb-offcanvas-list .list-group-item {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.92);
+    border: 0;
+    border-radius: 0.85rem !important;
+    margin-bottom: 0.35rem;
+    padding: 0.78rem 0.9rem;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+  }
+
+  .wb-offcanvas-list .list-group-item:hover,
+  .wb-offcanvas-list .list-group-item:focus {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+
+  .wb-offcanvas-list .list-group-item.active {
+    background: rgba(13, 110, 253, 0.22);
+    color: #fff;
+    border: 1px solid rgba(13, 110, 253, 0.28);
+  }
+
+  .wb-oc-item,
+  .wb-oc-sub {
+    font-size: 0.98rem;
+  }
+
+  .wb-oc-sub {
+    margin-left: 0.35rem;
+    padding-left: 1rem !important;
+    font-size: 0.94rem;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  /* Collapse-Bereiche im Offcanvas */
+  .wb-offcanvas .collapse .list-group {
+    padding-top: 0.1rem;
+    padding-bottom: 0.2rem;
+  }
+
+  /* Chevron schöner drehen */
+  .wb-offcanvas .bi-chevron-down {
+    transition: transform 0.2s ease;
+  }
+
+  .wb-offcanvas .wb-oc-item[aria-expanded="true"] .bi-chevron-down,
+  .wb-offcanvas .list-group-item[aria-expanded="true"] .bi-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  /* Logout / Buttons */
+  .wb-offcanvas .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .wb-offcanvas .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Navbar verschwindet sauber beim Scrollen */
+  #mainNavbar.nav-hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+}
+@media (max-width: 991.98px) {
+  #mainNavbar .container-fluid {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  #mainNavbar .navbar-brand {
+    margin-right: 0;
+  }
+
+  #mainNavbar .navbar-toggler {
+    flex-shrink: 0;
+    margin-left: 0.25rem;
+  }
+}

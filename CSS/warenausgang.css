@@ -1,0 +1,379 @@
+html, body { height: 100%; margin: 0; padding: 0; }
+body { background: #f8f9fa; }
+
+/* Vollbreite (Desktop) */
+.page-wrap { width: 100%; }
+.table-container { width: 100%; overflow-x: auto; }
+.table.w-100 { width: 100%; }
+
+/* Interaktion */
+.table thead th { cursor: pointer; position: relative; user-select: none; }
+.table thead th .sort-ind { position: absolute; right: .5rem; opacity: .6; }
+th, td { white-space: nowrap; }
+th[data-type="none"] { cursor: default; }
+.action-btn { padding: .15rem .4rem; }
+
+/* Gespeichert (Einzel) */
+.saved-standalone {
+  /* outline: 2px solid #198754;  */
+  outline-offset: -2px;
+  background: #f6fff8;
+}
+
+/* Gruppenrahmen (gleiche Ausgangsnummer) – NUR Außenlinien */
+.grp td { background: linear-gradient(0deg, rgba(13,110,253,0.03), rgba(13,110,253,0.03)); }
+.grp td:first-child { border-left: 3px solid #0d6efd; }
+.grp td:last-child  { border-right: 3px solid #0d6efd; }
+.grp-start td { border-top: 3px solid #0d6efd; }
+.grp-end td   { border-bottom: 3px solid #0d6efd; }
+
+/* kompaktere Gruppen-Padding + Rundungen */
+tr.grp td { padding-top: .35rem; padding-bottom: .35rem; }
+tr.grp-start td { padding-top: .30rem; box-shadow: inset 0 1px 0 rgba(13,110,253,.08); }
+tr.grp-end   td { padding-bottom: .30rem; box-shadow: inset 0 -1px 0 rgba(13,110,253,.08); }
+tr.grp-start td:first-child { border-top-left-radius: 6px; }
+tr.grp-start td:last-child  { border-top-right-radius: 6px; }
+tr.grp-end   td:first-child { border-bottom-left-radius: 6px; }
+tr.grp-end   td:last-child  { border-bottom-right-radius: 6px; }
+
+/* Badge im ersten Feld */
+.badge-count { vertical-align: middle; }
+
+/* Filterleiste */
+.filter-bar .form-select,
+.filter-bar .form-control { min-width: 220px; }
+.filter-bar .form-check .form-check-input { margin-top: 0; }
+
+/* Autocomplete-Overlay (global, fixed) */
+.ac-menu {
+  position: fixed;
+  z-index: 2000;
+  overflow: auto;
+  max-height: 260px;
+  width: 210px !important;
+  border: 1px solid #ced4da;
+  background: #fff;
+  border-radius: .35rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+.ac-item { padding: .35rem .5rem; cursor: pointer; display:flex; gap:.5rem; }
+.ac-item:hover, .ac-item.active { background:#e9f2ff; }
+.ac-code { font-weight:600; }
+.ac-group { color:#0d6efd; font-weight:600; min-width:3.2rem; text-align:center; }
+
+/* Highlight für angesprungene Zeile */
+.row-jump-highlight { animation: rowFlash 1.8s ease-out 1; }
+@keyframes rowFlash {
+  0%   { box-shadow: inset 0 0 0 9999px rgba(255, 243, 205, .9); }
+  60%  { box-shadow: inset 0 0 0 9999px rgba(255, 243, 205, .35); }
+  100% { box-shadow: inset 0 0 0 0 rgba(255,255,255,0); }
+}
+
+/* Tabelle: Header umbrechen, Zellen 1-zeilig + Ellipsis */
+#ausgangTable thead th {
+  white-space: normal;
+  line-height: 1.15;
+  text-align: center;
+}
+
+/* Text + Icon nebeneinander (rechts daneben) */
+#ausgangTable thead th .th-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+/* Mehrzeilige Labels zentriert untereinander */
+#ausgangTable thead th .th-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+/* Sort-Indikator inline (nicht absolut) */
+#ausgangTable thead th .sort-ind {
+  position: static;
+  opacity: .6;
+}
+
+/* Layout */
+#ausgangTable { table-layout: fixed; }
+#ausgangTable td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table>thead { vertical-align: middle; }
+.px-3 { padding-right: .5rem !important; padding-left: .5rem !important; }
+
+/* --- Spaltenbreiten (th + td via nth-child) --- */
+#ausgangTable :is(th, td):nth-child(1)  { width: 150px; max-width: 200px; } /* Ausg.-Nr. */
+#ausgangTable :is(th, td):nth-child(2)  { width: 100px; max-width: 100px; } /* Fracht/Lief. */
+#ausgangTable :is(th, td):nth-child(3)  { width: 100px; max-width: 100px; } /* Lagergrp. */
+#ausgangTable :is(th, td):nth-child(4)  { width: 100px; max-width: 100px; } /* Datum */
+#ausgangTable :is(th, td):nth-child(5)  { width: 100px; max-width: 120px; } /* Kennz. */
+#ausgangTable :is(th, td):nth-child(6)  { width: 60px;  max-width: 90px;  } /* Land */
+#ausgangTable :is(th, td):nth-child(7)  { width: 100px; max-width: 160px; } /* Spedit. */
+#ausgangTable :is(th, td):nth-child(8)  { width: 100px; max-width: 110px; } /* Ank. */
+#ausgangTable :is(th, td):nth-child(9)  { width: 100px; max-width: 120px; } /* Beg. Entl. */
+#ausgangTable :is(th, td):nth-child(10) { width: 100px; max-width: 130px; } /* Ende Entl. */
+#ausgangTable :is(th, td):nth-child(11) { width: 100px;  max-width: 190px;  text-align: right; } /* Behälter */
+#ausgangTable :is(th, td):nth-child(12) { width: 100px;  max-width: 140px; text-align: right; } /* Zus.-Beh. */
+#ausgangTable :is(th, td):nth-child(13) { width: 100px; max-width: 170px; } /* Beh.-Nr. */
+#ausgangTable :is(th, td):nth-child(14) { width: 70px; max-width: 190px; } /* Sachnr. */
+#ausgangTable :is(th, td):nth-child(15) { width: 80px;  max-width: 80px;  text-align: right; } /* Menge / BRT-GEW */
+#ausgangTable :is(th, td):nth-child(16) { width: 80px;  max-width: 80px; } /* Gebucht */
+#ausgangTable :is(th, td):nth-child(17) { width: 90px;  max-width: 120px; } /* Geb. von */
+#ausgangTable :is(th, td):nth-child(18) { width: 80px;  max-width: 90px;  text-align: center; } /* Kürzel */
+/* Neu: nach Aktion kamen bei dir cmr_code + cmr_name – je nach Reihenfolge anpassen! */
+#ausgangTable :is(th, td):nth-child(19) { width: 90px;  max-width: 110px; text-align:center; } /* Kürzel */
+#ausgangTable :is(th, td):nth-child(20) { width: 270px; max-width: 270px; }                   /* Kunde */
+
+
+
+/* ===== Autocomplete-Dropdown (.ac-menu) – hübscheres Styling ===== */
+:root {
+  --ac-bg: #fff;
+  --ac-fg: #212529;
+  --ac-border: rgba(0,0,0,.15);
+  --ac-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+  --ac-hover-bg: rgba(13,110,253,.08);
+  --ac-muted: #6c757d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ac-bg: #212529;
+    --ac-fg: #e9ecef;
+    --ac-border: rgba(255,255,255,.15);
+    --ac-shadow: 0 .5rem 1rem rgba(0,0,0,.35);
+    --ac-hover-bg: rgba(13,110,253,.22);
+    --ac-muted: #adb5bd;
+  }
+}
+
+.ac-menu {
+  position: absolute;
+  z-index: 2147483647;
+  background: var(--ac-bg);
+  color: var(--ac-fg);
+  border: 1px solid var(--ac-border);
+  border-radius: .5rem;
+  box-shadow: var(--ac-shadow);
+  padding: .25rem;
+  margin-top: .125rem;
+  max-height: 280px;
+  overflow-y: auto;
+  min-width: 12rem;
+  backdrop-filter: saturate(120%) blur(2px);
+}
+
+.ac-menu.d-none { display: none !important; }
+
+.ac-menu .ac-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: .375rem .5rem;
+  border-radius: .375rem;
+  cursor: pointer;
+  transition: background-color .12s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.ac-menu .ac-item:hover,
+.ac-menu .ac-item.active {
+  background: var(--ac-hover-bg);
+}
+
+.ac-menu .ac-item .label {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ac-menu .ac-item .meta,
+.ac-menu .ac-item .text-muted {
+  flex: 0 0 auto;
+  color: var(--ac-muted) !important;
+  font-size: .8rem;
+  margin-left: .5rem;
+  white-space: nowrap;
+}
+
+.ac-menu .ac-sep {
+  height: 0;
+  border-top: 1px solid var(--ac-border);
+  margin: .25rem 0;
+}
+
+.ac-menu .ac-group { color: var(--ac-muted); margin-right: .5rem; }
+.ac-menu .ac-code  {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Optional: Tastaturhinweis-Badge */
+.ac-menu .kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .75rem;
+  padding: .1rem .35rem;
+  border: 1px solid var(--ac-border);
+  border-bottom-width: 2px;
+  border-radius: .25rem;
+  color: var(--ac-muted);
+}
+
+/* Optional: Matches hervorheben, falls du <mark> verwendest */
+.ac-menu mark {
+  background: #fff3cd;
+  color: inherit;
+  padding: 0 .12em;
+  border-radius: .15rem;
+}
+
+/* Scrollbar (WebKit) */
+.ac-menu::-webkit-scrollbar { width: 10px; }
+.ac-menu::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.2);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.ac-menu::-webkit-scrollbar-track { background: transparent; }
+
+/* Leereintrag */
+.ac-menu .empty {
+  padding: .5rem .75rem;
+  color: var(--ac-muted);
+  font-style: italic;
+}
+
+/* ===== Autocomplete+ Styles ===== */
+.ac-menu{position:absolute;z-index:2147483647;background:#fff;border:1px solid rgba(0,0,0,.15);border-radius:.5rem;box-shadow:0 .5rem 1rem rgba(0,0,0,.15);max-height:280px;overflow:auto;min-width:12rem}
+.ac-item{padding:.375rem .5rem;cursor:pointer;display:flex;align-items:baseline;gap:.5rem}
+.ac-item .label{flex:1 1 auto}
+.ac-item .meta{flex:0 0 auto;color:#6c757d;font-size:.85em}
+.ac-item.active{background:rgba(13,110,253,.12)}
+.ac-item mark{background:rgba(255,193,7,.35);padding:0 .05em;border-radius:.2em}
+
+/* Kompakte Schrift für komplette Warenausgang-Tabelle */
+#ausgangTable,
+#ausgangTable thead,
+#ausgangTable tbody,
+#ausgangTable tr,
+#ausgangTable td,
+#ausgangTable th {
+  font-size: 0.775rem !important;
+  line-height: 1.25rem !important;
+}
+
+/* Alle Edit-/UI-Elemente erben die Größe */
+#ausgangTable .form-control,
+#ausgangTable .form-select,
+#ausgangTable .form-control-plaintext,
+#ausgangTable .btn,
+#ausgangTable .badge,
+#ausgangTable .sort-ind,
+#ausgangTable i.bi {
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+/* Gruppenklassen nicht größer rendern */
+#ausgangTable .grp,
+#ausgangTable .grp-start,
+#ausgangTable .grp-end,
+#ausgangTable .grp-single {
+  font-size: inherit !important;
+}
+
+/* Etwas kompaktere Paddings */
+#ausgangTable td,
+#ausgangTable th {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}
+
+#statsGruppen tr[data-grp] { cursor: pointer; }
+#statsGruppen tr.stats-details td { background: #f8f9fa; }
+#statsGruppen .grp-caret { width: 1em; display: inline-block; }
+
+.row { margin-bottom: 5px !important; }
+
+/* Nur innere Spalten-Trenner für #ausgangTable */
+#ausgangTable {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Standardmäßig keine Zellränder … (bei Bedarf auskommentiert lassen) */
+/*
+#ausgangTable thead th,
+#ausgangTable tbody td,
+#ausgangTable tfoot th {
+  border: 0 !important;
+}
+*/
+
+/* … aber feiner linker Rand ab der 2. Spalte */
+#ausgangTable thead th + th,
+#ausgangTable tbody td + td,
+#ausgangTable tfoot th + th {
+  border-left: 1px solid var(--we-cell-divider, var(--bs-border-color-translucent));
+}
+
+/* Ton anpassen (hell/dunkel) */
+:root { --we-cell-divider: rgba(0,0,0,.08); }
+#ausgangTable thead th + th { border-left-color: rgba(255,255,255,.2); } /* dunkler thead */
+
+/* OPTIONAL: keine Linie vor der Aktionsspalte */
+#ausgangTable tbody td:last-child { border-left-width: 0; }
+
+/* ZENTRIEREN: 1,2,3,4,5,6,7,8,9,10,11,12,13,15,16,17 (Sachnummer = 14 bleibt links) */
+#ausgangTable :is(th, td):nth-child(1),
+#ausgangTable :is(th, td):nth-child(2),
+#ausgangTable :is(th, td):nth-child(3),
+#ausgangTable :is(th, td):nth-child(4),
+#ausgangTable :is(th, td):nth-child(5),
+#ausgangTable :is(th, td):nth-child(6),
+#ausgangTable :is(th, td):nth-child(7),
+#ausgangTable :is(th, td):nth-child(8),
+#ausgangTable :is(th, td):nth-child(9),
+#ausgangTable :is(th, td):nth-child(10),
+#ausgangTable :is(th, td):nth-child(11),
+#ausgangTable :is(th, td):nth-child(12),
+#ausgangTable :is(th, td):nth-child(13),
+#ausgangTable :is(th, td):nth-child(15),
+#ausgangTable :is(th, td):nth-child(16),
+#ausgangTable :is(th, td):nth-child(17) {
+  text-align: center !important;
+}
+
+/* Edit-Elemente in denselben Spalten ebenfalls zentrieren */
+#ausgangTable td:nth-child(1)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(2)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(3)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(4)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(5)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(6)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(7)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(8)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(9)  :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(10) :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(11) :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(12) :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(13) :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(15) :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(16) :is(input, select, .form-control-plaintext),
+#ausgangTable td:nth-child(17) :is(input, select, .form-control-plaintext) {
+  text-align: center !important;
+}
+
+/* Übergewicht visuell andeuten (nur Innenfläche, Rahmen bleibt) */
+.overweight td {
+  background-image: linear-gradient(0deg, rgba(220,53,69,.08), rgba(220,53,69,.08));
+}

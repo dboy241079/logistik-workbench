@@ -1,0 +1,570 @@
+/* /LKW/CSS/sachnummern-mobile.css */
+
+/* =========================
+   Mobile Optimierung Stammdaten
+========================= */
+@media (max-width: 768px) {
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  body {
+    font-size: 15px;
+    background: #f8f9fa;
+  }
+
+  main[data-tab-root] {
+    overflow-x: hidden;
+  }
+
+  .container-lg {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* =========================
+     Header / Titel / Exportbuttons
+  ========================= */
+  header .d-flex.align-items-center.justify-content-between {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 8px !important;
+  }
+
+  header [aria-label="Export- und Druckaktionen"] {
+    display: flex !important;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  header [aria-label="Export- und Druckaktionen"] .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* =========================
+     Tabs horizontal scrollbar
+  ========================= */
+  #stammTabs {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-bottom: 4px;
+  }
+
+  #stammTabs .nav-item {
+    flex: 0 0 auto;
+  }
+
+  #stammTabs .nav-link {
+    white-space: nowrap;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  #stammTabsContent {
+    padding: 12px !important;
+    border-radius: 0 0 16px 16px;
+    background: #fff;
+  }
+
+  /* =========================
+     Suchbereich + Neu Buttons
+  ========================= */
+  #tabSach .d-flex.justify-content-between,
+  #tabBeh .d-flex.justify-content-between,
+  #tabSped .d-flex.justify-content-between,
+  #tabCust .d-flex.justify-content-between {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  #searchSach,
+  #searchBeh,
+  #searchSped,
+  #searchCust {
+    width: 100% !important;
+    min-height: 46px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  #btnNewSach,
+  #btnNewBeh,
+  #btnNewSped,
+  #btnNewCust {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 12px;
+  }
+
+  .btn {
+    min-height: 44px;
+    border-radius: 12px;
+  }
+
+  .btn-sm {
+    padding: 9px 12px;
+    font-size: 14px;
+  }
+
+  .form-control,
+  .form-select {
+    min-height: 46px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+
+  /* =========================
+     Accordion Sachnummern
+  ========================= */
+  .acc-wrap {
+    margin-top: 6px;
+  }
+
+  #accSach .accordion-item {
+    border-radius: 14px !important;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  #accSach .accordion-button {
+    font-size: 14px;
+    line-height: 1.35;
+    padding: 14px 14px;
+  }
+
+  #accSach .accordion-body {
+    padding: 0;
+  }
+
+  #accSach .list-group-item {
+    display: block !important;
+    padding: 12px 14px;
+  }
+
+  #accSach .list-group-item .me-3 {
+    margin-right: 0 !important;
+  }
+
+  #accSach .list-group-item .fw-semibold {
+    font-size: 15px;
+    margin-bottom: 4px;
+    word-break: break-word;
+  }
+
+  #accSach .list-group-item .small {
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  #accSach .list-group-item .text-nowrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  #accSach .list-group-item .text-nowrap .btn {
+    width: 100%;
+    margin-right: 0 !important;
+  }
+
+  /* =========================
+     Tabellen auf Mobile = Karten
+  ========================= */
+  .table-responsive {
+    overflow: visible !important;
+    border: 0 !important;
+  }
+
+  #tblBeh,
+  #tblSped,
+  #tblCust {
+    width: 100%;
+    border: 0;
+  }
+
+  #tblBeh thead,
+  #tblSped thead,
+  #tblCust thead,
+  #tblBeh caption,
+  #tblSped caption,
+  #tblCust caption {
+    display: none;
+  }
+
+  #tblBeh tbody,
+  #tblSped tbody,
+  #tblCust tbody {
+    display: block;
+    width: 100%;
+  }
+
+  #tblBeh tr,
+  #tblSped tr,
+  #tblCust tr {
+    display: block;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 14px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  #tblBeh td,
+  #tblSped td,
+  #tblCust td {
+    display: block;
+    width: 100%;
+    border: 0 !important;
+    padding: 6px 0 !important;
+    text-align: left !important;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  #tblBeh td::before,
+  #tblSped td::before,
+  #tblCust td::before {
+    display: block;
+    font-weight: 700;
+    color: #495057;
+    margin-bottom: 3px;
+  }
+
+  /* Behälter Labels */
+  #tblBeh td:nth-child(1)::before { content: "Behältertyp"; }
+  #tblBeh td:nth-child(2)::before { content: "VW-Kennung"; }
+  #tblBeh td:nth-child(3)::before { content: "KLTs / Behälter"; }
+  #tblBeh td:nth-child(4)::before { content: "Einheit"; }
+  #tblBeh td:nth-child(5)::before { content: "Status"; }
+  #tblBeh td:nth-child(6)::before { content: "Geändert"; }
+  #tblBeh td:nth-child(7)::before { content: "Aktionen"; }
+
+  /* Spedition Labels */
+  #tblSped td:nth-child(1)::before { content: "Spedition"; }
+  #tblSped td:nth-child(2)::before { content: "Kennzeichen"; }
+  #tblSped td:nth-child(3)::before { content: "Geändert"; }
+  #tblSped td:nth-child(4)::before { content: "Aktionen"; }
+
+  /* Kunden Labels */
+  #tblCust td:nth-child(1)::before { content: "Kürzel"; }
+  #tblCust td:nth-child(2)::before { content: "Kunde"; }
+  #tblCust td:nth-child(3)::before { content: "Adresse"; }
+  #tblCust td:nth-child(4)::before { content: "PLZ"; }
+  #tblCust td:nth-child(5)::before { content: "Ort"; }
+  #tblCust td:nth-child(6)::before { content: "Land"; }
+  #tblCust td:nth-child(7)::before { content: "Geändert"; }
+  #tblCust td:nth-child(8)::before { content: "Aktionen"; }
+
+  /* Aktionsbuttons in Karten */
+  #tblBeh td:last-child .btn,
+  #tblSped td:last-child .btn,
+  #tblCust td:last-child .btn {
+    display: block;
+    width: 100%;
+    margin: 0 0 8px 0 !important;
+  }
+
+  /* =========================
+     Modal = Handy freundlich
+  ========================= */
+  .modal-dialog {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  .modal-content {
+    min-height: 100vh;
+    border-radius: 0 !important;
+    border: 0 !important;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .modal-header {
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+
+  .modal-title {
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  .modal-body .row {
+    --bs-gutter-x: 10px;
+    --bs-gutter-y: 10px;
+  }
+
+  .modal-body .col-md-3,
+  .modal-body .col-md-4,
+  .modal-body .col-md-6,
+  .modal-body .col-md-9,
+  .modal-body .col-12 {
+    width: 100%;
+  }
+
+  .modal-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+    margin: 0 !important;
+  }
+
+  /* =========================
+     Footer
+  ========================= */
+  .app-footer .container-lg {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 14px;
+  }
+
+  .app-footer small {
+    display: block;
+    line-height: 1.4;
+  }
+}
+
+/* =========================
+   Sehr kleine Displays
+========================= */
+@media (max-width: 420px) {
+  header h1 {
+    font-size: 1.05rem;
+  }
+
+  #stammTabs .nav-link {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  #accSach .accordion-button {
+    font-size: 13px;
+  }
+
+  #accSach .list-group-item .fw-semibold {
+    font-size: 14px;
+  }
+}
+/* =========================================
+   Mobile Feinschliff: Chips + Sticky + Badges
+========================================= */
+@media (max-width: 768px) {
+
+@media (max-width: 768px) {
+  /* Tabs 2x2 statt Scrollen */
+  #stammTabs {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0;
+    margin: 0 0 12px 0;
+    border-bottom: 0 !important;
+    overflow: visible !important;
+  }
+
+  #stammTabs .nav-item {
+    width: 100%;
+    margin: 0;
+  }
+
+  #stammTabs .nav-link {
+    width: 100%;
+    min-height: 52px;
+    border: 1px solid #d0d7de !important;
+    border-radius: 16px !important;
+    background: #ffffff;
+    color: #495057;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+  }
+
+  #stammTabs .nav-link.active {
+    background: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: #fff !important;
+    box-shadow: 0 6px 18px rgba(13, 110, 253, 0.20);
+  }
+
+  #stammTabs .nav-link:focus {
+    box-shadow:
+      0 0 0 0.2rem rgba(13,110,253,.15),
+      0 2px 8px rgba(0,0,0,0.05);
+  }
+}
+
+@media (max-width: 420px) {
+  #stammTabs .nav-link {
+    min-height: 50px;
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+}
+
+
+
+
+  /* Tab-Inhalt etwas weicher */
+  #stammTabsContent {
+    border-top: 0 !important;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  /* Sticky Such-/Aktionsleiste je Tab */
+  #tabSach > .d-flex.justify-content-between.align-items-center.mb-2.gap-2.flex-wrap,
+  #tabBeh  > .d-flex.justify-content-between.align-items-center.mb-2.gap-2.flex-wrap,
+  #tabSped > .d-flex.justify-content-between.align-items-center.mb-2.gap-2.flex-wrap,
+  #tabCust > .d-flex.justify-content-between.align-items-center.mb-2.gap-2.flex-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(248, 249, 250, 0.96);
+    backdrop-filter: blur(8px);
+    padding: 10px 0 12px;
+    margin-bottom: 12px !important;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* untereinander auf Handy */
+  #tabSach > .d-flex.justify-content-between.align-items-center.mb-2.gap-2.flex-wrap > div,
+  #tabBeh  > .d-flex.justify-content-between.align-items-center.mb-2.gap-2.flex-wrap > div,
+  #tabSped > .d-flex.justify-content-between.align-items-center.mb-2.gap-2.flex-wrap > div,
+  #tabCust > .d-flex.justify-content-between.align-items-center.mb-2.gap-2.flex-wrap > div {
+    width: 100%;
+  }
+
+  #searchSach,
+  #searchBeh,
+  #searchSped,
+  #searchCust {
+    width: 100% !important;
+    min-height: 46px;
+    border-radius: 14px;
+    border: 1px solid #ced4da;
+    background: #fff;
+  }
+
+  #btnNewSach,
+  #btnNewBeh,
+  #btnNewSped,
+  #btnNewCust {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 14px;
+    font-weight: 600;
+  }
+
+  /* Badge-Container für Kennzeichen */
+  .plate-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .plate-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #e9f2ff;
+    border: 1px solid #bfd7ff;
+    color: #0b5ed7;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .plate-badge.is-empty {
+    background: #f1f3f5;
+    border-color: #dee2e6;
+    color: #6c757d;
+    font-weight: 600;
+  }
+
+  /* Karten auf Handy etwas schöner */
+  #tblBeh tr,
+  #tblSped tr,
+  #tblCust tr {
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.05);
+  }
+
+  /* Aktionen schöner untereinander */
+  #tblBeh td:last-child,
+  #tblSped td:last-child,
+  #tblCust td:last-child {
+    padding-top: 10px !important;
+  }
+
+  #tblBeh td:last-child .btn,
+  #tblSped td:last-child .btn,
+  #tblCust td:last-child .btn {
+    width: 100%;
+    margin-bottom: 8px !important;
+    border-radius: 12px;
+  }
+
+  #tblBeh td:last-child .btn:last-child,
+  #tblSped td:last-child .btn:last-child,
+  #tblCust td:last-child .btn:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  #stammTabs .nav-link {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .plate-badge {
+    font-size: 11px;
+    padding: 4px 9px;
+  }
+}

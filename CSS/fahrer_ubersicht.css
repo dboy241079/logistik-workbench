@@ -1,0 +1,466 @@
+/* =========================
+   TPO Farb-Setup (Rot)
+   ========================= */
+:root {
+  --tpo-red: #b91c1c;           /* Hauptrot – wie in der Navbar */
+  --tpo-red-rgb: 185, 28, 28;
+  --tpo-red-light-bg: #fee2e2;  /* sehr helles Rot/Rosa */
+}
+
+/* Optional: Bootstrap Primary auf Rot mappen (falls du .btn-primary, .text-primary etc. nutzt) */
+:root {
+  --bs-primary: var(--tpo-red);
+  --bs-primary-rgb: var(--tpo-red-rgb);
+}
+
+/* =========================
+   Grundlayout
+   ========================= */
+body {
+  background: #f4f5f7;
+}
+
+.wrap {
+  max-width: none;   /* wichtig */
+  width: 100%;
+  margin: 0;
+  padding: 16px;     /* kann bleiben (oder 0 wenn du edge-to-edge willst) */
+}
+
+
+/* =========================
+   Tabs
+   ========================= */
+.nav-tabs .nav-link.active {
+  background: var(--tpo-red);
+  color: #ffffff;
+}
+
+/* =========================
+   Wochenübersicht Cards
+   ========================= */
+.day-card {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .05);
+  margin-bottom: 1rem;
+}
+
+.day-header {
+  background: #2f3e46;
+  color: #ffffff;
+  padding: .6rem 1rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* =========================
+   Tabelle
+   ========================= */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+
+th {
+  background: #e9ecef;
+  text-align: left;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 4px;
+}
+
+/* =========================
+   Status-Badges
+   ========================= */
+.badge-status {
+  font-weight: 600;
+}
+
+.status-fahrt {
+  background: #cfe2ff;
+  color: #084298;
+}
+
+.status-hannover {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-wunstorf {
+  background: #fff3cd;
+  color: #664d03;
+}
+
+.status-pause {
+  background: #f8d7da;
+  color: #842029;
+}
+
+.status-feier {
+  background: #e2e3e5;
+  color: #41464b;
+}
+
+/* =========================
+   Accordion-Optik
+   ========================= */
+.accordion-button:not(.collapsed) {
+  background-color: #2f3e46;
+  color: #fff;
+}
+
+.accordion-button {
+  font-weight: 600;
+}
+
+.badge {
+  vertical-align: middle;
+  font-size: 0.85rem;
+  padding: 0.4em 0.55em;
+}
+
+/* ===== Heutiger Tag im Accordion hervorheben (jetzt Rot) ===== */
+.accordion-item.today .accordion-button {
+  background: linear-gradient(90deg, var(--tpo-red), #f97316);
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.accordion-item.today .accordion-button.collapsed {
+  background: var(--tpo-red-light-bg);
+  color: var(--tpo-red);
+}
+
+.accordion-item.today .accordion-button .badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: 500;
+}
+
+/* =========================
+   Fahrer-Dashboard Headerbereich
+   ========================= */
+.dashboard-intro {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: .75rem;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .3s ease;
+}
+
+.dashboard-intro:hover {
+  box-shadow: 0 .3rem 1rem rgba(0, 0, 0, .08);
+}
+
+.dashboard-intro h4 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--tpo-red); /* vorher #0d6efd */
+}
+
+.dashboard-intro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #495057;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* === Hintergrund-LKW-Icon === */
+.dashboard-bg-icon {
+  position: absolute;
+  right: 25px;
+  bottom: 15px;
+  font-size: 5.5rem;
+  color: rgba(var(--tpo-red-rgb), 0.08); /* vorher transparentes Blau */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =========================
+   Info-Overlay für Tab-Erklärungen
+   ========================= */
+.tab-info-box {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1055;
+}
+
+.tab-info-box.show {
+  display: flex;
+}
+
+.tab-info-content {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.15);
+  animation: fadeIn .3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================================
+   Fahrer Dashboard – Smartphone / Responsive
+========================================================= */
+
+.fahrer-page {
+  background: #f4f5f7;
+}
+
+.fahrer-shell {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+/* Tabs scrollbar statt umbrechen */
+.drv-tabs-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.drv-tabs-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.drv-tabs-scroll .nav-item {
+  flex: 0 0 auto;
+}
+
+.driver-week-nav {
+  flex-shrink: 0;
+}
+
+/* Tabellencontainer */
+.tab-pane .table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile */
+@media (max-width: 991.98px) {
+  .fahrer-shell {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+
+  .dashboard-intro {
+    padding: 1rem 0.9rem !important;
+    border-radius: 0.85rem;
+  }
+
+  .dashboard-intro h4 {
+    font-size: 1.45rem;
+    /* margin-bottom: 0.7rem !important; */
+  }
+
+  .dashboard-intro p {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .dashboard-bg-icon {
+    right: 14px;
+    bottom: 10px;
+    font-size: 3.2rem;
+  }
+
+  .driver-toolbar {
+    gap: 0.75rem !important;
+  }
+
+  #drvTabs {
+    width: 100%;
+    flex-wrap: nowrap !important;
+    border-bottom: 0;
+    padding-bottom: 0.15rem;
+  }
+
+  #drvTabs .nav-link {
+    white-space: nowrap;
+    border-radius: 999px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .driver-week-nav {
+    width: 100%;
+    justify-content: center !important;
+    padding-top: 0.15rem;
+  }
+
+  #weekInfo {
+    font-size: 0.95rem;
+    min-width: 110px;
+    text-align: center;
+  }
+
+  .accordion-button {
+    font-size: 0.92rem;
+    padding: 0.75rem 0.8rem;
+  }
+
+  .accordion-body {
+    padding: 0.65rem;
+  }
+
+  .day-card {
+    margin-bottom: 0.75rem;
+    border-radius: 0.75rem;
+  }
+
+  .day-header {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  table {
+    font-size: 0.74rem;
+  }
+
+  th,
+  td {
+    padding: 0.32rem;
+    white-space: nowrap;
+  }
+
+  .badge {
+    font-size: 0.72rem;
+    padding: 0.35em 0.5em;
+  }
+
+  .tab-info-content {
+    width: calc(100% - 1rem);
+    max-width: none;
+    padding: 1rem;
+    border-radius: 0.9rem;
+  }
+
+  #importPasteModal .modal-dialog,
+  #mailPreviewModal .modal-dialog {
+    margin: 0.5rem;
+  }
+
+  .btn,
+  .btn-sm {
+    min-height: 38px;
+  }
+}
+
+/* Sehr kleine Geräte */
+@media (max-width: 575.98px) {
+  .fahrer-shell {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .dashboard-intro h4 {
+    font-size: 1.25rem;
+  }
+
+  .dashboard-intro p {
+    font-size: 0.9rem;
+  }
+
+  .dashboard-bg-icon {
+    font-size: 2.7rem;
+    right: 10px;
+    bottom: 8px;
+  }
+
+  #drvTabs .nav-link {
+    font-size: 0.84rem;
+    padding: 0.45rem 0.7rem;
+  }
+
+  #weekInfo {
+    font-size: 0.88rem;
+    min-width: 96px;
+  }
+
+  table {
+    font-size: 0.7rem;
+  }
+
+  th,
+  td {
+    padding: 0.28rem;
+  }
+}
+@media (max-width: 767.98px) {
+  #drvTabs {
+    display: flex;
+    flex-wrap: wrap !important;
+    overflow-x: visible !important;
+    gap: 0.5rem;
+  }
+
+  #drvTabs .nav-item {
+    width: calc(50% - 0.25rem);
+    margin: 0;
+  }
+
+  #drvTabs .nav-link {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+    padding: 0.55rem 0.65rem;
+    font-size: 0.85rem;
+    border-radius: 0.75rem;
+  }
+
+  #drvTabs .nav-link i {
+    margin-right: 0.35rem !important;
+  }
+}
+.fahrer-info-btn {
+  border-radius: 999px;
+  min-width: 12px;
+  min-height: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.55rem;
+}
+
+@media (max-width: 575.98px) {
+  .fahrer-info-btn {
+    min-width: 10px;
+    min-height: 10px;
+    padding: 0.3rem 0.5rem;
+  }
+}

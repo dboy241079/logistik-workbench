@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Leistungsnachweis Umpacken / Etikettieren</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+    h1 { margin-bottom: 4px; }
+    h2 { margin-top: 18px; font-size: 16px; }
+    p  { font-size: 12px; margin: 4px 0 10px; }
+
+    .meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin: 8px 0 14px;
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+    .meta label {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .meta input {
+      padding: 3px 4px;
+      font-size: 11px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 6px 8px;
+      font-size: 12px;
+      text-align: center;
+    }
+    th {
+      background: #e9eef5;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      padding: 3px 4px;
+      font-size: 11px;
+    }
+
+    .ok {
+      background: #d4f6d4;
+      color: #176317;
+      font-weight: 600;
+    }
+    .bad {
+      background: #ffd6d6;
+      color: #8b0000;
+      font-weight: 600;
+    }
+
+    /* Harte Ausreißer: Ist > 150% von Soll */
+    .outlier td {
+      background: #ffb3b3 !important;
+    }
+
+    /* Summary Performance Farben */
+    .perf-good {
+      color: #176317;
+      font-weight: 600;
+    }
+    .perf-bad {
+      color: #8b0000;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 6px 10px;
+      margin: 5px 4px 12px 0;
+      font-size: 11px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: #1976d2;
+      color: #fff;
+    }
+    .btn-secondary {
+      background: #607d8b;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .btn, .meta { display: none !important; }
+      h1, h2, p { margin-left: 10px; }
+      table { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Leistungsübersicht Mitarbeiter</h1>
+<p>
+  Ist-Dauer = Ende − Start. Vorgabe = Min pro Einheit, Soll = Vorgabe × Menge.
+</p>
+
+<div class="meta">
+  <label>
+    Datum:
+    <input type="date" id="reportDate">
+  </label>
+  <label>
+    Mitarbeiter (Tagesnachweis):
+    <input type="text" id="reportEmployee" list="mitarbeiterliste" placeholder="Name aus Liste wählen">
+  </label>
+</div>
+
+<datalist id="mitarbeiterliste"></datalist>
+
+<table id="leistungstabelle">
+  <thead>
+    <tr>
+      <th>Mitarbeiter</th>
+      <th>Start</th>
+      <th>Ende</th>
+      <th>Ist-Dauer (Min)</th>
+      <th>Sachnummer</th>
+      <th>Tätigkeit</th>
+      <th>Menge</th>
+      <th>Soll (Min)</th>
+      <th>Differenz (Ist - Soll)</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="text" list="mitarbeiterliste" placeholder="Mitarbeiter"></td>
+
+      <td><input type="time" value="07:00"></td>
+      <td><input type="time" value="07:30"></td>
+      <td class="ist"></td>
+      <td><input list="sachnummern" placeholder="Sachnummer"></td>
+      <td>
+        <select>
+          <option value="">- wählen -</option>
+          <option value="umpacken" selected>Umpacken</option>
+          <option value="etikettieren">Etikettieren</option>
+        </select>
+      </td>
+      <td><input type="number" min="1" step="1" value="1"></td>
+      <td class="soll"></td>
+      <td class="diff"></td>
+      <td class="status"></td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="btn" onclick="addRow()">+ Zeile hinzufügen</button>
+<button class="btn btn-secondary" onclick="recalculateAll()">Neu berechnen</button>
+
+<h2>Tagesübersicht nach Mitarbeiter</h2>
+<table id="summaryTable">
+  <thead>
+    <tr>
+      <th>Mitarbeiter</th>
+      <th>Anzahl Vorgänge</th>
+      <th>Summe Ist (Min)</th>
+      <th>Summe Soll (Min)</th>
+      <th>Leistung (%)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<!-- Sachnummern-Auswahl -->
+<datalist id="sachnummern">
+  <option value="W1 0Z1 010 010">
+  <option value="W1 0Z1 804 404 BK">
+  <option value="W1 0Z1 807 404 BD">
+  <option value="W1 0Z1 807 404 BE">
+  <option value="W1 0Z1 807 404 BF">
+  <option value="W1 0Z1 807 404 BG">
+  <option value="W1 0Z1 807 404 BH">
+  <option value="W1 0Z1 807 404 BJ">
+  <option value="W1 0Z1 807 404 BK">
+  <option value="W1 0Z1 807 517 AP">
+  <option value="W1 0Z1 807 517 AQ">
+  <option value="W1 0Z1 807 517 AR">
+  <option value="W1 0Z1 903 191 D">
+  <option value="W1 0Z1 903 191 E">
+  <option value="W1 0Z1 903 191 F">
+  <option value="W1 0Z1 903 191 H">
+  <option value="W1 0Z1 903 191 J">
+  <option value="W1 0Z1 903 191 K">
+  <option value="W1 0Z1 915 139 BE">
+  <option value="W1 0Z1 915 139 BF">
+  <option value="W1 0Z1 915 139 BG">
+  <option value="W1 0Z1 915 139 BH">
+  <option value="W1 0Z1 915 140 BL">
+  <option value="W1 0Z1 915 140 BQ">
+  <option value="W1 0Z1 915 140 M">
+  <option value="W1 0Z1 915 140 R">
+  <option value="W1 0Z1 915 184 AE">
+  <option value="W1 0Z1 915 184 AL">
+  <option value="W1 0Z1 915 308 R">
+  <option value="W1 0Z1 915 308 S">
+  <option value="W1 0Z1 915 345">
+  <option value="W1 0Z1 915 386 C">
+  <option value="W1 0Z1 915 386 E">
+  <option value="W1 0Z1 915 463 G">
+  <option value="W1 0Z1 915 463 K">
+  <option value="W1 0Z1 915 509 B">
+  <option value="W1 0Z1 915 521 P">
+  <option value="W1 0Z1 915 521 Q">
+  <option value="W1 0Z1 915 521 R">
+  <option value="W1 0Z1 915 533 AB">
+  <option value="W1 0Z1 915 533 AC">
+  <option value="W1 0Z1 915 604 K">
+  <option value="W1 0Z1 915 604 L">
+  <option value="W1 0Z1 915 621 AB">
+  <option value="W1 0Z1 915 646 E">
+  <option value="W1 0Z1 937 557 AB">
+  <option value="W1 0Z1 937 557 T">
+  <option value="W1 0Z1 937 558 BA">
+  <option value="W1 0Z1 937 558 BC">
+  <option value="W1 0Z1 937 558 BD">
+  <option value="W1 0Z1 971 221 BN">
+  <option value="W1 0Z1 971 221 BR">
+  <option value="W1 0Z1 971 221 BS">
+  <option value="W1 0Z1 971 689 J">
+  <option value="W1 0Z1 971 689 M">
+  <option value="W1 0Z1 971 690 Q">
+  <option value="W1 0Z1 971 690 R">
+  <option value="W1 0Z1 971 690 S">
+  <option value="W1 0Z1 971 690 T">
+  <option value="W1 11K 915 743">
+  <option value="W1 12E 010 001 B">
+  <option value="W1 12E 010 001 F">
+  <option value="W1 12E 010 867 Q">
+  <option value="W1 1EA 010 505">
+  <option value="W1 1EA 010 505 B">
+  <option value="W1 1EA 801 707 E">
+  <option value="W1 1EA 801 707 F">
+  <option value="W1 1EA 801 707 G">
+  <option value="W1 1EA 802 131 C">
+  <option value="W1 1EA 802 131 E">
+  <option value="W1 1EA 802 132 C">
+  <option value="W1 1EA 802 347 B">
+  <option value="W1 1EA 803 593">
+  <option value="W1 1EA 803 594">
+  <option value="W1 1EA 804 825 J">
+  <option value="W1 1EA 804 825 K">
+  <option value="W1 1EA 804 825 L">
+  <option value="W1 1EA 915 311 A">
+  <option value="W1 1EA 915 340 AL">
+  <option value="W1 1EA 915 340 BA">
+  <option value="W1 1EA 915 340 L">
+  <option value="W1 1HV 915 754 A">
+  <option value="W1 5H0 837 206 E">
+  <option value="W1 5KE 000 101">
+  <option value="W1 ABP G00 041">
+  <option value="W1 ABP G00 042">
+  <option value="W1 AKD 454 300 01">
+  <option value="W1 AKR 316 000 FAS">
+  <option value="W1 N 107 320 01">
+  <option value="W1 N 107 511 01">
+  <option value="W1 N 908 877 03">
+  <option value="W1 N 912 077 01">
+  <option value="W1 N 912 809 01">
+  <option value="W1 N 913 132 01">
+  <option value="W1 N 015 082 10">
+  <option value="W1 WHT 008 738 A">
+  <option value="W1 WHT 009 218">
+  <option value="W1 WHT 009 225 A">
+  <option value="W1 WHT 009 590">
+  <option value="W1 WHT 011 426">
+</datalist>
+
+<script>
+  const EMPLOYEES = json_encode($employees, JSON_UNESCAPED_UNICODE)
+
+  const REFERENCE_TIMES = {
+    // Beispielwerte – hier eure echten Vorgaben eintragen
+    "W1 WHT 008 738 A": { "umpacken": 5, "etikettieren": 3 },
+    "W1 WHT 009 218":   { "umpacken": 5, "etikettieren": 3 }
+  };
+
+  function initEmployeeDatalist() {
+    const dl = document.getElementById('mitarbeiterliste');
+    dl.innerHTML = EMPLOYEES.map(name => `<option value="${name}">`).join('');
+  }
+
+  function parseTimeToMinutes(timeStr) {
+    if (!timeStr) return null;
+    const [h, m] = timeStr.split(':').map(Number);
+    if (isNaN(h) || isNaN(m)) return null;
+    return h * 60 + m;
+  }
+
+  function getPerUnitTime(sachnummer, taetigkeit) {
+    if (!sachnummer || !taetigkeit) return null;
+    const sn = sachnummer.trim();
+    const ref = REFERENCE_TIMES[sn];
+    if (!ref) return null;
+    return ref[taetigkeit] ?? null;
+  }
+
+  function calculateRow(row) {
+    const startInput = row.cells[1].querySelector('input');
+    const endInput   = row.cells[2].querySelector('input');
+    const istCell    = row.cells[3];
+    const sachInput  = row.cells[4].querySelector('input');
+    const taetigSel  = row.cells[5].querySelector('select');
+    const mengeInput = row.cells[6].querySelector('input');
+    const sollCell   = row.cells[7];
+    const diffCell   = row.cells[8];
+    const statusCell = row.cells[9];
+
+    row.classList.remove('outlier');
+    istCell.textContent = '';
+    sollCell.textContent = '';
+    diffCell.textContent = '';
+    statusCell.textContent = '';
+    statusCell.className = 'status';
+
+    const startMin = parseTimeToMinutes(startInput.value);
+    const endMin   = parseTimeToMinutes(endInput.value);
+    if (startMin == null || endMin == null || endMin <= startMin) return;
+
+    const ist = endMin - startMin;
+    istCell.textContent = ist.toFixed(1);
+    istCell.classList.add('ist');
+
+    let menge = parseFloat((mengeInput.value || '').toString().replace(',', '.'));
+    if (isNaN(menge) || menge <= 0) menge = 1;
+
+    const perUnit = getPerUnitTime(sachInput.value, taetigSel.value);
+
+    if (perUnit != null) {
+      const soll = perUnit * menge;
+      sollCell.textContent = soll.toFixed(1);
+
+      const diff = ist - soll;
+      diffCell.textContent = diff.toFixed(1);
+
+      if (diff <= 0) {
+        statusCell.textContent = 'OK';
+        statusCell.classList.add('ok');
+      } else {
+        statusCell.textContent = 'Über Soll';
+        statusCell.classList.add('bad');
+      }
+
+      if (soll > 0 && ist > soll * 1.5) {
+        row.classList.add('outlier');
+      }
+    } else {
+      sollCell.textContent = '-';
+      statusCell.textContent = 'Keine Vorgabe';
+    }
+  }
+
+  function updateSummary() {
+  const rows = document.querySelectorAll('#leistungstabelle tbody tr');
+  const stats = {};
+
+  // Basis: alle aus Admin-Tool
+  EMPLOYEES.forEach(name => {
+    stats[name] = { count: 0, ist: 0, soll: 0 };
+  });
+
+  rows.forEach(row => {
+    const ma = (row.cells[0].querySelector('input')?.value || '').trim();
+    if (!ma) return;
+
+    const ist = parseFloat((row.querySelector('.ist')?.textContent || '').replace(',', '.'));
+    const soll = parseFloat((row.querySelector('.soll')?.textContent || '').replace(',', '.'));
+    const hasData = (!isNaN(ist) && ist > 0) || (!isNaN(soll) && soll > 0);
+    if (!hasData) return;
+
+    if (!stats[ma]) stats[ma] = { count: 0, ist: 0, soll: 0 };
+
+    stats[ma].count += 1;
+    if (!isNaN(ist))  stats[ma].ist  += ist;
+    if (!isNaN(soll)) stats[ma].soll += soll;
+  });
+
+  const tbody = document.querySelector('#summaryTable tbody');
+  tbody.innerHTML = '';
+
+  Object.keys(stats).forEach(ma => {
+    const { count, ist, soll } = stats[ma];
+    let leistungText = '-';
+    let perfClass = '';
+
+    if (ist > 0 && soll > 0) {
+      const leistung = (soll / ist) * 100; // >100% = schneller = grün
+      leistungText = leistung.toFixed(1) + '%';
+      perfClass = leistung >= 100 ? 'perf-good' : 'perf-bad';
+    }
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${ma}</td>
+      <td>${count}</td>
+      <td>${ist > 0 ? ist.toFixed(1) : '-'}</td>
+      <td>${soll > 0 ? soll.toFixed(1) : '-'}</td>
+      <td class="${perfClass}">${leistungText}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+  function recalculateAll() {
+    const rows = document.querySelectorAll('#leistungstabelle tbody tr');
+    rows.forEach(calculateRow);
+    updateSummary();
+  }
+
+  function addRow() {
+    const tbody = document.querySelector('#leistungstabelle tbody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" list="mitarbeiterliste" placeholder="Mitarbeiter"></td>
+      <td><input type="time"></td>
+      <td><input type="time"></td>
+      <td class="ist"></td>
+      <td><input list="sachnummern" placeholder="Sachnummer"></td>
+      <td>
+        <select>
+          <option value="">- wählen -</option>
+          <option value="umpacken">Umpacken</option>
+          <option value="etikettieren">Etikettieren</option>
+        </select>
+      </td>
+      <td><input type="number" min="1" step="1" value="1"></td>
+      <td class="soll"></td>
+      <td class="diff"></td>
+      <td class="status"></td>
+    `;
+    tbody.appendChild(tr);
+
+    tr.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('change', () => {
+        calculateRow(tr);
+        updateSummary();
+      });
+    });
+
+    const headerName = (document.getElementById('reportEmployee').value || '').trim();
+    if (headerName) {
+      const maInput = tr.cells[0].querySelector('input');
+      if (!maInput.value.trim()) maInput.value = headerName;
+    }
+  }
+
+  document.getElementById('reportEmployee').addEventListener('change', () => {
+    const name = (document.getElementById('reportEmployee').value || '').trim();
+    if (!name) return;
+    document.querySelectorAll('#leistungstabelle tbody tr').forEach(row => {
+      const maInput = row.cells[0].querySelector('input');
+      if (!maInput.value.trim()) maInput.value = name;
+    });
+    recalculateAll();
+  });
+
+  initEmployeeDatalist();
+
+  document
+    .querySelectorAll('#leistungstabelle tbody tr input, #leistungstabelle tbody tr select')
+    .forEach(el => el.addEventListener('change', recalculateAll));
+
+  recalculateAll();
+</script>
+
+</body>
+</html>

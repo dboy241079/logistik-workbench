@@ -1,0 +1,23 @@
+{
+    "toursPerDay": 4,
+    "vehicles": [
+        {
+            "id": "veh1",
+            "title": "BOH - DT 328",
+            "plate": "BOH - DT 326",
+            "driver": ""
+        },
+        {
+            "id": "veh2",
+            "title": "BOH - DT 988",
+            "plate": "BOH - DT 988",
+            "driver": ""
+        },
+        {
+            "id": "veh3",
+            "title": "BOH - DT 964",
+            "plate": "BOH - DT 964",
+            "driver": ""
+        }
+    ]
+}

@@ -1,0 +1,786 @@
+{
+  "generated_at": "2026-01-27T10:55:48.425055Z",
+  "version": "Personalwesen-Quizpool-65",
+  "questions": [
+    {
+      "category_key": "personalwesen",
+      "question": "Warum sind klare Prozesse bei Abwesenheiten wichtig? (Variante 49)",
+      "options": [
+        "Damit Aufträge trotzdem laufen und Verantwortung klar ist",
+        "Damit man länger warten muss",
+        "Damit niemand arbeitet",
+        "Damit Reports leer bleiben"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Sicherheitsunterweisungen im Lager typischerweise wichtig? (Variante 60)",
+      "options": [
+        "Regeln, Gefahren, Meldewege und praktische Hinweise",
+        "Nur Theorie ohne Bezug",
+        "Nur Musik",
+        "Nur neue Logos"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist Protokollierung (wer hat was geändert) sinnvoll? (Variante 26)",
+      "options": [
+        "Nachvollziehbarkeit, Fehleranalyse, Verantwortlichkeit",
+        "Um Leute zu ärgern",
+        "Damit mehr Daten rumliegen",
+        "Weil es cool klingt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein typischer Zweck von Schulungen/Unterweisungen? (Variante 54)",
+      "options": [
+        "Sicherheit/Qualität/Compliance verbessern und Fehler reduzieren",
+        "Nur Zeit füllen",
+        "Nur für Fotos",
+        "Nur für Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Onboarding neuer Mitarbeiter wichtig? (Variante 32)",
+      "options": [
+        "Einweisung in Prozesse, Sicherheit, Datenschutz und Systeme",
+        "Nur Schlüssel geben",
+        "Nur WhatsApp-Gruppe",
+        "Nur 'guck zu'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Wie gehst du mit Krankmeldungen im Prozess sinnvoll um?",
+      "options": [
+        "Nach internem Ablauf melden/erfassen und Vertretung organisieren",
+        "Ignorieren",
+        "In öffentlichen Chat posten",
+        "Passwort ändern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein typischer Zweck von Schulungen/Unterweisungen? (Variante 34)",
+      "options": [
+        "Sicherheit/Qualität/Compliance verbessern und Fehler reduzieren",
+        "Nur Zeit füllen",
+        "Nur für Fotos",
+        "Nur für Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist Protokollierung (wer hat was geändert) sinnvoll? (Variante 36)",
+      "options": [
+        "Nachvollziehbarkeit, Fehleranalyse, Verantwortlichkeit",
+        "Um Leute zu ärgern",
+        "Damit mehr Daten rumliegen",
+        "Weil es cool klingt"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Onboarding neuer Mitarbeiter wichtig?",
+      "options": [
+        "Einweisung in Prozesse, Sicherheit, Datenschutz und Systeme",
+        "Nur Schlüssel geben",
+        "Nur WhatsApp-Gruppe",
+        "Nur 'guck zu'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist eine saubere Rollenvergabe (z.B. admin/dispo/packer) auch HR-relevant? (Variante 31)",
+      "options": [
+        "Weil Verantwortlichkeiten/Haftung und Zugriff klar geregelt sind",
+        "Weil das Logo schöner ist",
+        "Weil Excel es braucht",
+        "Weil WLAN schneller wird"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Wie gehst du mit Krankmeldungen im Prozess sinnvoll um? (Variante 43)",
+      "options": [
+        "Nach internem Ablauf melden/erfassen und Vertretung organisieren",
+        "Ignorieren",
+        "In öffentlichen Chat posten",
+        "Passwort ändern"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein gutes Verhalten bei Konflikten im Team? (Variante 65)",
+      "options": [
+        "Sachlich klären, dokumentieren wenn nötig, Eskalationsweg nutzen",
+        "Online lästern",
+        "Ignorieren bis es knallt",
+        "Alles per Meme"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein sinnvoller Umgang mit Passwörtern im Team? (Variante 58)",
+      "options": [
+        "Keine Weitergabe, individuelle Accounts, Rechte nach Rolle",
+        "Alle nutzen ein Account",
+        "Passwort auf Zettel am Monitor",
+        "Im Quellcode speichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was sollte in personenbezogenen HR-Notizen NICHT stehen? (Variante 17)",
+      "options": [
+        "Private/Sensible Details ohne Zweck",
+        "Fakten zum Vorgang",
+        "Datum/Zeit",
+        "Sachlicher Grund"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein sinnvoller Umgang mit Passwörtern im Team?",
+      "options": [
+        "Keine Weitergabe, individuelle Accounts, Rechte nach Rolle",
+        "Alle nutzen ein Account",
+        "Passwort auf Zettel am Monitor",
+        "Im Quellcode speichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Onboarding neuer Mitarbeiter wichtig? (Variante 62)",
+      "options": [
+        "Einweisung in Prozesse, Sicherheit, Datenschutz und Systeme",
+        "Nur Schlüssel geben",
+        "Nur WhatsApp-Gruppe",
+        "Nur 'guck zu'"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Sicherheitsunterweisungen im Lager typischerweise wichtig? (Variante 20)",
+      "options": [
+        "Regeln, Gefahren, Meldewege und praktische Hinweise",
+        "Nur Theorie ohne Bezug",
+        "Nur Musik",
+        "Nur neue Logos"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein gutes Verhalten bei Konflikten im Team?",
+      "options": [
+        "Sachlich klären, dokumentieren wenn nötig, Eskalationsweg nutzen",
+        "Online lästern",
+        "Ignorieren bis es knallt",
+        "Alles per Meme"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Onboarding neuer Mitarbeiter wichtig? (Variante 12)",
+      "options": [
+        "Einweisung in Prozesse, Sicherheit, Datenschutz und Systeme",
+        "Nur Schlüssel geben",
+        "Nur WhatsApp-Gruppe",
+        "Nur 'guck zu'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Onboarding neuer Mitarbeiter wichtig? (Variante 42)",
+      "options": [
+        "Einweisung in Prozesse, Sicherheit, Datenschutz und Systeme",
+        "Nur Schlüssel geben",
+        "Nur WhatsApp-Gruppe",
+        "Nur 'guck zu'"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist eine saubere Rollenvergabe (z.B. admin/dispo/packer) auch HR-relevant?",
+      "options": [
+        "Weil Verantwortlichkeiten/Haftung und Zugriff klar geregelt sind",
+        "Weil das Logo schöner ist",
+        "Weil Excel es braucht",
+        "Weil WLAN schneller wird"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Wie gehst du mit Krankmeldungen im Prozess sinnvoll um? (Variante 53)",
+      "options": [
+        "Nach internem Ablauf melden/erfassen und Vertretung organisieren",
+        "Ignorieren",
+        "In öffentlichen Chat posten",
+        "Passwort ändern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was sollte in personenbezogenen HR-Notizen NICHT stehen? (Variante 37)",
+      "options": [
+        "Private/Sensible Details ohne Zweck",
+        "Fakten zum Vorgang",
+        "Datum/Zeit",
+        "Sachlicher Grund"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was sollte in personenbezogenen HR-Notizen NICHT stehen? (Variante 47)",
+      "options": [
+        "Private/Sensible Details ohne Zweck",
+        "Fakten zum Vorgang",
+        "Datum/Zeit",
+        "Sachlicher Grund"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist Protokollierung (wer hat was geändert) sinnvoll? (Variante 46)",
+      "options": [
+        "Nachvollziehbarkeit, Fehleranalyse, Verantwortlichkeit",
+        "Um Leute zu ärgern",
+        "Damit mehr Daten rumliegen",
+        "Weil es cool klingt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein gutes Verhalten bei Konflikten im Team? (Variante 55)",
+      "options": [
+        "Sachlich klären, dokumentieren wenn nötig, Eskalationsweg nutzen",
+        "Online lästern",
+        "Ignorieren bis es knallt",
+        "Alles per Meme"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist Protokollierung (wer hat was geändert) sinnvoll?",
+      "options": [
+        "Nachvollziehbarkeit, Fehleranalyse, Verantwortlichkeit",
+        "Um Leute zu ärgern",
+        "Damit mehr Daten rumliegen",
+        "Weil es cool klingt"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein typischer Zweck von Schulungen/Unterweisungen? (Variante 24)",
+      "options": [
+        "Sicherheit/Qualität/Compliance verbessern und Fehler reduzieren",
+        "Nur Zeit füllen",
+        "Nur für Fotos",
+        "Nur für Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein gutes Verhalten bei Konflikten im Team? (Variante 15)",
+      "options": [
+        "Sachlich klären, dokumentieren wenn nötig, Eskalationsweg nutzen",
+        "Online lästern",
+        "Ignorieren bis es knallt",
+        "Alles per Meme"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Sicherheitsunterweisungen im Lager typischerweise wichtig? (Variante 50)",
+      "options": [
+        "Regeln, Gefahren, Meldewege und praktische Hinweise",
+        "Nur Theorie ohne Bezug",
+        "Nur Musik",
+        "Nur neue Logos"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist eine saubere Rollenvergabe (z.B. admin/dispo/packer) auch HR-relevant? (Variante 21)",
+      "options": [
+        "Weil Verantwortlichkeiten/Haftung und Zugriff klar geregelt sind",
+        "Weil das Logo schöner ist",
+        "Weil Excel es braucht",
+        "Weil WLAN schneller wird"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein typischer Zweck von Schulungen/Unterweisungen? (Variante 64)",
+      "options": [
+        "Sicherheit/Qualität/Compliance verbessern und Fehler reduzieren",
+        "Nur Zeit füllen",
+        "Nur für Fotos",
+        "Nur für Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein sinnvoller Umgang mit Passwörtern im Team? (Variante 48)",
+      "options": [
+        "Keine Weitergabe, individuelle Accounts, Rechte nach Rolle",
+        "Alle nutzen ein Account",
+        "Passwort auf Zettel am Monitor",
+        "Im Quellcode speichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein typischer Zweck von Schulungen/Unterweisungen?",
+      "options": [
+        "Sicherheit/Qualität/Compliance verbessern und Fehler reduzieren",
+        "Nur Zeit füllen",
+        "Nur für Fotos",
+        "Nur für Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Onboarding neuer Mitarbeiter wichtig? (Variante 22)",
+      "options": [
+        "Einweisung in Prozesse, Sicherheit, Datenschutz und Systeme",
+        "Nur Schlüssel geben",
+        "Nur WhatsApp-Gruppe",
+        "Nur 'guck zu'"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein gutes Verhalten bei Konflikten im Team? (Variante 25)",
+      "options": [
+        "Sachlich klären, dokumentieren wenn nötig, Eskalationsweg nutzen",
+        "Online lästern",
+        "Ignorieren bis es knallt",
+        "Alles per Meme"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Onboarding neuer Mitarbeiter wichtig? (Variante 52)",
+      "options": [
+        "Einweisung in Prozesse, Sicherheit, Datenschutz und Systeme",
+        "Nur Schlüssel geben",
+        "Nur WhatsApp-Gruppe",
+        "Nur 'guck zu'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein gutes Verhalten bei Konflikten im Team? (Variante 45)",
+      "options": [
+        "Sachlich klären, dokumentieren wenn nötig, Eskalationsweg nutzen",
+        "Online lästern",
+        "Ignorieren bis es knallt",
+        "Alles per Meme"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist Protokollierung (wer hat was geändert) sinnvoll? (Variante 16)",
+      "options": [
+        "Nachvollziehbarkeit, Fehleranalyse, Verantwortlichkeit",
+        "Um Leute zu ärgern",
+        "Damit mehr Daten rumliegen",
+        "Weil es cool klingt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein gutes Verhalten bei Konflikten im Team? (Variante 35)",
+      "options": [
+        "Sachlich klären, dokumentieren wenn nötig, Eskalationsweg nutzen",
+        "Online lästern",
+        "Ignorieren bis es knallt",
+        "Alles per Meme"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein typischer Zweck von Schulungen/Unterweisungen? (Variante 44)",
+      "options": [
+        "Sicherheit/Qualität/Compliance verbessern und Fehler reduzieren",
+        "Nur Zeit füllen",
+        "Nur für Fotos",
+        "Nur für Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum sind klare Prozesse bei Abwesenheiten wichtig? (Variante 39)",
+      "options": [
+        "Damit Aufträge trotzdem laufen und Verantwortung klar ist",
+        "Damit man länger warten muss",
+        "Damit niemand arbeitet",
+        "Damit Reports leer bleiben"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum sind klare Prozesse bei Abwesenheiten wichtig?",
+      "options": [
+        "Damit Aufträge trotzdem laufen und Verantwortung klar ist",
+        "Damit man länger warten muss",
+        "Damit niemand arbeitet",
+        "Damit Reports leer bleiben"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein sinnvoller Umgang mit Passwörtern im Team? (Variante 28)",
+      "options": [
+        "Keine Weitergabe, individuelle Accounts, Rechte nach Rolle",
+        "Alle nutzen ein Account",
+        "Passwort auf Zettel am Monitor",
+        "Im Quellcode speichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein typischer Zweck von Schulungen/Unterweisungen? (Variante 14)",
+      "options": [
+        "Sicherheit/Qualität/Compliance verbessern und Fehler reduzieren",
+        "Nur Zeit füllen",
+        "Nur für Fotos",
+        "Nur für Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was sollte in personenbezogenen HR-Notizen NICHT stehen? (Variante 57)",
+      "options": [
+        "Private/Sensible Details ohne Zweck",
+        "Fakten zum Vorgang",
+        "Datum/Zeit",
+        "Sachlicher Grund"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Sicherheitsunterweisungen im Lager typischerweise wichtig? (Variante 30)",
+      "options": [
+        "Regeln, Gefahren, Meldewege und praktische Hinweise",
+        "Nur Theorie ohne Bezug",
+        "Nur Musik",
+        "Nur neue Logos"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist eine saubere Rollenvergabe (z.B. admin/dispo/packer) auch HR-relevant? (Variante 41)",
+      "options": [
+        "Weil Verantwortlichkeiten/Haftung und Zugriff klar geregelt sind",
+        "Weil das Logo schöner ist",
+        "Weil Excel es braucht",
+        "Weil WLAN schneller wird"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist eine saubere Rollenvergabe (z.B. admin/dispo/packer) auch HR-relevant? (Variante 61)",
+      "options": [
+        "Weil Verantwortlichkeiten/Haftung und Zugriff klar geregelt sind",
+        "Weil das Logo schöner ist",
+        "Weil Excel es braucht",
+        "Weil WLAN schneller wird"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum sind klare Prozesse bei Abwesenheiten wichtig? (Variante 19)",
+      "options": [
+        "Damit Aufträge trotzdem laufen und Verantwortung klar ist",
+        "Damit man länger warten muss",
+        "Damit niemand arbeitet",
+        "Damit Reports leer bleiben"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Wie gehst du mit Krankmeldungen im Prozess sinnvoll um? (Variante 23)",
+      "options": [
+        "Nach internem Ablauf melden/erfassen und Vertretung organisieren",
+        "Ignorieren",
+        "In öffentlichen Chat posten",
+        "Passwort ändern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Wie gehst du mit Krankmeldungen im Prozess sinnvoll um? (Variante 33)",
+      "options": [
+        "Nach internem Ablauf melden/erfassen und Vertretung organisieren",
+        "Ignorieren",
+        "In öffentlichen Chat posten",
+        "Passwort ändern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum sind klare Prozesse bei Abwesenheiten wichtig? (Variante 59)",
+      "options": [
+        "Damit Aufträge trotzdem laufen und Verantwortung klar ist",
+        "Damit man länger warten muss",
+        "Damit niemand arbeitet",
+        "Damit Reports leer bleiben"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Sicherheitsunterweisungen im Lager typischerweise wichtig?",
+      "options": [
+        "Regeln, Gefahren, Meldewege und praktische Hinweise",
+        "Nur Theorie ohne Bezug",
+        "Nur Musik",
+        "Nur neue Logos"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist Protokollierung (wer hat was geändert) sinnvoll? (Variante 56)",
+      "options": [
+        "Nachvollziehbarkeit, Fehleranalyse, Verantwortlichkeit",
+        "Um Leute zu ärgern",
+        "Damit mehr Daten rumliegen",
+        "Weil es cool klingt"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist eine saubere Rollenvergabe (z.B. admin/dispo/packer) auch HR-relevant? (Variante 51)",
+      "options": [
+        "Weil Verantwortlichkeiten/Haftung und Zugriff klar geregelt sind",
+        "Weil das Logo schöner ist",
+        "Weil Excel es braucht",
+        "Weil WLAN schneller wird"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein sinnvoller Umgang mit Passwörtern im Team? (Variante 38)",
+      "options": [
+        "Keine Weitergabe, individuelle Accounts, Rechte nach Rolle",
+        "Alle nutzen ein Account",
+        "Passwort auf Zettel am Monitor",
+        "Im Quellcode speichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was sollte in personenbezogenen HR-Notizen NICHT stehen? (Variante 27)",
+      "options": [
+        "Private/Sensible Details ohne Zweck",
+        "Fakten zum Vorgang",
+        "Datum/Zeit",
+        "Sachlicher Grund"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum ist eine saubere Rollenvergabe (z.B. admin/dispo/packer) auch HR-relevant? (Variante 11)",
+      "options": [
+        "Weil Verantwortlichkeiten/Haftung und Zugriff klar geregelt sind",
+        "Weil das Logo schöner ist",
+        "Weil Excel es braucht",
+        "Weil WLAN schneller wird"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist bei Sicherheitsunterweisungen im Lager typischerweise wichtig? (Variante 40)",
+      "options": [
+        "Regeln, Gefahren, Meldewege und praktische Hinweise",
+        "Nur Theorie ohne Bezug",
+        "Nur Musik",
+        "Nur neue Logos"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Warum sind klare Prozesse bei Abwesenheiten wichtig? (Variante 29)",
+      "options": [
+        "Damit Aufträge trotzdem laufen und Verantwortung klar ist",
+        "Damit man länger warten muss",
+        "Damit niemand arbeitet",
+        "Damit Reports leer bleiben"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Wie gehst du mit Krankmeldungen im Prozess sinnvoll um? (Variante 13)",
+      "options": [
+        "Nach internem Ablauf melden/erfassen und Vertretung organisieren",
+        "Ignorieren",
+        "In öffentlichen Chat posten",
+        "Passwort ändern"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was sollte in personenbezogenen HR-Notizen NICHT stehen?",
+      "options": [
+        "Private/Sensible Details ohne Zweck",
+        "Fakten zum Vorgang",
+        "Datum/Zeit",
+        "Sachlicher Grund"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Wie gehst du mit Krankmeldungen im Prozess sinnvoll um? (Variante 63)",
+      "options": [
+        "Nach internem Ablauf melden/erfassen und Vertretung organisieren",
+        "Ignorieren",
+        "In öffentlichen Chat posten",
+        "Passwort ändern"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "personalwesen",
+      "question": "Was ist ein sinnvoller Umgang mit Passwörtern im Team? (Variante 18)",
+      "options": [
+        "Keine Weitergabe, individuelle Accounts, Rechte nach Rolle",
+        "Alle nutzen ein Account",
+        "Passwort auf Zettel am Monitor",
+        "Im Quellcode speichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    }
+  ]
+}

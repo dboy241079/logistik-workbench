@@ -1,0 +1,276 @@
+<?php
+
+require __DIR__ . '/../inc/session.php';         // in /LKW/admin/*.php oder /LKW/dokumente/*.php
+
+
+declare(strict_types=1);
+
+/**
+ * Fahrerdashboard – nur aus der Workbench erreichbar.
+ * 
+ * - Login-Pflicht
+ * - Nur eingebettet (embed=1) erlaubt
+ * - Rollen: admin + disposition (wie Tab-Berechtigung)
+ * - Bei Direktaufruf: Hinweisbox („Diese Daten sind nichts für Sie“)
+ */
+
+$AUTH_REQUIRE_LOGIN = true;
+$AUTH_REQUIRE_EMBED = true;
+$AUTH_ALLOWED_ROLES = ['admin', 'disposition'];
+$AUTH_DEFAULT_TAB   = 'drivers';
+$AUTH_DENY_MODE     = 'message';
+
+require __DIR__ . '/inc/auth_embed.php';
+?>
+
+<!DOCTYPE html>
+<html lang="de" class="h-full bg-slate-100">
+<head>
+  <meta charset="utf-8">
+  <title>Sachnummern-Verwaltung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Standalone: Bootstrap & Icons (bei Embed via index.html werden diese Tags NICHT übernommen) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <style>
+    body { padding: 16px; }
+    .table-fixed thead th { position: sticky; top: 0; background: #fff; z-index: 1; }
+  </style>
+</head>
+<body>
+  <!-- ==== NUR dieser Block wird beim Embed in index.html geladen ==== -->
+  <main data-tab-root>
+    <div class="container-lg py-2">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h1 class="h4 mb-0">Sachnummern</h1>
+      </div>
+
+      <ul class="nav nav-tabs" id="stammTabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabSach" type="button">Sachnummern</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabBeh" type="button">Behälter</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabSped" type="button">Speditionen</button></li>
+        <li class="nav-item">
+  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabCust" type="button">
+    Kunden
+  </button>
+</li>
+
+
+      </ul>
+
+      <div class="tab-content border border-top-0 p-3">
+        <!-- Sachnummern -->
+        <div class="tab-pane fade show active" id="tabSach" role="tabpanel">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <input id="searchSach" class="form-control form-control-sm w-auto" placeholder="Suchen (Sachnr / Lagergruppe)">
+            <button id="btnNewSach" class="btn btn-sm btn-primary" data-entity="sachnummer">
+              <i class="bi bi-plus-lg"></i> Neu (Sachnummer)
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <div id="accSach" class="accordion"></div>
+
+          </div>
+        </div>
+
+        <!-- Behälter -->
+        <div class="tab-pane fade" id="tabBeh" role="tabpanel">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <input id="searchBeh" class="form-control form-control-sm w-auto" placeholder="Suchen…">
+            <button class="btn btn-sm btn-primary" id="btnNewBeh" data-entity="behaelter">Neu (Behälter)</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped" id="tblBeh">
+              <thead><tr><th>Behälternummer</th><th>Geändert</th><th>Aktionen</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Speditionen -->
+        <div class="tab-pane fade" id="tabSped" role="tabpanel">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <input id="searchSped" class="form-control form-control-sm w-auto" placeholder="Suchen…">
+            <button class="btn btn-sm btn-primary" id="btnNewSped" data-entity="spedition">Neu (Spedition)</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped" id="tblSped">
+              <thead>
+                <tr>
+                  <th>Spedition</th>
+                  <th>Kennzeichen</th>
+                  <th>Geändert</th>
+                  <th>Aktionen</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Kunden -->
+<div class="tab-pane fade" id="tabCust" role="tabpanel">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <input id="searchCust" class="form-control form-control-sm w-auto" placeholder="Suchen (Kürzel / Kunde / Ort)">
+    <button class="btn btn-sm btn-primary" id="btnNewCust">
+      <i class="bi bi-plus-lg"></i> Neu (Kunde)
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped" id="tblCust">
+      <thead>
+        <tr>
+          <th>Kürzel</th>
+          <th>Kunde</th>
+          <th>Adresse</th>
+          <th>PLZ</th>
+          <th>Ort</th>
+          <th>Land</th>
+          <th>Geändert</th>
+          <th>Aktionen</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <div class="modal fade" id="custModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <form class="modal-content" id="custForm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="custModalTitle">Kunde</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="custOrigCode" value="">
+
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">Kürzel</label>
+            <input id="custCode" class="form-control" required maxlength="16" placeholder="z.B. 6128">
+          </div>
+          <div class="col-md-9">
+            <label class="form-label">Kunde / Name</label>
+            <input id="custName" class="form-control" required placeholder="z.B. Volkswagen AG Hannover">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Adresse 1</label>
+            <input id="custAddr1" class="form-control" required placeholder="z.B. Hansastr. 51">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Adresse 2</label>
+            <input id="custAddr2" class="form-control" placeholder="z.B. LKW Einfahrt Halle 28C">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">PLZ</label>
+            <input id="custPostal" class="form-control" required maxlength="16" placeholder="30419">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Ort</label>
+            <input id="custCity" class="form-control" required placeholder="Hannover">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Land</label>
+            <input id="custCountry" class="form-control" required placeholder="Deutschland">
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Notiz (optional)</label>
+            <input id="custNote" class="form-control" placeholder="z.B. nur Rampe West, Ansprechpartner ...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+    <!-- EIN gemeinsames Modal (einmalig, keine Duplikate) -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <form class="modal-content" id="editForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Eintrag</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="fieldId">
+            <input type="hidden" id="fieldEntity">
+
+            <!-- Gemeinsames Textfeld -->
+            <div class="mb-3">
+              <label class="form-label" id="fieldLabel">Wert</label>
+              <input type="text" class="form-control" id="fieldValue" required>
+            </div>
+
+            <!-- NUR Sachnummern -->
+            <div class="mb-3 d-none" id="lgWrap">
+              <label class="form-label">Lagergruppe</label>
+              <select class="form-select" id="fieldLagergruppe" required>
+                <option value="">– bitte wählen –</option>
+                <option>W1</option><option>X3</option><option>X3(B)</option>
+                <option>G9</option><option>B1</option><option>Bauteile</option>
+                <option>BM</option><option>Müll</option>
+              </select>
+              <div class="form-text">Pflichtfeld für Sachnummern.</div>
+            </div>
+            <!-- Zusatzfelder für Sachnummern -->
+            <div class="row g-3" id="snExtraWrap">
+              <div class="col-md-4">
+                <label class="form-label">BRT-GEW</label>
+                <input type="number" step="0.01" class="form-control" id="fieldBruttogewicht" placeholder="z. B. 25.4">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Beh.-Nr.</label>
+                <input type="text" class="form-control" id="fieldBehaelterNr" list="behList" placeholder="z. B. 532 052">
+<datalist id="behList"></datalist>
+
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Zus.-Beh.</label>
+                <input type="number" class="form-control" id="fieldZusBehaelter" placeholder="z. B. 500">
+              </div>
+            </div>
+
+
+            <!-- NUR Speditionen -->
+            <div class="mb-3 d-none" id="plateWrap">
+              <label class="form-label">Kennzeichen (optional)</label>
+              <input type="text" class="form-control" id="fieldPlates" placeholder="Mehrere mit Komma trennen, z. B. HB-DB 1001, HB-DB 1002">
+              <div class="form-text">Mehrere Kennzeichen: mit Komma trennen.</div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Abbrechen</button>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <!-- ==== Ende Embed-Block ==== -->
+
+ 
+  <script type="module" src="/LKW/js/sachnummern.js"></script>
+  <script type="module" src="/LKW/kommi/js/kunden.js?v=1"></script>
+
+</body>
+</html>

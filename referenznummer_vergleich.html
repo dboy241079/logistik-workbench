@@ -1,0 +1,1776 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Referenznummern-Vergleich</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --panel:#111827;
+      --panel-2:#1f2937;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --ok-bg:#064e3b;
+      --ok-border:#10b981;
+      --ok-text:#a7f3d0;
+      --bad-bg:#7f1d1d;
+      --bad-border:#ef4444;
+      --bad-text:#fecaca;
+      --warn-bg:#78350f;
+      --warn-border:#f59e0b;
+      --warn-text:#fde68a;
+      --btn:#2563eb;
+      --btn-hover:#1d4ed8;
+    }
+
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #020617 0%, #0b1022 100%);
+      color:var(--text);
+      min-height:100vh;
+      padding:24px;
+    }
+
+    .container{
+      width:min(1400px, 100%);
+      margin:0 auto;
+    }
+
+    .header{
+      margin-bottom:16px;
+    }
+
+    .header h1{
+      margin:0 0 8px 0;
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+    }
+
+    .header p{
+      margin:0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:16px 0 20px;
+    }
+
+    button{
+      border:none;
+      background:var(--btn);
+      color:white;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+    button:hover{ background:var(--btn-hover); }
+    button.secondary{
+      background:#374151;
+    }
+    button.secondary:hover{
+      background:#4b5563;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+
+    @media (max-width: 900px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .card{
+      background: rgba(17,24,39,0.92);
+      border:1px solid #243041;
+      border-radius:16px;
+      padding:14px;
+      backdrop-filter: blur(2px);
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size:1.05rem;
+    }
+
+    textarea{
+      width:100%;
+      min-height:280px;
+      resize:vertical;
+      border-radius:12px;
+      border:1px solid #2e3a4d;
+      background:var(--panel-2);
+      color:var(--text);
+      padding:12px;
+      font: 500 0.95rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      outline:none;
+    }
+    textarea:focus{
+      border-color:#3b82f6;
+      box-shadow:0 0 0 3px rgba(59,130,246,.2);
+    }
+
+    .summary{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap:10px;
+    }
+    @media (max-width: 800px){
+      .summary{
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+      }
+    }
+
+    .stat{
+      background:var(--panel);
+      border:1px solid #243041;
+      border-radius:12px;
+      padding:10px;
+    }
+    .stat .label{
+      color:var(--muted);
+      font-size:0.82rem;
+      margin-bottom:4px;
+      display:block;
+    }
+    .stat .value{
+      font-size:1.05rem;
+      font-weight:700;
+    }
+
+    .result-box{
+      margin-top:18px;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid #243041;
+      background:var(--panel);
+    }
+
+    .status{
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .status.ok{ color:#86efac; }
+    .status.bad{ color:#fca5a5; }
+
+    .legend{
+      color:var(--muted);
+      font-size:0.9rem;
+      margin-top:8px;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 900px){
+      .split{ grid-template-columns:1fr; }
+    }
+
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      padding:8px;
+      border:1px dashed #314155;
+      border-radius:10px;
+      min-height:58px;
+      background:#0b1220;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:6px 10px;
+      border:1px solid transparent;
+      font: 600 0.8rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      white-space:nowrap;
+    }
+
+    .tag.ok{
+      background:var(--ok-bg);
+      border-color:var(--ok-border);
+      color:var(--ok-text);
+    }
+
+    .tag.bad{
+      background:var(--bad-bg);
+      border-color:var(--bad-border);
+      color:var(--bad-text);
+    }
+
+    .empty{
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    ul.missing{
+      list-style:none;
+      padding:0;
+      margin:8px 0 0;
+      display:grid;
+      gap:8px;
+    }
+
+    ul.missing li{
+      border:1px solid #374151;
+      background:#111827;
+      border-radius:10px;
+      padding:8px 10px;
+      font: 600 0.86rem/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .pill{
+      display:inline-block;
+      margin-left:8px;
+      border-radius:999px;
+      padding:2px 8px;
+      font-size:0.74rem;
+      font-weight:700;
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      background:var(--warn-bg);
+      vertical-align:middle;
+    }
+    /* Zeilenvergleich */
+.pair-board{
+  margin-top:12px;
+  border:1px solid #243041;
+  border-radius:12px;
+  overflow:hidden;
+  background:#0b1220;
+}
+
+.pair-head{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  padding:10px;
+  background:#111827;
+  border-bottom:1px solid #243041;
+  font-weight:700;
+}
+
+.pair-rows{
+  padding:10px;
+  display:grid;
+  gap:8px;
+  max-height:420px;      /* damit es bei vielen Nummern scrollbar bleibt */
+  overflow:auto;
+}
+
+.pair-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.pair-cell{
+  border:1px solid #374151;
+  border-radius:10px;
+  padding:7px 10px;
+  font: 600 0.86rem/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  word-break:break-all;
+}
+
+.pair-cell.ok{
+  background:#064e3b;
+  border-color:#10b981;
+  color:#a7f3d0;
+}
+
+.pair-cell.bad{
+  background:#7f1d1d;
+  border-color:#ef4444;
+  color:#fecaca;
+}
+
+.pair-cell.empty{
+  background:transparent;
+  border-style:dashed;
+  color:#6b7280;
+}
+
+.pair-empty{
+  color:#9ca3af;
+  font-size:.92rem;
+}
+
+/* kleine Chips in der Legende */
+.chip{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 10px;
+  border-radius:999px;
+  border:1px solid transparent;
+  font-size:.82rem;
+  font-weight:700;
+  margin-right:8px;
+}
+.chip.ok{
+  background:#064e3b;
+  border-color:#10b981;
+  color:#a7f3d0;
+}
+.chip.bad{
+  background:#7f1d1d;
+  border-color:#ef4444;
+  color:#fecaca;
+}
+.inline-field{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.inline-field span{
+  color:#9ca3af;
+  font-size:.9rem;
+}
+
+select#rowSelect{
+  min-width:260px;
+  border:1px solid #2e3a4d;
+  background:#1f2937;
+  color:#e5e7eb;
+  border-radius:10px;
+  padding:8px 10px;
+  outline:none;
+}
+select#rowSelect:focus{
+  border-color:#3b82f6;
+  box-shadow:0 0 0 3px rgba(59,130,246,.2);
+}
+
+.row-info{
+  margin:8px 0 12px;
+  color:#9ca3af;
+  font-size:.9rem;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Referenznummern vergleichen (2 Spalten)</h1>
+      <p>Nummern pro Zeile einfügen (Komma oder Semikolon geht auch). Vergleich ist reihenfolge-unabhängig.</p>
+    </div>
+
+    <div class="toolbar">
+  <label class="inline-field">
+    <span>Reihe aus DB laden (links):</span>
+    <select id="rowSelect">
+      <option value="">-- bitte wählen --</option>
+    </select>
+  </label>
+
+  <button id="btnLoadRow" class="secondary">Reihe links laden</button>
+
+  <button id="btnCheck">Prüfen</button>
+  <button id="btnReset" class="secondary">Leeren</button>
+  <button id="btnDemo" class="secondary">Demo laden</button>
+  <button id="btnExportCsv" class="secondary">CSV: Fehlende exportieren</button>
+  <button id="btnExportXlsx" class="secondary">Excel exportieren</button>
+<button id="btnPrint" class="secondary">Drucken</button>
+
+</div>
+
+
+<div id="rowInfo" class="row-info"></div>
+
+
+   <div class="grid">
+  <!-- Oben links -->
+  <div class="card">
+    <h2>Linke Spalte</h2>
+    <textarea id="leftInput" placeholder="z. B.
+REF0000000001
+REF0000000002
+REF0000000003"></textarea>
+  </div>
+
+  <!-- Oben rechts -->
+  <div class="card">
+    <h2>Rechte Spalte</h2>
+    <textarea id="rightInput" placeholder="z. B.
+REF0000000001
+REF0000000002
+REF0000000004"></textarea>
+  </div>
+  
+</div>
+<div class="result-box" id="compareBox">
+    <div id="statusText" class="status">Noch nicht geprüft.</div>
+
+    <div class="pair-board">
+      <div class="pair-head">
+  <div>Links Physisch</div>
+  <div>Rechts Systemisch</div>
+</div>
+
+      <div id="pairRows" class="pair-rows">
+        <div class="pair-empty">Noch keine Daten.</div>
+      </div>
+    </div>
+
+    <p class="legend">
+      <span class="chip ok">Grün = identisch (beide Seiten)</span>
+      <span class="chip bad">Rot = fehlt auf Gegenseite</span>
+    </p>
+
+    <div class="split">
+      <div>
+        <strong>Fehlt rechts (ist links vorhanden):</strong>
+        <ul id="missingRight" class="missing"></ul>
+      </div>
+      <div>
+        <strong>Fehlt links (ist rechts vorhanden):</strong>
+        <ul id="missingLeft" class="missing"></ul>
+      </div>
+    </div>
+  </div>
+<div class="summary">
+  <div class="stat"><span class="label">Links (gesamt)</span><span class="value" id="leftTotal">0</span></div>
+  <div class="stat"><span class="label">Rechts (gesamt)</span><span class="value" id="rightTotal">0</span></div>
+  <div class="stat"><span class="label">Übereinstimmend</span><span class="value" id="matchCount">0</span></div>
+  <div class="stat"><span class="label">Abweichungen</span><span class="value" id="diffCount">0</span></div>
+</div>
+<div class="signatures">
+  <div class="sig-box">
+    <h3>Physische Kontrolle</h3>
+    <label>Name</label>
+    <input id="sigFirstName" type="text" placeholder="Name" />
+    <label>Datum</label>
+    <input id="sigFirstDate" type="date" />
+    <label>Unterschrift</label>
+    <div class="sig-line"></div>
+  </div>
+
+  <div class="sig-box">
+    <h3>Systemische Kontrolle</h3>
+    <label>Name</label>
+    <input id="sigCheckName" type="text" placeholder="Name" />
+    <label>Datum</label>
+    <input id="sigCheckDate" type="date" />
+    <label>Unterschrift</label>
+    <div class="sig-line"></div>
+  </div>
+</div>
+
+<style>
+  .signatures{ margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:900px){ .signatures{ grid-template-columns:1fr; } }
+  .sig-box{ background:#111827; border:1px solid #243041; border-radius:12px; padding:14px; }
+  .sig-box h3{ margin:0 0 10px; font-size:1rem; }
+  .sig-box label{ display:block; margin:10px 0 6px; color:#9ca3af; font-size:.9rem; }
+  .sig-box input{
+    width:100%; border-radius:10px; border:1px solid #2e3a4d;
+    background:#1f2937; color:#e5e7eb; padding:10px 12px; outline:none;
+  }
+  .sig-line{ margin-top:10px; height:42px; border:1px dashed #314155; border-radius:10px; background:#0b1220; }
+</style>
+
+
+<!-- Unten links -->
+  <div class="card" id="leftDbWrap" style="display:none;">
+    <div style="font-size:.85rem;color:#9ca3af;margin-bottom:6px;">Geladene DB-Daten (links)</div>
+    <div style="overflow:auto; border:1px solid #2e3a4d; border-radius:10px;">
+      <table id="leftDbTable" style="width:100%; border-collapse:collapse; min-width:760px; font:600 .82rem/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">
+        <thead>
+          <tr style="background:#111827; color:#cbd5e1;">
+            <th style="text-align:left;padding:8px;border-bottom:1px solid #2e3a4d;">Reihe</th>
+            <th style="text-align:left;padding:8px;border-bottom:1px solid #2e3a4d;">Platz</th>
+            <th style="text-align:left;padding:8px;border-bottom:1px solid #2e3a4d;">Slot</th>
+            <th style="text-align:left;padding:8px;border-bottom:1px solid #2e3a4d;">Sachnummer</th>
+            <th style="text-align:left;padding:8px;border-bottom:1px solid #2e3a4d;">Referenznummer</th>
+          </tr>
+        </thead>
+        <tbody id="leftDbTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+<!-- 
+  <script>
+ (() => {
+  "use strict";
+
+  const API_URL = "/LKW/lager_slots_compare_api.php";
+
+  const $ = (id) => document.getElementById(id);
+
+  const leftInput = $("leftInput");
+  const rightInput = $("rightInput");
+
+  const leftTotalEl = $("leftTotal");
+  const rightTotalEl = $("rightTotal");
+  const matchCountEl = $("matchCount");
+  const diffCountEl = $("diffCount");
+  const statusTextEl = $("statusText");
+
+  const pairRowsEl = $("pairRows");
+  const missingRightEl = $("missingRight");
+  const missingLeftEl = $("missingLeft");
+
+  const btnCheck = $("btnCheck");
+  const btnReset = $("btnReset");
+  const btnDemo = $("btnDemo");
+  const btnExportCsv = $("btnExportCsv");
+    const leftDbWrap = $("leftDbWrap");
+    const leftDbTableBody = $("leftDbTableBody");
+
+
+
+  // NEU
+  const rowSelect = $("rowSelect");
+  const btnLoadRow = $("btnLoadRow");
+  const rowInfo = $("rowInfo");
+
+  let rowOptions = []; // [{halle,zone,reihe,label}, ...]
+ let lastMissingOnRight = [];
+let lastMissingOnLeft = [];
+let lastLoadedRowMeta = null; // {halle,zone,reihe,label}
+let lastLoadedItems = [];     // [{reihe, platz, slot_index, sachnummer, referenznr}]
+
+
+
+  function sanitizeToken(token) {
+    return token
+      .replace(/\u200B/g, "")
+      .replace(/\u00A0/g, " ")
+      .trim();
+  }
+
+  function toSafePart(v) {
+  return String(v ?? "")
+    .trim()
+    .replace(/\s+/g, "_")
+    .replace(/[^\w\-]/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function buildRowPart(meta) {
+  if (!meta) return "ohne_reihe";
+  const h = toSafePart(meta.halle);
+  const z = toSafePart(meta.zone);
+  const r = toSafePart(meta.reihe);
+  const part = [h, z, r].filter(Boolean).join("_");
+  return part || "ohne_reihe";
+}
+
+function csvEscape(value) {
+  const s = String(value ?? "");
+  return `"${s.replace(/"/g, '""')}"`;
+}
+
+function makeMissingCsvRows(missingRight, missingLeft) {
+  const rows = [];
+  rows.push(["seite", "referenznummer", "anzahl"]);
+
+  for (const item of missingRight) rows.push(["fehlt_rechts", item.ref, item.count]);
+  for (const item of missingLeft)  rows.push(["fehlt_links", item.ref, item.count]);
+
+  return rows;
+}
+
+function downloadCsv(filename, rows) {
+  const csv = rows.map(cols => cols.map(csvEscape).join(";")).join("\r\n");
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  URL.revokeObjectURL(url);
+}
+
+function exportMissingCsv() {
+  checkLists();
+
+  if (!lastMissingOnRight.length && !lastMissingOnLeft.length) {
+    if (rowInfo) rowInfo.textContent = "Kein Export nötig: keine Abweichungen gefunden.";
+    return;
+  }
+
+  const rows = makeMissingCsvRows(lastMissingOnRight, lastMissingOnLeft);
+
+  const now = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  const ts = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}`;
+
+  const rowPart = buildRowPart(lastLoadedRowMeta); // z.B. W1_A_R12
+  const filename = `referenznummern_fehlt_links_rechts_${rowPart}_${ts}.csv`;
+
+  downloadCsv(filename, rows);
+
+  if (rowInfo) {
+    rowInfo.textContent = `CSV exportiert: ${lastMissingOnRight.length}x fehlt rechts, ${lastMissingOnLeft.length}x fehlt links.`;
+  }
+}
+
+
+function renderLeftDbTable(items) {
+  if (!leftDbWrap || !leftDbTableBody) return;
+
+  leftDbTableBody.innerHTML = "";
+  if (!Array.isArray(items) || !items.length) {
+    leftDbWrap.style.display = "none";
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  for (const it of items) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td style="padding:8px;border-bottom:1px solid #1f2937;">${it.reihe ?? ""}</td>
+      <td style="padding:8px;border-bottom:1px solid #1f2937;">${it.platz ?? ""}</td>
+      <td style="padding:8px;border-bottom:1px solid #1f2937;">${it.slot_index ?? ""}</td>
+      <td style="padding:8px;border-bottom:1px solid #1f2937;">${it.sachnummer ?? ""}</td>
+      <td style="padding:8px;border-bottom:1px solid #1f2937;">${it.referenznr ?? ""}</td>
+    `;
+    frag.appendChild(tr);
+  }
+
+  leftDbTableBody.appendChild(frag);
+  leftDbWrap.style.display = "block";
+}
+
+
+  async function fetchJsonSafe(url, options = {}) {
+  const res = await fetch(url, { credentials: "same-origin", ...options });
+  const raw = await res.text();
+
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    console.error("Kein JSON von API:", url, raw);
+    throw new Error(`invalid_json_http_${res.status} :: ${raw.slice(0, 220)}`);
+  }
+
+  if (!res.ok || !data.ok) {
+    throw new Error(`${data.error || "api_error"} (HTTP ${res.status})`);
+  }
+  return data;
+}
+
+
+
+  function parseRefs(raw) {
+    if (!raw || typeof raw !== "string") return [];
+    return raw
+      .split(/[\r\n,;]+/g)
+      .map(sanitizeToken)
+      .filter(Boolean);
+  }
+
+  function buildCountMap(arr) {
+    const map = new Map();
+    for (const item of arr) map.set(item, (map.get(item) || 0) + 1);
+    return map;
+  }
+
+  function getMissing(fromMap, againstMap) {
+    const missing = [];
+    for (const [ref, countFrom] of fromMap.entries()) {
+      const countAgainst = againstMap.get(ref) || 0;
+      const diff = countFrom - countAgainst;
+      if (diff > 0) missing.push({ ref, count: diff });
+    }
+    missing.sort((a, b) => a.ref.localeCompare(b.ref, "de", { numeric: true }));
+    return missing;
+  }
+
+  function getMatchCount(leftCounts, rightCounts) {
+    let matched = 0;
+    for (const [ref, lCount] of leftCounts.entries()) {
+      const rCount = rightCounts.get(ref) || 0;
+      matched += Math.min(lCount, rCount);
+    }
+    return matched;
+  }
+
+  function buildAlignedRows(leftCounts, rightCounts) {
+    const keys = [...new Set([...leftCounts.keys(), ...rightCounts.keys()])]
+      .sort((a, b) => a.localeCompare(b, "de", { numeric: true }));
+
+    const rows = [];
+    for (const ref of keys) {
+      const l = leftCounts.get(ref) || 0;
+      const r = rightCounts.get(ref) || 0;
+      const max = Math.max(l, r);
+
+      for (let i = 0; i < max; i++) {
+        const hasL = i < l;
+        const hasR = i < r;
+        const isMatch = hasL && hasR;
+
+        rows.push({
+          leftValue: hasL ? ref : "",
+          rightValue: hasR ? ref : "",
+          leftState: isMatch ? "ok" : hasL ? "bad" : "empty",
+          rightState: isMatch ? "ok" : hasR ? "bad" : "empty"
+        });
+      }
+    }
+    return rows;
+  }
+
+  function renderPairRows(rows) {
+    if (!pairRowsEl) return;
+    pairRowsEl.innerHTML = "";
+
+    if (!rows.length) {
+      pairRowsEl.innerHTML = `<div class="pair-empty">Keine Einträge.</div>`;
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+    for (const row of rows) {
+      const rowEl = document.createElement("div");
+      rowEl.className = "pair-row";
+
+      const leftEl = document.createElement("div");
+      leftEl.className = `pair-cell ${row.leftState}`;
+      leftEl.textContent = row.leftValue || "—";
+
+      const rightEl = document.createElement("div");
+      rightEl.className = `pair-cell ${row.rightState}`;
+      rightEl.textContent = row.rightValue || "—";
+
+      rowEl.append(leftEl, rightEl);
+      frag.appendChild(rowEl);
+    }
+
+    pairRowsEl.appendChild(frag);
+  }
+
+  function renderMissingList(targetEl, missingItems, textWhenEmpty) {
+    if (!targetEl) return;
+    targetEl.innerHTML = "";
+
+    if (!missingItems.length) {
+      const li = document.createElement("li");
+      li.textContent = textWhenEmpty;
+      li.style.color = "#9ca3af";
+      targetEl.appendChild(li);
+      return;
+    }
+
+    for (const item of missingItems) {
+      const li = document.createElement("li");
+      li.textContent = item.ref;
+
+      const pill = document.createElement("span");
+      pill.className = "pill";
+      pill.textContent = `${item.count}x`;
+
+      li.appendChild(pill);
+      targetEl.appendChild(li);
+    }
+  }
+  
+  function checkLists() {
+    const left = parseRefs(leftInput.value);
+    const right = parseRefs(rightInput.value);
+
+    const leftCounts = buildCountMap(left);
+    const rightCounts = buildCountMap(right);
+
+    const matched = getMatchCount(leftCounts, rightCounts);
+    const leftTotal = left.length;
+    const rightTotal = right.length;
+    const diffTotal = (leftTotal - matched) + (rightTotal - matched);
+
+    const missingOnRight = getMissing(leftCounts, rightCounts);
+    const missingOnLeft = getMissing(rightCounts, leftCounts);
+    lastMissingOnRight = missingOnRight;
+    lastMissingOnLeft = missingOnLeft;
+
+
+    leftTotalEl.textContent = String(leftTotal);
+    rightTotalEl.textContent = String(rightTotal);
+    matchCountEl.textContent = String(matched);
+    diffCountEl.textContent = String(diffTotal);
+
+    renderPairRows(buildAlignedRows(leftCounts, rightCounts));
+    renderMissingList(missingRightEl, missingOnRight, "Nichts fehlt rechts.");
+    renderMissingList(missingLeftEl, missingOnLeft, "Nichts fehlt links.");
+
+    const identical = missingOnRight.length === 0 && missingOnLeft.length === 0;
+    if (identical) {
+      statusTextEl.className = "status ok";
+      statusTextEl.textContent = "✅ Listen sind identisch.";
+    } else {
+      statusTextEl.className = "status bad";
+      statusTextEl.textContent = "❌ Listen sind NICHT identisch (rot markiert).";
+    }
+  }
+
+  function resetAll() {
+    leftInput.value = "";
+    rightInput.value = "";
+
+    leftTotalEl.textContent = "0";
+    rightTotalEl.textContent = "0";
+    matchCountEl.textContent = "0";
+    diffCountEl.textContent = "0";
+
+    statusTextEl.className = "status";
+    statusTextEl.textContent = "Noch nicht geprüft.";
+
+    if (pairRowsEl) pairRowsEl.innerHTML = `<div class="pair-empty">Noch keine Daten.</div>`;
+    if (missingRightEl) missingRightEl.innerHTML = "";
+    if (missingLeftEl) missingLeftEl.innerHTML = "";
+
+    if (rowInfo) rowInfo.textContent = "";
+    if (rowSelect) rowSelect.value = "";
+    lastMissingOnRight = [];
+lastMissingOnLeft = [];
+lastLoadedItems = [];
+lastLoadedRowMeta = null;
+
+if (leftDbTableBody) leftDbTableBody.innerHTML = "";
+if (leftDbWrap) leftDbWrap.style.display = "none";
+
+  }
+
+  function loadDemo() {
+    leftInput.value = [
+      "12561166175110",
+      "12561166175115",
+      "12561166861314",
+      "12561167981814",
+      "12561179340515"
+    ].join("\n");
+
+    rightInput.value = [
+      "12561166175110",
+      "12561166175115",
+      "12561166861314",
+      "12561179340515"
+    ].join("\n");
+
+    checkLists();
+  }
+
+  // -------------------------
+  // NEU: Reihen aus DB laden
+  // -------------------------
+  async function loadRowOptions() {
+    if (!rowSelect) return;
+
+    rowSelect.disabled = true;
+    rowSelect.innerHTML = `<option value="">Lade Reihen...</option>`;
+
+    try {
+     const data = await fetchJsonSafe(`${API_URL}?action=rows`);
+
+
+      rowOptions = Array.isArray(data.rows) ? data.rows : [];
+
+      // optional: natürliche Sortierung nach Label
+      rowOptions.sort((a, b) =>
+        String(a.label).localeCompare(String(b.label), "de", { numeric: true })
+      );
+
+      rowSelect.innerHTML = `<option value="">-- bitte wählen --</option>`;
+      rowOptions.forEach((r, idx) => {
+        const opt = document.createElement("option");
+        opt.value = String(idx);
+        opt.textContent = r.label;
+        rowSelect.appendChild(opt);
+      });
+
+      rowSelect.disabled = false;
+      if (rowInfo) rowInfo.textContent = `${rowOptions.length} Reihen gefunden.`;
+
+    } catch (err) {
+      console.error(err);
+      rowSelect.innerHTML = `<option value="">Fehler beim Laden</option>`;
+      rowSelect.disabled = true;
+      if (rowInfo) rowInfo.textContent = `Fehler: Reihen konnten nicht geladen werden.`;
+    }
+  }
+
+  async function loadSelectedRowToLeft() {
+    if (!rowSelect) return;
+    const idx = Number(rowSelect.value);
+
+    if (!Number.isInteger(idx) || idx < 0 || idx >= rowOptions.length) {
+      if (rowInfo) rowInfo.textContent = "Bitte eine Reihe auswählen.";
+      return;
+    }
+
+    const selected = rowOptions[idx];
+
+    const qs = new URLSearchParams({
+      action: "refs",
+      halle: selected.halle,
+      zone: selected.zone,
+      reihe: selected.reihe
+    });
+
+    try {
+      if (rowInfo) rowInfo.textContent = `Lade ${selected.label} ...`;
+
+   const data = await fetchJsonSafe(`${API_URL}?${qs.toString()}`);
+
+// 1) Items robust lesen (neue ODER alte API)
+let items = Array.isArray(data.items) ? data.items : [];
+
+// Falls alte API nur refs liefert: in Items umwandeln
+if (!items.length && Array.isArray(data.refs)) {
+  items = data.refs.map((ref) => ({
+    reihe: selected.reihe ?? "",
+    platz: "",
+    slot_index: "",
+    sachnummer: "",
+    referenznr: String(ref ?? "").trim()
+  }));
+}
+
+// 2) Referenznummer-Feld robust lesen (mehrere mögliche Feldnamen)
+const refs = items
+  .map((x) =>
+    String(
+      x.referenznr ??
+      x.referenzNr ??
+      x.referenz_nr ??
+      ""
+    ).trim()
+  )
+  .filter(Boolean);
+
+// 3) State setzen
+lastLoadedItems = items;
+lastLoadedRowMeta = {
+  halle: selected.halle,
+  zone: selected.zone,
+  reihe: selected.reihe,
+  label: selected.label
+};
+
+// 4) Links befüllen + Tabelle rendern
+leftInput.value = refs.join("\n");
+renderLeftDbTable(
+  items.map((x) => ({
+    reihe: x.reihe ?? selected.reihe ?? "",
+    platz: x.platz ?? "",
+    slot_index: x.slot_index ?? "",
+    sachnummer: x.sachnummer ?? "",
+    referenznr: x.referenznr ?? x.referenzNr ?? x.referenz_nr ?? ""
+  }))
+);
+
+if (rowInfo) {
+  rowInfo.textContent = `${selected.label}: ${refs.length} Referenznummern links geladen.`;
+}
+
+checkLists();
+
+
+
+    } catch (err) {
+      console.error(err);
+      if (rowInfo) rowInfo.textContent = `Fehler: Referenznummern konnten nicht geladen werden.`;
+    }
+  }
+
+ btnCheck?.addEventListener("click", checkLists);
+btnReset?.addEventListener("click", resetAll);
+btnDemo?.addEventListener("click", loadDemo);
+btnExportCsv?.addEventListener("click", exportMissingCsv);
+
+btnLoadRow?.addEventListener("click", loadSelectedRowToLeft);
+rowSelect?.addEventListener("change", loadSelectedRowToLeft);
+
+  [leftInput, rightInput].forEach((ta) => {
+    ta?.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.key === "Enter") {
+        e.preventDefault();
+        checkLists();
+      }
+    });
+  });
+
+  // Init
+  loadRowOptions();
+})();
+
+</script> -->
+
+
+<script>
+(() => {
+  "use strict";
+
+  const API_URL = "/lager_slots_compare_api.php";
+
+  const $ = (id) => document.getElementById(id);
+
+  const leftInput = $("leftInput");
+  const rightInput = $("rightInput");
+
+  const leftTotalEl = $("leftTotal");
+  const rightTotalEl = $("rightTotal");
+  const matchCountEl = $("matchCount");
+  const diffCountEl = $("diffCount");
+  const statusTextEl = $("statusText");
+
+  const pairRowsEl = $("pairRows");
+  const missingRightEl = $("missingRight");
+  const missingLeftEl = $("missingLeft");
+
+  const btnCheck = $("btnCheck");
+  const btnReset = $("btnReset");
+  const btnDemo = $("btnDemo");
+  const btnExportCsv = $("btnExportCsv");
+
+  const leftDbWrap = $("leftDbWrap");
+  const leftDbTableBody = $("leftDbTableBody");
+
+  // Reihen-Loader
+  const rowSelect = $("rowSelect");
+  const btnLoadRow = $("btnLoadRow");
+  const rowInfo = $("rowInfo");
+
+  let rowOptions = []; // [{halle, zone, reihe, label}, ...]
+  let lastMissingOnRight = []; // fehlt rechts (in links vorhanden)
+  let lastMissingOnLeft = [];  // fehlt links (in rechts vorhanden)
+  let lastLoadedRowMeta = null; // {halle, zone, reihe, label}
+  let lastLoadedItems = [];     // [{reihe, platz, slot_index, sachnummer, referenznr}]
+
+  function sanitizeToken(token) {
+    return String(token ?? "")
+      .replace(/\u200B/g, "")  // zero width
+      .replace(/\u00A0/g, " ") // nbsp
+      .trim()
+      .replace(/\s+/g, "");    // alle Spaces raus, falls Scanner mal mit Leerzeichen liefert
+  }
+
+  function toSafePart(v) {
+    return String(v ?? "")
+      .trim()
+      .replace(/\s+/g, "_")
+      .replace(/[^\w\-]/g, "_")
+      .replace(/_+/g, "_")
+      .replace(/^_+|_+$/g, "");
+  }
+
+  function buildRowPart(meta) {
+    if (!meta) return "ohne_reihe";
+    const h = toSafePart(meta.halle);
+    const z = toSafePart(meta.zone);
+    const r = toSafePart(meta.reihe);
+    const part = [h, z, r].filter(Boolean).join("_");
+    return part || "ohne_reihe";
+  }
+
+  function csvEscape(value) {
+    const s = String(value ?? "");
+    return `"${s.replace(/"/g, '""')}"`;
+  }
+
+  function makeMissingCsvRows(missingRight, missingLeft) {
+    const rows = [];
+    rows.push(["seite", "referenznummer", "anzahl"]);
+    for (const item of missingRight) rows.push(["fehlt_rechts", item.ref, item.count]);
+    for (const item of missingLeft)  rows.push(["fehlt_links", item.ref, item.count]);
+    return rows;
+  }
+
+  function downloadCsv(filename, rows) {
+    const csv = rows.map(cols => cols.map(csvEscape).join(";")).join("\r\n");
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    URL.revokeObjectURL(url);
+  }
+
+  function renderLeftDbTable(items) {
+    if (!leftDbWrap || !leftDbTableBody) return;
+
+    leftDbTableBody.innerHTML = "";
+    if (!Array.isArray(items) || !items.length) {
+      leftDbWrap.style.display = "none";
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+    for (const it of items) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td style="padding:8px;border-bottom:1px solid #1f2937;">${escapeHtml(it.reihe ?? "")}</td>
+        <td style="padding:8px;border-bottom:1px solid #1f2937;">${escapeHtml(it.platz ?? "")}</td>
+        <td style="padding:8px;border-bottom:1px solid #1f2937;">${escapeHtml(it.slot_index ?? "")}</td>
+        <td style="padding:8px;border-bottom:1px solid #1f2937;">${escapeHtml(it.sachnummer ?? "")}</td>
+        <td style="padding:8px;border-bottom:1px solid #1f2937;">${escapeHtml(it.referenznr ?? "")}</td>
+      `;
+      frag.appendChild(tr);
+    }
+
+    leftDbTableBody.appendChild(frag);
+    leftDbWrap.style.display = "block";
+  }
+
+  function escapeHtml(v) {
+    return String(v ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  async function fetchJsonSafe(url, options = {}) {
+    const res = await fetch(url, { credentials: "same-origin", ...options });
+    const raw = await res.text();
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      console.error("Kein JSON von API:", url, raw);
+      throw new Error(`invalid_json_http_${res.status} :: ${raw.slice(0, 220)}`);
+    }
+
+    if (!res.ok || !data.ok) {
+      throw new Error(`${data.error || "api_error"} (HTTP ${res.status})`);
+    }
+    return data;
+  }
+
+  function parseRefs(raw) {
+    if (!raw || typeof raw !== "string") return [];
+    return raw
+      .split(/[\r\n,;]+/g)
+      .map(sanitizeToken)
+      .filter(Boolean);
+  }
+
+  function buildCountMap(arr) {
+    const map = new Map();
+    for (const item of arr) {
+      map.set(item, (map.get(item) || 0) + 1);
+    }
+    return map;
+  }
+
+  function getMissing(fromMap, againstMap) {
+    const missing = [];
+    for (const [ref, countFrom] of fromMap.entries()) {
+      const countAgainst = againstMap.get(ref) || 0;
+      const diff = countFrom - countAgainst;
+      if (diff > 0) missing.push({ ref, count: diff });
+    }
+    missing.sort((a, b) => a.ref.localeCompare(b.ref, "de", { numeric: true }));
+    return missing;
+  }
+
+  function getMatchCount(leftCounts, rightCounts) {
+    let matched = 0;
+    for (const [ref, lCount] of leftCounts.entries()) {
+      const rCount = rightCounts.get(ref) || 0;
+      matched += Math.min(lCount, rCount);
+    }
+    return matched;
+  }
+
+  function buildAlignedRows(leftCounts, rightCounts) {
+    const keys = [...new Set([...leftCounts.keys(), ...rightCounts.keys()])]
+      .sort((a, b) => a.localeCompare(b, "de", { numeric: true }));
+
+    const rows = [];
+    for (const ref of keys) {
+      const l = leftCounts.get(ref) || 0;
+      const r = rightCounts.get(ref) || 0;
+      const max = Math.max(l, r);
+
+      for (let i = 0; i < max; i++) {
+        const hasL = i < l;
+        const hasR = i < r;
+        const isMatch = hasL && hasR;
+
+        rows.push({
+          leftValue: hasL ? ref : "",
+          rightValue: hasR ? ref : "",
+          leftState: isMatch ? "ok" : hasL ? "bad" : "empty",
+          rightState: isMatch ? "ok" : hasR ? "bad" : "empty"
+        });
+      }
+    }
+    return rows;
+  }
+
+  function renderPairRows(rows) {
+    if (!pairRowsEl) return;
+    pairRowsEl.innerHTML = "";
+
+    if (!rows.length) {
+      pairRowsEl.innerHTML = `<div class="pair-empty">Noch keine Daten.</div>`;
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+
+    for (const row of rows) {
+      const rowEl = document.createElement("div");
+      rowEl.className = "pair-row";
+
+      const leftEl = document.createElement("div");
+      leftEl.className = `pair-cell ${row.leftState}`;
+      leftEl.textContent = row.leftValue || "—";
+
+      const rightEl = document.createElement("div");
+      rightEl.className = `pair-cell ${row.rightState}`;
+      rightEl.textContent = row.rightValue || "—";
+
+      rowEl.append(leftEl, rightEl);
+      frag.appendChild(rowEl);
+    }
+
+    pairRowsEl.appendChild(frag);
+  }
+
+  function renderMissingList(targetEl, missingItems, textWhenEmpty) {
+    if (!targetEl) return;
+    targetEl.innerHTML = "";
+
+    if (!missingItems.length) {
+      const li = document.createElement("li");
+      li.textContent = textWhenEmpty;
+      li.style.color = "#9ca3af";
+      targetEl.appendChild(li);
+      return;
+    }
+
+    for (const item of missingItems) {
+      const li = document.createElement("li");
+      li.textContent = item.ref;
+
+      const pill = document.createElement("span");
+      pill.className = "pill";
+      pill.textContent = `${item.count}x`;
+
+      li.appendChild(pill);
+      targetEl.appendChild(li);
+    }
+  }
+
+  function checkLists() {
+    // Kernlogik:
+    // links = geladene DB-Refs (leftInput wird durch DB-Load gesetzt)
+    // rechts = manuelle Eingabe/Scan
+    const left = parseRefs(leftInput?.value || "");
+    const right = parseRefs(rightInput?.value || "");
+
+    const leftCounts = buildCountMap(left);
+    const rightCounts = buildCountMap(right);
+
+    const matched = getMatchCount(leftCounts, rightCounts);
+    const leftTotal = left.length;
+    const rightTotal = right.length;
+    const diffTotal = (leftTotal - matched) + (rightTotal - matched);
+
+    const missingOnRight = getMissing(leftCounts, rightCounts); // in links da, rechts fehlt
+    const missingOnLeft = getMissing(rightCounts, leftCounts);  // in rechts da, links fehlt
+
+    lastMissingOnRight = missingOnRight;
+    lastMissingOnLeft = missingOnLeft;
+
+    if (leftTotalEl) leftTotalEl.textContent = String(leftTotal);
+    if (rightTotalEl) rightTotalEl.textContent = String(rightTotal);
+    if (matchCountEl) matchCountEl.textContent = String(matched);
+    if (diffCountEl) diffCountEl.textContent = String(diffTotal);
+
+    renderPairRows(buildAlignedRows(leftCounts, rightCounts));
+    renderMissingList(missingRightEl, missingOnRight, "Nichts fehlt rechts.");
+    renderMissingList(missingLeftEl, missingOnLeft, "Nichts fehlt links.");
+
+    const identical = missingOnRight.length === 0 && missingOnLeft.length === 0;
+    if (statusTextEl) {
+      if (identical) {
+        statusTextEl.className = "status ok";
+        statusTextEl.textContent = "✅ Listen sind identisch.";
+      } else {
+        statusTextEl.className = "status bad";
+        statusTextEl.textContent = "❌ Listen sind NICHT identisch (rot markiert).";
+      }
+    }
+  }
+
+  function resetAll() {
+    if (leftInput) leftInput.value = "";
+    if (rightInput) rightInput.value = "";
+
+    if (leftTotalEl) leftTotalEl.textContent = "0";
+    if (rightTotalEl) rightTotalEl.textContent = "0";
+    if (matchCountEl) matchCountEl.textContent = "0";
+    if (diffCountEl) diffCountEl.textContent = "0";
+
+    if (statusTextEl) {
+      statusTextEl.className = "status";
+      statusTextEl.textContent = "Noch nicht geprüft.";
+    }
+
+    if (pairRowsEl) pairRowsEl.innerHTML = `<div class="pair-empty">Noch keine Daten.</div>`;
+    if (missingRightEl) missingRightEl.innerHTML = "";
+    if (missingLeftEl) missingLeftEl.innerHTML = "";
+
+    if (rowInfo) rowInfo.textContent = "";
+    if (rowSelect) rowSelect.value = "";
+
+    lastMissingOnRight = [];
+    lastMissingOnLeft = [];
+    lastLoadedItems = [];
+    lastLoadedRowMeta = null;
+
+    if (leftDbTableBody) leftDbTableBody.innerHTML = "";
+    if (leftDbWrap) leftDbWrap.style.display = "none";
+  }
+
+  function loadDemo() {
+    if (leftInput) {
+      leftInput.value = [
+        "12561166175110",
+        "12561166175115",
+        "12561166861314",
+        "12561167981814",
+        "12561179340515"
+      ].join("\n");
+    }
+
+    if (rightInput) {
+      rightInput.value = [
+        "12561166175110",
+        "12561166175115",
+        "12561166861314",
+        "12561179340515"
+      ].join("\n");
+    }
+
+    checkLists();
+  }
+
+  function exportMissingCsv() {
+    checkLists();
+
+    if (!lastMissingOnRight.length && !lastMissingOnLeft.length) {
+      if (rowInfo) rowInfo.textContent = "Kein Export nötig: keine Abweichungen gefunden.";
+      return;
+    }
+
+    const rows = makeMissingCsvRows(lastMissingOnRight, lastMissingOnLeft);
+
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    const ts = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}`;
+
+    const rowPart = buildRowPart(lastLoadedRowMeta); // z. B. W1_A_R12
+    const filename = `referenznummern_fehlt_links_rechts_${rowPart}_${ts}.csv`;
+
+    downloadCsv(filename, rows);
+
+    if (rowInfo) {
+      rowInfo.textContent = `CSV exportiert: ${lastMissingOnRight.length}x fehlt rechts, ${lastMissingOnLeft.length}x fehlt links.`;
+    }
+  }
+
+    // =========================
+  // Excel Export + Drucken
+  // =========================
+
+  const btnExportXlsx = $("btnExportXlsx");
+  const btnPrint      = $("btnPrint");
+
+  const sigFirstName = $("sigFirstName");
+  const sigFirstDate = $("sigFirstDate");
+  const sigCheckName = $("sigCheckName");
+  const sigCheckDate = $("sigCheckDate");
+
+  // Datum vorausfüllen
+  (function presetDates(){
+    const today = new Date();
+    const pad = (n)=> String(n).padStart(2,"0");
+    const d = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+    if (sigFirstDate && !sigFirstDate.value) sigFirstDate.value = d;
+    if (sigCheckDate && !sigCheckDate.value) sigCheckDate.value = d;
+  })();
+
+  function getRowLabelSafe() {
+    if (lastLoadedRowMeta?.label) return String(lastLoadedRowMeta.label);
+    const h = lastLoadedRowMeta?.halle ? `Halle ${lastLoadedRowMeta.halle}` : "";
+    const z = lastLoadedRowMeta?.zone ? `Zone ${lastLoadedRowMeta.zone}` : "";
+    const r = lastLoadedRowMeta?.reihe ? `Reihe ${lastLoadedRowMeta.reihe}` : "";
+    const t = [h,z,r].filter(Boolean).join(" / ");
+    return t || "Ohne Reihe";
+  }
+
+  function getSummaryValues() {
+    return {
+      leftTotal:  Number(leftTotalEl?.textContent || 0),
+      rightTotal: Number(rightTotalEl?.textContent || 0),
+      matchCount: Number(matchCountEl?.textContent || 0),
+      diffCount:  Number(diffCountEl?.textContent || 0),
+      statusText: String(statusTextEl?.textContent || "")
+    };
+  }
+
+  function exportCurrentRowXlsx() {
+    checkLists();
+
+    if (typeof XLSX === "undefined") {
+      alert("XLSX Library fehlt. Bitte xlsx.full.min.js einbinden (vor deinem Script).");
+      return;
+    }
+
+    const left  = parseRefs(leftInput?.value || "");
+    const right = parseRefs(rightInput?.value || "");
+    const leftCounts  = buildCountMap(left);
+    const rightCounts = buildCountMap(right);
+    const alignedRows = buildAlignedRows(leftCounts, rightCounts);
+
+    const rowLabel = getRowLabelSafe();
+    const sum = getSummaryValues();
+
+    const firstName = sigFirstName?.value?.trim() || "";
+    const firstDate = sigFirstDate?.value || "";
+    const checkName = sigCheckName?.value?.trim() || "";
+    const checkDate = sigCheckDate?.value || "";
+
+    const sheetCompare = [
+      ["Reihe", rowLabel],
+      ["Exportdatum", new Date().toLocaleString("de-DE")],
+      [],
+      ["Links (gesamt)", sum.leftTotal],
+      ["Rechts (gesamt)", sum.rightTotal],
+      ["Übereinstimmend", sum.matchCount],
+      ["Abweichungen", sum.diffCount],
+      ["Status", sum.statusText],
+      [],
+      ["Links Physisch", "Rechts Systemisch", "Status"]
+    ];
+
+    for (const r of alignedRows) {
+      const status =
+        (r.leftState === "ok" && r.rightState === "ok") ? "OK" :
+        (r.leftState === "bad" && r.rightState === "empty") ? "fehlt rechts" :
+        (r.leftState === "empty" && r.rightState === "bad") ? "fehlt links" :
+        "abweichung";
+      sheetCompare.push([r.leftValue || "", r.rightValue || "", status]);
+    }
+
+    const sheetSign = [
+      ["Reihe", rowLabel],
+      ["Exportdatum", new Date().toLocaleString("de-DE")],
+      [],
+      ["Erstzählung - Name", firstName],
+      ["Erstzählung - Datum", firstDate],
+      ["Erstzählung - Unterschrift", ""],
+      [],
+      ["Kontrolle - Name", checkName],
+      ["Kontrolle - Datum", checkDate],
+      ["Kontrolle - Unterschrift", ""],
+    ];
+
+    const wb = XLSX.utils.book_new();
+    const wsCompare = XLSX.utils.aoa_to_sheet(sheetCompare);
+    const wsSign    = XLSX.utils.aoa_to_sheet(sheetSign);
+
+    wsCompare["!cols"] = [{ wch: 22 }, { wch: 22 }, { wch: 16 }];
+    wsSign["!cols"]    = [{ wch: 26 }, { wch: 30 }];
+
+    XLSX.utils.book_append_sheet(wb, wsCompare, "Vergleich");
+    XLSX.utils.book_append_sheet(wb, wsSign, "Unterschriften");
+
+    const safe = (s)=> String(s||"").replace(/[^\w\-]+/g,"_").replace(/_+/g,"_").replace(/^_+|_+$/g,"");
+    const rowPart = safe(rowLabel).slice(0, 60) || "reihe";
+    const now = new Date();
+    const pad = (n)=> String(n).padStart(2,"0");
+    const ts = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}`;
+
+    XLSX.writeFile(wb, `Referenzvergleich_${rowPart}_${ts}.xlsx`);
+  }
+
+  function printCurrentRow() {
+    checkLists();
+
+    const rowLabel = getRowLabelSafe();
+    const sum = getSummaryValues();
+
+    const firstName = sigFirstName?.value?.trim() || "";
+    const firstDate = sigFirstDate?.value || "";
+    const checkName = sigCheckName?.value?.trim() || "";
+    const checkDate = sigCheckDate?.value || "";
+
+    const rows = [];
+    document.querySelectorAll("#pairRows .pair-row").forEach(node => {
+      const cells = node.querySelectorAll(".pair-cell");
+      rows.push({
+        l: cells[0]?.textContent?.trim() || "",
+        r: cells[1]?.textContent?.trim() || ""
+      });
+    });
+
+    const htmlRows = rows.map(x => `
+      <tr>
+        <td>${escapeHtml(x.l)}</td>
+        <td>${escapeHtml(x.r)}</td>
+      </tr>
+    `).join("");
+
+    const w = window.open("", "_blank");
+    if (!w) { alert("Pop-up blockiert. Bitte Pop-ups erlauben."); return; }
+
+    w.document.open();
+    w.document.write(`
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Druck - ${escapeHtml(rowLabel)}</title>
+<style>
+  body{ font-family: Arial, sans-serif; padding:20px; }
+  h1{ margin:0 0 6px; font-size:18px; }
+  .meta{ color:#444; margin-bottom:14px; font-size:12px; }
+  table{ width:100%; border-collapse:collapse; margin-top:10px; }
+  th, td{ border:1px solid #000; padding:6px 8px; font-family: Consolas, monospace; font-size:12px; }
+  th{ background:#eee; text-align:left; }
+  .summary{ margin-top:14px; display:flex; gap:12px; flex-wrap:wrap; font-size:12px; }
+  .sumBox{ border:1px solid #000; padding:8px; min-width:180px; }
+  .sign{ margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .signBox{ border:1px solid #000; padding:10px; min-height:120px; }
+  .line{ margin-top:40px; border-top:1px solid #000; }
+  .label{ font-size:12px; margin-top:6px; color:#111; }
+  @media print { .noPrint{ display:none; } }
+</style></head><body>
+  <h1>Referenzvergleich – ${escapeHtml(rowLabel)}</h1>
+  <div class="meta">Gedruckt am: ${new Date().toLocaleString("de-DE")}</div>
+
+  <div class="summary">
+    <div class="sumBox"><b>Links (gesamt):</b> ${sum.leftTotal}</div>
+    <div class="sumBox"><b>Rechts (gesamt):</b> ${sum.rightTotal}</div>
+    <div class="sumBox"><b>Übereinstimmend:</b> ${sum.matchCount}</div>
+    <div class="sumBox"><b>Abweichungen:</b> ${sum.diffCount}</div>
+  </div>
+
+  <table>
+  <thead>
+    <tr><th>Links Physisch</th><th>Rechts Systemisch</th></tr>
+  </thead>
+  <tbody>
+    ${htmlRows}
+  </tbody>
+</table>
+
+  <div class="sign">
+    <div class="signBox">
+      <b>Physische Kontrolle</b>
+      <div class="label">Name: ${escapeHtml(firstName)}</div>
+      <div class="label">Datum: ${escapeHtml(firstDate)}</div>
+      <div class="line"></div><div class="label">Unterschrift</div>
+    </div>
+    <div class="signBox">
+      <b>Systemische Kontrolle</b>
+      <div class="label">Name: ${escapeHtml(checkName)}</div>
+      <div class="label">Datum: ${escapeHtml(checkDate)}</div>
+      <div class="line"></div><div class="label">Unterschrift</div>
+    </div>
+  </div>
+
+  <div class="noPrint" style="margin-top:14px;">
+    <button onclick="window.print()">Jetzt drucken</button>
+  </div>
+</body></html>`);
+    w.document.close();
+    w.focus();
+    w.print();
+  }
+
+  btnExportXlsx?.addEventListener("click", exportCurrentRowXlsx);
+  btnPrint?.addEventListener("click", printCurrentRow);
+
+
+  // -------------------------
+  // Reihen aus DB laden
+  // -------------------------
+  async function loadRowOptions() {
+    if (!rowSelect) return;
+
+    rowSelect.disabled = true;
+    rowSelect.innerHTML = `<option value="">Lade Reihen...</option>`;
+
+    try {
+      const data = await fetchJsonSafe(`${API_URL}?action=rows`);
+      rowOptions = Array.isArray(data.rows) ? data.rows : [];
+
+      rowOptions.sort((a, b) =>
+        String(a.label).localeCompare(String(b.label), "de", { numeric: true })
+      );
+
+      rowSelect.innerHTML = `<option value="">-- bitte wählen --</option>`;
+      rowOptions.forEach((r, idx) => {
+        const opt = document.createElement("option");
+        opt.value = String(idx);
+        opt.textContent = r.label;
+        rowSelect.appendChild(opt);
+      });
+
+      rowSelect.disabled = false;
+      if (rowInfo) rowInfo.textContent = `${rowOptions.length} Reihen gefunden.`;
+    } catch (err) {
+      console.error(err);
+      rowSelect.innerHTML = `<option value="">Fehler beim Laden</option>`;
+      rowSelect.disabled = true;
+      if (rowInfo) rowInfo.textContent = "Fehler: Reihen konnten nicht geladen werden.";
+    }
+  }
+
+  async function loadSelectedRowToLeft() {
+    if (!rowSelect) return;
+
+    const idx = Number(rowSelect.value);
+    if (!Number.isInteger(idx) || idx < 0 || idx >= rowOptions.length) {
+      if (rowInfo) rowInfo.textContent = "Bitte eine Reihe auswählen.";
+      return;
+    }
+
+    const selected = rowOptions[idx];
+    const qs = new URLSearchParams({
+      action: "refs",
+      halle: selected.halle,
+      zone: selected.zone,
+      reihe: selected.reihe
+    });
+
+    try {
+      if (rowInfo) rowInfo.textContent = `Lade ${selected.label} ...`;
+
+      const data = await fetchJsonSafe(`${API_URL}?${qs.toString()}`);
+
+      // Neue ODER alte API robust lesen
+      let items = Array.isArray(data.items) ? data.items : [];
+
+      // Fallback: alte API liefert nur refs[]
+      if (!items.length && Array.isArray(data.refs)) {
+        items = data.refs.map((ref) => ({
+          reihe: selected.reihe ?? "",
+          platz: "",
+          slot_index: "",
+          sachnummer: "",
+          referenznr: String(ref ?? "").trim()
+        }));
+      }
+
+      // Referenzfeld robust (mehrere Namen möglich)
+      const refs = items
+        .map((x) =>
+          String(
+            x.referenznr ??
+            x.referenzNr ??
+            x.referenz_nr ??
+            ""
+          ).trim()
+        )
+        .filter(Boolean);
+
+      // State
+      lastLoadedItems = items;
+      lastLoadedRowMeta = {
+        halle: selected.halle,
+        zone: selected.zone,
+        reihe: selected.reihe,
+        label: selected.label
+      };
+
+      // Links befüllen + Tabelle rendern
+      if (leftInput) leftInput.value = refs.join("\n");
+
+      renderLeftDbTable(
+        items.map((x) => ({
+          reihe: x.reihe ?? selected.reihe ?? "",
+          platz: x.platz ?? "",
+          slot_index: x.slot_index ?? "",
+          sachnummer: x.sachnummer ?? "",
+          referenznr: x.referenznr ?? x.referenzNr ?? x.referenz_nr ?? ""
+        }))
+      );
+
+      if (rowInfo) {
+        rowInfo.textContent = `${selected.label}: ${refs.length} Referenznummern links geladen.`;
+      }
+
+      checkLists();
+    } catch (err) {
+      console.error(err);
+      if (rowInfo) rowInfo.textContent = "Fehler: Referenznummern konnten nicht geladen werden.";
+    }
+  }
+
+  // Events
+  btnCheck?.addEventListener("click", checkLists);
+  btnReset?.addEventListener("click", resetAll);
+  btnDemo?.addEventListener("click", loadDemo);
+  btnExportCsv?.addEventListener("click", exportMissingCsv);
+
+  btnLoadRow?.addEventListener("click", loadSelectedRowToLeft);
+  rowSelect?.addEventListener("change", loadSelectedRowToLeft);
+
+  // Ctrl+Enter -> prüfen
+  [leftInput, rightInput].forEach((ta) => {
+    ta?.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.key === "Enter") {
+        e.preventDefault();
+        checkLists();
+      }
+    });
+  });
+
+  // Optional praktisch: bei Paste rechts direkt prüfen
+  rightInput?.addEventListener("paste", () => {
+    setTimeout(() => checkLists(), 0);
+  });
+
+  // Init
+  loadRowOptions();
+})();
+
+
+
+
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+
+</body>
+</html>

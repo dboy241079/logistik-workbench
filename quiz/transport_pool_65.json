@@ -1,0 +1,786 @@
+{
+  "generated_at": "2026-01-27T10:55:48.419411Z",
+  "version": "Transport-Quizpool-65",
+  "questions": [
+    {
+      "category_key": "transport",
+      "question": "Welche Info ist bei kritischer Ladung für den Fahrer hilfreich? (Variante 46)",
+      "options": [
+        "Gewicht/Schwerpunkt, Hilfsmittel, Sicherungshinweise",
+        "Playlist",
+        "Wetterbericht",
+        "Lieblingsessen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was gehört in eine saubere Tour-/Auftragsnotiz? (Variante 51)",
+      "options": [
+        "Lade-/Entladestelle, Ansprechpartner, Referenzen, Besonderheiten",
+        "Private Infos",
+        "Memes",
+        "Nur 'mach mal'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist eine häufige Ursache für falsche Abholung? (Variante 39)",
+      "options": [
+        "Unklare Referenz/fehlende Auftrag-ID/Verwechslung ähnlicher Aufträge",
+        "Zu viele Ampeln",
+        "Falsche Schuhe",
+        "Zu wenig Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist bei Kennzeichen-/Fahrzeugzuordnung im System wichtig?",
+      "options": [
+        "Eindeutigkeit + zentrale Pflegequelle",
+        "Pro Modul anders",
+        "Nur im Kopf merken",
+        "Nur in Excel ohne Sync"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Reihenfolge ist oft sinnvoll?",
+      "options": [
+        "Planen → Dokumente/Referenzen prüfen → Slot/Stopps → Fahrerbriefing",
+        "Fahren → dann planen",
+        "Dokumente am Ende",
+        "Nur spontan"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein guter Kommunikationsstandard bei Änderungen?",
+      "options": [
+        "Änderung dokumentieren + Fahrer/Team informieren + Bestätigung",
+        "Nur mündlich an irgendeinen",
+        "Im Gruppenchat ohne Kontext",
+        "Gar nicht informieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Du planst zwei Stopps (z.B. Halle + Containerzone). Was ist korrekt? (Variante 52)",
+      "options": [
+        "Beide Stopps dokumentieren (Reihenfolge/Ort/Hinweise)",
+        "Nur den ersten nennen",
+        "Fahrer soll raten",
+        "Nichts dokumentieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein guter Kommunikationsstandard bei Änderungen? (Variante 28)",
+      "options": [
+        "Änderung dokumentieren + Fahrer/Team informieren + Bestätigung",
+        "Nur mündlich an irgendeinen",
+        "Im Gruppenchat ohne Kontext",
+        "Gar nicht informieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Info ist bei kritischer Ladung für den Fahrer hilfreich? (Variante 36)",
+      "options": [
+        "Gewicht/Schwerpunkt, Hilfsmittel, Sicherungshinweise",
+        "Playlist",
+        "Wetterbericht",
+        "Lieblingsessen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Reihenfolge ist oft sinnvoll? (Variante 30)",
+      "options": [
+        "Planen → Dokumente/Referenzen prüfen → Slot/Stopps → Fahrerbriefing",
+        "Fahren → dann planen",
+        "Dokumente am Ende",
+        "Nur spontan"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was gehört in eine saubere Tour-/Auftragsnotiz?",
+      "options": [
+        "Lade-/Entladestelle, Ansprechpartner, Referenzen, Besonderheiten",
+        "Private Infos",
+        "Memes",
+        "Nur 'mach mal'"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Wodurch entstehen oft Verzögerungen, die Dispo vermeiden kann? (Variante 23)",
+      "options": [
+        "Fehlende Referenzen/Papiere, unklare Hinweise, fehlende Slots",
+        "Radio zu laut",
+        "LKW-Farbe",
+        "Wetter-App"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist eine häufige Ursache für falsche Abholung? (Variante 19)",
+      "options": [
+        "Unklare Referenz/fehlende Auftrag-ID/Verwechslung ähnlicher Aufträge",
+        "Zu viele Ampeln",
+        "Falsche Schuhe",
+        "Zu wenig Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein guter Kommunikationsstandard bei Änderungen? (Variante 48)",
+      "options": [
+        "Änderung dokumentieren + Fahrer/Team informieren + Bestätigung",
+        "Nur mündlich an irgendeinen",
+        "Im Gruppenchat ohne Kontext",
+        "Gar nicht informieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist bei Kennzeichen-/Fahrzeugzuordnung im System wichtig? (Variante 55)",
+      "options": [
+        "Eindeutigkeit + zentrale Pflegequelle",
+        "Pro Modul anders",
+        "Nur im Kopf merken",
+        "Nur in Excel ohne Sync"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Wodurch entstehen oft Verzögerungen, die Dispo vermeiden kann? (Variante 33)",
+      "options": [
+        "Fehlende Referenzen/Papiere, unklare Hinweise, fehlende Slots",
+        "Radio zu laut",
+        "LKW-Farbe",
+        "Wetter-App"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist eine häufige Ursache für falsche Abholung? (Variante 29)",
+      "options": [
+        "Unklare Referenz/fehlende Auftrag-ID/Verwechslung ähnlicher Aufträge",
+        "Zu viele Ampeln",
+        "Falsche Schuhe",
+        "Zu wenig Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Wodurch entstehen oft Verzögerungen, die Dispo vermeiden kann?",
+      "options": [
+        "Fehlende Referenzen/Papiere, unklare Hinweise, fehlende Slots",
+        "Radio zu laut",
+        "LKW-Farbe",
+        "Wetter-App"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Du planst zwei Stopps (z.B. Halle + Containerzone). Was ist korrekt?",
+      "options": [
+        "Beide Stopps dokumentieren (Reihenfolge/Ort/Hinweise)",
+        "Nur den ersten nennen",
+        "Fahrer soll raten",
+        "Nichts dokumentieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein guter Kommunikationsstandard bei Änderungen? (Variante 38)",
+      "options": [
+        "Änderung dokumentieren + Fahrer/Team informieren + Bestätigung",
+        "Nur mündlich an irgendeinen",
+        "Im Gruppenchat ohne Kontext",
+        "Gar nicht informieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was gehört in eine saubere Tour-/Auftragsnotiz? (Variante 41)",
+      "options": [
+        "Lade-/Entladestelle, Ansprechpartner, Referenzen, Besonderheiten",
+        "Private Infos",
+        "Memes",
+        "Nur 'mach mal'"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Reihenfolge ist oft sinnvoll? (Variante 60)",
+      "options": [
+        "Planen → Dokumente/Referenzen prüfen → Slot/Stopps → Fahrerbriefing",
+        "Fahren → dann planen",
+        "Dokumente am Ende",
+        "Nur spontan"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Reihenfolge ist oft sinnvoll? (Variante 40)",
+      "options": [
+        "Planen → Dokumente/Referenzen prüfen → Slot/Stopps → Fahrerbriefing",
+        "Fahren → dann planen",
+        "Dokumente am Ende",
+        "Nur spontan"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein sinnvoller Status im Warenausgang? (Variante 27)",
+      "options": [
+        "bereit / fehlt / gesperrt / geprüft (einheitlich)",
+        "egal, Hauptsache bunt",
+        "nur 'ok'",
+        "nur 'später'"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Du planst zwei Stopps (z.B. Halle + Containerzone). Was ist korrekt? (Variante 62)",
+      "options": [
+        "Beide Stopps dokumentieren (Reihenfolge/Ort/Hinweise)",
+        "Nur den ersten nennen",
+        "Fahrer soll raten",
+        "Nichts dokumentieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Wodurch entstehen oft Verzögerungen, die Dispo vermeiden kann? (Variante 43)",
+      "options": [
+        "Fehlende Referenzen/Papiere, unklare Hinweise, fehlende Slots",
+        "Radio zu laut",
+        "LKW-Farbe",
+        "Wetter-App"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Warum sind realistische Zeitfenster wichtig? (Variante 64)",
+      "options": [
+        "Sie reduzieren Stau an Rampen und Wartezeiten",
+        "Sie machen Drucker schneller",
+        "Sie sparen Strom",
+        "Sie ersetzen Zollpapiere"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Reihenfolge ist oft sinnvoll? (Variante 50)",
+      "options": [
+        "Planen → Dokumente/Referenzen prüfen → Slot/Stopps → Fahrerbriefing",
+        "Fahren → dann planen",
+        "Dokumente am Ende",
+        "Nur spontan"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Warum sind realistische Zeitfenster wichtig? (Variante 34)",
+      "options": [
+        "Sie reduzieren Stau an Rampen und Wartezeiten",
+        "Sie machen Drucker schneller",
+        "Sie sparen Strom",
+        "Sie ersetzen Zollpapiere"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist eine häufige Ursache für falsche Abholung?",
+      "options": [
+        "Unklare Referenz/fehlende Auftrag-ID/Verwechslung ähnlicher Aufträge",
+        "Zu viele Ampeln",
+        "Falsche Schuhe",
+        "Zu wenig Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein sinnvoller Status im Warenausgang? (Variante 57)",
+      "options": [
+        "bereit / fehlt / gesperrt / geprüft (einheitlich)",
+        "egal, Hauptsache bunt",
+        "nur 'ok'",
+        "nur 'später'"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein sinnvoller Status im Warenausgang? (Variante 17)",
+      "options": [
+        "bereit / fehlt / gesperrt / geprüft (einheitlich)",
+        "egal, Hauptsache bunt",
+        "nur 'ok'",
+        "nur 'später'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist bei Kennzeichen-/Fahrzeugzuordnung im System wichtig? (Variante 45)",
+      "options": [
+        "Eindeutigkeit + zentrale Pflegequelle",
+        "Pro Modul anders",
+        "Nur im Kopf merken",
+        "Nur in Excel ohne Sync"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist eine häufige Ursache für falsche Abholung? (Variante 49)",
+      "options": [
+        "Unklare Referenz/fehlende Auftrag-ID/Verwechslung ähnlicher Aufträge",
+        "Zu viele Ampeln",
+        "Falsche Schuhe",
+        "Zu wenig Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Was gehört in eine saubere Tour-/Auftragsnotiz? (Variante 31)",
+      "options": [
+        "Lade-/Entladestelle, Ansprechpartner, Referenzen, Besonderheiten",
+        "Private Infos",
+        "Memes",
+        "Nur 'mach mal'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein sinnvoller Status im Warenausgang? (Variante 47)",
+      "options": [
+        "bereit / fehlt / gesperrt / geprüft (einheitlich)",
+        "egal, Hauptsache bunt",
+        "nur 'ok'",
+        "nur 'später'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Warum sind realistische Zeitfenster wichtig?",
+      "options": [
+        "Sie reduzieren Stau an Rampen und Wartezeiten",
+        "Sie machen Drucker schneller",
+        "Sie sparen Strom",
+        "Sie ersetzen Zollpapiere"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Info ist bei kritischer Ladung für den Fahrer hilfreich? (Variante 56)",
+      "options": [
+        "Gewicht/Schwerpunkt, Hilfsmittel, Sicherungshinweise",
+        "Playlist",
+        "Wetterbericht",
+        "Lieblingsessen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Reihenfolge ist oft sinnvoll? (Variante 20)",
+      "options": [
+        "Planen → Dokumente/Referenzen prüfen → Slot/Stopps → Fahrerbriefing",
+        "Fahren → dann planen",
+        "Dokumente am Ende",
+        "Nur spontan"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Du planst zwei Stopps (z.B. Halle + Containerzone). Was ist korrekt? (Variante 12)",
+      "options": [
+        "Beide Stopps dokumentieren (Reihenfolge/Ort/Hinweise)",
+        "Nur den ersten nennen",
+        "Fahrer soll raten",
+        "Nichts dokumentieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Info ist bei kritischer Ladung für den Fahrer hilfreich? (Variante 26)",
+      "options": [
+        "Gewicht/Schwerpunkt, Hilfsmittel, Sicherungshinweise",
+        "Playlist",
+        "Wetterbericht",
+        "Lieblingsessen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Warum sind realistische Zeitfenster wichtig? (Variante 14)",
+      "options": [
+        "Sie reduzieren Stau an Rampen und Wartezeiten",
+        "Sie machen Drucker schneller",
+        "Sie sparen Strom",
+        "Sie ersetzen Zollpapiere"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Du planst zwei Stopps (z.B. Halle + Containerzone). Was ist korrekt? (Variante 32)",
+      "options": [
+        "Beide Stopps dokumentieren (Reihenfolge/Ort/Hinweise)",
+        "Nur den ersten nennen",
+        "Fahrer soll raten",
+        "Nichts dokumentieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Wodurch entstehen oft Verzögerungen, die Dispo vermeiden kann? (Variante 53)",
+      "options": [
+        "Fehlende Referenzen/Papiere, unklare Hinweise, fehlende Slots",
+        "Radio zu laut",
+        "LKW-Farbe",
+        "Wetter-App"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein sinnvoller Status im Warenausgang?",
+      "options": [
+        "bereit / fehlt / gesperrt / geprüft (einheitlich)",
+        "egal, Hauptsache bunt",
+        "nur 'ok'",
+        "nur 'später'"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist bei Kennzeichen-/Fahrzeugzuordnung im System wichtig? (Variante 35)",
+      "options": [
+        "Eindeutigkeit + zentrale Pflegequelle",
+        "Pro Modul anders",
+        "Nur im Kopf merken",
+        "Nur in Excel ohne Sync"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Was gehört in eine saubere Tour-/Auftragsnotiz? (Variante 61)",
+      "options": [
+        "Lade-/Entladestelle, Ansprechpartner, Referenzen, Besonderheiten",
+        "Private Infos",
+        "Memes",
+        "Nur 'mach mal'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Warum sind realistische Zeitfenster wichtig? (Variante 54)",
+      "options": [
+        "Sie reduzieren Stau an Rampen und Wartezeiten",
+        "Sie machen Drucker schneller",
+        "Sie sparen Strom",
+        "Sie ersetzen Zollpapiere"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Wodurch entstehen oft Verzögerungen, die Dispo vermeiden kann? (Variante 13)",
+      "options": [
+        "Fehlende Referenzen/Papiere, unklare Hinweise, fehlende Slots",
+        "Radio zu laut",
+        "LKW-Farbe",
+        "Wetter-App"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Was gehört in eine saubere Tour-/Auftragsnotiz? (Variante 11)",
+      "options": [
+        "Lade-/Entladestelle, Ansprechpartner, Referenzen, Besonderheiten",
+        "Private Infos",
+        "Memes",
+        "Nur 'mach mal'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist eine häufige Ursache für falsche Abholung? (Variante 59)",
+      "options": [
+        "Unklare Referenz/fehlende Auftrag-ID/Verwechslung ähnlicher Aufträge",
+        "Zu viele Ampeln",
+        "Falsche Schuhe",
+        "Zu wenig Kaffee"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein guter Kommunikationsstandard bei Änderungen? (Variante 58)",
+      "options": [
+        "Änderung dokumentieren + Fahrer/Team informieren + Bestätigung",
+        "Nur mündlich an irgendeinen",
+        "Im Gruppenchat ohne Kontext",
+        "Gar nicht informieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein guter Kommunikationsstandard bei Änderungen? (Variante 18)",
+      "options": [
+        "Änderung dokumentieren + Fahrer/Team informieren + Bestätigung",
+        "Nur mündlich an irgendeinen",
+        "Im Gruppenchat ohne Kontext",
+        "Gar nicht informieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Warum sind realistische Zeitfenster wichtig? (Variante 44)",
+      "options": [
+        "Sie reduzieren Stau an Rampen und Wartezeiten",
+        "Sie machen Drucker schneller",
+        "Sie sparen Strom",
+        "Sie ersetzen Zollpapiere"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist ein sinnvoller Status im Warenausgang? (Variante 37)",
+      "options": [
+        "bereit / fehlt / gesperrt / geprüft (einheitlich)",
+        "egal, Hauptsache bunt",
+        "nur 'ok'",
+        "nur 'später'"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist bei Kennzeichen-/Fahrzeugzuordnung im System wichtig? (Variante 65)",
+      "options": [
+        "Eindeutigkeit + zentrale Pflegequelle",
+        "Pro Modul anders",
+        "Nur im Kopf merken",
+        "Nur in Excel ohne Sync"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Info ist bei kritischer Ladung für den Fahrer hilfreich?",
+      "options": [
+        "Gewicht/Schwerpunkt, Hilfsmittel, Sicherungshinweise",
+        "Playlist",
+        "Wetterbericht",
+        "Lieblingsessen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Wodurch entstehen oft Verzögerungen, die Dispo vermeiden kann? (Variante 63)",
+      "options": [
+        "Fehlende Referenzen/Papiere, unklare Hinweise, fehlende Slots",
+        "Radio zu laut",
+        "LKW-Farbe",
+        "Wetter-App"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist bei Kennzeichen-/Fahrzeugzuordnung im System wichtig? (Variante 15)",
+      "options": [
+        "Eindeutigkeit + zentrale Pflegequelle",
+        "Pro Modul anders",
+        "Nur im Kopf merken",
+        "Nur in Excel ohne Sync"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "transport",
+      "question": "Was gehört in eine saubere Tour-/Auftragsnotiz? (Variante 21)",
+      "options": [
+        "Lade-/Entladestelle, Ansprechpartner, Referenzen, Besonderheiten",
+        "Private Infos",
+        "Memes",
+        "Nur 'mach mal'"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Warum sind realistische Zeitfenster wichtig? (Variante 24)",
+      "options": [
+        "Sie reduzieren Stau an Rampen und Wartezeiten",
+        "Sie machen Drucker schneller",
+        "Sie sparen Strom",
+        "Sie ersetzen Zollpapiere"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Welche Info ist bei kritischer Ladung für den Fahrer hilfreich? (Variante 16)",
+      "options": [
+        "Gewicht/Schwerpunkt, Hilfsmittel, Sicherungshinweise",
+        "Playlist",
+        "Wetterbericht",
+        "Lieblingsessen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Was ist bei Kennzeichen-/Fahrzeugzuordnung im System wichtig? (Variante 25)",
+      "options": [
+        "Eindeutigkeit + zentrale Pflegequelle",
+        "Pro Modul anders",
+        "Nur im Kopf merken",
+        "Nur in Excel ohne Sync"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "transport",
+      "question": "Du planst zwei Stopps (z.B. Halle + Containerzone). Was ist korrekt? (Variante 42)",
+      "options": [
+        "Beide Stopps dokumentieren (Reihenfolge/Ort/Hinweise)",
+        "Nur den ersten nennen",
+        "Fahrer soll raten",
+        "Nichts dokumentieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "transport",
+      "question": "Du planst zwei Stopps (z.B. Halle + Containerzone). Was ist korrekt? (Variante 22)",
+      "options": [
+        "Beide Stopps dokumentieren (Reihenfolge/Ort/Hinweise)",
+        "Nur den ersten nennen",
+        "Fahrer soll raten",
+        "Nichts dokumentieren"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    }
+  ]
+}

@@ -1,0 +1,786 @@
+{
+  "generated_at": "2026-01-27T10:55:48.422916Z",
+  "version": "7R-Quizpool-65",
+  "questions": [
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtige Ware, richtige Zeit, aber falsche Entladestelle/Rampe. Welches R ist verletzt? (Variante 12)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtiger Kunde",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist korrekt, aber ohne Referenz/Belege → Entladung verzögert. Welches R trifft am ehesten? (Variante 29)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtige Qualität",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche 2R sind häufig gleichzeitig betroffen, wenn Zollpapiere fehlen und der LKW steht? (Variante 50)",
+      "options": [
+        "Zeitpunkt und Kosten",
+        "Produkt und Menge",
+        "Ort und Kunde",
+        "Qualität und Menge"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche Aussage beschreibt die 7R am besten?",
+      "options": [
+        "Richtiges Produkt, Menge, Qualität, Zeitpunkt, Ort, Kunde, Kosten",
+        "Nur Kosten und Zeit",
+        "Nur Lager und Transport",
+        "Nur IT und Excel"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Express gebucht ohne Notwendigkeit. Welches R ist verletzt? (Variante 26)",
+      "options": [
+        "Richtige Kosten",
+        "Richtiger Zeitpunkt",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtiges Produkt, aber doppelte Stückzahl. Welches R ist verletzt? (Variante 13)",
+      "options": [
+        "Richtige Menge",
+        "Richtiger Zeitpunkt",
+        "Richtige Kosten",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein LKW liefert korrektes Produkt, aber 1 Tag zu spät. Welches R ist verletzt?",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist komplett, aber steht im falschen Lagerbereich bereit. Welches R ist betroffen? (Variante 48)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Express gebucht ohne Notwendigkeit. Welches R ist verletzt? (Variante 46)",
+      "options": [
+        "Richtige Kosten",
+        "Richtiger Zeitpunkt",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtiges Produkt, aber doppelte Stückzahl. Welches R ist verletzt? (Variante 43)",
+      "options": [
+        "Richtige Menge",
+        "Richtiger Zeitpunkt",
+        "Richtige Kosten",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtige Ware, richtige Zeit, aber falsche Entladestelle/Rampe. Welches R ist verletzt?",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtiger Kunde",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein LKW liefert korrektes Produkt, aber 1 Tag zu spät. Welches R ist verletzt? (Variante 61)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Lieferung an falschen Empfänger (gleiche Adresse). Welches R ist verletzt? (Variante 25)",
+      "options": [
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtige Ware, richtige Zeit, aber falsche Entladestelle/Rampe. Welches R ist verletzt? (Variante 52)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtiger Kunde",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist komplett, aber steht im falschen Lagerbereich bereit. Welches R ist betroffen? (Variante 38)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein LKW liefert korrektes Produkt, aber 1 Tag zu spät. Welches R ist verletzt? (Variante 41)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ware kommt beschädigt an. Welches R ist verletzt? (Variante 24)",
+      "options": [
+        "Richtige Qualität/Zustand",
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Kosten"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Lieferung an falschen Empfänger (gleiche Adresse). Welches R ist verletzt? (Variante 15)",
+      "options": [
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Lieferung an falschen Empfänger (gleiche Adresse). Welches R ist verletzt? (Variante 65)",
+      "options": [
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Express gebucht ohne Notwendigkeit. Welches R ist verletzt?",
+      "options": [
+        "Richtige Kosten",
+        "Richtiger Zeitpunkt",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche Aussage beschreibt die 7R am besten? (Variante 57)",
+      "options": [
+        "Richtiges Produkt, Menge, Qualität, Zeitpunkt, Ort, Kunde, Kosten",
+        "Nur Kosten und Zeit",
+        "Nur Lager und Transport",
+        "Nur IT und Excel"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Lieferung an falschen Empfänger (gleiche Adresse). Welches R ist verletzt? (Variante 45)",
+      "options": [
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Lieferung an falschen Empfänger (gleiche Adresse). Welches R ist verletzt?",
+      "options": [
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist korrekt, aber ohne Referenz/Belege → Entladung verzögert. Welches R trifft am ehesten? (Variante 59)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtige Qualität",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Express gebucht ohne Notwendigkeit. Welches R ist verletzt? (Variante 16)",
+      "options": [
+        "Richtige Kosten",
+        "Richtiger Zeitpunkt",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist korrekt, aber ohne Referenz/Belege → Entladung verzögert. Welches R trifft am ehesten? (Variante 19)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtige Qualität",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ware kommt beschädigt an. Welches R ist verletzt? (Variante 44)",
+      "options": [
+        "Richtige Qualität/Zustand",
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Kosten"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche Aussage beschreibt die 7R am besten? (Variante 37)",
+      "options": [
+        "Richtiges Produkt, Menge, Qualität, Zeitpunkt, Ort, Kunde, Kosten",
+        "Nur Kosten und Zeit",
+        "Nur Lager und Transport",
+        "Nur IT und Excel"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist korrekt, aber ohne Referenz/Belege → Entladung verzögert. Welches R trifft am ehesten? (Variante 49)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtige Qualität",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtiges Produkt, aber doppelte Stückzahl. Welches R ist verletzt? (Variante 33)",
+      "options": [
+        "Richtige Menge",
+        "Richtiger Zeitpunkt",
+        "Richtige Kosten",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche Aussage beschreibt die 7R am besten? (Variante 47)",
+      "options": [
+        "Richtiges Produkt, Menge, Qualität, Zeitpunkt, Ort, Kunde, Kosten",
+        "Nur Kosten und Zeit",
+        "Nur Lager und Transport",
+        "Nur IT und Excel"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist korrekt, aber ohne Referenz/Belege → Entladung verzögert. Welches R trifft am ehesten?",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtige Qualität",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche 2R sind häufig gleichzeitig betroffen, wenn Zollpapiere fehlen und der LKW steht? (Variante 40)",
+      "options": [
+        "Zeitpunkt und Kosten",
+        "Produkt und Menge",
+        "Ort und Kunde",
+        "Qualität und Menge"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtige Ware, richtige Zeit, aber falsche Entladestelle/Rampe. Welches R ist verletzt? (Variante 32)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtiger Kunde",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ware kommt beschädigt an. Welches R ist verletzt? (Variante 64)",
+      "options": [
+        "Richtige Qualität/Zustand",
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Kosten"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche 2R sind häufig gleichzeitig betroffen, wenn Zollpapiere fehlen und der LKW steht? (Variante 60)",
+      "options": [
+        "Zeitpunkt und Kosten",
+        "Produkt und Menge",
+        "Ort und Kunde",
+        "Qualität und Menge"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ware kommt beschädigt an. Welches R ist verletzt? (Variante 54)",
+      "options": [
+        "Richtige Qualität/Zustand",
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Kosten"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche 2R sind häufig gleichzeitig betroffen, wenn Zollpapiere fehlen und der LKW steht? (Variante 30)",
+      "options": [
+        "Zeitpunkt und Kosten",
+        "Produkt und Menge",
+        "Ort und Kunde",
+        "Qualität und Menge"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist komplett, aber steht im falschen Lagerbereich bereit. Welches R ist betroffen?",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtige Ware, richtige Zeit, aber falsche Entladestelle/Rampe. Welches R ist verletzt? (Variante 22)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtiger Kunde",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein LKW liefert korrektes Produkt, aber 1 Tag zu spät. Welches R ist verletzt? (Variante 21)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ware kommt beschädigt an. Welches R ist verletzt? (Variante 34)",
+      "options": [
+        "Richtige Qualität/Zustand",
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Kosten"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtiges Produkt, aber doppelte Stückzahl. Welches R ist verletzt? (Variante 63)",
+      "options": [
+        "Richtige Menge",
+        "Richtiger Zeitpunkt",
+        "Richtige Kosten",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtiges Produkt, aber doppelte Stückzahl. Welches R ist verletzt?",
+      "options": [
+        "Richtige Menge",
+        "Richtiger Zeitpunkt",
+        "Richtige Kosten",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein LKW liefert korrektes Produkt, aber 1 Tag zu spät. Welches R ist verletzt? (Variante 31)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist komplett, aber steht im falschen Lagerbereich bereit. Welches R ist betroffen? (Variante 18)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtiges Produkt, aber doppelte Stückzahl. Welches R ist verletzt? (Variante 23)",
+      "options": [
+        "Richtige Menge",
+        "Richtiger Zeitpunkt",
+        "Richtige Kosten",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist komplett, aber steht im falschen Lagerbereich bereit. Welches R ist betroffen? (Variante 28)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ware kommt beschädigt an. Welches R ist verletzt?",
+      "options": [
+        "Richtige Qualität/Zustand",
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Kosten"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche 2R sind häufig gleichzeitig betroffen, wenn Zollpapiere fehlen und der LKW steht?",
+      "options": [
+        "Zeitpunkt und Kosten",
+        "Produkt und Menge",
+        "Ort und Kunde",
+        "Qualität und Menge"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche 2R sind häufig gleichzeitig betroffen, wenn Zollpapiere fehlen und der LKW steht? (Variante 20)",
+      "options": [
+        "Zeitpunkt und Kosten",
+        "Produkt und Menge",
+        "Ort und Kunde",
+        "Qualität und Menge"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtige Ware, richtige Zeit, aber falsche Entladestelle/Rampe. Welches R ist verletzt? (Variante 42)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtiger Kunde",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist komplett, aber steht im falschen Lagerbereich bereit. Welches R ist betroffen? (Variante 58)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein Auftrag ist korrekt, aber ohne Referenz/Belege → Entladung verzögert. Welches R trifft am ehesten? (Variante 39)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtige Qualität",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ware kommt beschädigt an. Welches R ist verletzt? (Variante 14)",
+      "options": [
+        "Richtige Qualität/Zustand",
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Kosten"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Express gebucht ohne Notwendigkeit. Welches R ist verletzt? (Variante 36)",
+      "options": [
+        "Richtige Kosten",
+        "Richtiger Zeitpunkt",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtiges Produkt, aber doppelte Stückzahl. Welches R ist verletzt? (Variante 53)",
+      "options": [
+        "Richtige Menge",
+        "Richtiger Zeitpunkt",
+        "Richtige Kosten",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Lieferung an falschen Empfänger (gleiche Adresse). Welches R ist verletzt? (Variante 55)",
+      "options": [
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein LKW liefert korrektes Produkt, aber 1 Tag zu spät. Welches R ist verletzt? (Variante 11)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Express gebucht ohne Notwendigkeit. Welches R ist verletzt? (Variante 56)",
+      "options": [
+        "Richtige Kosten",
+        "Richtiger Zeitpunkt",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Ein LKW liefert korrektes Produkt, aber 1 Tag zu spät. Welches R ist verletzt? (Variante 51)",
+      "options": [
+        "Richtiger Zeitpunkt",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiger Kunde"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche Aussage beschreibt die 7R am besten? (Variante 17)",
+      "options": [
+        "Richtiges Produkt, Menge, Qualität, Zeitpunkt, Ort, Kunde, Kosten",
+        "Nur Kosten und Zeit",
+        "Nur Lager und Transport",
+        "Nur IT und Excel"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Richtige Ware, richtige Zeit, aber falsche Entladestelle/Rampe. Welches R ist verletzt? (Variante 62)",
+      "options": [
+        "Richtiger Ort",
+        "Richtige Kosten",
+        "Richtiger Kunde",
+        "Richtige Qualität"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Welche Aussage beschreibt die 7R am besten? (Variante 27)",
+      "options": [
+        "Richtiges Produkt, Menge, Qualität, Zeitpunkt, Ort, Kunde, Kosten",
+        "Nur Kosten und Zeit",
+        "Nur Lager und Transport",
+        "Nur IT und Excel"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "logistik_7r",
+      "question": "Lieferung an falschen Empfänger (gleiche Adresse). Welches R ist verletzt? (Variante 35)",
+      "options": [
+        "Richtiger Kunde",
+        "Richtiger Ort",
+        "Richtige Menge",
+        "Richtiges Produkt"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    }
+  ]
+}

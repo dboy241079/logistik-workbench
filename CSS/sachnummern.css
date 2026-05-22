@@ -1,0 +1,232 @@
+    :root{
+  --sach-bg: #f8f9fa;
+  --sach-card: #fff;
+  --sach-border: #e5e7eb;
+}
+
+/* Seite eindeutig scopen */
+body.stammdaten-page{
+  padding:16px;
+  background: var(--sach-bg);
+}
+
+/* Footer */
+body.stammdaten-page .app-footer{
+  margin-top:1rem;
+  padding-top:.75rem;
+  border-top:1px solid #dee2e6;
+  color:#6c757d;
+  font-size:.875rem;
+}
+
+/* Accordion nur in Sachnummern */
+body.stammdaten-page #accSach .accordion-item{
+  border:1px solid var(--sach-border);
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:.55rem;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+  background:var(--sach-card);
+}
+
+body.stammdaten-page #accSach .accordion-button{
+  font-weight:600;
+  padding:.8rem 1rem;
+  background:#fff;
+  transition:background-color .18s ease,color .18s ease;
+}
+
+body.stammdaten-page #accSach .accordion-button:not(.collapsed){
+  background:#f8fafc;
+  color:#0f172a;
+}
+
+body.stammdaten-page #accSach .accordion-button:focus{
+  box-shadow:0 0 0 .2rem rgba(13,110,253,.15);
+}
+
+body.stammdaten-page #accSach .accordion-collapse{
+  overflow:hidden;
+}
+
+body.stammdaten-page #accSach .accordion-collapse.collapsing{
+  transition:height 320ms cubic-bezier(.22,1,.36,1) !important;
+  will-change:height;
+}
+
+body.stammdaten-page #accSach .accordion-body>.list-group{
+  opacity:0;
+  transform:translateY(-4px);
+  transition:opacity .18s ease, transform .18s ease;
+}
+
+body.stammdaten-page #accSach .accordion-collapse.show .accordion-body>.list-group{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce){
+  body.stammdaten-page #accSach .accordion-collapse.collapsing,
+  body.stammdaten-page #accSach .accordion-body>.list-group{
+    transition:none !important;
+  }
+}
+
+/* Print */
+@media print{
+  @page{ size:A4 portrait; margin:10mm; }
+
+  body.stammdaten-page{
+    padding:0 !important;
+    background:#fff !important;
+  }
+
+  #btnPrintSach,#btnExcelSach,#btnExcelAllSach,
+  #btnNewSach,#btnNewBeh,#btnNewSped,#btnNewCust,
+  #searchSach,#searchBeh,#searchSped,#searchCust,
+  #stammTabs,.modal,.modal-backdrop,.app-footer{
+    display:none !important;
+  }
+
+  .tab-pane{ display:none !important; }
+  #tabSach{ display:block !important; opacity:1 !important; }
+
+  #tabSach .accordion-collapse{
+    display:block !important;
+    height:auto !important;
+    visibility:visible !important;
+  }
+
+  #tabSach .accordion-item{
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+
+  #tabSach .accordion-item + .accordion-item{
+    break-before:page;
+    page-break-before:always;
+  }
+}
+
+    
+    
+    body { background: #f8f9fa; }
+    .table-fixed thead th { position: sticky; top: 0; background: #fff; z-index: 1; }
+
+    @media print {
+      @page { size: A4 portrait; margin: 10mm; }
+
+      body { padding: 0 !important; background: #fff !important; }
+
+      /* UI ausblenden */
+      #btnPrintSach, #btnExcelSach, #btnExcelAllSach,
+      #btnNewSach, #btnNewBeh, #btnNewSped, #btnNewCust,
+      #searchSach, #searchBeh, #searchSped, #searchCust,
+      #stammTabs, .modal, .modal-backdrop {
+        display: none !important;
+      }
+
+      /* Nur Sachnummern-Tab drucken */
+      .tab-pane { display: none !important; }
+      #tabSach { display: block !important; opacity: 1 !important; }
+
+      /* Alle Accordion-Inhalte sichtbar */
+      #tabSach .accordion-collapse {
+        display: block !important;
+        height: auto !important;
+        visibility: visible !important;
+      }
+
+      /* Pro Lagergruppe neue Seite */
+      #tabSach .accordion-item {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      #tabSach .accordion-item + .accordion-item {
+        break-before: page;
+        page-break-before: always;
+      }
+    }
+    .app-footer {
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid #dee2e6;
+  color: #6c757d;
+  font-size: .875rem;
+}
+
+@media print {
+  .app-footer { display: none !important; }
+}
+
+/* ===== Smooth Accordion (Sachnummern) ===== */
+#accSach .accordion-item{
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: .55rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  background: #fff;
+}
+
+#accSach .accordion-button{
+  font-weight: 600;
+  padding: .8rem 1rem;
+  background: #fff;
+  transition: background-color .18s ease, color .18s ease;
+}
+
+#accSach .accordion-button:not(.collapsed){
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+#accSach .accordion-button:focus{
+  box-shadow: 0 0 0 .2rem rgba(13,110,253,.15);
+}
+
+/* Wichtig für weiche Height-Animation */
+#accSach .accordion-collapse{
+  overflow: hidden;
+}
+
+#accSach .accordion-collapse.collapsing{
+  transition: height 320ms cubic-bezier(.22,1,.36,1) !important;
+  will-change: height;
+}
+
+/* Inhalt leicht "einfaden" */
+#accSach .accordion-body > .list-group{
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+#accSach .accordion-collapse.show .accordion-body > .list-group{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Während Animation Effekte reduzieren (weniger Repaint) */
+#accSach .accordion-item.is-animating{
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  #accSach .accordion-collapse.collapsing,
+  #accSach .accordion-body > .list-group{
+    transition: none !important;
+  }
+}
+
+
+/* Verhindert horizontales Springen, wenn Scrollbar ein-/ausblendet */
+html {
+  scrollbar-gutter: stable both-edges;
+}
+
+/* Fallback für ältere Browser */
+@supports not (scrollbar-gutter: stable) {
+  html { overflow-y: scroll; } /* Scrollbar-Platz immer reservieren */
+}
+.acc-wrap { overflow: visible; }

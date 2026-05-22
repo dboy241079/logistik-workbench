@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lagerplan Halle 3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-200 flex items-center justify-center p-4">
+<!-- W1 – Reihen 16–19: links 19/18, Straße, rechts 17/16 -->
+<section id="w1-block-16-19"
+         class="w1-block flex h-full gap-2 text-[10px] leading-tight">
+
+  <!-- Reihe 19 (ganz links) -->
+  <div class="zone lager-reihe flex-1 flex flex-col border border-slate-600 bg-yellow-100"
+       data-zone="W1-F19"
+       data-row="19">
+    <!-- oben 26–60 -->
+    <div class="flex-1 flex items-center justify-center text-center border-b border-slate-400"
+         data-range="26-60">
+      W1-F19-26 – W1-F19-60
+    </div>
+    <!-- Quer-Straße innerhalb der Reihe (optional) -->
+    <div class="quer-strasse h-4 bg-slate-300/80 text-[8px]
+                flex items-center justify-center border-b border-slate-400">
+      Stapler-Straße
+    </div>
+    <!-- unten 01–25 -->
+    <div class="flex-1 flex items-center justify-center text-center"
+         data-range="01-25">
+      W1-F19-01 – W1-F19-25
+    </div>
+  </div>
+
+  <!-- Reihe 18 -->
+  <div class="zone lager-reihe flex-1 flex flex-col border border-slate-600 bg-yellow-100"
+       data-zone="W1-F18"
+       data-row="18">
+    <div class="flex-1 flex items-center justify-center text-center border-b border-slate-400"
+         data-range="26-60">
+      W1-F18-26 – W1-F18-60
+    </div>
+    <div class="quer-strasse h-4 bg-slate-300/80 text-[8px]
+                flex items-center justify-center border-b border-slate-400">
+      Stapler-Straße
+    </div>
+    <div class="flex-1 flex items-center justify-center text-center"
+         data-range="01-25">
+      W1-F18-01 – W1-F18-25
+    </div>
+  </div>
+
+  <!-- mittlere Staplerstraße zwischen 18 und 17 -->
+  <div class="stapler-strasse stapler-strasse-v w-6 border border-slate-700
+              bg-slate-300/80 flex items-center justify-center text-[9px] text-center"
+       data-zone="STR-W1-18-17">
+    Stapler-<br>straße
+  </div>
+
+  <!-- Reihe 17 -->
+  <div class="zone lager-reihe flex-1 flex flex-col border border-slate-600 bg-yellow-100"
+       data-zone="W1-F17"
+       data-row="17">
+    <div class="flex-1 flex items-center justify-center text-center border-b border-slate-400"
+         data-range="26-60">
+      W1-F17-26 – W1-F17-60
+    </div>
+    <div class="quer-strasse h-4 bg-slate-300/80 text-[8px]
+                flex items-center justify-center border-b border-slate-400">
+      Stapler-Straße
+    </div>
+    <div class="flex-1 flex items-center justify-center text-center"
+         data-range="01-25">
+      W1-F17-01 – W1-F17-25
+    </div>
+  </div>
+
+  <!-- Reihe 16 (ganz rechts) – mit einzelnen Plätzen -->
+<div class="zone lager-reihe flex-1 flex flex-col border border-slate-600 bg-yellow-100"
+     data-zone="W1-F16"
+     data-row="16">
+
+  <!-- oberer Teil: Plätze 26–60 -->
+  <div class="flex-1 flex flex-col border-b border-slate-400">
+    <div class="platz-container flex-1 flex flex-col gap-[2px] p-1 overflow-y-auto"
+         data-row="16"
+         data-range-start="26"
+         data-range-end="60">
+      <!-- JS füllt hier die Kästen für P26–P60 ein -->
+    </div>
+  </div>
+
+  <!-- Quer-Straße in der Reihe -->
+  <div class="quer-strasse h-4 bg-slate-300/80 text-[8px]
+              flex items-center justify-center border-b border-slate-400">
+    Stapler-Straße
+  </div>
+
+  <!-- unterer Teil: Plätze 01–25 -->
+  <div class="flex-1 flex flex-col">
+    <div class="platz-container flex-1 flex flex-col gap-[2px] p-1 overflow-y-auto"
+         data-row="16"
+         data-range-start="1"
+         data-range-end="25">
+      <!-- JS füllt hier die Kästen für P01–P25 ein -->
+    </div>
+  </div>
+</div>
+
+
+</section>
+
+
+
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="halle3.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+    .hidden {
+      display: none !important;
+    }
+
+    /* Bootstrap-Style für die Admin-Kacheln */
+    .tile-card {
+      border-radius: 1rem;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+      padding: 1.1rem 1.2rem;
+      transition: all 150ms ease-in-out;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .tile-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+      border-color: #0d6efd;
+    }
+
+    .tile-card.tile-active {
+      border-color: #0d6efd;
+      box-shadow:
+        0 0 0 1px rgba(13, 110, 253, 0.18),
+        0 12px 30px rgba(13, 110, 253, 0.30);
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .tile-icon {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0d6efd, #4dabff);
+      color: #ffffff;
+      font-size: 1.3rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .tile-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.15rem;
+    }
+
+    .tile-text {
+      font-size: 0.78rem;
+      color: #6b7280;
+      margin-bottom: 0.4rem;
+    }
+
+    .tile-badge {
+      font-size: 0.68rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .tile-badge i {
+      font-size: 0.75rem;
+    }
+
+    /* =========================
+   Admin: Left Nav + Right Content
+   ========================= */
+.admin-page{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.admin-shell{
+  display: flex;
+  gap: 1rem;
+  flex: 1 1 auto;
+  min-height: 0;          /* wichtig für overflow in flex-child */
+}
+
+/* linke Spalte */
+.admin-sidebar{
+  flex: 0 0 260px;
+  max-width: 260px;
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: .25rem;
+}
+
+/* rechte Spalte */
+.admin-content{
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: .25rem;
+}
+
+/* Tiles als kompakte "Nav"-Kacheln */
+.tile-card.compact{
+  padding: .65rem .75rem;
+  border-radius: .9rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  display: flex;
+  gap: .65rem;
+  align-items: flex-start;
+}
+.tile-card.compact:hover{
+  transform: none; /* Nav soll ruhig bleiben */
+}
+.tile-card.compact .tile-icon{
+  width: 2.0rem;
+  height: 2.0rem;
+  font-size: 1.05rem;
+  margin-bottom: 0;
+  flex: 0 0 auto;
+}
+.tile-card.compact .tile-title{
+  font-size: .9rem;
+  margin-bottom: .1rem;
+}
+.tile-card.compact .tile-text{
+  font-size: .72rem;
+  margin-bottom: .15rem;
+}
+.tile-card.compact .tile-badge{
+  font-size: .62rem;
+  padding: .12rem .45rem;
+}
+.tile-card.compact .tile-meta{
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+/* Mobile: wieder untereinander wie vorher */
+@media (max-width: 767.98px){
+  .admin-page{ min-height: auto; }
+  .admin-shell{ flex-direction: column; min-height: auto; }
+  .admin-sidebar, .admin-content{ overflow: visible; }
+  .admin-sidebar{ max-width: none; }
+}
+
+.tile-card.compact.tile-active { transform: none; }

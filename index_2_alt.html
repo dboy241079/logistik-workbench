@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Touren-Übersicht – Woche (Mo–Fr)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>Touren-Übersicht – Woche (Mo–Fr)</h1>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="uebersicht">Übersicht</button>
+    <button class="tab-btn" data-tab="fahrzeug1">Fahrzeug 1</button>
+    <button class="tab-btn" data-tab="fahrzeug2">Fahrzeug 2</button>
+    <button class="tab-btn" data-tab="fahrzeug3">Fahrzeug 3</button>
+    <button class="tab-btn" data-tab="wochensicht">Wochensicht</button>
+  </nav>
+</header>
+
+<main>
+  <section id="uebersicht" class="tab active">
+    <div class="card">
+      <h2>Gesamtübersicht – alle Fahrzeuge</h2>
+      <p class="hint" title="Regeln: Arbeitszeit 06:00–20:00. Tägliche Lenkzeit: max. 9h (2× pro Woche bis 10h). Nach 4:30 Lenkzeit mind. 45 Min Pause.">
+        Regelhinweis: 06:00–20:00 · 9h/10h · 4:30 → 45&nbsp;Min
+      </p>
+      <div class="toolbar">
+        <button id="exportJson">Export JSON</button>
+        <button id="importJsonBtn">Import JSON</button>
+        <input type="file" id="importFile" accept="application/json" style="display:none" />
+        <button id="printBtn">Drucken</button>
+        <button id="resetWeek">Woche leeren</button>
+      </div>
+      <div id="overviewTableWrap"></div>
+      <div class="total">
+        Gesamtsumme Netto (Woche): <span id="totalNetAll">0:00</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="fahrzeug1" class="tab">
+    <div class="card">
+      <h2>Fahrzeug 1 – Wochenraster (4 Touren/Tag)</h2>
+      <div id="veh1Wrap"></div>
+    </div>
+  </section>
+
+  <section id="fahrzeug2" class="tab">
+    <div class="card">
+      <h2>Fahrzeug 2 – Wochenraster (4 Touren/Tag)</h2>
+      <div id="veh2Wrap"></div>
+    </div>
+  </section>
+
+  <section id="fahrzeug3" class="tab">
+    <div class="card">
+      <h2>Fahrzeug 3 – Wochenraster (4 Touren/Tag)</h2>
+      <div id="veh3Wrap"></div>
+    </div>
+  </section>
+
+  <section id="wochensicht" class="tab">
+    <div class="card">
+      <h2>Wochensicht – Summe pro Tag & Fahrzeug</h2>
+      <div id="weekWrap"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <small>© Tourenplanung – Demo ohne externe Bibliotheken. Daten werden lokal im Browser gespeichert.</small>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

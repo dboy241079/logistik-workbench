@@ -1,0 +1,277 @@
+/* drivers.css — friendly Bootstrap-tuned styles for the Fahrer tab */
+:root{
+  --brand:#0ea5e9;
+  /* --ink:#0f172a; */
+  --muted:#64748b;
+  --soft:#f1f5f9;
+  --card:#ffffff;
+  --ring:#bae6fd;
+}
+/* Full-width layout auf Desktop */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+main, 
+.container {
+  max-width: 100% !important;
+  width: 100% !important;
+  /* padding-left: 1rem;
+  padding-right: 1rem; */
+}
+
+/* Card look inside the Drivers tab */
+#drivers .card{
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 6px 24px rgba(2,6,23,.06);
+  border-radius: 16px;
+}
+#drivers h5, #drivers h6{ color: var(--ink); }
+#drivers .small-note{ color: var(--muted); }
+#drivers .badge.bg-success{ background-color:#dcfce7 !important; color:#166534; }
+#drivers .badge.bg-danger{ background-color:#fee2e2 !important; color:#991b1b; }
+#drivers .nav-pills .nav-link{
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  margin-right: .25rem;
+}
+#drivers .nav-pills .nav-link.active{
+  background: #ffffff;
+  color: var(--brand);
+  box-shadow: 0 1px 4px rgba(2,6,23,.1);
+  border: 1px solid var(--ring);
+}
+#drivers table{
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+}
+#drivers thead th{
+  background: var(--soft);
+  text-transform: uppercase;
+  font-size:.75rem;
+  letter-spacing:.02em;
+  color: var(--muted);
+}
+#drivers tbody tr.table-info{ background: #fff7ed; } /* today highlight */
+#drivers input[type="time"], #drivers input[type="date"], #drivers input[type="number"]{
+  max-width: 11rem;
+}
+#drivers textarea{ min-height: 36px; }
+#drvBtnReset{ border-radius: 999px; }
+
+.input-group>.form-control,
+.input-group>.form-floating,
+.input-group>.form-select {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100% !important;
+    min-width: 100px; 
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
+}
+/* ===================== Responsive Prep (Tablet & Phone) ===================== */
+/* Gemeinsame Verbesserungen fürs horizontale Scrollen */
+#drivers .table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  scrollbar-gutter: stable both-edges; /* moderne Browser: vermeidet Layout-Sprung */
+}
+
+/* Tablet (<= 1200px): etwas kleinere Mindestbreite, bleibt horizontal scrollbar */
+@media (max-width: 1200px) {
+  #drivers table { min-width: 1500px; } /* vorher 1600px – kannst du anpassen */
+  /* Kompaktere Form-Controls */
+  #drivers input.form-control-sm,
+  #drivers select.form-select-sm,
+  #drivers textarea.form-control-sm {
+    font-size: .85rem;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+  }
+}
+
+/* Phone (<= 768px): noch kompakter, Scroll fix + bessere Touch-Bedienung */
+@media (max-width: 768px) {
+  #drivers table { min-width: 1300px; } /* passt die Breite für Phones an */
+  /* Optional: Zeilenabstand leicht verringern */
+  #drivers .table > :not(caption) > * > * { padding: .4rem .5rem; }
+
+  /* Hinweis/Warum etwas niedriger, aber weiter mehrzeilig */
+  #drivers td textarea { min-height: 32px; }
+
+  /* Input-Group: auf Phones lieber „starr“ in einer Zeile lassen,
+     damit der Nutzer horizontal scrollt statt dass die Gruppe umbrecht. */
+  .input-group { flex-wrap: nowrap; }
+  .input-group > .form-control,
+  .input-group > .form-select {
+    width: 100% !important;       /* deine Desktop-Entscheidung – hier beibehalten */
+    min-width: 100px !important;  /* verhindert zu kleine Touch-Ziele */
+  }
+}
+
+/* (Optional) Sticky erste Spalten für bessere Orientierung beim Scrollen
+   – AUSKOMMENTIERT lassen, bis du es willst.
+#drivers th:nth-child(1), #drivers td:nth-child(1),
+#drivers th:nth-child(2), #drivers td:nth-child(2) {
+  position: sticky;
+  left: 0;
+  background: var(--card);
+  z-index: 2;
+  box-shadow: 1px 0 0 rgba(0,0,0,.05);
+}
+*/
+/* Sticky Tages- und Wochensummen in der Übersicht */
+#drvOverviewWrap table tbody tr.table-secondary,  /* Tagesheader */
+#drvOverviewWrap table tbody tr.table-light,     /* Tagessumme */
+#drvOverviewWrap table tbody tr.table-warning {  /* Wochensumme */
+  position: sticky;
+  left: 0;  /* für horizontal scrollen fixieren */
+  z-index: 5;
+}
+
+/* Hintergrund fixieren, damit Text nicht durchscheint */
+#drvOverviewWrap table tbody tr.table-secondary td,
+#drvOverviewWrap table tbody tr.table-light td,
+#drvOverviewWrap table tbody tr.table-warning td {
+  background-color: inherit; /* nutzt die Bootstrap-Farbe */
+}
+/* Übersicht: Styles für Fahrer-Abschnitte */
+#drvOverviewWrap table tbody tr.ov-day-header    { /* Tages-Kopfzeile (bereits sticky in deiner CSS) */ }
+#drvOverviewWrap table tbody tr.ov-veh-header    { /* dezente Fahrer/Fzg-Überschrift */ }
+#drvOverviewWrap table tbody tr.ov-veh-sum       { /* Fahrer-Summe */ }
+#drvOverviewWrap table tbody tr.ov-day-sum       { /* Tages-Summe (bereits sticky) */ }
+#drvOverviewWrap table tbody tr.ov-week-sum      { /* Wochen-Summe (bereits sticky) */ }
+
+/* etwas mehr Kontrast/Abstand */
+#drvOverviewWrap table tbody tr.ov-veh-header td {
+  color: var(--muted);
+  font-weight: 600;
+  border-top: 2px solid rgba(2,6,23,.06);
+}
+#drvOverviewWrap table tbody tr.ov-veh-sum td {
+  border-top: 1px dashed rgba(2,6,23,.15);
+}
+
+/* Optional: auch Fahrer-Summen beim Horizontal-Scroll „ankleben“ */
+#drvOverviewWrap table tbody tr.ov-veh-sum {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+}
+
+/* Hintergrundfarben respektieren (wenn sticky) */
+#drvOverviewWrap table tbody tr.ov-veh-header td,
+#drvOverviewWrap table tbody tr.ov-veh-sum td {
+  background-color: inherit;
+}
+
+/* Kopfzeilen-Gruppen für Wunstorf/Hannover */
+#drivers th.table-primary {
+  background-color: #dbeafe !important; /* hellblau */
+  color: #1e3a8a !important;
+}
+#drivers th.table-success {
+  background-color: #dcfce7 !important; /* hellgrün */
+  color: #166534 !important;
+}
+/* Kopfzeilen-Gruppenfarben */
+#drvOverviewWrap th.table-primary {
+  background-color: #dbeafe !important;
+  color: #1e3a8a !important;
+}
+#drvOverviewWrap th.table-success {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+/* Zweizeilige thead – gleiche Optik auf beiden Zeilen */
+#drivers thead tr:first-child th,
+#drvOverviewWrap thead tr:first-child th {
+  border-bottom-width: 0; /* optisch ein Block */
+}
+
+/* Sticky-Zeilen mit sanftem Schatten, damit sie sich abheben */
+#drvOverviewWrap tbody tr.ov-day-header,
+#drvOverviewWrap tbody tr.ov-day-sum,
+#drvOverviewWrap tbody tr.ov-week-sum,
+#drvOverviewWrap tbody tr.ov-veh-sum {
+  box-shadow: 2px 0 0 rgba(0,0,0,.04);
+}
+
+/* Block-Header-Farben auch im Detail-Tab (Wunstorf/Hannover) */
+#drivers th.table-primary { background-color:#dbeafe !important; color:#1e3a8a !important; }
+#drivers th.table-success { background-color:#dcfce7 !important; color:#166534 !important; }
+
+/* KPI-Badges oben rechts in der Übersicht */
+#drvOverviewWrap .ov-kpis .badge {
+  font-weight: 600;
+  letter-spacing: .01em;
+  padding: .5rem .75rem;
+  color: black;
+}
+
+/* Übersicht – Wunstorf-Spalten = 6–8 */
+#drvOverviewWrap tbody td:nth-child(6),
+#drvOverviewWrap tbody td:nth-child(7),
+#drvOverviewWrap tbody td:nth-child(8) {
+  background: rgba(30, 64, 175, 0.06); /* helles Blau */
+}
+
+/* Übersicht – Hannover-Spalten = 9–11 */
+#drvOverviewWrap tbody td:nth-child(9),
+#drvOverviewWrap tbody td:nth-child(10),
+#drvOverviewWrap tbody td:nth-child(11) {
+  background: rgba(22, 101, 52, 0.08); /* helles Grün */
+}
+/* Fahrzeug-Tabellen – Wunstorf-Spalten = 5–7 */
+#drivers tbody td:nth-child(5),
+#drivers tbody td:nth-child(6),
+#drivers tbody td:nth-child(7) {
+  background: rgba(30, 64, 175, 0.06); /* helles Blau */
+}
+
+/* Fahrzeug-Tabellen – Hannover-Spalten = 8–10 */
+#drivers tbody td:nth-child(8),
+#drivers tbody td:nth-child(9),
+#drivers tbody td:nth-child(10) {
+  background: rgba(22, 101, 52, 0.08); /* helles Grün */
+}
+/* Übersicht: Zellen einfärben über Klassen (robust) */
+#drvOverviewWrap td.wu { background: rgba(30, 64, 175, 0.06); }   /* Wunstorf */
+#drvOverviewWrap td.han{ background: rgba(22, 101, 52, 0.08); }   /* Hannover */
+
+/* (optional) Dauer-Zellen minimal hervorheben */
+#drvOverviewWrap td.wu-dur,
+#drvOverviewWrap td.han-dur { /* z.B. fett oder andere Feinheiten */
+  /* font-weight: 600; */
+}
+/* Warnhinweis blinken lassen */
+.blink-danger {
+  color: #dc3545;                 /* Bootstrap danger */
+  animation: blink 0.9s steps(2, start) infinite;
+  font-weight: 700;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.table-success th:nth-child(10),
+.table-success td:nth-child(10),
+.table-success th:nth-child(11),
+.table-success td:nth-child(11),
+.table-success th:nth-child(12),
+.table-success td:nth-child(12) {
+  background-color: #e9f7ef !important;
+}
+

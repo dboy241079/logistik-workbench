@@ -1,0 +1,786 @@
+{
+  "generated_at": "2026-01-27T10:55:48.417409Z",
+  "version": "Datenschutz-Quizpool-65",
+  "questions": [
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Datenminimierung? (Variante 31)",
+      "options": [
+        "Nur notwendige Daten erheben/speichern",
+        "Alles speichern, falls man es mal braucht",
+        "Daten öffentlich teilen",
+        "Daten ohne Zweck sammeln"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist eine typische Reaktion bei Datenpanne (Breach)?",
+      "options": [
+        "Intern melden, Schaden begrenzen, dokumentieren, nach Prozess handeln",
+        "Ignorieren",
+        "Beweise löschen",
+        "In Gruppe posten"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Zweckbindung?",
+      "options": [
+        "Daten nur für den festgelegten Zweck nutzen",
+        "Daten für alles nutzen",
+        "Daten an Freunde geben",
+        "Daten nie löschen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist ein gutes Passwort-Verhalten? (Variante 40)",
+      "options": [
+        "Einzigartige Passwörter + ggf. 2FA + nicht weitergeben",
+        "Überall dasselbe Passwort",
+        "Passwort auf Zettel",
+        "Passwort im Code"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist eine typische Reaktion bei Datenpanne (Breach)? (Variante 55)",
+      "options": [
+        "Intern melden, Schaden begrenzen, dokumentieren, nach Prozess handeln",
+        "Ignorieren",
+        "Beweise löschen",
+        "In Gruppe posten"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Wann sollte man besonders vorsichtig sein mit personenbezogenen Daten? (Variante 19)",
+      "options": [
+        "Beim Teilen, Exportieren, Support-Screenshots und bei externen Empfängern",
+        "Nur bei Regen",
+        "Nur im Büro",
+        "Nur bei Nachtschicht"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist ein gutes Passwort-Verhalten? (Variante 30)",
+      "options": [
+        "Einzigartige Passwörter + ggf. 2FA + nicht weitergeben",
+        "Überall dasselbe Passwort",
+        "Passwort auf Zettel",
+        "Passwort im Code"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Aufbewahrung/Retention' in der Praxis? (Variante 38)",
+      "options": [
+        "Daten nur so lange speichern wie nötig, danach löschen/archivieren",
+        "Daten für immer speichern",
+        "Daten ausdrucken und weglegen",
+        "Daten in WhatsApp sichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist ein gutes Passwort-Verhalten? (Variante 50)",
+      "options": [
+        "Einzigartige Passwörter + ggf. 2FA + nicht weitergeben",
+        "Überall dasselbe Passwort",
+        "Passwort auf Zettel",
+        "Passwort im Code"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Need-to-know'? (Variante 42)",
+      "options": [
+        "Zugriff nur für Personen, die ihn für ihre Aufgabe brauchen",
+        "Jeder darf alles sehen",
+        "Nur Azubis dürfen alles",
+        "Nur externe dürfen sehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist ein gutes Passwort-Verhalten? (Variante 60)",
+      "options": [
+        "Einzigartige Passwörter + ggf. 2FA + nicht weitergeben",
+        "Überall dasselbe Passwort",
+        "Passwort auf Zettel",
+        "Passwort im Code"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist eine typische Reaktion bei Datenpanne (Breach)? (Variante 45)",
+      "options": [
+        "Intern melden, Schaden begrenzen, dokumentieren, nach Prozess handeln",
+        "Ignorieren",
+        "Beweise löschen",
+        "In Gruppe posten"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist bei Exporten/Screenshots kritisch? (Variante 43)",
+      "options": [
+        "Sie können personenbezogene Daten enthalten → Weitergabe/Zugriff steuern",
+        "Sie sind immer harmlos",
+        "Sie ersetzen Backups",
+        "Sie sind automatisch anonym"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist eine typische Reaktion bei Datenpanne (Breach)? (Variante 15)",
+      "options": [
+        "Intern melden, Schaden begrenzen, dokumentieren, nach Prozess handeln",
+        "Ignorieren",
+        "Beweise löschen",
+        "In Gruppe posten"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Need-to-know'? (Variante 52)",
+      "options": [
+        "Zugriff nur für Personen, die ihn für ihre Aufgabe brauchen",
+        "Jeder darf alles sehen",
+        "Nur Azubis dürfen alles",
+        "Nur externe dürfen sehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Need-to-know'? (Variante 22)",
+      "options": [
+        "Zugriff nur für Personen, die ihn für ihre Aufgabe brauchen",
+        "Jeder darf alles sehen",
+        "Nur Azubis dürfen alles",
+        "Nur externe dürfen sehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Wann sollte man besonders vorsichtig sein mit personenbezogenen Daten?",
+      "options": [
+        "Beim Teilen, Exportieren, Support-Screenshots und bei externen Empfängern",
+        "Nur bei Regen",
+        "Nur im Büro",
+        "Nur bei Nachtschicht"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Zweckbindung? (Variante 47)",
+      "options": [
+        "Daten nur für den festgelegten Zweck nutzen",
+        "Daten für alles nutzen",
+        "Daten an Freunde geben",
+        "Daten nie löschen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Wann sollte man besonders vorsichtig sein mit personenbezogenen Daten? (Variante 29)",
+      "options": [
+        "Beim Teilen, Exportieren, Support-Screenshots und bei externen Empfängern",
+        "Nur bei Regen",
+        "Nur im Büro",
+        "Nur bei Nachtschicht"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Zweckbindung? (Variante 57)",
+      "options": [
+        "Daten nur für den festgelegten Zweck nutzen",
+        "Daten für alles nutzen",
+        "Daten an Freunde geben",
+        "Daten nie löschen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist bei Exporten/Screenshots kritisch? (Variante 23)",
+      "options": [
+        "Sie können personenbezogene Daten enthalten → Weitergabe/Zugriff steuern",
+        "Sie sind immer harmlos",
+        "Sie ersetzen Backups",
+        "Sie sind automatisch anonym"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Need-to-know'?",
+      "options": [
+        "Zugriff nur für Personen, die ihn für ihre Aufgabe brauchen",
+        "Jeder darf alles sehen",
+        "Nur Azubis dürfen alles",
+        "Nur externe dürfen sehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist bei Exporten/Screenshots kritisch? (Variante 13)",
+      "options": [
+        "Sie können personenbezogene Daten enthalten → Weitergabe/Zugriff steuern",
+        "Sie sind immer harmlos",
+        "Sie ersetzen Backups",
+        "Sie sind automatisch anonym"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist ein gutes Passwort-Verhalten? (Variante 20)",
+      "options": [
+        "Einzigartige Passwörter + ggf. 2FA + nicht weitergeben",
+        "Überall dasselbe Passwort",
+        "Passwort auf Zettel",
+        "Passwort im Code"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Aufbewahrung/Retention' in der Praxis? (Variante 58)",
+      "options": [
+        "Daten nur so lange speichern wie nötig, danach löschen/archivieren",
+        "Daten für immer speichern",
+        "Daten ausdrucken und weglegen",
+        "Daten in WhatsApp sichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Need-to-know'? (Variante 32)",
+      "options": [
+        "Zugriff nur für Personen, die ihn für ihre Aufgabe brauchen",
+        "Jeder darf alles sehen",
+        "Nur Azubis dürfen alles",
+        "Nur externe dürfen sehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Zweckbindung? (Variante 27)",
+      "options": [
+        "Daten nur für den festgelegten Zweck nutzen",
+        "Daten für alles nutzen",
+        "Daten an Freunde geben",
+        "Daten nie löschen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Welche Maßnahme schützt am besten bei personenbezogenen Daten? (Variante 24)",
+      "options": [
+        "Rollen/Rechte + Logging + sichere Übertragung",
+        "Passwort teilen",
+        "Daten per privatem Messenger senden",
+        "Daten im Klartext in URLs"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Datenminimierung?",
+      "options": [
+        "Nur notwendige Daten erheben/speichern",
+        "Alles speichern, falls man es mal braucht",
+        "Daten öffentlich teilen",
+        "Daten ohne Zweck sammeln"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Need-to-know'? (Variante 12)",
+      "options": [
+        "Zugriff nur für Personen, die ihn für ihre Aufgabe brauchen",
+        "Jeder darf alles sehen",
+        "Nur Azubis dürfen alles",
+        "Nur externe dürfen sehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist bei Exporten/Screenshots kritisch? (Variante 63)",
+      "options": [
+        "Sie können personenbezogene Daten enthalten → Weitergabe/Zugriff steuern",
+        "Sie sind immer harmlos",
+        "Sie ersetzen Backups",
+        "Sie sind automatisch anonym"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was gehört NICHT in Logs?",
+      "options": [
+        "Passwörter oder komplette sensible Inhalte",
+        "Zeitstempel",
+        "User/Rolle",
+        "Aktionstyp"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Wann sollte man besonders vorsichtig sein mit personenbezogenen Daten? (Variante 39)",
+      "options": [
+        "Beim Teilen, Exportieren, Support-Screenshots und bei externen Empfängern",
+        "Nur bei Regen",
+        "Nur im Büro",
+        "Nur bei Nachtschicht"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was gehört NICHT in Logs? (Variante 56)",
+      "options": [
+        "Passwörter oder komplette sensible Inhalte",
+        "Zeitstempel",
+        "User/Rolle",
+        "Aktionstyp"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Aufbewahrung/Retention' in der Praxis?",
+      "options": [
+        "Daten nur so lange speichern wie nötig, danach löschen/archivieren",
+        "Daten für immer speichern",
+        "Daten ausdrucken und weglegen",
+        "Daten in WhatsApp sichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Aufbewahrung/Retention' in der Praxis? (Variante 18)",
+      "options": [
+        "Daten nur so lange speichern wie nötig, danach löschen/archivieren",
+        "Daten für immer speichern",
+        "Daten ausdrucken und weglegen",
+        "Daten in WhatsApp sichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was gehört NICHT in Logs? (Variante 16)",
+      "options": [
+        "Passwörter oder komplette sensible Inhalte",
+        "Zeitstempel",
+        "User/Rolle",
+        "Aktionstyp"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was gehört NICHT in Logs? (Variante 46)",
+      "options": [
+        "Passwörter oder komplette sensible Inhalte",
+        "Zeitstempel",
+        "User/Rolle",
+        "Aktionstyp"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist eine typische Reaktion bei Datenpanne (Breach)? (Variante 35)",
+      "options": [
+        "Intern melden, Schaden begrenzen, dokumentieren, nach Prozess handeln",
+        "Ignorieren",
+        "Beweise löschen",
+        "In Gruppe posten"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was gehört NICHT in Logs? (Variante 36)",
+      "options": [
+        "Passwörter oder komplette sensible Inhalte",
+        "Zeitstempel",
+        "User/Rolle",
+        "Aktionstyp"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Aufbewahrung/Retention' in der Praxis? (Variante 28)",
+      "options": [
+        "Daten nur so lange speichern wie nötig, danach löschen/archivieren",
+        "Daten für immer speichern",
+        "Daten ausdrucken und weglegen",
+        "Daten in WhatsApp sichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Welche Maßnahme schützt am besten bei personenbezogenen Daten?",
+      "options": [
+        "Rollen/Rechte + Logging + sichere Übertragung",
+        "Passwort teilen",
+        "Daten per privatem Messenger senden",
+        "Daten im Klartext in URLs"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was gehört NICHT in Logs? (Variante 26)",
+      "options": [
+        "Passwörter oder komplette sensible Inhalte",
+        "Zeitstempel",
+        "User/Rolle",
+        "Aktionstyp"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Datenminimierung? (Variante 11)",
+      "options": [
+        "Nur notwendige Daten erheben/speichern",
+        "Alles speichern, falls man es mal braucht",
+        "Daten öffentlich teilen",
+        "Daten ohne Zweck sammeln"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist bei Exporten/Screenshots kritisch? (Variante 33)",
+      "options": [
+        "Sie können personenbezogene Daten enthalten → Weitergabe/Zugriff steuern",
+        "Sie sind immer harmlos",
+        "Sie ersetzen Backups",
+        "Sie sind automatisch anonym"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Datenminimierung? (Variante 51)",
+      "options": [
+        "Nur notwendige Daten erheben/speichern",
+        "Alles speichern, falls man es mal braucht",
+        "Daten öffentlich teilen",
+        "Daten ohne Zweck sammeln"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Welche Maßnahme schützt am besten bei personenbezogenen Daten? (Variante 44)",
+      "options": [
+        "Rollen/Rechte + Logging + sichere Übertragung",
+        "Passwort teilen",
+        "Daten per privatem Messenger senden",
+        "Daten im Klartext in URLs"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Welche Maßnahme schützt am besten bei personenbezogenen Daten? (Variante 54)",
+      "options": [
+        "Rollen/Rechte + Logging + sichere Übertragung",
+        "Passwort teilen",
+        "Daten per privatem Messenger senden",
+        "Daten im Klartext in URLs"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Aufbewahrung/Retention' in der Praxis? (Variante 48)",
+      "options": [
+        "Daten nur so lange speichern wie nötig, danach löschen/archivieren",
+        "Daten für immer speichern",
+        "Daten ausdrucken und weglegen",
+        "Daten in WhatsApp sichern"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Wann sollte man besonders vorsichtig sein mit personenbezogenen Daten? (Variante 59)",
+      "options": [
+        "Beim Teilen, Exportieren, Support-Screenshots und bei externen Empfängern",
+        "Nur bei Regen",
+        "Nur im Büro",
+        "Nur bei Nachtschicht"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Welche Maßnahme schützt am besten bei personenbezogenen Daten? (Variante 34)",
+      "options": [
+        "Rollen/Rechte + Logging + sichere Übertragung",
+        "Passwort teilen",
+        "Daten per privatem Messenger senden",
+        "Daten im Klartext in URLs"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Welche Maßnahme schützt am besten bei personenbezogenen Daten? (Variante 64)",
+      "options": [
+        "Rollen/Rechte + Logging + sichere Übertragung",
+        "Passwort teilen",
+        "Daten per privatem Messenger senden",
+        "Daten im Klartext in URLs"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist eine typische Reaktion bei Datenpanne (Breach)? (Variante 65)",
+      "options": [
+        "Intern melden, Schaden begrenzen, dokumentieren, nach Prozess handeln",
+        "Ignorieren",
+        "Beweise löschen",
+        "In Gruppe posten"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist 'Need-to-know'? (Variante 62)",
+      "options": [
+        "Zugriff nur für Personen, die ihn für ihre Aufgabe brauchen",
+        "Jeder darf alles sehen",
+        "Nur Azubis dürfen alles",
+        "Nur externe dürfen sehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist bei Exporten/Screenshots kritisch?",
+      "options": [
+        "Sie können personenbezogene Daten enthalten → Weitergabe/Zugriff steuern",
+        "Sie sind immer harmlos",
+        "Sie ersetzen Backups",
+        "Sie sind automatisch anonym"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Datenminimierung? (Variante 41)",
+      "options": [
+        "Nur notwendige Daten erheben/speichern",
+        "Alles speichern, falls man es mal braucht",
+        "Daten öffentlich teilen",
+        "Daten ohne Zweck sammeln"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Welche Maßnahme schützt am besten bei personenbezogenen Daten? (Variante 14)",
+      "options": [
+        "Rollen/Rechte + Logging + sichere Übertragung",
+        "Passwort teilen",
+        "Daten per privatem Messenger senden",
+        "Daten im Klartext in URLs"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Datenminimierung? (Variante 61)",
+      "options": [
+        "Nur notwendige Daten erheben/speichern",
+        "Alles speichern, falls man es mal braucht",
+        "Daten öffentlich teilen",
+        "Daten ohne Zweck sammeln"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist ein gutes Passwort-Verhalten?",
+      "options": [
+        "Einzigartige Passwörter + ggf. 2FA + nicht weitergeben",
+        "Überall dasselbe Passwort",
+        "Passwort auf Zettel",
+        "Passwort im Code"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist eine typische Reaktion bei Datenpanne (Breach)? (Variante 25)",
+      "options": [
+        "Intern melden, Schaden begrenzen, dokumentieren, nach Prozess handeln",
+        "Ignorieren",
+        "Beweise löschen",
+        "In Gruppe posten"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Datenminimierung? (Variante 21)",
+      "options": [
+        "Nur notwendige Daten erheben/speichern",
+        "Alles speichern, falls man es mal braucht",
+        "Daten öffentlich teilen",
+        "Daten ohne Zweck sammeln"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was ist bei Exporten/Screenshots kritisch? (Variante 53)",
+      "options": [
+        "Sie können personenbezogene Daten enthalten → Weitergabe/Zugriff steuern",
+        "Sie sind immer harmlos",
+        "Sie ersetzen Backups",
+        "Sie sind automatisch anonym"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Zweckbindung? (Variante 37)",
+      "options": [
+        "Daten nur für den festgelegten Zweck nutzen",
+        "Daten für alles nutzen",
+        "Daten an Freunde geben",
+        "Daten nie löschen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Wann sollte man besonders vorsichtig sein mit personenbezogenen Daten? (Variante 49)",
+      "options": [
+        "Beim Teilen, Exportieren, Support-Screenshots und bei externen Empfängern",
+        "Nur bei Regen",
+        "Nur im Büro",
+        "Nur bei Nachtschicht"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "datenschutz",
+      "question": "Was bedeutet Zweckbindung? (Variante 17)",
+      "options": [
+        "Daten nur für den festgelegten Zweck nutzen",
+        "Daten für alles nutzen",
+        "Daten an Freunde geben",
+        "Daten nie löschen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    }
+  ]
+}

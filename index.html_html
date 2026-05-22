@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logistik-Workbench • Frontend-Prototyp (ohne PHP)</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Drivers module styles -->
+  <link href="drivers.css" rel="stylesheet">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link href="/LKW/CSS/fahrer_ubersicht.css" rel="stylesheet">
+  <link href="/LKW/CSS/dashboard.css" rel="stylesheet">
+
+</head>
+<body>
+
+
+
+  
+ <!-- Tabs-Bar mit Logo links + Tabs mittig -->
+<div class="container pt-3">
+  <nav class="tabs-bar navbar navbar-expand-lg bg-body">
+    <div class="container-fluid">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="/LKW/Bilder/logo_standard_tpo.svg" alt="TPO" class="brand-logo me-2">
+        <span class="fw-semibold">Logistik-Workbench</span>
+      </a>
+
+      <!-- Burger-Button (sichtbar unter 992px) -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainTabsCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Tabs als Nav-Menü -->
+      <div class="collapse navbar-collapse justify-content-center" id="mainTabsCollapse">
+        <ul class="nav nav-tabs navbar-nav" id="mainTabs" role="tablist">
+          <li class="nav-item"><button id="tab-dashboard" class="nav-link active" data-bs-toggle="tab"
+              data-bs-target="#dashboard" data-url="/LKW/dashboard.html"
+              data-module="/LKW/js/dashboard.js" data-init="initDashboard" type="button" role="tab">
+              <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+            </button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#drivers"
+              data-url="/LKW/fahrer_ubersicht.html" data-module="/LKW/js/fahrer_ubersicht.js"
+              data-init="initFahrerUebersicht" type="button" role="tab"><i class="bi bi-truck"></i>
+              <span>Fahrer</span></button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#goods"
+              data-url="/LKW/sachnummern.html" data-module="/LKW/js/sachnummern.js"
+              data-init="initSachnummern" type="button" role="tab"><i class="bi bi-box"></i>
+              <span>Warenstamm</span></button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#inbound"
+              type="button" role="tab"><i class="bi bi-arrow-down-circle"></i>
+              <span>Wareneingang</span></button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#outbound"
+              type="button" role="tab"><i class="bi bi-arrow-up-circle"></i>
+              <span>Warenausgang</span></button></li>
+          <li class="nav-item">
+  <button class="nav-link" 
+          data-bs-toggle="tab" 
+          data-bs-target="#special"
+          type="button" role="tab">
+    <i class="bi bi-wrench"></i>
+    <span>100%-Prüfung</span>
+  </button>
+</li>
+
+
+   
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#cmr"
+   
+            type="button" role="tab"><i class="bi bi-file-earmark-richtext"></i>
+              <span>CMR</span></button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#exports"
+              type="button" role="tab"><i class="bi bi-filetype-csv"></i>
+              <span>Export</span></button></li>
+              <li class="nav-item">
+  <button class="nav-link"
+          data-bs-toggle="tab"
+          data-bs-target="#docs"
+          type="button" role="tab">
+    <i class="bi bi-folder2-open"></i>
+    <span>Dokumente</span>
+  </button>
+</li>
+
+<li class="nav-item">
+  <button class="nav-link"
+          data-bs-toggle="tab"
+          data-bs-target="#admin"
+          type="button" role="tab">
+    <i class="bi bi-shield-lock"></i>
+    <span>Admin</span>
+  </button>
+</li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="tab-content py-4">
+  <!-- Dashboard: Inhalt direkt im Pane (kein Nachladen) -->
+  <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+    <div class="p-3 text-muted">Lade Dashboard…</div>
+  </div>
+
+  <!-- Fahrer: wird lazy geladen in dieses Pane -->
+  <div class="tab-pane fade" id="drivers" role="tabpanel" aria-labelledby="tab-drivers">
+    <div class="p-3 text-muted">Lade Fahrer…</div>
+  </div>
+
+  <!-- Warenstamm: wird lazy geladen in dieses Pane -->
+  <div class="tab-pane fade" id="goods" role="tabpanel" aria-labelledby="tab-goods">
+    <div class="p-3 text-muted">Lade Warenstamm…</div>
+  </div>
+
+  
+  <div class="tab-pane fade" id="inbound" role="tabpanel"></div>
+<div class="tab-pane fade" id="outbound" role="tabpanel"></div>
+
+<!-- 100%-Prüfung (wie du es schon hast, hier nur zur Vollständigkeit) -->
+<div class="tab-pane fade" id="special" role="tabpanel">
+  <iframe src="/LKW/100_Prufung/100p_dashboard.php"
+          class="w-100"
+          style="border:0; min-height: calc(100vh - 140px);"></iframe>
+</div>
+
+<!-- Dokumente -->
+<div class="tab-pane fade" id="docs" role="tabpanel">
+  <iframe src="/LKW/dokumente/dokumente.php"
+          class="w-100"
+          style="border:0; min-height: calc(100vh - 140px);"></iframe>
+</div>
+
+<!-- Admin -->
+<div class="tab-pane fade" id="admin" role="tabpanel">
+  <iframe src="/LKW/admin/admin.php"
+          class="w-100"
+          style="border:0; min-height: calc(100vh - 140px);"></iframe>
+</div>
+
+<div class="tab-pane fade" id="cmr" role="tabpanel"></div>
+<div class="tab-pane fade" id="exports" role="tabpanel"></div>
+
+</div>
+
+  <!-- JS libs -->
+  <!-- Load jQuery FIRST, then DataTables, then the rest to avoid UMD require()-path issues -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>window.exports=undefined;window.module=undefined;</script>
+  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  <script>window.API_BASE = '/LKW/api';</script>
+
+  
+
+ 
+  <script>
+    // --- Global in-memory state (kein LocalStorage) ---
+    const state = {
+      drivers: [],
+      goods: [],
+      inbound: [],
+      outbound: [],
+      special: [],
+      cmr: []
+    };
+
+    // --- Helpers ---
+    const $ = jQuery;
+    const fmtNumber = (n) => (isNaN(+n) ? 0 : +(+n).toFixed(3));
+
+    function setStat() {
+      $('#statDrivers').text(state.drivers.length);
+      $('#statGoods').text(state.goods.length);
+      const inQty = state.inbound.reduce((s, r) => s + fmtNumber(r.qty), 0);
+      const outQty = state.outbound.reduce((s, r) => s + fmtNumber(r.qty), 0);
+      $('#statInboundQty').text(inQty);
+      $('#statOutboundQty').text(outQty);
+    }
+
+    function recalcStock() {
+      const sums = {};
+      state.inbound.forEach(r => {
+        const k = r.item_code || '';
+        if (!k) return;
+        sums[k] = sums[k] || { in:0, out:0 };
+        sums[k].in += fmtNumber(r.qty);
+      });
+      state.outbound.forEach(r => {
+        const k = r.item_code || '';
+        if (!k) return;
+        sums[k] = sums[k] || { in:0, out:0 };
+        sums[k].out += fmtNumber(r.qty);
+      });
+      const rows = Object.entries(sums).map(([item_code, v]) => {
+        const g = state.goods.find(x => x.item_code === item_code) || {};
+        return {
+          item_code,
+          description: g.description || '',
+          unit: g.unit || '',
+          in_sum: fmtNumber(v.in),
+          out_sum: fmtNumber(v.out),
+          stock: fmtNumber(v.in - v.out)
+        };
+      });
+      fillTable('#tblStock', rows, [
+        'item_code','description','unit','in_sum','out_sum','stock'
+      ]);
+    }
+
+    function ensureDataTypes(section, row) {
+      // minimal type normalization
+      const numericFields = {
+        inbound: ['qty'],
+        outbound: ['qty'],
+        goods: ['weight_kg_per_unit'],
+        special: ['duration_min'],
+        cmr: ['packages','weight_kg']
+      }[section] || [];
+      numericFields.forEach(f => { if (row[f] !== undefined) row[f] = fmtNumber(row[f]); });
+      return row;
+    }
+
+    function parseFile(file, onRows) {
+      const name = file.name.toLowerCase();
+      if (name.endsWith('.csv')) {
+        Papa.parse(file, {
+          header: true,
+          skipEmptyLines: true,
+          complete: res => onRows(res.data)
+        });
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const data = new Uint8Array(e.target.result);
+          const wb = XLSX.read(data, {type: 'array'});
+          const ws = wb.Sheets[wb.SheetNames[0]]; // erste Tabelle
+          const rows = XLSX.utils.sheet_to_json(ws, {defval: ''});
+          onRows(rows);
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    }
+
+    function fillTable(selector, rows, columns) {
+      const table = $(selector);
+      if (!table.length) return; // Guard: Tabelle existiert (noch) nicht
+
+      if ($.fn.DataTable.isDataTable(table)) {
+        table.DataTable().clear().destroy();
+      }
+
+      const tbody = table.find('tbody');
+      tbody.empty();
+
+      rows.forEach(r => {
+        const tr = $('<tr/>');
+        columns.forEach(c => tr.append($('<td/>').text(r[c] ?? '')));
+        tbody.append(tr);
+      });
+
+      table.DataTable({
+        pageLength: 10,
+        lengthMenu: [10, 25, 50, 100],
+        order: [],
+        language: {
+          url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/de-DE.json'
+        }
+      });
+    }
+
+    function exportData(section, asXLSX=false) {
+      const map = {
+        drivers: { rows: state.drivers, cols: ['name','license_no','phone','vehicle_no','active'] },
+        goods:   { rows: state.goods,   cols: ['item_code','description','unit','weight_kg_per_unit'] },
+        inbound: { rows: state.inbound, cols: ['txn_date','supplier','delivery_note','item_code','description','qty','unit','lot','location','receiver_user','driver_id'] },
+        outbound:{ rows: state.outbound,cols: ['txn_date','customer','order_no','item_code','description','qty','unit','lot','destination','picker_user','driver_id'] },
+        special: { rows: state.special, cols: ['task_date','task_type','reference_no','description','duration_min','user_name','driver_id'] },
+        cmr:     { rows: state.cmr,     cols: ['cmr_no','cmr_date','shipper','consignee','place_of_delivery','goods_description','packages','weight_kg','vehicle_no','driver_id','outbound_id','notes'] }
+      };
+      const {rows, cols} = map[section];
+      if (!asXLSX) {
+        const csv = Papa.unparse(rows, {columns: cols});
+        const blob = new Blob([csv], {type: 'text/csv;charset=utf-8'});
+        saveAs(blob, `${section}.csv`);
+      } else {
+        const ws = XLSX.utils.json_to_sheet(rows, {header: cols});
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, section);
+        const wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'array'});
+        saveAs(new Blob([wbout], {type: 'application/octet-stream'}), `${section}.xlsx`);
+      }
+    }
+
+    function attachExportButtons() {
+      document.querySelectorAll('[data-export]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const section = btn.getAttribute('data-export');
+          const asXLSX = document.getElementById('chkXLSX').checked;
+          exportData(section, asXLSX);
+        });
+      });
+    }
+
+    function saveSession() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], {type: 'application/json'});
+      saveAs(blob, `logistics_session_${new Date().toISOString().slice(0,10)}.json`);
+    }
+
+    function loadSession(file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const obj = JSON.parse(e.target.result);
+          ['drivers','goods','inbound','outbound','special','cmr'].forEach(k => {
+            state[k] = Array.isArray(obj[k]) ? obj[k] : [];
+          });
+          refreshAllTables();
+        } catch(err) {
+          alert('Session-Datei ungültig: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function refreshAllTables() {
+      setStat();
+      recalcStock();
+      fillTable('#tblDrivers', state.drivers, ['name','license_no','phone','vehicle_no','active']);
+      fillTable('#tblGoods', state.goods, ['item_code','description','unit','weight_kg_per_unit']);
+      fillTable('#tblInbound', state.inbound, ['txn_date','supplier','delivery_note','item_code','description','qty','unit','lot','location','receiver_user','driver_id']);
+      fillTable('#tblOutbound', state.outbound, ['txn_date','customer','order_no','item_code','description','qty','unit','lot','destination','picker_user','driver_id']);
+      fillTable('#tblSpecial', state.special, ['task_date','task_type','reference_no','description','duration_min','user_name','driver_id']);
+      fillTable('#tblCMR', state.cmr, ['cmr_no','cmr_date','shipper','consignee','place_of_delivery','goods_description','packages','weight_kg','vehicle_no','driver_id','outbound_id','notes']);
+    }
+
+    // --- Wire up inputs ---
+    function handleSectionFile(inputId, section, columns) {
+      const el = document.getElementById(inputId);
+      if (!el) return; // element doesn't exist (e.g., no uploader in this tab)
+      el.addEventListener('change', (ev) => {
+        const file = ev.target.files[0];
+        if (!file) return;
+        parseFile(file, rows => {
+          // normalize keys to expected columns; keep extras
+          const norm = rows.map(r => {
+            const o = {};
+            columns.forEach(c => { o[c] = r[c] ?? r[c.toUpperCase()] ?? r[c.toLowerCase()] ?? ''; });
+            Object.keys(r).forEach(k => { if (!(k in o)) o[k] = r[k]; });
+            return ensureDataTypes(section, o);
+          });
+          state[section] = norm;
+          refreshAllTables();
+        });
+      });
+    }
+
+    function attachClearButtons() {
+      const map = {
+        btnClearDrivers: 'drivers',
+        btnClearGoods: 'goods',
+        btnClearInbound: 'inbound',
+        btnClearOutbound: 'outbound',
+        btnClearSpecial: 'special',
+        btnClearCMR: 'cmr'
+      };
+      Object.entries(map).forEach(([btnId, section]) => {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          state[section] = [];
+          refreshAllTables();
+        });
+      });
+    }
+
+    // --- Init ---
+    document.addEventListener('DOMContentLoaded', () => {
+      // (no driver upload in this tab anymore)
+      handleSectionFile('fileGoods', 'goods', ['item_code','description','unit','weight_kg_per_unit']); // optional, falls es einen Upload gibt
+      handleSectionFile('fileInbound', 'inbound', ['txn_date','supplier','delivery_note','item_code','description','qty','unit','lot','location','receiver_user','driver_id']);
+      handleSectionFile('fileOutbound', 'outbound', ['txn_date','customer','order_no','item_code','description','qty','unit','lot','destination','picker_user','driver_id']);
+      handleSectionFile('fileSpecial', 'special', ['task_date','task_type','reference_no','description','duration_min','user_name','driver_id']);
+      handleSectionFile('fileCMR', 'cmr', ['cmr_no','cmr_date','shipper','consignee','place_of_delivery','goods_description','packages','weight_kg','vehicle_no','driver_id','outbound_id','notes']);
+
+      attachExportButtons();
+      attachClearButtons();
+
+     document.addEventListener('DOMContentLoaded', () => {
+  // Helper für sicheres Binden
+  const on = (id, ev, fn) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(ev, fn);
+  };
+
+  on('btnRecalc', 'click', recalcStock);
+  on('btnSaveSession', 'click', saveSession);
+  on('btnSaveSession2', 'click', saveSession);
+  on('sessionFile', 'change', e => e.target.files[0] && loadSession(e.target.files[0]));
+  on('sessionFile2', 'change', e => e.target.files[0] && loadSession(e.target.files[0]));
+
+  
+});
+
+      refreshAllTables();
+    });
+
+  </script>
+
+
+  <style>
+    /* Klick-Hinweis & leichte Optik für Headerzeilen */
+    .ov-day-header, .ov-veh-header { cursor: pointer; }
+    .ov-day-header .twisty, .ov-veh-header .twisty {
+      display:inline-block; width:1.2em; text-align:center; margin-right:.35rem;
+      user-select:none;
+    }
+  </style>
+
+
+  <script>
+(() => {
+  window.__EMBEDDED__ = true;
+  const cache = new Map(); // tabId -> { inited: bool }
+
+  function pickRoot(htmlText){
+    const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+    const root = doc.querySelector('[data-tab-root]') || doc.querySelector('main') || doc.body;
+    return root ? root.innerHTML : htmlText;
+  }
+
+  async function loadInto(pane, url){
+    if (!pane || !url) return;
+    pane.innerHTML = '<div class="p-3 text-muted">Lade…</div>';
+    const res = await fetch(url, { cache: 'no-store', credentials: 'include' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const html = await res.text();
+    pane.innerHTML = pickRoot(html);
+  }
+
+  async function maybeInit(pane, modUrl, initName, tabId){
+  if (!pane || !modUrl || !initName) return;
+  const entry = cache.get(tabId) || {};
+  if (entry.inited) return;
+
+  // einfache Versionierung: alle 60s neu / oder feste Buildnummer setzen
+  const ver = (window.__APP_VER__ ||= Math.floor(Date.now()/60000)); 
+  const mod = await import(`${modUrl}?v=${ver}`);
+
+  const fn  = mod[initName] || mod.default || window[initName];
+  if (typeof fn === 'function'){
+    await fn(pane);
+    entry.inited = true;
+    cache.set(tabId, entry);
+  }
+}
+
+
+  // Deeplink (?tab=goods)
+  const params   = new URLSearchParams(location.search);
+  const deeplink = params.get('tab');
+  if (deeplink){
+    const btn = document.querySelector(`[data-bs-target="#${deeplink}"]`);
+    if (btn) new bootstrap.Tab(btn).show();
+  }
+
+ // ROBUSTER Listener
+document.getElementById('mainTabs')?.addEventListener('shown.bs.tab', async (ev) => {
+  try {
+    const btn = ev.target?.closest?.('[data-bs-toggle="tab"]');
+    const paneSel = btn?.getAttribute('data-bs-target') || btn?.getAttribute('href');
+    if (!paneSel) return;                       // Guard 1
+    const pane = document.querySelector(paneSel);
+    if (!pane) return;                          // Guard 2
+
+    const url    = btn.dataset.url || '';
+    const modUrl = btn.dataset.module || '';
+    const initFn = btn.dataset.init || '';
+    const tabId  = paneSel.replace(/^#/, '');
+
+    // URL in Addressbar aktualisieren
+    const u = new URL(location.href);
+    u.searchParams.set('tab', tabId);
+    history.replaceState({}, '', u);
+
+    // 🔹 falls Tab Content nachgeladen werden muss:
+    if (url && !pane.dataset.loaded) {
+      await loadInto(pane, url);
+      pane.dataset.loaded = '1';
+    }
+
+    // 🔹 Modul-Init (lazy-importiertes Script)
+    await maybeInit(pane, modUrl, initFn, tabId);
+
+    
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+
+
+
+})();
+
+
+</script>
+
+</body>
+</html>

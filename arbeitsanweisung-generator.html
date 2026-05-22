@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arbeitsanweisung Generator</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --line: #d8dee6;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #0f62fe;
+      --accent-dark: #0b4fd1;
+      --danger: #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .image-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .editor-toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .editor-toolbar button {
+      width: auto !important;
+      margin-bottom: 0 !important;
+      border: 1px solid #d8dee6 !important;
+      background: #fff !important;
+      color: #1f2937 !important;
+      border-radius: 8px !important;
+      padding: 8px 10px !important;
+      cursor: pointer;
+      font-size: 13px !important;
+      font-weight: 700;
+      box-shadow: none !important;
+    }
+
+    .rich-editor {
+      min-height: 140px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #fff;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .rich-editor:focus {
+      outline: 2px solid #c7d2fe;
+      border-color: #0f62fe;
+    }
+
+    .rich-editor ul,
+    .rich-editor ol {
+      margin: 6px 0;
+      padding-left: 22px;
+    }
+
+    .doc-p ul,
+    .doc-p ol {
+      margin: 6px 0;
+      padding-left: 22px;
+    }
+
+    .image-title-input {
+      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .image-filename {
+      font-size: 12px;
+      color: #6b7280;
+      word-break: break-word;
+    }
+
+    .wrap {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 24px;
+    }
+
+    .panel,
+    .preview-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .panel {
+      padding: 20px;
+      position: sticky;
+      top: 16px;
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+    }
+
+    .preview-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    h1, h2, h3, h4 { margin: 0; }
+
+    .title {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .group {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .group:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .group h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      background: #fff;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .help {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: -4px;
+      margin-bottom: 10px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: var(--accent-dark); }
+
+    .btn-secondary {
+      background: #eef2ff;
+      color: #1f2937;
+      border: 1px solid #c7d2fe;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    .repeat-item {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #fafafa;
+    }
+
+    .repeat-item h4 {
+      margin: 0 0 8px;
+      font-size: 14px;
+    }
+
+    .page-toolbar {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+      background: #f9fafb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .preview-sheet {
+      background: #dfe5eb;
+      padding: 24px;
+      min-height: 100vh;
+    }
+
+    .document-pages {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .document-page {
+      width: 210mm;
+      height: 297mm;
+      min-height: 297mm;
+      background: #fff;
+      color: #000;
+      padding: 18mm 16mm 14mm 16mm;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-header-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin: 0 0 14px 0;
+      border-bottom: 1px solid #c9c9c9;
+    }
+
+    .page-header-table td {
+      border: none !important;
+      padding: 0 0 10px 0;
+      vertical-align: bottom;
+    }
+
+    .page-header-left-cell {
+      width: auto;
+    }
+
+    .page-header-right-cell {
+      width: 58mm;
+      text-align: right;
+    }
+
+    .page-header-kicker {
+      font-size: 17px;
+      font-weight: 700;
+      color: #7b7b7b;
+      line-height: 1.1;
+    }
+
+    .page-header-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #6f6f6f;
+      line-height: 1.15;
+      margin-top: 2px;
+    }
+
+    .page-header-logo {
+      width: 54mm;
+      max-width: 54mm;
+      height: auto;
+      display: block;
+      margin-left: auto;
+    }
+
+    .page-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .page-footer {
+      margin-top: auto;
+      border-top: 1px solid #c9c9c9;
+      padding-top: 8px;
+      height: 74px;
+      min-height: 74px;
+      box-sizing: border-box;
+      font-size: 10.5px;
+      color: #8f8f8f;
+      overflow: hidden;
+    }
+
+    .page-footer-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .page-footer-table td {
+      border: none;
+      padding: 0;
+      vertical-align: top;
+      font-size: 10.5px;
+      line-height: 1.2;
+      color: #8f8f8f;
+    }
+
+    .page-footer-col-1 {
+      width: 42%;
+    }
+
+    .page-footer-col-2 {
+      width: 23%;
+      padding-left: 14px;
+    }
+
+    .page-footer-col-3 {
+      width: 35%;
+      text-align: right;
+    }
+
+    .page-footer-line {
+      display: block;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .page-cut-label {
+      width: 210mm;
+      text-align: center;
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: -8px;
+      margin-bottom: -4px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 16px 0 6px;
+      text-decoration: underline;
+    }
+
+    .doc-p {
+      font-size: 12px;
+      line-height: 2.0;
+      margin: 0 0 6px;
+      /* white-space: pre-wrap; */
+    }
+
+    .doc-table,
+    .meta-table,
+    .signature-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 10px;
+      font-size: 12px;
+    }
+
+    .doc-table th,
+    .doc-table td,
+    .meta-table td,
+    .meta-table th,
+    .signature-table td,
+    .signature-table th {
+      border: 1px solid #666;
+      padding: 6px 8px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .doc-table th,
+    .meta-table th,
+    .signature-table th {
+      background: #f2f2f2;
+    }
+
+    .doc-image-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin: 10px 0 12px;
+    }
+
+    .doc-image-table td {
+      width: 50%;
+      vertical-align: top;
+      border: none;
+      padding: 0 5px;
+    }
+
+    .doc-image-table td:first-child {
+      padding-left: 0;
+    }
+
+    .doc-image-table td:last-child {
+      padding-right: 0;
+    }
+
+    .doc-image-card {
+      border: 1px solid #666;
+      padding: 6px;
+      min-height: 150px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .doc-image-card img {
+      width: 100%;
+      height: auto;
+      max-height: 190px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .signature-line {
+      display: block;
+      width: 100%;
+      min-height: 24px;
+      border-bottom: 1px solid #999;
+    }
+
+    .image-preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+      .wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        position: static;
+        max-height: none;
+      }
+
+      .preview-sheet {
+        overflow: auto;
+      }
+
+      .document-page,
+      .page-cut-label {
+        width: 100%;
+      }
+
+      .document-page {
+        height: auto;
+        min-height: auto;
+      }
+
+      .page-header-logo {
+        width: 180px;
+        max-width: 180px;
+      }
+
+      .page-header-left-cell,
+      .page-header-right-cell {
+        width: auto;
+        display: block;
+      }
+
+      .page-header-right-cell {
+        text-align: left;
+        padding-top: 10px;
+      }
+
+      .grid-2,
+      .signature-row,
+      .image-preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      html,
+      body {
+        width: 210mm;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .panel,
+      .page-toolbar,
+      .page-cut-label {
+        display: none !important;
+      }
+
+      .wrap {
+        display: block;
+        width: auto;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .preview-card {
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .preview-sheet {
+        padding: 0;
+        margin: 0;
+        background: #fff;
+        min-height: auto;
+      }
+
+      .document-pages {
+        gap: 0;
+        align-items: stretch;
+      }
+
+      .document-page {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        padding: 18mm 16mm 14mm 16mm;
+        box-shadow: none;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        page-break-after: always;
+        break-after: page;
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+      }
+
+      .document-page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      .page-content {
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: none !important;
+        overflow: hidden;
+      }
+
+      .page-footer {
+        margin-top: auto;
+        height: 74px;
+        min-height: 74px;
+        overflow: hidden;
+      }
+
+      .doc-block,
+      .doc-table,
+      .meta-table,
+      .signature-table,
+      .doc-image-table {
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+      }
+
+      .doc-image-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+
+      .doc-image-table td {
+        width: 50%;
+        vertical-align: top;
+        padding: 0 5px;
+      }
+
+      .doc-image-table td:first-child {
+        padding-left: 0;
+      }
+
+      .doc-image-table td:last-child {
+        padding-right: 0;
+      }
+
+      .page-header-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important;
+        margin: 0 0 14px 0 !important;
+        border-bottom: 1px solid #c9c9c9 !important;
+      }
+
+      .page-header-table tr {
+        display: table-row !important;
+      }
+
+      .page-header-table td {
+        display: table-cell !important;
+        border: none !important;
+        padding: 0 0 10px 0 !important;
+        vertical-align: bottom !important;
+      }
+
+      .page-header-left-cell {
+        width: auto !important;
+      }
+
+      .page-header-right-cell {
+        width: 58mm !important;
+        text-align: right !important;
+        padding-top: 0 !important;
+      }
+
+      .page-header-logo {
+        width: 54mm !important;
+        max-width: 54mm !important;
+        height: auto !important;
+        display: block !important;
+        margin-left: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <aside class="panel">
+      <h1 class="title">Arbeitsanweisung Generator</h1>
+      <p class="subtitle">Felder ausfüllen, Vorschau prüfen, speichern und als Word-Datei herunterladen.</p>
+
+      <div class="group">
+        <h3>Grunddaten</h3>
+        <label for="companyLine">Kopfzeile oben</label>
+        <input id="companyLine" value="Arbeitsanweisung – VW Wunstorf">
+
+        <label for="docTitle">Dokumenttitel</label>
+        <input id="docTitle" value="Kommunikation bei Störungen und Verzögerungen in der Disposition">
+
+        <div class="grid-2">
+          <div>
+            <label for="docNumber">Dokumentname</label>
+            <input id="docNumber" value="AA_059_0021 Kommunikation bei Störungen und Verzögerungen">
+          </div>
+          <div>
+            <label for="rev">Rev.-Nr.</label>
+            <input id="rev" value="1.0">
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="printDate">Druckdatum</label>
+            <input id="printDate" type="date">
+          </div>
+          <div>
+            <label for="pageInfo">Seitenangabe</label>
+            <input id="pageInfo" value="Seite 1 von 2">
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Inhalt</h3>
+
+        <label for="purposeTitle">Überschrift Abschnitt 1</label>
+        <input id="purposeTitle" value="Zweck">
+        <label>Inhalt</label>
+        <div class="editor-toolbar">
+          <button type="button" onclick="formatEditor('purposeEditor', 'bold')"><b>F</b></button>
+          <button type="button" onclick="formatEditor('purposeEditor', 'underline')"><u>U</u></button>
+          <button type="button" onclick="formatEditor('purposeEditor', 'strikeThrough')"><s>S</s></button>
+          <button type="button" onclick="formatEditor('purposeEditor', 'insertUnorderedList')">• Liste</button>
+          <button type="button" onclick="formatEditor('purposeEditor', 'insertOrderedList')">1. Liste</button>
+        </div>
+        <div id="purposeEditor" class="rich-editor" contenteditable="true">
+          Diese Arbeitsanweisung beschreibt das standardisierte Vorgehen bei Störungen oder Verzögerungen im Ablauf der Disposition.
+        </div>
+        <input type="hidden" id="purpose">
+
+        <label for="scopeTitle">Überschrift Abschnitt 2</label>
+        <input id="scopeTitle" value="Geltungsbereich">
+        <label>Inhalt</label>
+        <div class="editor-toolbar">
+          <button type="button" onclick="formatEditor('scopeEditor', 'bold')"><b>F</b></button>
+          <button type="button" onclick="formatEditor('scopeEditor', 'underline')"><u>U</u></button>
+          <button type="button" onclick="formatEditor('scopeEditor', 'strikeThrough')"><s>S</s></button>
+          <button type="button" onclick="formatEditor('scopeEditor', 'insertUnorderedList')">• Liste</button>
+          <button type="button" onclick="formatEditor('scopeEditor', 'insertOrderedList')">1. Liste</button>
+        </div>
+        <div id="scopeEditor" class="rich-editor" contenteditable="true">
+          Diese Arbeitsanweisung gilt für alle Mitarbeitenden der Disposition sowie beteiligte Bereiche im Wareneingang, Warenausgang und Lager.
+        </div>
+        <input type="hidden" id="scope">
+
+        <label for="processTitle">Überschrift Abschnitt 3</label>
+        <input id="processTitle" value="Arbeitsablauf">
+        <label>Inhalt</label>
+        <div class="editor-toolbar">
+          <button type="button" onclick="formatEditor('processEditor', 'bold')"><b>F</b></button>
+          <button type="button" onclick="formatEditor('processEditor', 'underline')"><u>U</u></button>
+          <button type="button" onclick="formatEditor('processEditor', 'strikeThrough')"><s>S</s></button>
+          <button type="button" onclick="formatEditor('processEditor', 'insertUnorderedList')">• Liste</button>
+          <button type="button" onclick="formatEditor('processEditor', 'insertOrderedList')">1. Liste</button>
+        </div>
+        <div id="processEditor" class="rich-editor" contenteditable="true">
+          <ul>
+            <li>Verspäteten LKW anhand geplanter Ankunftszeit prüfen.</li>
+            <li>Fahrer oder Spedition telefonisch kontaktieren.</li>
+            <li>Neue Ankunftszeit und Ursache dokumentieren.</li>
+            <li>Lager, Wareneingang oder Warenausgang informieren.</li>
+            <li>Bei fehlender Ware Lagerplatz erneut prüfen lassen.</li>
+            <li>Abweichung auf den Unterlagen vermerken und Rücksprache mit dem Vorgesetzten halten.</li>
+          </ul>
+        </div>
+        <input type="hidden" id="process">
+
+        <label for="safetyTitle">Überschrift Abschnitt 4</label>
+        <input id="safetyTitle" value="Sicherheitshinweise">
+        <label>Inhalt</label>
+        <div class="editor-toolbar">
+          <button type="button" onclick="formatEditor('safetyEditor', 'bold')"><b>F</b></button>
+          <button type="button" onclick="formatEditor('safetyEditor', 'underline')"><u>U</u></button>
+          <button type="button" onclick="formatEditor('safetyEditor', 'strikeThrough')"><s>S</s></button>
+          <button type="button" onclick="formatEditor('safetyEditor', 'insertUnorderedList')">• Liste</button>
+          <button type="button" onclick="formatEditor('safetyEditor', 'insertOrderedList')">1. Liste</button>
+        </div>
+        <div id="safetyEditor" class="rich-editor" contenteditable="true">
+          <ul>
+            <li>Keine eigenständigen Änderungen ohne Freigabe durchführen.</li>
+            <li>Sicherheitsvorschriften und interne Vorgaben einhalten.</li>
+            <li>Bei unklaren Situationen den Vorgang stoppen und Rücksprache halten.</li>
+          </ul>
+        </div>
+        <input type="hidden" id="safety">
+
+        <label for="documentationTitle">Überschrift Abschnitt 5</label>
+        <input id="documentationTitle" value="Dokumentation">
+        <label>Inhalt</label>
+        <div class="editor-toolbar">
+          <button type="button" onclick="formatEditor('documentationEditor', 'bold')"><b>F</b></button>
+          <button type="button" onclick="formatEditor('documentationEditor', 'underline')"><u>U</u></button>
+          <button type="button" onclick="formatEditor('documentationEditor', 'strikeThrough')"><s>S</s></button>
+          <button type="button" onclick="formatEditor('documentationEditor', 'insertUnorderedList')">• Liste</button>
+          <button type="button" onclick="formatEditor('documentationEditor', 'insertOrderedList')">1. Liste</button>
+        </div>
+        <div id="documentationEditor" class="rich-editor" contenteditable="true">
+          <ul>
+            <li>Eintrag in Excel oder Schichtprotokoll.</li>
+            <li>Abweichung auf Lieferschein, B-Beleg oder Ladeliste vermerken.</li>
+            <li>Telefonische Rücksprache bei Bedarf im Tagesverlauf festhalten.</li>
+          </ul>
+        </div>
+        <input type="hidden" id="documentation">
+      </div>
+
+      <div class="group">
+        <h3>Verantwortlichkeiten</h3>
+        <div id="rolesContainer"></div>
+        <div class="btn-row">
+          <button type="button" class="btn-secondary" id="addRoleBtn">+ Rolle hinzufügen</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Historie</h3>
+        <div id="historyContainer"></div>
+        <div class="btn-row">
+          <button type="button" class="btn-secondary" id="addHistoryBtn">+ Historieneintrag</button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Freigaben</h3>
+        <div class="grid-2">
+          <div>
+            <label for="author">Ersteller/Datum</label>
+            <input id="author" value="MAD / 21.04.2026">
+          </div>
+          <div>
+            <label for="reviewer">Prüfer/Datum</label>
+            <input id="reviewer" value="MED / 21.04.2026">
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label for="approver">Freigeber/Datum</label>
+            <input id="approver" value="CBE / 21.04.2026">
+          </div>
+          <div>
+            <label for="updated">Aktualisiert/Datum</label>
+            <input id="updated" value="" placeholder="z. B. 21.04.2026">
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Zusätzliche Unterschriften</h3>
+        <div id="signatureContainer"></div>
+        <div class="btn-row">
+          <button type="button" class="btn-secondary" id="addSignatureBtn">+ Unterschrift hinzufügen</button>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn-primary" id="downloadBtn">Als Word herunterladen</button>
+        <button type="button" class="btn-secondary" id="printBtn">Drucken / als PDF speichern</button>
+        <button type="button" class="btn-secondary" id="saveJsonBtn">Vorlage speichern</button>
+        <button type="button" class="btn-secondary" id="loadJsonBtn">Vorlage laden</button>
+        <button type="button" class="btn-danger" id="resetBtn">Zurücksetzen</button>
+      </div>
+
+      <input type="file" id="jsonFileInput" accept="application/json" hidden>
+    </aside>
+
+    <section class="preview-card">
+      <div class="page-toolbar">
+        <strong>Live-Vorschau</strong>
+        <span style="color:#6b7280; font-size: 13px;">So sieht die Arbeitsanweisung beim Export aus.</span>
+      </div>
+      <div class="preview-sheet">
+        <div id="documentPreview" class="document-pages"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="./arbeitsanweisung.js"></script>
+</body>
+</html>

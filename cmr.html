@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Internationaler Frachtbrief (CMR)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+/* ===== A4-Druckseite: stabil und einseitig ===== */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+html, body {
+  width: 210mm;
+  height: 297mm;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  overflow: hidden;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-size: 10pt;
+  line-height: 1.1;
+}
+
+/* ===== Seitenrahmen ===== */
+.page {
+  position: relative;
+  width: 210mm;
+  height: calc(297mm - 1mm); /* leicht kleiner, um zweite Seite zu verhindern */
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5mm;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+/* ===== Hauptcontainer ===== */
+.cmr {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* ===== Allgemeine Boxen ===== */
+.box {
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 5px 6px;
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.row>[class*="col-"]:last-child .box {
+  border-right: 0;
+}
+
+.num {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  background: #fff;
+  padding: 0 2px;
+}
+
+.label {
+  font-size: 7.5px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.fr {
+  color: #555;
+  font-weight: 500;
+}
+
+/* ===== Kopfbereich ===== */
+.sender {
+  padding: 8px;
+  min-height: 28mm;
+}
+.title {
+  border-left: 1px solid #000;
+  padding: 8px 10px;
+  min-height: 28mm;
+  text-align: left;
+}
+.title h1 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+}
+.title small {
+  font-size: 12px;
+}
+.title .sub {
+  font-size: 10.5px;
+  margin-top: 4px;
+}
+
+/* ===== Tabelle Warenzeile ===== */
+table.goods {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.goods th, .goods td {
+  border: 1px solid #000;
+  vertical-align: top;
+}
+.goods th {
+  font-size: 7px;
+  font-weight: 700;
+}
+.goods td {
+  font-size: 12px;
+}
+.right {
+  text-align: right;
+}
+
+/* ===== Wasserzeichen ===== */
+.watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.07;
+  font-size: 90px;
+  font-weight: 800;
+  color: #000;
+}
+.watermark span {
+  display: inline-block;
+  border: 5px solid #000;
+  border-radius: 50%;
+  padding: 8px 30px;
+  text-align: center;
+}
+
+/* ===== Stempel ===== */
+.stamp {
+  width: 80%;
+  height: 12mm;
+  border: 1px dashed #000;
+}
+
+/* ===== Tabellen-Kanten für Spalten 6–9 ===== */
+.goods th:first-child,
+.goods td:first-child {
+  border-left: 1px solid #000 !important;
+  border-right: 0 !important;
+}
+.goods th:nth-child(2),
+.goods td:nth-child(2) {
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+.goods th:nth-child(3),
+.goods td:nth-child(3) {
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+.goods th:nth-child(4),
+.goods td:nth-child(4) {
+  border-left: 0 !important;
+  border-right: 1px solid #000 !important;
+}
+.goods th:nth-child(5),
+.goods td:nth-child(5) {
+  border-left: 0 !important;
+}
+
+/* ===== Druckmodus ===== */
+@media print {
+  html, body {
+    width: 210mm !important;
+    height: 297mm !important;
+    overflow: hidden !important;
+  }
+
+  .page {
+    height: calc(297mm - 1mm) !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    page-break-after: avoid !important;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<div class="page">
+<div class="cmr">
+
+  <!-- === Kopfzeile (50 / 50) === -->
+<div class="row g-0" style="display:flex; width:100%;">
+  
+  <!-- linke Hälfte -->
+  <div class="col-6" style="flex: 0 0 50%; max-width:50%;">
+    <div class="sender" style="height:25mm; padding:5px;">
+      
+      <div class="label">
+        Absender (Name, Anschrift, Land)<br>
+        <span class="fr">Expéditeur (nom, adresse, pays)</span>
+      </div>
+      <div>
+        <b>{{absender_name}}</b><br>
+        {{absender_adresse}}<br>
+        {{absender_plz}} {{absender_ort}}
+      </div>
+    </div>
+  </div>
+
+  <!-- rechte Hälfte -->
+  <div class="col-6" style="flex: 0 0 50%; max-width:50%;">
+    <div class="title" style="border-left:1px solid #000; height:25mm; padding:5px 10px; text-align:left;">
+      <h1 style="font-size:18px; font-weight:800; margin:0;">
+        Internationaler Frachtbrief<br>
+        <small style="font-size:12px;">Lettre de Voiture International</small>
+      </h1>
+      <div class="sub" style="font-size:10.5px; margin-top:4px;">
+        Diese Beförderung unterliegt den Bestimmungen des Übereinkommens über den Beförderungsvertrag im internationalen Straßengüterverkehr (CMR).
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- === Zeile 2 + 16: Empfänger === -->
+  <div class="row g-0" style="height: 27mm;">
+  <!-- linke Hälfte -->
+  <div class="col-6">
+    <div class="box">
+      <div class="num">2</div>
+      <div class="label">
+        Empfänger (Name, Anschrift, Land)<br>
+        <span class="fr">Destinataire (nom, adresse, pays)</span>
+      </div>
+      <div>
+        <b>{{empfaenger_name}}</b><br>
+        {{empfaenger_adresse}}<br>
+        {{empfaenger_plz}} {{empfaenger_ort}}
+      </div>
+    </div>
+  </div>
+
+  <!-- rechte Hälfte -->
+  <div class="col-6">
+    <div class="box">
+      <div class="num">16</div>
+      <div class="label">
+        Referenz / Zusatzinfos<br>
+        <span class="fr">Référence / Informations complémentaires</span>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== linke Seite: 3, 4, 5 ===== -->
+<div class="row g-0" style="height: 200mm;">
+  
+  <div class="col-6 d-flex flex-column" style="height:100%;">
+    
+    <!-- 3 -->
+    <div class="box flex-fill" style="min-height:auto;">
+      <div class="num">3</div>
+      <div class="label">
+        Auslieferungsort des Gutes<br>
+        <span class="fr">Lieu prévu pour la livraison de la marchandise</span>
+      </div>
+      <div>{{auslieferungsort}}<br><b>{{datum}}</b></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="box flex-fill" style="min-height:auto;">
+      <div class="num">4</div>
+      <div class="label">
+        Ort und Tag der Übernahme des Gutes<br>
+        <span class="fr">Lieu et date de la prise en charge</span>
+      </div>
+      <div>{{uebernahmeort}}<br><b>{{datum}}</b></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="box flex-fill" style="min-height:auto;">
+      <div class="num">5</div>
+      <div class="label">
+        Beigefügte Dokumente<br>
+        <span class="fr">Documents annexés</span>
+      </div>
+      <div>{{beilagen}}</div>
+    </div>
+  </div>
+
+  <!-- ===== rechte Seite: 17, 18 ===== -->
+  <div class="col-6 d-flex flex-column" style="height:100%;">
+    
+    <!-- 17 -->
+    <div class="box flex-fill d-flex flex-column justify-content-between">
+      <div>
+        <div class="num">17</div>
+        <div class="label">
+          Nachfolgende Frachtführer<br>
+          <span class="fr">Transporteurs successifs</span>
+        </div>
+        <div>{{nachfolgende_frachtfuehrer}}</div>
+      </div>
+    </div>
+
+    <!-- 18 -->
+    <div class="box flex-fill d-flex flex-column justify-content-between" style="min-height:auto;">
+      <div>
+        <div class="num">18</div>
+        <div class="label">
+          Vorbehalte und Bemerkungen<br>
+          <span class="fr">Réserves et observations</span>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- === Zeile 5: 7–11 === -->
+<div class="row g-0" style="border: 2px solid black;">
+    <div class="col-12">
+      <table class="goods">
+        <thead>
+          <tr>
+            <th>6 Kennzeichen u. Nr.<br><span class="fr">Marques et numéros</span></th>
+            <th style="width:10%;">7 Anz. der Packst.<br><span class="fr">Nombre des colis</span></th>
+            <th>8 Art der Verpack.<br><span class="fr">Mode d’emballage</span></th>
+            <th>9 Bezeichnung des Gutes<br><span class="fr">Nature de la marchandise</span></th>
+            <th style="width:10%;">10 Statistik-Nr.</th>
+            <th style="width:10%;">11 Bruttogew. kg<br><span class="fr">Poids brut</span></th>
+            <th style="width:10%;">12 Umfang m3<br><span class="fr">Cubage m3</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="height:32mm;">
+            <td><b>{{kennzeichen_nr}}</b></td>
+            <td>{{anzahl_packstuecke}}</td>
+            <td>{{verpackung}}</td>
+            <td class="position-relative"><b>{{bezeichnung_gut}}</b>
+              <div class="watermark"><span>CMR</span></div>
+
+            </td>
+            <td>—</td>
+            <td class="right"><b>{{bruttogewicht}}</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+  
+  
+  <!-- === Zeile 7: 13 === -->
+  <div class="row g-0" style="height: 20mm;">
+    <div class="col-12">
+      <div class="box" style="height:20mm;">
+        <div class="num">13</div>
+        <div class="label">Anweisungen des Absenders (Zoll- und sonstige amtliche Behandlung)<br>
+          <span class="fr">Instructions de l’expéditeur (formalités douanières et autres)</span>
+        </div>
+        <div class="big mt-3">{{anweisung}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- === Zeile 8: 15 + 20 === -->
+  <div class="row g-0" style="height: 20mm;">
+    <div class="col-6">
+  <div class="box" style="min-height:20mm;">
+    <div class="num">15</div>
+    <div class="label">
+      Frachtzahlungsanweisungen<br>
+      <span class="fr">Prescription d’affranchissement</span>
+    </div>
+
+    <div class="small mt-2">
+      <div class="d-flex justify-content-between align-items-center">
+        <span>Frei / Franco</span>
+        <span class="flex-grow-1 border-bottom border-dark ms-2"></span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-1">
+        <span>Unfrei / Non franco</span>
+        <span class="flex-grow-1 border-bottom border-dark ms-2"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="col-6">
+      <div class="box" style="min-height:28mm;">
+        <div class="num">20</div>
+        <div class="label">Besondere Vereinbarungen<br><span class="fr">Conventions particulières</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- === Zeile: 21 + 25 (je 50%) === -->
+<div class="row g-0" style="height: 8mm;">
+  <div class="col-6">
+  <div class="box" style="min-height:8mm;">
+    <div class="num">21</div>
+
+    <div class="d-flex align-items-center" style="height:100%;">
+      <!-- linke Spalte (40 %) -->
+      <div class="label" style="width:40%; border-right:1px solid #000; text-align:center;">
+        Ausgefertigt in<br>
+        <span class="fr">Établie à / le</span>
+      </div>
+
+      <!-- rechte Spalte (60 %) -->
+      <div style="width:60%; display:flex; align-items:center; justify-content:center; height:100%;">
+        <b>{{ausgestellt_ort}}</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Feld 25 -->
+  <div class="col-6">
+  <div class="box" style="min-height:8mm;">
+    
+
+    <div class="d-flex align-items-center" style="height:100%;">
+      <!-- linke Spalte (10 %) -->
+      <div class="label" style="width:10%; text-align:center;">
+        <span class="fr">Date</span>
+      </div>
+
+      <!-- rechte Spalte (90 %) -->
+      <div style="width:90%; display:flex; align-items:center; justify-content:center; height:100%;">
+        <span>am&nbsp;<b>{{datum}}</b></span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- === Zeile 10: 22 + 23 === -->
+<div class="row g-0">
+  <!-- 22 -->
+  <div class="col-6">
+    <div class="box" style="min-height:28mm;">
+      <div class="num">22</div>
+      <div class="label">
+        Unterschrift und Stempel des Absenders<br>
+        <span class="fr">Signature et cachet de l’expéditeur</span>
+      </div>
+      <div class="d-flex align-items-center justify-content-center mt-3" style="height:14mm;">
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- 23 -->
+  <div class="col-6">
+    <div class="box" style="min-height:28mm;">
+      <div class="num">23</div>
+      <div class="label">
+        Unterschrift und Stempel des Frachtführers<br>
+        <span class="fr">Signature et cachet du transporteur</span>
+      </div>
+      <div class="d-flex align-items-center justify-content-center mt-3" style="height:14mm;">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- === Zeile 10: Kennzeichen / Gen.-Nr. === -->
+  <div class="row g-0">
+    <div class="col-6">
+      <div class="box" style="min-height:28mm;">
+        <div class="label">Amtl. Kennzeichen / Nutzlast in kg</div>
+        <table class="table table-bordered mb-0" style="border-color:#000; font-size:12px;">
+          <tbody>
+            <tr><td style="width:35%">Kfz</td><td><b>{{kennzeichen}}</b></td></tr>
+            <tr><td>Anhänger</td><td></td></tr>
+            <tr><td>Nutzlast in kg</td><td>{{nutzlast}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-6">
+  <div class="box" style="min-height:20mm; display:flex; flex-direction:column; justify-content:space-between;">
+    <div class="num">24</div>
+
+    <!-- obere Zeile -->
+    <div class="d-flex" style="width:100%; height:10mm; border-bottom:1px solid #000;">
+      <!-- linke Hälfte -->
+      <div class="label" style="width:50%; border-right:1px solid #000; text-align:center;">
+        Gut empfangen<br>
+        <span class="fr">Réception des marchandises</span>
+      </div>
+      <!-- rechte Hälfte -->
+      <div style="width:50%; align-items:center;">
+        <span class="fr">Date</span>
+        
+      </div>
+    </div>
+
+    <!-- untere Zeile -->
+    <div style="width:100%; height:8mm; display:flex; align-items:flex-end; padding-top:50px; ">
+      <span style="font-size:10px;">Unterschrift und Stempel des Empfängers</span>
+    </div>
+  </div>
+</div>    
+  </div>
+  
+<!-- === Zeile: 100 % Benutzte Gen.-Nr. / Art des Verkehrs === -->
+<div class="row g-0">
+  <div class="col-12">
+    <div class="box" style="min-height:8mm; display:flex; align-items:center; justify-content:space-between; padding:4px 10px;">
+      <div class="label mb-0">
+        Benutzte Gen.-Nr. / Art des Verkehrs
+      </div>
+
+      <div class="d-flex gap-4 align-items-center small">
+        <span>
+          <span class="border border-dark d-inline-block" style="width:12px; height:12px; margin-right:4px;"></span>National
+        </span>
+        <span>
+          <span class="border border-dark d-inline-block" style="width:12px; height:12px; margin-right:4px;"></span>Bilateral
+        </span>
+        <span>
+          <span class="border border-dark d-inline-block" style="width:12px; height:12px; margin-right:4px;"></span>EG
+        </span>
+        <span>
+          <span class="border border-dark d-inline-block" style="width:12px; height:12px; margin-right:4px;"></span>CEMT
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.cmr -->
+
+</div><!-- /.page -->
+
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wareneingang – Formular (2 Seiten)</title>
+  <link rel="stylesheet" href="/CSS/drucken.css" />
+</head>
+<body>
+    
+  <div class="toolbar no-print">
+  <button id="btnBack" class="btn">← Zurück</button>
+  <div class="spacer"></div>
+</div>
+
+
+  <!-- ======= Seite 1 ======= -->
+  <section class="page a4">
+    <header class="head">
+      <div class="brand">
+        <!-- Logo-Platzhalter – hier könntest du euer PNG/SVG einbinden -->
+        <img class="brand-logo" src="/Bilder/logo_standard_tpo.svg" alt="TeamProjekt Outsourcing Logo">
+        <div class="addr">
+          TeamProjekt-Outsourcing<br>
+          Lise-Meitner-Straße 21<br>
+          31515 Wunstorf
+        </div>
+      </div>
+      <div class="title">WARE</div>
+      <div class="checkgrid">
+        <div class="checkgrid">
+  <label><input type="checkbox" value="B1"> Ladesäule (B1)</label>
+  <label><input type="checkbox" value="BM"> Behältermanagment (BM)</label>
+  <label><input type="checkbox" value="Muell"> Müllentsorgung (Müll)</label>
+  <label><input type="checkbox" value="W1"> Batteriefertigung (W1)</label>
+  <label><input type="checkbox" value="Banking"> Banking (Banking)</label>
+  <label><input type="checkbox" value="Sarajevo"> Sarajevo (Sarajevo)</label>
+  <label><input type="checkbox" value="BM"> Leergut (BM)</label>
+  <label><input type="checkbox" value="X3"> Wärmetauscher (X3)</label>
+  <label><input type="checkbox" value="G9"> Gießerei (G9)</label>
+</div>
+
+      </div>
+    </header>
+
+   <div class="block office">
+  <div class="block-head">Auszufüllen durch Büro:</div>
+  <div class="grid grid-3">
+    <label class="lbl">WF-NR:
+      <input class="inp" type="text" id="wfNr" placeholder="1978">
+    </label>
+    <label class="lbl">Ankunftszeit:
+      <input class="inp" type="time" id="ankunft" value="14:45">
+    </label>
+    <label class="lbl">Datum:
+      <input class="inp" type="date" id="datum">
+    </label>
+  </div>
+</div>
+
+    <div class="block">
+      <div class="block-head">Wer Liefert?</div>
+      
+
+      <div class="grid grid-2-50">
+  <label class="lbl">SPEDITION:
+    <input class="inp" type="text" id="spedition" placeholder="Tricor">
+  </label>
+  <label class="lbl">KENNZEICHEN:
+    <input class="inp" type="text" id="kennz" placeholder="BRA L 8507">
+  </label>
+</div>
+
+      <div class="grid grid-2">
+        <label class="lbl">BEGINN ENTLADUNG:
+          <input class="inp" type="text"> </label>
+        <label class="lbl">ENDE ENTLADUNG:
+          <input class="inp" type="text">
+        </label>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">INHALT:</div>
+      <div class="grid grid-2-50">
+  <label class="lbl">Anzahl gezählt?
+    <input class="inp right" type="text">
+  </label>
+  <label class="lbl">Anzahl laut Lieferschein:
+    <input class="inp right" type="number" id="anzahlLs" min="0" value="0">
+  </label>
+</div>
+
+      <div class="grid grid-2-33-66">
+  <div class="lbl">
+    Beschädigung der Ware:
+    <label class="check-inline"><input type="radio" name="beschaedigt" value="ja"> Ja</label>
+    <label class="check-inline"><input type="radio" name="beschaedigt" value="nein" checked> Nein</label>
+  </div>
+  <label class="lbl">Wenn „JA“, Bemerkung:
+    <input class="inp" type="text" id="bemerkung">
+  </label>
+</div>
+
+      <div class="grid grid-1">
+  <label class="lbl">Eingangskontrolle durch Unterschrift:
+    <input class="inp" type="text" id="sigMitarb">
+  </label>
+</div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">Auszufüllen durch Büro:</div>
+     <div class="grid grid-2-50">
+  <div class="lbl">
+    Ware systemseitig gebucht:
+    <label class="check-inline"><input type="checkbox" id="gebuchtJa"> Ja</label>
+    <label class="check-inline"><input type="checkbox" id="gebuchtNein"> Nein</label>
+  </div>
+  <div class="lbl">
+    Waren in Tabelle eingetragen?
+    <label class="check-inline"><input type="checkbox" id="wepJa"> Ja</label>
+    <label class="check-inline"><input type="checkbox" id="wepNein"> Nein</label>
+  </div>
+</div>
+
+      <div class="grid grid-2">
+        <label class="lbl">Wenn NEIN, Bemerkung:
+          <input class="inp" type="text" id="bemerkungB">
+        </label>
+        <label class="lbl">Gebucht am:
+          <input class="inp" type="text">
+        </label>
+      </div>
+
+      <div class="grid grid-2">
+        <label class="lbl">Gebucht durch:
+          <input class="inp" type="text" id="gebuchtDurch">
+        </label>
+        <label class="lbl">Unterschrift:
+          <input class="inp" type="text" id="sigBuero">
+        </label>
+      </div>
+    </div>
+
+    <aside class="side-note">
+      <div>Palettenauflistung<br>bitte auf der<br>Rückseite<br>vermerken</div>
+      <div class="arrow">➤</div>
+    </aside>
+  </section>
+
+  <!-- ======= Seite 2 ======= -->
+  <section class="page a4">
+    <header class="head small">
+      <div class="title">Paletten / KLT – Auflistung (Rückseite)</div>
+    </header>
+
+    <div class="table-wrap">
+      <table id="tbl" class="tbl">
+        <thead>
+          <tr>
+            <th style="width:14%">LS-Nr.</th>
+            <th style="width:10%">Verk</th>
+            <th>Sachnummer</th>
+            <th style="width:14%">Paletten / KLT</th>
+            <th style="width:14%">NO Label</th>
+            <th style="width:8%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Beispielzeile -->
+          <tr>
+            <td><input type="text" class="cell"></td>
+            <td><input type="text" class="cell"></td>
+            <td><input type="text" class="cell" placeholder="z. B. GTI4488"></td>
+            <td><input type="number" class="cell num pal" min="0" value="0"></td>
+            <td class="center"><input type="checkbox"></td>
+            <td class="center"><button class="btn-del" title="Zeile löschen">×</button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="right">Summe Paletten / KLT:</td>
+            <td class="right"><span id="sum">0</span></td>
+            <td colspan="2"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="row-controls">
+      <button id="addRow" class="btn">+ Zeile</button>
+      <button id="clearAll" class="btn ghost">Alle löschen</button>
+      <button id="syncToFront" class="btn ghost">Summe → Seite 1</button>
+    </div>
+
+    <p class="tiny-hint">Hinweis: Die Summe kann auf Seite 1 in „Gesamt­paletten / KLT (gezählt)“ übertragen werden.</p>
+  </section>
+
+  <!-- html2pdf (für PDF-Export) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+  
+  <script src="/js/drucken.js"></script>
+</body>
+</html>

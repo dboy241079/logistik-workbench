@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finanzen – Annika & Daniel</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #22d3ee;
+      --accent-2: #a78bfa;
+      --good: #10b981;
+      --bad: #ef4444;
+      --warn: #f59e0b;
+      --card: #0b1220;
+      --border: #1f2937;
+    }
+    .light {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --muted: #475569;
+      --text: #0f172a;
+      --accent: #0ea5e9;
+      --accent-2: #7c3aed;
+      --good: #16a34a;
+      --bad: #dc2626;
+      --warn: #d97706;
+      --card: #ffffff;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; padding: 24px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 1200px at 90% -10%, rgba(167,139,250,.10), transparent 60%),
+        radial-gradient(1200px 1200px at 10% -10%, rgba(34,211,238,.10), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      transition: background .2s ease, color .2s ease;
+    }
+    /* Mobile-Optimierung */
+.btn-up, .btn-down{ display:none; border:1px dashed var(--border); padding:6px 10px; border-radius:8px; }
+
+@media (max-width: 640px){
+  .cats-grid { grid-template-columns: 1fr; }
+
+  /* Reihen gestapelt */
+  .row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "label"
+      "amount"
+      "actions";
+    align-items: stretch;
+  }
+  .row > input[type="text"]   { grid-area: label; }
+  .row > input[type="number"] { grid-area: amount; }
+  .row .row-actions           { grid-area: actions; justify-content: space-between; }
+
+  /* Touch/Bedienung */
+  input, button, .btn { font-size: 16px; } /* verhindert iOS-Zoom */
+  .handle { display: none; }                /* Drag-Handle am Handy ausblenden */
+  .btn-up, .btn-down { display: inline-flex; } /* ▲/▼ am Handy zeigen */
+
+  /* etwas Luft bei Summenzeilen */
+  .totals { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+
+    h1 { font-size: clamp(1.6rem, 1.2rem + 2vw, 2.4rem); margin: 0 0 6px; }
+    p.sub { margin: 0 0 10px; color: var(--muted); }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 16px; box-shadow: 0 10px 24px rgba(0,0,0,0.20);
+    }
+    .card h2 { font-size: 1.1rem; margin: 0 0 8px; letter-spacing: .2px; }
+
+    .row { display: grid; grid-template-columns: 1fr 140px auto; gap: 8px; align-items: center; }
+    .row + .row { margin-top: 6px; }
+    label { color: var(--text); opacity: .9; font-size: .95rem; }
+
+    input[type="text"], input[type="month"], .select {
+      width: 100%; background: #0a0f1a10; color: var(--text);
+      border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; outline: none;
+    }
+    input[type="number"] {
+      width: 100%; background: #0a0f1a10; color: var(--text);
+      border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; outline: none;
+      -moz-appearance: textfield;
+    }
+    input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .section-title { display:flex; align-items:center; gap:10px; }
+    .section-title .tag { font-size:.8rem; color: var(--accent); background: rgba(34,211,238,.1); border:1px solid rgba(34,211,238,.3); padding:2px 8px; border-radius:999px; }
+    .muted { color: var(--muted); }
+
+    .toolbar { display:flex; gap:8px; flex-wrap: wrap; align-items:center; }
+    button, .btn {
+      background: linear-gradient(180deg, rgba(167,139,250,.25), rgba(34,211,238,.18));
+      border: 1px solid rgba(167,139,250,.45);
+      color: inherit; border-radius: 12px; padding: 10px 14px; cursor: pointer;
+      transition: transform .06s ease, background .2s ease; font-weight: 600;
+    }
+    button:hover { transform: translateY(-1px); }
+    button.ghost { background: transparent; border-color: var(--border); }
+
+    .summary { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+    .summary .kpi { background: #0a0f1a10; border:1px solid var(--border); border-radius: 12px; padding: 12px; }
+    .kpi .label { font-size:.8rem; color: var(--muted); }
+    .kpi .value { font-size: 1.3rem; font-weight: 700; margin-top: 2px; }
+
+    .pill { font-size:.78rem; padding:2px 8px; border-radius:999px; border:1px solid var(--border); color: var(--muted); }
+
+    .right { text-align:right; }
+    .good { color: var(--good); }
+    .bad { color: var(--bad); }
+
+    .cats-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 980px){ .cats-grid { grid-template-columns: 1fr; } }
+
+    .cat-head { display:flex; align-items:center; justify-content: space-between; gap:8px; margin-bottom:8px; }
+    .cat-title { display:flex; align-items:center; gap:8px; }
+    .cat-title h2 { margin:0; }
+    .cat-actions { display:flex; gap:6px; }
+    .icon-btn { background: transparent; border: 1px dashed var(--border); padding: 6px 8px; border-radius: 10px; cursor: pointer; }
+
+    .row-actions { display:flex; align-items:center; gap:6px; justify-content:flex-end; }
+    .handle { cursor: grab; padding: 6px 8px; border: 1px dashed var(--border); border-radius: 8px; user-select:none; }
+    .btn-dup, .btn-del { background: transparent; border: 1px dashed var(--border); padding: 6px 8px; border-radius: 8px; cursor: pointer; }
+
+    .totals { display:flex; justify-content: space-between; align-items:center; margin-top: 10px; }
+    .totals .chip { border: 1px dashed var(--border); padding:6px 10px; border-radius:999px; font-weight:600; }
+
+    .notices { margin: 10px 0 14px; display:none; }
+    .notice { border:1px solid var(--border); border-left-width: 4px; border-radius: 10px; padding: 10px 12px; margin-top:8px; background: #0a0f1a10; }
+    .notice.error { border-left-color: var(--bad); }
+    .notice.warn { border-left-color: var(--warn); }
+
+    .row.must { background: rgba(16,185,129,.08); border-radius: 10px; }
+    .row.over { outline: 1px solid var(--bad); background: rgba(239,68,68,.08); }
+
+    .row.dragging { opacity: 0.7; outline: 2px dashed var(--accent-2); border-radius: 12px; }
+    .drag-over { outline: 2px dashed var(--accent-2); border-radius: 12px; }
+
+    .progress { height: 12px; background: #0a0f1a10; border:1px solid var(--border); border-radius: 999px; overflow:hidden; }
+    .progress .bar { height: 100%; background: linear-gradient(90deg, var(--accent-2), var(--accent)); width: 0%; }
+    .goalline { display:flex; align-items:center; gap: 10px; }
+
+    @media (max-width: 980px){
+      .grid { grid-template-columns: 1fr; }
+      .summary { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr 120px auto; }
+    }
+    @media print {
+      .toolbar, .split-opt, .icon-btn, .btn-dup, .btn-del, .handle { display:none !important; }
+      body { padding: 0; }
+      .container { max-width: none; }
+      .card { box-shadow: none; border-color: #ccc; }
+      .notices { display:block !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="appRoot">
+    <header style="margin-bottom:10px;">
+      <h1>💚 Finanzen – Annika & Daniel</h1>
+      <p class="sub">Manuelle Eingabe · Gemeinsame & persönliche Ausgaben · Live-Berechnung · Export/Import · Print · Light/Dark</p>
+      <div class="toolbar">
+        <div class="controls" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <div title="Monat wählen">📅 <input id="budget_month" type="month" class="select" /></div>
+          <div title="Theme umschalten">🌓 <label><input type="checkbox" id="themeToggle"/> Light</label></div>
+          <div title="Lokal im Browser speichern (optional, standard aus)">💽 <label><input type="checkbox" id="autosaveToggle"/> Autosave (lokal)</label></div>
+        </div>
+        <span style="flex:1 1 auto"></span>
+        <button id="printBtn" class="ghost" title="Seite drucken / PDF">🖨️ Drucken</button>
+        <button id="exportBtn" title="Als JSON exportieren">💾 Export</button>
+        <label class="btn" for="importFile" title="JSON importieren" style="display:inline-flex; align-items:center; gap:8px;">📂 Import <input id="importFile" type="file" accept="application/json" style="display:none;" /></label>
+        <button id="resetBtn" class="ghost" title="Alle Felder leeren">♻️ Reset</button>
+      </div>
+      <div class="notices" id="notices"></div>
+    </header>
+
+    <!-- Einkommen / Split -->
+    <section class="grid" style="margin-bottom: 8px;">
+      <div class="card" style="grid-column: span 6;">
+        <div class="section-title"><h2>Einkommen</h2><span class="tag">monatlich</span></div>
+        <div class="row" style="margin-top:8px;">
+          <label for="inc_annika">Annika</label>
+          <input id="inc_annika" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0,00" />
+          <div></div>
+        </div>
+        <div class="row">
+          <label for="inc_daniel">Daniel</label>
+          <input id="inc_daniel" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0,00" />
+          <div></div>
+        </div>
+        <p class="footnote">Tipp: Nur Zahlen eingeben, Komma oder Punkt möglich.</p>
+      </div>
+      <div class="card" style="grid-column: span 6;">
+        <div class="section-title"><h2>Aufteilung nach Fixkosten</h2><span class="tag">Modus</span></div>
+        <div class="split-opt" style="margin-top:8px;">
+          <label><input type="radio" name="split" value="proportional" checked /> proportional nach Einkommen</label>
+          <label><input type="radio" name="split" value="fifty" /> 50 / 50</label>
+        </div>
+        <p class="footnote">Gemeinsame Ausgaben werden auf Annika & Daniel verteilt (50/50 oder proportional). Danach gehen die persönlichen Ausgaben ab.</p>
+      </div>
+    </section>
+
+    <!-- Gemeinsame Kosten -->
+    <section class="card" style="margin-bottom: 8px;">
+      <div class="section-title"><h2>Gemeinsame Kosten</h2><span class="pill">Namen editierbar • Drag & Drop • Pflicht markierbar</span></div>
+      <div id="shared-list" class="cats-grid"></div>
+    </section>
+
+    <!-- Persönliche Kosten -->
+    <section class="grid" style="margin-bottom: 8px;">
+      <div class="card" style="grid-column: span 6;">
+        <div class="section-title"><h2>Annika – Persönlich</h2><span class="pill">Mehr als 5 • Drag & Drop</span></div>
+        <div id="pers-annika" data-pers="annika"></div>
+        <div class="totals">
+          <button id="add-pers-annika" class="icon-btn">＋ Position</button>
+          <span class="chip">Summe Annika (pers.): <strong id="sum-pers-annika">€ 0,00</strong></span>
+        </div>
+      </div>
+      <div class="card" style="grid-column: span 6;">
+        <div class="section-title"><h2>Daniel – Persönlich</h2><span class="pill">Mehr als 5 • Drag & Drop</span></div>
+        <div id="pers-daniel" data-pers="daniel"></div>
+        <div class="totals">
+          <button id="add-pers-daniel" class="icon-btn">＋ Position</button>
+          <span class="chip">Summe Daniel (pers.): <strong id="sum-pers-daniel">€ 0,00</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Budgetziele (Jahr) -->
+    <section class="card" style="margin-bottom: 8px;">
+      <div class="section-title"><h2>Budgetziele</h2><span class="tag">Jahr & Monat</span></div>
+      <div class="row">
+        <label for="goal_year">Jahresziel Sparen (<span id="goal_year_label">–</span>)</label>
+        <input id="goal_year" type="number" inputmode="decimal" step="0.01" min="0" placeholder="z. B. 1000" />
+        <div class="goalline"><div id="goal_year_text" class="muted">€ 0,00 / € 0,00 (0%)</div></div>
+      </div>
+      <div class="row">
+        <label for="goal_contrib">Beitrag diesen Monat</label>
+        <input id="goal_contrib" type="number" inputmode="decimal" step="0.01" min="0" placeholder="z. B. 100" />
+        <div></div>
+      </div>
+      <div class="progress" style="margin-top:8px;">
+        <div id="goal_year_bar" class="bar"></div>
+      </div>
+      <p class="footnote">Fortschritt = Summe der Monats-Beiträge im Jahr / Jahresziel. <em>Autosave aktivieren</em>, damit Monats-Beiträge automatisch gezählt werden.</p>
+    </section>
+
+    <!-- Zusammenfassung -->
+    <section class="card">
+      <div class="section-title"><h2>Zusammenfassung</h2><span class="tag">Live</span></div>
+      <div class="summary">
+        <div class="kpi"><div class="label">Monat</div><div id="kpi-month" class="value">–</div></div>
+        <div class="kpi"><div class="label">Gesamteinkommen</div><div id="kpi-income" class="value">€ 0,00</div></div>
+        <div class="kpi"><div class="label">Gemeinsame Kosten</div><div id="kpi-shared" class="value">€ 0,00</div></div>
+      </div>
+      <div class="summary" style="margin-top:10px;">
+        <div class="kpi"><div class="label">Rest nach gemeinsamen Kosten (gesamt)</div><div id="kpi-after-shared" class="value">€ 0,00</div></div>
+        <div class="kpi"><div class="label">Modus</div><div id="kpi-mode" class="value">proportional</div></div>
+        <div class="kpi"><div class="label">Gesamt – Persönlich</div><div id="kpi-total-pers" class="value">€ 0,00</div></div>
+      </div>
+      <div class="summary" style="margin-top:10px;">
+        <div class="kpi"><div class="label">Annika – Anteil (nach Modus)</div><div id="kpi-annika-share" class="value">€ 0,00</div></div>
+        <div class="kpi"><div class="label">Daniel – Anteil (nach Modus)</div><div id="kpi-daniel-share" class="value">€ 0,00</div></div>
+        <div class="kpi"><div class="label">Beide – Verbleibend</div><div id="kpi-both-left" class="value good">€ 0,00</div></div>
+      </div>
+      <div class="summary" style="margin-top:10px;">
+        <div class="kpi"><div class="label">Einkommensanteil – Annika</div><div id="kpi-annika-income-pct" class="value">–</div></div>
+        <div class="kpi"><div class="label">Einkommensanteil – Daniel</div><div id="kpi-daniel-income-pct" class="value">–</div></div>
+        <div class="kpi"><div class="label">—</div><div class="value"> </div></div>
+      </div>
+      <div class="summary" style="margin-top:10px;">
+        <div class="kpi"><div class="label">Anteil an gemeinsamen Kosten – Annika</div><div id="kpi-annika-contr" class="value">€ 0,00</div></div>
+        <div class="kpi"><div class="label">Anteil an gemeinsamen Kosten – Daniel</div><div id="kpi-daniel-contr" class="value">€ 0,00</div></div>
+        <div class="kpi"><div class="label">—</div><div class="value"> </div></div>
+      </div>
+      <div class="summary" style="margin-top:10px;">
+        <div class="kpi"><div class="label">Annika – Verbleibend</div><div id="kpi-annika-left" class="value good">€ 0,00</div></div>
+        <div class="kpi"><div class="label">Daniel – Verbleibend</div><div id="kpi-daniel-left" class="value good">€ 0,00</div></div>
+        <div class="kpi"><div class="label">—</div><div class="value"> </div></div>
+      </div>
+      <p class="footnote">Negative Werte werden rot dargestellt. Pflichtposten werden hervorgehoben, wenn das Einkommen nicht reicht.</p>
+    </section>
+
+    <footer style="margin-top: 18px; color: var(--muted); font-size:.9rem;">
+      <strong>Hinweis:</strong> Dauerhafte Speicherung (PHP+MySQL) kommt später. Bis dahin: Export/Import oder optionaler <em>Autosave (lokal)</em> pro Monat.
+    </footer>
+  </div>
+
+  <script>
+    // ---------- Helpers & Constants ----------
+    const DEFAULT_CATS = [
+      { id: 'haus', label: 'Haus' },
+      { id: 'privat', label: 'Privat' },
+      { id: 'tv', label: 'TV + Internet' },
+      { id: 'auto', label: 'Auto' },
+      { id: 'sonstiges', label: 'Sonstiges' }
+    ];
+    const PLACEHOLDERS_SHARED = {
+      haus: ['Miete/Hypothek','Strom','Gas','Wasser/Abwasser','Müll/Grundsteuer'],
+      privat: ['Einkauf/Lebensmittel','Drogerie/Haushalt','Kleidung','Freizeit','Rücklagen'],
+      tv: ['Internet','TV/Streaming','Telefon','Rundfunkbeitrag (GEZ)','Router/SmartHome'],
+      auto: ['Tanken','Versicherung','Kfz-Steuer','Werkstatt/Inspektion','Parken/Maut'],
+      sonstiges: ['Rücklagen/Notgroschen','Gesundheit','Geschenke','Bildung','Haustier']
+    };
+    const PLACEHOLDERS_PERSONAL = {
+      annika: ['Handy','Sport','Shopping','Hobby','Sonstiges'],
+      daniel: ['Handy','Sport','Tools/Software','Hobby','Sonstiges']
+    };
+    const STATE = {
+      order: DEFAULT_CATS.map(c => c.id),
+      labels: Object.fromEntries(DEFAULT_CATS.map(c => [c.id, c.label]))
+    };
+    let currentDragRow = null;
+
+    // ---------- DOM ----------
+    const $ = (id) => document.getElementById(id);
+    const setText = (id, value) => { const el = $(id); if (el) el.textContent = value; };
+    const setMoney = (id, num) => setText(id, formatEuro(num));
+    function formatPct(x, digits = 0){
+      return new Intl.NumberFormat('de-DE', { style: 'percent', maximumFractionDigits: digits }).format(x || 0);
+    }
+
+    const incA = $('inc_annika');
+    const incD = $('inc_daniel');
+    const themeToggle = $('themeToggle');
+    const autosaveToggle = $('autosaveToggle');
+    const monthInput = $('budget_month');
+    const noticesBox = $('notices');
+
+    const goalYearInput = $('goal_year');
+    const goalContribInput = $('goal_contrib');
+    const goalYearBar = $('goal_year_bar');
+    const goalYearText = $('goal_year_text');
+    const goalYearLabel = $('goal_year_label');
+
+    // ---------- Build Rows ----------
+    function buildRow(container, keyPrefix, idx, ph, hasMust){
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.dataset.prefix = keyPrefix;
+      const lab = document.createElement('input'); lab.type = 'text'; lab.placeholder = ph || `Bezeichnung ${idx}`; lab.id = `${keyPrefix}_label_${idx}`;
+      const amt = document.createElement('input'); amt.type = 'number'; amt.inputMode = 'decimal'; amt.step = '0.01'; amt.min = '0'; amt.placeholder = '0,00'; amt.id = `${keyPrefix}_amount_${idx}`;
+      const actions = document.createElement('div'); actions.className = 'row-actions';
+      if (hasMust){
+        const flag = document.createElement('label'); flag.className = 'muted'; flag.style.display = 'inline-flex'; flag.style.alignItems = 'center'; flag.style.gap = '6px'; flag.title = 'Als Pflichtposten markieren';
+        const cb = document.createElement('input'); cb.type = 'checkbox'; cb.id = `${keyPrefix}_must_${idx}`; cb.setAttribute('data-must','1');
+        flag.appendChild(cb); flag.appendChild(document.createTextNode('Pflicht'));
+        actions.appendChild(flag);
+      }
+      const handle = document.createElement('span'); handle.className='handle'; handle.textContent='⠿'; handle.title = 'Ziehen zum Sortieren';
+      const dup = document.createElement('button'); dup.className='btn-dup'; dup.title='Duplizieren'; dup.textContent='⧉';
+      const del = document.createElement('button'); del.className='btn-del'; del.title='Löschen'; del.textContent='🗑️';
+      actions.appendChild(handle); actions.appendChild(dup); actions.appendChild(del);
+
+      row.appendChild(lab); row.appendChild(amt); row.appendChild(actions);
+
+      row.draggable = false;
+      handle.addEventListener('mousedown', () => row.draggable = true);
+      handle.addEventListener('mouseup', () => row.draggable = false);
+      handle.addEventListener('mouseleave', () => row.draggable = false);
+
+      row.addEventListener('dragstart', ()=>{ currentDragRow = row; row.classList.add('dragging'); });
+      row.addEventListener('dragend', ()=>{ row.classList.remove('dragging'); currentDragRow = null; reindexRows(container, keyPrefix); updateAll(); });
+
+      amt.addEventListener('input', updateAll);
+      lab.addEventListener('input', maybeAutosave);
+
+      container.appendChild(row);
+      return row;
+    }
+
+    function moveRow(row, dir){
+  const parent = row.parentElement; if (!parent) return;
+  if (dir === 'up' && row.previousElementSibling){
+    parent.insertBefore(row, row.previousElementSibling);
+  } else if (dir === 'down' && row.nextElementSibling){
+    parent.insertBefore(row.nextElementSibling, row);
+  }
+  reindexRows(parent, row.dataset.prefix);
+  updateAll();
+}
+
+    function addSharedRow(id, rowsEl){
+      const rows = rowsEl || $(`cat-${id}`); if (!rows) return;
+      const idx = rows.querySelectorAll('.row').length + 1;
+      const ph = (PLACEHOLDERS_SHARED[id] || [])[idx-1];
+      const r = buildRow(rows, `shared_${id}`, idx, ph, true);
+      reindexRows(rows, `shared_${id}`); return r;
+    }
+    function addPersonalRow(p){
+      const rows = $(`pers-${p}`); if (!rows) return;
+      const idx = rows.querySelectorAll('.row').length + 1;
+      const ph = (PLACEHOLDERS_PERSONAL[p] || [])[idx-1];
+      const r = buildRow(rows, `pers_${p}`, idx, ph, false);
+      reindexRows(rows, `pers_${p}`); return r;
+    }
+    function reindexRows(rows, prefix){
+      const list = Array.from(rows.querySelectorAll('.row'));
+      list.forEach((row, i) => {
+        const idx = i+1;
+        row.id = `row-${prefix}-${idx}`;
+        row.dataset.prefix = prefix;
+        const lab = row.querySelector('input[type="text"]');
+        const amt = row.querySelector('input[type="number"]');
+        const must = row.querySelector('input[type="checkbox"][data-must]');
+        if (lab) lab.id = `${prefix}_label_${idx}`;
+        if (amt) amt.id = `${prefix}_amount_${idx}`;
+        if (must) must.id = `${prefix}_must_${idx}`;
+      });
+    }
+    function attachRowDnD(rows){
+      rows.addEventListener('dragover', (e)=>{
+        e.preventDefault();
+        if (!currentDragRow) return;
+        const after = getDragAfterElement(rows, e.clientY);
+        if (after == null) rows.appendChild(currentDragRow);
+        else rows.insertBefore(currentDragRow, after);
+      });
+    }
+    function getDragAfterElement(container, y){
+      const candidates = [...container.querySelectorAll('.row:not(.dragging)')];
+      let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
+      for (const child of candidates){
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height/2;
+        if (offset < 0 && offset > closest.offset){ closest = { offset, element: child }; }
+      }
+      return closest.element;
+    }
+
+    // ---------- Shared categories ----------
+    function renderSharedCats(snapshot){
+      const wrap = $('shared-list'); wrap.innerHTML = '';
+      STATE.order.forEach((id) => {
+        const card = document.createElement('div'); card.className = 'card'; card.dataset.cat = id; card.id = `cat-card-${id}`;
+        card.draggable = true;
+        card.addEventListener('dragstart', (e)=>{ e.dataTransfer.setData('text/plain', id); card.classList.add('dragging'); });
+        card.addEventListener('dragend', ()=> card.classList.remove('dragging'));
+        card.addEventListener('dragover', (e)=>{ e.preventDefault(); card.classList.add('drag-over'); });
+        card.addEventListener('dragleave', ()=> card.classList.remove('drag-over'));
+        card.addEventListener('drop', (e)=>{
+          e.preventDefault(); card.classList.remove('drag-over');
+          const src = e.dataTransfer.getData('text/plain');
+          if (!src || src === id) return;
+          const snap = collectData();
+          const from = STATE.order.indexOf(src), to = STATE.order.indexOf(id);
+          if (from>-1 && to>-1){
+            const [m] = STATE.order.splice(from,1);
+            STATE.order.splice(to,0,m);
+            renderSharedCats(snap); updateAll(); maybeAutosave();
+          }
+        });
+
+        const head = document.createElement('div'); head.className = 'cat-head';
+        const title = document.createElement('div'); title.className = 'cat-title';
+        const h2 = document.createElement('h2'); h2.textContent = STATE.labels[id] || id; h2.contentEditable = false; h2.id = `label-${id}`; h2.title = '✏️ Name bearbeiten';
+        title.appendChild(h2); head.appendChild(title);
+        const actions = document.createElement('div'); actions.className = 'cat-actions';
+        const editBtn = document.createElement('button'); editBtn.className = 'icon-btn'; editBtn.title = 'Namen bearbeiten'; editBtn.textContent = '✏️';
+        editBtn.addEventListener('click', () => { h2.contentEditable = true; h2.focus(); selectAllText(h2); });
+        h2.addEventListener('blur', () => { h2.contentEditable = false; const t = (h2.textContent||'').trim() || DEFAULT_CATS.find(c=>c.id===id).label; STATE.labels[id] = t; updateAll(); maybeAutosave(); });
+        h2.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); h2.blur(); }});
+        const addBtn = document.createElement('button'); addBtn.className='icon-btn'; addBtn.title='Neue Position'; addBtn.textContent='＋ Position';
+        actions.appendChild(editBtn); actions.appendChild(addBtn);
+        head.appendChild(actions);
+        card.appendChild(head);
+
+        const rows = document.createElement('div'); rows.id = `cat-${id}`; rows.dataset.cat = id; card.appendChild(rows);
+        const totals = document.createElement('div'); totals.className='totals'; totals.innerHTML = `<span></span><span class="chip">Summe ${STATE.labels[id]}: <strong id="sum-${id}">€ 0,00</strong></span>`; card.appendChild(totals);
+        wrap.appendChild(card);
+
+        addBtn.addEventListener('click', ()=> { addSharedRow(id, rows); updateAll(); });
+        rows.addEventListener('input', updateAll, { passive: true });
+        rows.addEventListener('click', (e)=>{
+          const btn = e.target.closest('button'); if (!btn) return;
+          const row = e.target.closest('.row'); if (!row) return;
+          const prefix = `shared_${id}`;
+          if (btn.classList.contains('btn-del')){ row.remove(); reindexRows(rows, prefix); updateAll(); }
+          if (btn.classList.contains('btn-dup')){
+            const newRow = buildRow(rows, prefix, rows.querySelectorAll('.row').length + 1, '', true);
+            newRow.querySelector('input[type="text"]').value = row.querySelector('input[type="text"]').value;
+            newRow.querySelector('input[type="number"]').value = row.querySelector('input[type="number"]').value;
+            const srcMust = row.querySelector('input[type="checkbox"][data-must]')?.checked;
+            const dstMust = newRow.querySelector('input[type="checkbox"][data-must]');
+            if (dstMust) dstMust.checked = !!srcMust;
+            rows.insertBefore(newRow, row.nextSibling);
+            reindexRows(rows, prefix); updateAll();
+          }
+        });
+        attachRowDnD(rows);
+
+        for (let i=1;i<=5;i++){ addSharedRow(id, rows); }
+      });
+      if (snapshot) { applyData(snapshot); }
+    }
+    function selectAllText(el){ const range = document.createRange(); range.selectNodeContents(el); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range); }
+
+    // Personal sections
+    (function initPersonal(){
+      renderSharedCats();
+      const a = $('pers-annika'); a.innerHTML='';
+      const d = $('pers-daniel'); d.innerHTML='';
+      for (let i=0;i<5;i++) addPersonalRow('annika');
+      for (let i=0;i<5;i++) addPersonalRow('daniel');
+      $('add-pers-annika').addEventListener('click', ()=> { addPersonalRow('annika'); updateAll(); });
+      $('add-pers-daniel').addEventListener('click', ()=> { addPersonalRow('daniel'); updateAll(); });
+      a.addEventListener('input', updateAll, { passive: true });
+      d.addEventListener('input', updateAll, { passive: true });
+      a.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button'); if (!btn) return; const row = e.target.closest('.row'); if (!row) return;
+        const prefix = 'pers_annika';
+        if (btn.classList.contains('btn-del')){ row.remove(); reindexRows(a, prefix); updateAll(); }
+        if (btn.classList.contains('btn-dup')){
+          const newRow = buildRow(a, prefix, a.querySelectorAll('.row').length + 1, '', false);
+          newRow.querySelector('input[type="text"]').value = row.querySelector('input[type="text"]').value;
+          newRow.querySelector('input[type="number"]').value = row.querySelector('input[type="number"]').value;
+          a.insertBefore(newRow, row.nextSibling);
+          reindexRows(a, prefix); updateAll();
+        }
+      });
+      d.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button'); if (!btn) return; const row = e.target.closest('.row'); if (!row) return;
+        const prefix = 'pers_daniel';
+        if (btn.classList.contains('btn-del')){ row.remove(); reindexRows(d, prefix); updateAll(); }
+        if (btn.classList.contains('btn-dup')){
+          const newRow = buildRow(d, prefix, d.querySelectorAll('.row').length + 1, '', false);
+          newRow.querySelector('input[type="text"]').value = row.querySelector('input[type="text"]').value;
+          newRow.querySelector('input[type="number"]').value = row.querySelector('input[type="number"]').value;
+          d.insertBefore(newRow, row.nextSibling);
+          reindexRows(d, prefix); updateAll();
+        }
+      });
+      attachRowDnD(a); attachRowDnD(d);
+    })();
+
+    // ---------- Events ----------
+    [incA, incD, goalYearInput, goalContribInput].forEach(i => i?.addEventListener('input', updateAll));
+    document.querySelectorAll('input[name="split"]').forEach(r => r.addEventListener('change', updateAll));
+    $('printBtn').addEventListener('click', () => window.print());
+    themeToggle.addEventListener('change', () => { const root = $('appRoot').parentElement; root.classList.toggle('light', themeToggle.checked); });
+    autosaveToggle.addEventListener('change', () => { if (autosaveToggle.checked) maybeAutosave(); });
+    monthInput.addEventListener('change', () => { refreshYearLabel(); tryLoadFromStorage(); updateAll(); });
+
+    // ---------- Utils ----------
+    function parseEuro(val){ if (typeof val === 'number') return val; if (!val) return 0; val = (''+val).replace(',', '.').replace(/\s+/g,''); const num = parseFloat(val); return isNaN(num) ? 0 : num; }
+    function formatEuro(num){ return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(num || 0); }
+    function sumInputs(prefix){ let sum = 0; document.querySelectorAll(`[id^="${prefix}_amount_"]`).forEach(el => sum += parseEuro(el.value)); return sum; }
+
+    function storageKey(){ const m = monthInput.value || 'global'; return `finAD_v6_${m}`; }
+    function maybeAutosave(){ if (!autosaveToggle.checked) return; const payload = { version: 6, data: collectData() }; localStorage.setItem(storageKey(), JSON.stringify(payload)); }
+    function tryLoadFromStorage(){
+      if (!monthInput.value) return;
+      const raw = localStorage.getItem(storageKey());
+      if (!raw) return;
+      try { const json = JSON.parse(raw); applyData(json.data || json); } catch(e){}
+    }
+
+    function getSelectedYear(){
+      const m = monthInput.value;
+      if (m && /^\d{4}-\d{2}$/.test(m)) return m.slice(0,4);
+      return String(new Date().getFullYear());
+    }
+    function refreshYearLabel(){ setText('goal_year_label', getSelectedYear()); }
+
+    // Summe Beiträge im Jahr (greift auch auf v4/v5 zurück)
+    function sumYearContrib(year){
+      let sum = 0;
+      for (let mm=1; mm<=12; mm++){
+        const m = String(mm).padStart(2,'0');
+        const k6 = `finAD_v6_${year}-${m}`;
+        const k5 = `finAD_v5_${year}-${m}`;
+        const k4 = `finAD_v4_${year}-${m}`;
+        const raw = localStorage.getItem(k6) || localStorage.getItem(k5) || localStorage.getItem(k4);
+        if (!raw) continue;
+        try{
+          const json = JSON.parse(raw);
+          const data = json.data || json;
+          const g = data.goals || {};
+          const c = parseEuro(g.contrib ?? 0);
+          sum += c;
+        }catch(e){}
+      }
+      // aktuellen Monat mit aktuellen Eingaben überschreiben (falls noch nicht gespeichert)
+      const cur = monthInput.value;
+      if (cur && cur.startsWith(year)){
+        // gespeicherter Wert
+        let storedCur = 0;
+        try {
+          const rawCur = localStorage.getItem(storageKey());
+          if (rawCur){
+            const json = JSON.parse(rawCur); const data = json.data || json;
+            storedCur = parseEuro(data?.goals?.contrib || 0);
+          }
+        }catch(e){}
+        const uiCur = parseEuro(goalContribInput?.value || 0);
+        sum = sum - storedCur + uiCur;
+      }
+      return sum;
+    }
+
+    // ---------- Data ----------
+    function collectData(){
+      const data = {
+        month: monthInput.value || '',
+        incomes: { annika: parseEuro(incA.value), daniel: parseEuro(incD.value) },
+        split: document.querySelector('input[name="split"]:checked').value,
+        shared: {}, personal: { annika: [], daniel: [] },
+        goals: {
+          year: parseEuro(goalYearInput?.value) || 0,
+          contrib: parseEuro(goalContribInput?.value) || 0
+        },
+        meta: { order: [...STATE.order], labels: {...STATE.labels} }
+      };
+      STATE.order.forEach((id)=>{
+        const cat = { items: [], total: 0 };
+        const rows = $(`cat-${id}`);
+        const list = Array.from(rows.querySelectorAll('.row'));
+        list.forEach((row)=>{
+          const lab = row.querySelector('input[type="text"]').value || '';
+          const amt = parseEuro(row.querySelector('input[type="number"]').value);
+          const mustEl = row.querySelector('input[type="checkbox"][data-must]');
+          const must = !!(mustEl && mustEl.checked);
+          if (lab || amt){ cat.items.push({ label: lab, amount: amt, must }); }
+          cat.total += amt;
+        });
+        data.shared[id] = cat;
+      });
+      ['annika','daniel'].forEach(p=>{
+        let total = 0; const items = [];
+        const rows = $(`pers-${p}`);
+        const list = Array.from(rows.querySelectorAll('.row'));
+        list.forEach((row)=>{
+          const lab = row.querySelector('input[type="text"]').value || '';
+          const amt = parseEuro(row.querySelector('input[type="number"]').value);
+          if (lab || amt){ items.push({ label: lab, amount: amt }); }
+          total += amt;
+        });
+        data.personal[p] = { items, total };
+      });
+      return data;
+    }
+
+    function compute(){
+      const d = collectData();
+      const totalIncome = d.incomes.annika + d.incomes.daniel;
+      let totalShared = 0; Object.values(d.shared).forEach(c => totalShared += c.total);
+
+      let mustShared = 0; Object.values(d.shared).forEach(c => c.items.forEach(it => { if (it.must) mustShared += it.amount; }));
+
+      let contrA = 0, contrD = 0;
+      if (totalIncome > 0){
+        if (d.split === 'fifty'){
+          contrA = totalShared / 2;
+          contrD = totalShared / 2;
+        } else {
+          const ratioA = d.incomes.annika / totalIncome;
+          const ratioD = d.incomes.daniel / totalIncome;
+          contrA = totalShared * ratioA;
+          contrD = totalShared * ratioD;
+        }
+      }
+
+      const shareA = d.incomes.annika - contrA;
+      const shareD = d.incomes.daniel - contrD;
+      const afterShared = shareA + shareD;
+
+      const persA = d.personal.annika.total; const persD = d.personal.daniel.total;
+      const leftA = shareA - persA; const leftD = shareD - persD;
+      const bothLeft = leftA + leftD;
+
+      const ratioAIncome = totalIncome > 0 ? d.incomes.annika / totalIncome : 0;
+      const ratioDIncome = totalIncome > 0 ? d.incomes.daniel / totalIncome : 0;
+
+      const year = getSelectedYear();
+      const goalYear = parseEuro(goalYearInput?.value) || 0;
+      const ytd = sumYearContrib(year);
+      const goalPctYear = goalYear > 0 ? Math.max(0, Math.min(1, ytd / goalYear)) : 0;
+
+      return { d, totalIncome, totalShared, mustShared,
+               contrA, contrD, afterShared,
+               shareA, shareD, persA, persD, leftA, leftD, bothLeft,
+               ratioAIncome, ratioDIncome,
+               year, goalYear, ytd, goalPctYear };
+    }
+
+    // ---------- Notices / Highlights ----------
+    function renderNotices(r){
+      const msgs = [];
+      if (r.totalIncome <= 0 && (r.totalShared > 0 || (r.persA + r.persD) > 0)) msgs.push({type:'warn', text:'Einkommen ist 0, aber es sind Kosten eingetragen.'});
+      if (r.mustShared > r.totalIncome) msgs.push({type:'error', text:`Pflichtposten (gemeinsam) übersteigen das Gesamteinkommen um ${formatEuro(r.mustShared - r.totalIncome)}.`});
+      else if (r.totalShared > r.totalIncome) msgs.push({type:'warn', text:`Gemeinsame Kosten übersteigen das Gesamteinkommen um ${formatEuro(r.totalShared - r.totalIncome)}.`});
+      if (r.persA > r.shareA) msgs.push({type:'warn', text:`Annikas persönliche Ausgaben liegen ${formatEuro(r.persA - r.shareA)} über ihrem Anteil.`});
+      if (r.persD > r.shareD) msgs.push({type:'warn', text:`Daniels persönliche Ausgaben liegen ${formatEuro(r.persD - r.shareD)} über seinem Anteil.`});
+      if (!msgs.length){ noticesBox.style.display = 'none'; noticesBox.innerHTML=''; return; }
+      noticesBox.style.display = 'block';
+      noticesBox.innerHTML = msgs.map(m=>`<div class="notice ${m.type}"><strong>${m.type==='error'?'Achtung':'Hinweis'}:</strong> ${m.text}</div>`).join('');
+    }
+    function updateHighlights(r){
+      const warnMust = r.mustShared > r.totalIncome;
+      document.querySelectorAll('.row').forEach(row => {
+        const cb = row.querySelector('input[type="checkbox"][data-must]');
+        const checked = !!cb?.checked;
+        row.classList.toggle('must', checked);
+        row.classList.toggle('over', warnMust && checked);
+      });
+    }
+
+    // ---------- Render ----------
+    function updateAll(){
+      const r = compute();
+
+      setText('kpi-month', r.d.month ? r.d.month : '–');
+      setMoney('kpi-income', r.totalIncome);
+      setMoney('kpi-shared', r.totalShared);
+      setMoney('kpi-after-shared', r.afterShared);
+      setText('kpi-mode', (r.d.split === 'fifty' ? '50/50' : 'proportional'));
+
+      setMoney('kpi-annika-share', r.shareA);
+      setMoney('kpi-daniel-share', r.shareD);
+
+      setMoney('kpi-annika-pers', r.persA);
+      setMoney('kpi-daniel-pers', r.persD);
+      setMoney('kpi-total-pers', r.persA + r.persD);
+
+      setMoney('kpi-annika-left', r.leftA);
+      setMoney('kpi-daniel-left', r.leftD);
+      setMoney('kpi-both-left', r.leftA + r.leftD);
+
+      setMoney('kpi-annika-contr', r.contrA);
+      setMoney('kpi-daniel-contr', r.contrD);
+
+      setText('kpi-annika-income-pct', r.totalIncome > 0 ? formatPct(r.ratioAIncome) : '–');
+      setText('kpi-daniel-income-pct', r.totalIncome > 0 ? formatPct(r.ratioDIncome) : '–');
+
+      STATE.order.forEach((id)=> setMoney(`sum-${id}`, sumInputs(`shared_${id}`)));
+      setMoney('sum-pers-annika', sumInputs('pers_annika'));
+      setMoney('sum-pers-daniel', sumInputs('pers_daniel'));
+
+      if (goalYearLabel) goalYearLabel.textContent = r.year;
+      if (goalYearBar) goalYearBar.style.width = (r.goalPctYear * 100) + '%';
+      if (goalYearText) goalYearText.textContent = `${formatEuro(r.ytd)} / ${formatEuro(r.goalYear)} (${Math.round(r.goalPctYear*100)}%) – Jahr ${r.year}`;
+
+      [['kpi-annika-left', r.leftA], ['kpi-daniel-left', r.leftD], ['kpi-both-left', r.leftA + r.leftD], ['kpi-after-shared', r.afterShared]].forEach(([id, val])=>{
+        const el = $(id); if (!el) return;
+        el.classList.toggle('bad', val < 0);
+        el.classList.toggle('good', val >= 0);
+      });
+
+      renderNotices(r);
+      updateHighlights(r);
+      maybeAutosave();
+    }
+
+    // ---------- Import/Export/Reset ----------
+    $('exportBtn').addEventListener('click', () => {
+      const payload = { version: 6, data: collectData() };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      const stamp = (monthInput.value || new Date().toISOString().slice(0,7)).replace('-', '');
+      a.download = `finanzen-annika-daniel-${stamp}.json`; a.click(); URL.revokeObjectURL(a.href);
+    });
+    $('importFile').addEventListener('change', (e) => {
+      const file = e.target.files?.[0]; if (!file) return;
+      const reader = new FileReader(); reader.onload = () => {
+        try {
+          const json = JSON.parse(reader.result);
+          applyData(json.data || json, true);
+          updateAll();
+        } catch(err){ alert('Ungültige Datei.'); }
+      }; reader.readAsText(file);
+    });
+
+    function ensureRows(prefix, needed){
+      let count = 0; while ($(`${prefix}_amount_${count+1}`) || $(`${prefix}_label_${count+1}`)) count++;
+      while (count < needed){
+        const parts = prefix.split('_');
+        if (parts[0] === 'shared'){ const rows = $(`cat-${parts[1]}`); addSharedRow(parts[1], rows); }
+        else if (parts[0] === 'pers'){ addPersonalRow(parts[1]); }
+        count++;
+      }
+    }
+    function applyData(d){
+      monthInput.value = d?.month || monthInput.value;
+      incA.value = d?.incomes?.annika ?? '';
+      incD.value = d?.incomes?.daniel ?? '';
+      if (d?.goals){ goalYearInput.value = d.goals.year ?? ''; goalContribInput.value = d.goals.contrib ?? ''; }
+      if (d?.split){ const r = document.querySelector(`input[name="split"][value="${d.split}"]`); if (r) r.checked = true; }
+      if (d?.meta){
+        if (Array.isArray(d.meta.order)) STATE.order = [...d.meta.order];
+        if (d.meta.labels) STATE.labels = { ...STATE.labels, ...d.meta.labels };
+        const snap = { ...d, meta: { order: [...STATE.order], labels: {...STATE.labels} } };
+        renderSharedCats(snap);
+      }
+      STATE.order.forEach((id)=>{
+        const items = d?.shared?.[id]?.items || [];
+        if (items.length){ ensureRows(`shared_${id}`, items.length); }
+        items.forEach((it, i)=>{
+          const k = i+1;
+          const lab = $(`shared_${id}_label_${k}`);
+          const amt = $(`shared_${id}_amount_${k}`);
+          const must = $(`shared_${id}_must_${k}`);
+          if (lab) lab.value = it.label ?? '';
+          if (amt) amt.value = it.amount ?? '';
+          if (must) must.checked = !!it.must;
+        });
+      });
+      ['annika','daniel'].forEach(p=>{
+        const items = d?.personal?.[p]?.items || [];
+        if (items.length){ ensureRows(`pers_${p}`, items.length); }
+        items.forEach((it, i)=>{
+          const k = i+1;
+          const lab = $(`pers_${p}_label_${k}`);
+          const amt = $(`pers_${p}_amount_${k}`);
+          if (lab) lab.value = it.label ?? '';
+          if (amt) amt.value = it.amount ?? '';
+        });
+      });
+    }
+    $('resetBtn').addEventListener('click', () => {
+      document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+      document.querySelectorAll('input[type="number"]').forEach(i => i.value = '');
+      document.querySelectorAll('input[type="checkbox"][data-must]').forEach(cb => cb.checked = false);
+      document.querySelector('input[name="split"][value="proportional"]').checked = true;
+      STATE.order = DEFAULT_CATS.map(c=>c.id);
+      STATE.labels = Object.fromEntries(DEFAULT_CATS.map(c => [c.id, c.label]));
+      renderSharedCats();
+      const a = $('pers-annika'); a.innerHTML=''; for (let i=0;i<5;i++) addPersonalRow('annika');
+      const d = $('pers-daniel'); d.innerHTML=''; for (let i=0;i<5;i++) addPersonalRow('daniel');
+      goalYearInput.value = ''; goalContribInput.value = '';
+      updateAll();
+    });
+
+    // ---------- Init ----------
+    (function initMonth(){
+      const now = new Date(); const ym = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+      monthInput.value = ym; refreshYearLabel(); tryLoadFromStorage();
+    })();
+    updateAll();
+  </script>
+</body>
+</html>

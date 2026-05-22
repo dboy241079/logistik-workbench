@@ -1,0 +1,786 @@
+{
+  "generated_at": "2026-01-27T10:55:48.421194Z",
+  "version": "Ladungssicherung-Quizpool-65",
+  "questions": [
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wer hat Pflichten bei Ladungssicherung? (Variante 11)",
+      "options": [
+        "Fahrer und Verlader (je nach Rolle) – beide müssen prüfen",
+        "Nur Dispo",
+        "Niemand",
+        "Nur Lager"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Schwerpunkt/Lastverteilung wichtig? (Variante 35)",
+      "options": [
+        "Schwere Güter tief und gleichmäßig verteilen, Achslasten beachten",
+        "Schweres nach oben",
+        "Alles auf eine Seite",
+        "Egal"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist eine typische Folge schlechter Sicherung? (Variante 46)",
+      "options": [
+        "Schaden/Unfallrisiko/Verzögerung/Kosten",
+        "Bessere Musik",
+        "Schnelleres Entladen",
+        "Mehr Platz"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wann ist Nachsichern sinnvoll? (Variante 64)",
+      "options": [
+        "Wenn Ladung sich setzen kann, bei Zwischenstopps, nach Auffälligkeiten",
+        "Nie",
+        "Nur im Sommer",
+        "Nur wenn Chef zuschaut"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was prüft der Fahrer vor Abfahrt mindestens? (Variante 38)",
+      "options": [
+        "Sichtprüfung der Sicherung + Zustand Zurrmittel + Ladung steht stabil",
+        "Nur Tankfüllung",
+        "Nur Radio",
+        "Nur Handy"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wann ist Nachsichern sinnvoll?",
+      "options": [
+        "Wenn Ladung sich setzen kann, bei Zwischenstopps, nach Auffälligkeiten",
+        "Nie",
+        "Nur im Sommer",
+        "Nur wenn Chef zuschaut"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Schwerpunkt/Lastverteilung wichtig? (Variante 45)",
+      "options": [
+        "Schwere Güter tief und gleichmäßig verteilen, Achslasten beachten",
+        "Schweres nach oben",
+        "Alles auf eine Seite",
+        "Egal"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Antirutschmatten bewirken vor allem… (Variante 19)",
+      "options": [
+        "mehr Reibung → weniger erforderliche Sicherungskräfte (vereinfacht)",
+        "mehr Gewicht",
+        "mehr Luftwiderstand",
+        "mehr Papierkram"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wofür ist Kantenschutz da? (Variante 17)",
+      "options": [
+        "Schützt Ware und Zurrmittel vor Kanten und erhöht Sicherheit",
+        "Macht Palette leichter",
+        "Ersetzt Gurte",
+        "Nur Deko"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist eine typische Folge schlechter Sicherung?",
+      "options": [
+        "Schaden/Unfallrisiko/Verzögerung/Kosten",
+        "Bessere Musik",
+        "Schnelleres Entladen",
+        "Mehr Platz"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was bedeutet formschlüssig (vereinfacht)? (Variante 33)",
+      "options": [
+        "So gestaut, dass sich die Ladung nicht bewegen kann",
+        "Ladung kann frei rutschen",
+        "Folie reicht immer",
+        "Nur nach Gefühl"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist eine typische Folge schlechter Sicherung? (Variante 26)",
+      "options": [
+        "Schaden/Unfallrisiko/Verzögerung/Kosten",
+        "Bessere Musik",
+        "Schnelleres Entladen",
+        "Mehr Platz"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Schwerpunkt/Lastverteilung wichtig? (Variante 65)",
+      "options": [
+        "Schwere Güter tief und gleichmäßig verteilen, Achslasten beachten",
+        "Schweres nach oben",
+        "Alles auf eine Seite",
+        "Egal"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was bedeutet formschlüssig (vereinfacht)? (Variante 53)",
+      "options": [
+        "So gestaut, dass sich die Ladung nicht bewegen kann",
+        "Ladung kann frei rutschen",
+        "Folie reicht immer",
+        "Nur nach Gefühl"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was bedeutet formschlüssig (vereinfacht)? (Variante 23)",
+      "options": [
+        "So gestaut, dass sich die Ladung nicht bewegen kann",
+        "Ladung kann frei rutschen",
+        "Folie reicht immer",
+        "Nur nach Gefühl"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wer hat Pflichten bei Ladungssicherung? (Variante 31)",
+      "options": [
+        "Fahrer und Verlader (je nach Rolle) – beide müssen prüfen",
+        "Nur Dispo",
+        "Niemand",
+        "Nur Lager"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wer hat Pflichten bei Ladungssicherung? (Variante 41)",
+      "options": [
+        "Fahrer und Verlader (je nach Rolle) – beide müssen prüfen",
+        "Nur Dispo",
+        "Niemand",
+        "Nur Lager"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was prüft der Fahrer vor Abfahrt mindestens? (Variante 48)",
+      "options": [
+        "Sichtprüfung der Sicherung + Zustand Zurrmittel + Ladung steht stabil",
+        "Nur Tankfüllung",
+        "Nur Radio",
+        "Nur Handy"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist ein No-Go bei Zurrmitteln?",
+      "options": [
+        "Beschädigte Gurte weiter nutzen",
+        "Gurte prüfen",
+        "Kantenschutz nutzen",
+        "Antirutschmatten nutzen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Schwerpunkt/Lastverteilung wichtig?",
+      "options": [
+        "Schwere Güter tief und gleichmäßig verteilen, Achslasten beachten",
+        "Schweres nach oben",
+        "Alles auf eine Seite",
+        "Egal"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Zwischenstopps wichtig? (Variante 40)",
+      "options": [
+        "Sicherung prüfen, wenn umgeladen/umgesetzt wurde oder sich Ladung verändert",
+        "Nie prüfen",
+        "Nur Fotos machen",
+        "Nur Navi prüfen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist eine typische Folge schlechter Sicherung? (Variante 16)",
+      "options": [
+        "Schaden/Unfallrisiko/Verzögerung/Kosten",
+        "Bessere Musik",
+        "Schnelleres Entladen",
+        "Mehr Platz"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Schwerpunkt/Lastverteilung wichtig? (Variante 25)",
+      "options": [
+        "Schwere Güter tief und gleichmäßig verteilen, Achslasten beachten",
+        "Schweres nach oben",
+        "Alles auf eine Seite",
+        "Egal"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Zwischenstopps wichtig? (Variante 60)",
+      "options": [
+        "Sicherung prüfen, wenn umgeladen/umgesetzt wurde oder sich Ladung verändert",
+        "Nie prüfen",
+        "Nur Fotos machen",
+        "Nur Navi prüfen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was prüft der Fahrer vor Abfahrt mindestens? (Variante 28)",
+      "options": [
+        "Sichtprüfung der Sicherung + Zustand Zurrmittel + Ladung steht stabil",
+        "Nur Tankfüllung",
+        "Nur Radio",
+        "Nur Handy"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wofür ist Kantenschutz da? (Variante 57)",
+      "options": [
+        "Schützt Ware und Zurrmittel vor Kanten und erhöht Sicherheit",
+        "Macht Palette leichter",
+        "Ersetzt Gurte",
+        "Nur Deko"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Zwischenstopps wichtig? (Variante 50)",
+      "options": [
+        "Sicherung prüfen, wenn umgeladen/umgesetzt wurde oder sich Ladung verändert",
+        "Nie prüfen",
+        "Nur Fotos machen",
+        "Nur Navi prüfen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Antirutschmatten bewirken vor allem…",
+      "options": [
+        "mehr Reibung → weniger erforderliche Sicherungskräfte (vereinfacht)",
+        "mehr Gewicht",
+        "mehr Luftwiderstand",
+        "mehr Papierkram"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist ein No-Go bei Zurrmitteln? (Variante 32)",
+      "options": [
+        "Beschädigte Gurte weiter nutzen",
+        "Gurte prüfen",
+        "Kantenschutz nutzen",
+        "Antirutschmatten nutzen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wann ist Nachsichern sinnvoll? (Variante 24)",
+      "options": [
+        "Wenn Ladung sich setzen kann, bei Zwischenstopps, nach Auffälligkeiten",
+        "Nie",
+        "Nur im Sommer",
+        "Nur wenn Chef zuschaut"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wofür ist Kantenschutz da? (Variante 37)",
+      "options": [
+        "Schützt Ware und Zurrmittel vor Kanten und erhöht Sicherheit",
+        "Macht Palette leichter",
+        "Ersetzt Gurte",
+        "Nur Deko"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wer hat Pflichten bei Ladungssicherung? (Variante 61)",
+      "options": [
+        "Fahrer und Verlader (je nach Rolle) – beide müssen prüfen",
+        "Nur Dispo",
+        "Niemand",
+        "Nur Lager"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist ein No-Go bei Zurrmitteln? (Variante 22)",
+      "options": [
+        "Beschädigte Gurte weiter nutzen",
+        "Gurte prüfen",
+        "Kantenschutz nutzen",
+        "Antirutschmatten nutzen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wer hat Pflichten bei Ladungssicherung?",
+      "options": [
+        "Fahrer und Verlader (je nach Rolle) – beide müssen prüfen",
+        "Nur Dispo",
+        "Niemand",
+        "Nur Lager"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Zwischenstopps wichtig?",
+      "options": [
+        "Sicherung prüfen, wenn umgeladen/umgesetzt wurde oder sich Ladung verändert",
+        "Nie prüfen",
+        "Nur Fotos machen",
+        "Nur Navi prüfen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist ein No-Go bei Zurrmitteln? (Variante 12)",
+      "options": [
+        "Beschädigte Gurte weiter nutzen",
+        "Gurte prüfen",
+        "Kantenschutz nutzen",
+        "Antirutschmatten nutzen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Schwerpunkt/Lastverteilung wichtig? (Variante 15)",
+      "options": [
+        "Schwere Güter tief und gleichmäßig verteilen, Achslasten beachten",
+        "Schweres nach oben",
+        "Alles auf eine Seite",
+        "Egal"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wann ist Nachsichern sinnvoll? (Variante 34)",
+      "options": [
+        "Wenn Ladung sich setzen kann, bei Zwischenstopps, nach Auffälligkeiten",
+        "Nie",
+        "Nur im Sommer",
+        "Nur wenn Chef zuschaut"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was bedeutet formschlüssig (vereinfacht)? (Variante 43)",
+      "options": [
+        "So gestaut, dass sich die Ladung nicht bewegen kann",
+        "Ladung kann frei rutschen",
+        "Folie reicht immer",
+        "Nur nach Gefühl"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was bedeutet formschlüssig (vereinfacht)?",
+      "options": [
+        "So gestaut, dass sich die Ladung nicht bewegen kann",
+        "Ladung kann frei rutschen",
+        "Folie reicht immer",
+        "Nur nach Gefühl"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Schwerpunkt/Lastverteilung wichtig? (Variante 55)",
+      "options": [
+        "Schwere Güter tief und gleichmäßig verteilen, Achslasten beachten",
+        "Schweres nach oben",
+        "Alles auf eine Seite",
+        "Egal"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Antirutschmatten bewirken vor allem… (Variante 59)",
+      "options": [
+        "mehr Reibung → weniger erforderliche Sicherungskräfte (vereinfacht)",
+        "mehr Gewicht",
+        "mehr Luftwiderstand",
+        "mehr Papierkram"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist eine typische Folge schlechter Sicherung? (Variante 56)",
+      "options": [
+        "Schaden/Unfallrisiko/Verzögerung/Kosten",
+        "Bessere Musik",
+        "Schnelleres Entladen",
+        "Mehr Platz"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wann ist Nachsichern sinnvoll? (Variante 44)",
+      "options": [
+        "Wenn Ladung sich setzen kann, bei Zwischenstopps, nach Auffälligkeiten",
+        "Nie",
+        "Nur im Sommer",
+        "Nur wenn Chef zuschaut"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Antirutschmatten bewirken vor allem… (Variante 29)",
+      "options": [
+        "mehr Reibung → weniger erforderliche Sicherungskräfte (vereinfacht)",
+        "mehr Gewicht",
+        "mehr Luftwiderstand",
+        "mehr Papierkram"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Antirutschmatten bewirken vor allem… (Variante 39)",
+      "options": [
+        "mehr Reibung → weniger erforderliche Sicherungskräfte (vereinfacht)",
+        "mehr Gewicht",
+        "mehr Luftwiderstand",
+        "mehr Papierkram"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Zwischenstopps wichtig? (Variante 30)",
+      "options": [
+        "Sicherung prüfen, wenn umgeladen/umgesetzt wurde oder sich Ladung verändert",
+        "Nie prüfen",
+        "Nur Fotos machen",
+        "Nur Navi prüfen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist ein No-Go bei Zurrmitteln? (Variante 52)",
+      "options": [
+        "Beschädigte Gurte weiter nutzen",
+        "Gurte prüfen",
+        "Kantenschutz nutzen",
+        "Antirutschmatten nutzen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist ein No-Go bei Zurrmitteln? (Variante 42)",
+      "options": [
+        "Beschädigte Gurte weiter nutzen",
+        "Gurte prüfen",
+        "Kantenschutz nutzen",
+        "Antirutschmatten nutzen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was prüft der Fahrer vor Abfahrt mindestens?",
+      "options": [
+        "Sichtprüfung der Sicherung + Zustand Zurrmittel + Ladung steht stabil",
+        "Nur Tankfüllung",
+        "Nur Radio",
+        "Nur Handy"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wofür ist Kantenschutz da? (Variante 27)",
+      "options": [
+        "Schützt Ware und Zurrmittel vor Kanten und erhöht Sicherheit",
+        "Macht Palette leichter",
+        "Ersetzt Gurte",
+        "Nur Deko"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was prüft der Fahrer vor Abfahrt mindestens? (Variante 58)",
+      "options": [
+        "Sichtprüfung der Sicherung + Zustand Zurrmittel + Ladung steht stabil",
+        "Nur Tankfüllung",
+        "Nur Radio",
+        "Nur Handy"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wofür ist Kantenschutz da?",
+      "options": [
+        "Schützt Ware und Zurrmittel vor Kanten und erhöht Sicherheit",
+        "Macht Palette leichter",
+        "Ersetzt Gurte",
+        "Nur Deko"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wofür ist Kantenschutz da? (Variante 47)",
+      "options": [
+        "Schützt Ware und Zurrmittel vor Kanten und erhöht Sicherheit",
+        "Macht Palette leichter",
+        "Ersetzt Gurte",
+        "Nur Deko"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was prüft der Fahrer vor Abfahrt mindestens? (Variante 18)",
+      "options": [
+        "Sichtprüfung der Sicherung + Zustand Zurrmittel + Ladung steht stabil",
+        "Nur Tankfüllung",
+        "Nur Radio",
+        "Nur Handy"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist bei Zwischenstopps wichtig? (Variante 20)",
+      "options": [
+        "Sicherung prüfen, wenn umgeladen/umgesetzt wurde oder sich Ladung verändert",
+        "Nie prüfen",
+        "Nur Fotos machen",
+        "Nur Navi prüfen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wann ist Nachsichern sinnvoll? (Variante 14)",
+      "options": [
+        "Wenn Ladung sich setzen kann, bei Zwischenstopps, nach Auffälligkeiten",
+        "Nie",
+        "Nur im Sommer",
+        "Nur wenn Chef zuschaut"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist eine typische Folge schlechter Sicherung? (Variante 36)",
+      "options": [
+        "Schaden/Unfallrisiko/Verzögerung/Kosten",
+        "Bessere Musik",
+        "Schnelleres Entladen",
+        "Mehr Platz"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wer hat Pflichten bei Ladungssicherung? (Variante 51)",
+      "options": [
+        "Fahrer und Verlader (je nach Rolle) – beide müssen prüfen",
+        "Nur Dispo",
+        "Niemand",
+        "Nur Lager"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wer hat Pflichten bei Ladungssicherung? (Variante 21)",
+      "options": [
+        "Fahrer und Verlader (je nach Rolle) – beide müssen prüfen",
+        "Nur Dispo",
+        "Niemand",
+        "Nur Lager"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Wann ist Nachsichern sinnvoll? (Variante 54)",
+      "options": [
+        "Wenn Ladung sich setzen kann, bei Zwischenstopps, nach Auffälligkeiten",
+        "Nie",
+        "Nur im Sommer",
+        "Nur wenn Chef zuschaut"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was ist ein No-Go bei Zurrmitteln? (Variante 62)",
+      "options": [
+        "Beschädigte Gurte weiter nutzen",
+        "Gurte prüfen",
+        "Kantenschutz nutzen",
+        "Antirutschmatten nutzen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was bedeutet formschlüssig (vereinfacht)? (Variante 13)",
+      "options": [
+        "So gestaut, dass sich die Ladung nicht bewegen kann",
+        "Ladung kann frei rutschen",
+        "Folie reicht immer",
+        "Nur nach Gefühl"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Antirutschmatten bewirken vor allem… (Variante 49)",
+      "options": [
+        "mehr Reibung → weniger erforderliche Sicherungskräfte (vereinfacht)",
+        "mehr Gewicht",
+        "mehr Luftwiderstand",
+        "mehr Papierkram"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "ladungssicherung",
+      "question": "Was bedeutet formschlüssig (vereinfacht)? (Variante 63)",
+      "options": [
+        "So gestaut, dass sich die Ladung nicht bewegen kann",
+        "Ladung kann frei rutschen",
+        "Folie reicht immer",
+        "Nur nach Gefühl"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    }
+  ]
+}

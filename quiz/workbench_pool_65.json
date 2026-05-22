@@ -1,0 +1,786 @@
+{
+  "generated_at": "2026-01-27T10:55:48.381468Z",
+  "version": "Workbench-Quizpool-65",
+  "questions": [
+    {
+      "category_key": "workbench",
+      "question": "Was bedeutet 'Read-only' (z.B. Zuschauer-Modus)? (Variante 35)",
+      "options": [
+        "Ansehen ja, Speichern/Ändern nein",
+        "Alles löschen",
+        "Alles bearbeiten",
+        "Nur Admin kann ansehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was ist bei 'Löschen' in produktiven Systemen am sichersten? (Variante 28)",
+      "options": [
+        "Soft-Delete/Papierkorb + Protokoll (wer/wann/was)",
+        "Hard-Delete ohne Log",
+        "Nur im Browser ausblenden",
+        "Nur Screenshot machen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Info gehört sinnvollerweise in ein Abfrage-Log (Audit)?",
+      "options": [
+        "Zeitstempel, User/Rolle, Aktion, Ergebnis (ohne unnötige personenbezogene Details)",
+        "Private Adresse des Users",
+        "Passwort des Users",
+        "Privater Chatverlauf"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Info gehört sinnvollerweise in ein Abfrage-Log (Audit)? (Variante 34)",
+      "options": [
+        "Zeitstempel, User/Rolle, Aktion, Ergebnis (ohne unnötige personenbezogene Details)",
+        "Private Adresse des Users",
+        "Passwort des Users",
+        "Privater Chatverlauf"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Info gehört sinnvollerweise in ein Abfrage-Log (Audit)? (Variante 14)",
+      "options": [
+        "Zeitstempel, User/Rolle, Aktion, Ergebnis (ohne unnötige personenbezogene Details)",
+        "Private Adresse des Users",
+        "Passwort des Users",
+        "Privater Chatverlauf"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum sind konsistente Keys (z.B. tab_key/place/row) wichtig? (Variante 56)",
+      "options": [
+        "Damit Updates/Queries eindeutig zugeordnet werden",
+        "Damit das Logo größer wirkt",
+        "Damit Excel schneller ist",
+        "Damit WLAN stabiler ist"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was bedeutet 'Read-only' (z.B. Zuschauer-Modus)? (Variante 15)",
+      "options": [
+        "Ansehen ja, Speichern/Ändern nein",
+        "Alles löschen",
+        "Alles bearbeiten",
+        "Nur Admin kann ansehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Eine Abfrage liefert alte Daten. Was ist ein sinnvoller erster Check? (Variante 60)",
+      "options": [
+        "Ob der Filter/Zeitraum korrekt ist und ob Live-Updates laufen",
+        "Ob die Maus funktioniert",
+        "Ob der Monitor auf 60 Hz ist",
+        "Ob der Drucker Papier hat"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Maßnahme hilft am meisten gegen 'falsche Treffer' bei der Suche? (Variante 37)",
+      "options": [
+        "Klare Eingaberegeln + Normalisierung (Trim, Groß/Klein, führende Nullen)",
+        "Mehr Emojis",
+        "Mehr Tabs offen lassen",
+        "Nur nachts suchen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was ist bei 'Löschen' in produktiven Systemen am sichersten? (Variante 48)",
+      "options": [
+        "Soft-Delete/Papierkorb + Protokoll (wer/wann/was)",
+        "Hard-Delete ohne Log",
+        "Nur im Browser ausblenden",
+        "Nur Screenshot machen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum ist eine Sachnummer-Abfrage mit Beschreibung/Status wichtig?",
+      "options": [
+        "Damit das richtige Teil eindeutig identifiziert wird",
+        "Damit die Seite schneller lädt",
+        "Damit weniger Spalten angezeigt werden",
+        "Damit der Drucker funktioniert"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum ist eine Sachnummer-Abfrage mit Beschreibung/Status wichtig? (Variante 62)",
+      "options": [
+        "Damit das richtige Teil eindeutig identifiziert wird",
+        "Damit die Seite schneller lädt",
+        "Damit weniger Spalten angezeigt werden",
+        "Damit der Drucker funktioniert"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was bedeutet 'Read-only' (z.B. Zuschauer-Modus)? (Variante 65)",
+      "options": [
+        "Ansehen ja, Speichern/Ändern nein",
+        "Alles löschen",
+        "Alles bearbeiten",
+        "Nur Admin kann ansehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Info gehört sinnvollerweise in ein Abfrage-Log (Audit)? (Variante 64)",
+      "options": [
+        "Zeitstempel, User/Rolle, Aktion, Ergebnis (ohne unnötige personenbezogene Details)",
+        "Private Adresse des Users",
+        "Passwort des Users",
+        "Privater Chatverlauf"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Du suchst eine Sachnummer und bekommst 0 Treffer. Was prüfst du zuerst? (Variante 41)",
+      "options": [
+        "Format/Leerzeichen/führende Nullen prüfen",
+        "Browser neu starten",
+        "Datenbank löschen",
+        "Nur den Chef fragen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Du suchst eine Sachnummer und bekommst 0 Treffer. Was prüfst du zuerst? (Variante 11)",
+      "options": [
+        "Format/Leerzeichen/führende Nullen prüfen",
+        "Browser neu starten",
+        "Datenbank löschen",
+        "Nur den Chef fragen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Wenn Daten dauerhaft sein sollen (nicht nur LocalStorage), braucht man… (Variante 59)",
+      "options": [
+        "Serverseitige Speicherung (DB/API) + Laden beim Start",
+        "Nur CSS",
+        "Nur Cookies ohne Server",
+        "Nur Darkmode"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum sind konsistente Keys (z.B. tab_key/place/row) wichtig? (Variante 46)",
+      "options": [
+        "Damit Updates/Queries eindeutig zugeordnet werden",
+        "Damit das Logo größer wirkt",
+        "Damit Excel schneller ist",
+        "Damit WLAN stabiler ist"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Wenn Daten dauerhaft sein sollen (nicht nur LocalStorage), braucht man… (Variante 49)",
+      "options": [
+        "Serverseitige Speicherung (DB/API) + Laden beim Start",
+        "Nur CSS",
+        "Nur Cookies ohne Server",
+        "Nur Darkmode"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Wenn Daten dauerhaft sein sollen (nicht nur LocalStorage), braucht man… (Variante 39)",
+      "options": [
+        "Serverseitige Speicherung (DB/API) + Laden beim Start",
+        "Nur CSS",
+        "Nur Cookies ohne Server",
+        "Nur Darkmode"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Info gehört sinnvollerweise in ein Abfrage-Log (Audit)? (Variante 24)",
+      "options": [
+        "Zeitstempel, User/Rolle, Aktion, Ergebnis (ohne unnötige personenbezogene Details)",
+        "Private Adresse des Users",
+        "Passwort des Users",
+        "Privater Chatverlauf"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Info gehört sinnvollerweise in ein Abfrage-Log (Audit)? (Variante 54)",
+      "options": [
+        "Zeitstempel, User/Rolle, Aktion, Ergebnis (ohne unnötige personenbezogene Details)",
+        "Private Adresse des Users",
+        "Passwort des Users",
+        "Privater Chatverlauf"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum sind konsistente Keys (z.B. tab_key/place/row) wichtig? (Variante 36)",
+      "options": [
+        "Damit Updates/Queries eindeutig zugeordnet werden",
+        "Damit das Logo größer wirkt",
+        "Damit Excel schneller ist",
+        "Damit WLAN stabiler ist"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum ist eine Sachnummer-Abfrage mit Beschreibung/Status wichtig? (Variante 32)",
+      "options": [
+        "Damit das richtige Teil eindeutig identifiziert wird",
+        "Damit die Seite schneller lädt",
+        "Damit weniger Spalten angezeigt werden",
+        "Damit der Drucker funktioniert"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Wenn Daten dauerhaft sein sollen (nicht nur LocalStorage), braucht man… (Variante 29)",
+      "options": [
+        "Serverseitige Speicherung (DB/API) + Laden beim Start",
+        "Nur CSS",
+        "Nur Cookies ohne Server",
+        "Nur Darkmode"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was bedeutet 'Read-only' (z.B. Zuschauer-Modus)? (Variante 25)",
+      "options": [
+        "Ansehen ja, Speichern/Ändern nein",
+        "Alles löschen",
+        "Alles bearbeiten",
+        "Nur Admin kann ansehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Eine Abfrage liefert alte Daten. Was ist ein sinnvoller erster Check? (Variante 30)",
+      "options": [
+        "Ob der Filter/Zeitraum korrekt ist und ob Live-Updates laufen",
+        "Ob die Maus funktioniert",
+        "Ob der Monitor auf 60 Hz ist",
+        "Ob der Drucker Papier hat"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was ist bei 'Löschen' in produktiven Systemen am sichersten? (Variante 58)",
+      "options": [
+        "Soft-Delete/Papierkorb + Protokoll (wer/wann/was)",
+        "Hard-Delete ohne Log",
+        "Nur im Browser ausblenden",
+        "Nur Screenshot machen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Maßnahme hilft am meisten gegen 'falsche Treffer' bei der Suche?",
+      "options": [
+        "Klare Eingaberegeln + Normalisierung (Trim, Groß/Klein, führende Nullen)",
+        "Mehr Emojis",
+        "Mehr Tabs offen lassen",
+        "Nur nachts suchen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Du suchst eine Sachnummer und bekommst 0 Treffer. Was prüfst du zuerst?",
+      "options": [
+        "Format/Leerzeichen/führende Nullen prüfen",
+        "Browser neu starten",
+        "Datenbank löschen",
+        "Nur den Chef fragen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Eine Abfrage liefert alte Daten. Was ist ein sinnvoller erster Check? (Variante 40)",
+      "options": [
+        "Ob der Filter/Zeitraum korrekt ist und ob Live-Updates laufen",
+        "Ob die Maus funktioniert",
+        "Ob der Monitor auf 60 Hz ist",
+        "Ob der Drucker Papier hat"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Ein Kollege findet eine Sachnummer, du nicht. Was ist ein typischer Grund? (Variante 53)",
+      "options": [
+        "Unterschiedliche Filter (Status/Standort/Zeitraum) oder Tippfehler",
+        "Er hat den besseren Monitor",
+        "Er nutzt andere Schriftart",
+        "Sein PC hat mehr RAM"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Ein Kollege findet eine Sachnummer, du nicht. Was ist ein typischer Grund? (Variante 63)",
+      "options": [
+        "Unterschiedliche Filter (Status/Standort/Zeitraum) oder Tippfehler",
+        "Er hat den besseren Monitor",
+        "Er nutzt andere Schriftart",
+        "Sein PC hat mehr RAM"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Info gehört sinnvollerweise in ein Abfrage-Log (Audit)? (Variante 44)",
+      "options": [
+        "Zeitstempel, User/Rolle, Aktion, Ergebnis (ohne unnötige personenbezogene Details)",
+        "Private Adresse des Users",
+        "Passwort des Users",
+        "Privater Chatverlauf"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Wenn Daten dauerhaft sein sollen (nicht nur LocalStorage), braucht man… (Variante 19)",
+      "options": [
+        "Serverseitige Speicherung (DB/API) + Laden beim Start",
+        "Nur CSS",
+        "Nur Cookies ohne Server",
+        "Nur Darkmode"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Du suchst eine Sachnummer und bekommst 0 Treffer. Was prüfst du zuerst? (Variante 21)",
+      "options": [
+        "Format/Leerzeichen/führende Nullen prüfen",
+        "Browser neu starten",
+        "Datenbank löschen",
+        "Nur den Chef fragen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum sind konsistente Keys (z.B. tab_key/place/row) wichtig?",
+      "options": [
+        "Damit Updates/Queries eindeutig zugeordnet werden",
+        "Damit das Logo größer wirkt",
+        "Damit Excel schneller ist",
+        "Damit WLAN stabiler ist"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum ist eine Sachnummer-Abfrage mit Beschreibung/Status wichtig? (Variante 12)",
+      "options": [
+        "Damit das richtige Teil eindeutig identifiziert wird",
+        "Damit die Seite schneller lädt",
+        "Damit weniger Spalten angezeigt werden",
+        "Damit der Drucker funktioniert"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum ist eine Sachnummer-Abfrage mit Beschreibung/Status wichtig? (Variante 42)",
+      "options": [
+        "Damit das richtige Teil eindeutig identifiziert wird",
+        "Damit die Seite schneller lädt",
+        "Damit weniger Spalten angezeigt werden",
+        "Damit der Drucker funktioniert"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was ist bei 'Löschen' in produktiven Systemen am sichersten? (Variante 38)",
+      "options": [
+        "Soft-Delete/Papierkorb + Protokoll (wer/wann/was)",
+        "Hard-Delete ohne Log",
+        "Nur im Browser ausblenden",
+        "Nur Screenshot machen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was bedeutet 'Read-only' (z.B. Zuschauer-Modus)? (Variante 45)",
+      "options": [
+        "Ansehen ja, Speichern/Ändern nein",
+        "Alles löschen",
+        "Alles bearbeiten",
+        "Nur Admin kann ansehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was bedeutet 'Read-only' (z.B. Zuschauer-Modus)?",
+      "options": [
+        "Ansehen ja, Speichern/Ändern nein",
+        "Alles löschen",
+        "Alles bearbeiten",
+        "Nur Admin kann ansehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Ein Kollege findet eine Sachnummer, du nicht. Was ist ein typischer Grund? (Variante 23)",
+      "options": [
+        "Unterschiedliche Filter (Status/Standort/Zeitraum) oder Tippfehler",
+        "Er hat den besseren Monitor",
+        "Er nutzt andere Schriftart",
+        "Sein PC hat mehr RAM"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Ein Kollege findet eine Sachnummer, du nicht. Was ist ein typischer Grund? (Variante 33)",
+      "options": [
+        "Unterschiedliche Filter (Status/Standort/Zeitraum) oder Tippfehler",
+        "Er hat den besseren Monitor",
+        "Er nutzt andere Schriftart",
+        "Sein PC hat mehr RAM"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum ist eine Sachnummer-Abfrage mit Beschreibung/Status wichtig? (Variante 22)",
+      "options": [
+        "Damit das richtige Teil eindeutig identifiziert wird",
+        "Damit die Seite schneller lädt",
+        "Damit weniger Spalten angezeigt werden",
+        "Damit der Drucker funktioniert"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was ist bei 'Löschen' in produktiven Systemen am sichersten? (Variante 18)",
+      "options": [
+        "Soft-Delete/Papierkorb + Protokoll (wer/wann/was)",
+        "Hard-Delete ohne Log",
+        "Nur im Browser ausblenden",
+        "Nur Screenshot machen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Maßnahme hilft am meisten gegen 'falsche Treffer' bei der Suche? (Variante 57)",
+      "options": [
+        "Klare Eingaberegeln + Normalisierung (Trim, Groß/Klein, führende Nullen)",
+        "Mehr Emojis",
+        "Mehr Tabs offen lassen",
+        "Nur nachts suchen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Maßnahme hilft am meisten gegen 'falsche Treffer' bei der Suche? (Variante 27)",
+      "options": [
+        "Klare Eingaberegeln + Normalisierung (Trim, Groß/Klein, führende Nullen)",
+        "Mehr Emojis",
+        "Mehr Tabs offen lassen",
+        "Nur nachts suchen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Du suchst eine Sachnummer und bekommst 0 Treffer. Was prüfst du zuerst? (Variante 61)",
+      "options": [
+        "Format/Leerzeichen/führende Nullen prüfen",
+        "Browser neu starten",
+        "Datenbank löschen",
+        "Nur den Chef fragen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Maßnahme hilft am meisten gegen 'falsche Treffer' bei der Suche? (Variante 17)",
+      "options": [
+        "Klare Eingaberegeln + Normalisierung (Trim, Groß/Klein, führende Nullen)",
+        "Mehr Emojis",
+        "Mehr Tabs offen lassen",
+        "Nur nachts suchen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was ist bei 'Löschen' in produktiven Systemen am sichersten?",
+      "options": [
+        "Soft-Delete/Papierkorb + Protokoll (wer/wann/was)",
+        "Hard-Delete ohne Log",
+        "Nur im Browser ausblenden",
+        "Nur Screenshot machen"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Du suchst eine Sachnummer und bekommst 0 Treffer. Was prüfst du zuerst? (Variante 31)",
+      "options": [
+        "Format/Leerzeichen/führende Nullen prüfen",
+        "Browser neu starten",
+        "Datenbank löschen",
+        "Nur den Chef fragen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Ein Kollege findet eine Sachnummer, du nicht. Was ist ein typischer Grund? (Variante 13)",
+      "options": [
+        "Unterschiedliche Filter (Status/Standort/Zeitraum) oder Tippfehler",
+        "Er hat den besseren Monitor",
+        "Er nutzt andere Schriftart",
+        "Sein PC hat mehr RAM"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Du suchst eine Sachnummer und bekommst 0 Treffer. Was prüfst du zuerst? (Variante 51)",
+      "options": [
+        "Format/Leerzeichen/führende Nullen prüfen",
+        "Browser neu starten",
+        "Datenbank löschen",
+        "Nur den Chef fragen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum ist eine Sachnummer-Abfrage mit Beschreibung/Status wichtig? (Variante 52)",
+      "options": [
+        "Damit das richtige Teil eindeutig identifiziert wird",
+        "Damit die Seite schneller lädt",
+        "Damit weniger Spalten angezeigt werden",
+        "Damit der Drucker funktioniert"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Ein Kollege findet eine Sachnummer, du nicht. Was ist ein typischer Grund? (Variante 43)",
+      "options": [
+        "Unterschiedliche Filter (Status/Standort/Zeitraum) oder Tippfehler",
+        "Er hat den besseren Monitor",
+        "Er nutzt andere Schriftart",
+        "Sein PC hat mehr RAM"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Eine Abfrage liefert alte Daten. Was ist ein sinnvoller erster Check? (Variante 20)",
+      "options": [
+        "Ob der Filter/Zeitraum korrekt ist und ob Live-Updates laufen",
+        "Ob die Maus funktioniert",
+        "Ob der Monitor auf 60 Hz ist",
+        "Ob der Drucker Papier hat"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Eine Abfrage liefert alte Daten. Was ist ein sinnvoller erster Check?",
+      "options": [
+        "Ob der Filter/Zeitraum korrekt ist und ob Live-Updates laufen",
+        "Ob die Maus funktioniert",
+        "Ob der Monitor auf 60 Hz ist",
+        "Ob der Drucker Papier hat"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum sind konsistente Keys (z.B. tab_key/place/row) wichtig? (Variante 16)",
+      "options": [
+        "Damit Updates/Queries eindeutig zugeordnet werden",
+        "Damit das Logo größer wirkt",
+        "Damit Excel schneller ist",
+        "Damit WLAN stabiler ist"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Wenn Daten dauerhaft sein sollen (nicht nur LocalStorage), braucht man…",
+      "options": [
+        "Serverseitige Speicherung (DB/API) + Laden beim Start",
+        "Nur CSS",
+        "Nur Cookies ohne Server",
+        "Nur Darkmode"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Was bedeutet 'Read-only' (z.B. Zuschauer-Modus)? (Variante 55)",
+      "options": [
+        "Ansehen ja, Speichern/Ändern nein",
+        "Alles löschen",
+        "Alles bearbeiten",
+        "Nur Admin kann ansehen"
+      ],
+      "correct_index": 0,
+      "difficulty": 3
+    },
+    {
+      "category_key": "workbench",
+      "question": "Ein Kollege findet eine Sachnummer, du nicht. Was ist ein typischer Grund?",
+      "options": [
+        "Unterschiedliche Filter (Status/Standort/Zeitraum) oder Tippfehler",
+        "Er hat den besseren Monitor",
+        "Er nutzt andere Schriftart",
+        "Sein PC hat mehr RAM"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Welche Maßnahme hilft am meisten gegen 'falsche Treffer' bei der Suche? (Variante 47)",
+      "options": [
+        "Klare Eingaberegeln + Normalisierung (Trim, Groß/Klein, führende Nullen)",
+        "Mehr Emojis",
+        "Mehr Tabs offen lassen",
+        "Nur nachts suchen"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    },
+    {
+      "category_key": "workbench",
+      "question": "Eine Abfrage liefert alte Daten. Was ist ein sinnvoller erster Check? (Variante 50)",
+      "options": [
+        "Ob der Filter/Zeitraum korrekt ist und ob Live-Updates laufen",
+        "Ob die Maus funktioniert",
+        "Ob der Monitor auf 60 Hz ist",
+        "Ob der Drucker Papier hat"
+      ],
+      "correct_index": 0,
+      "difficulty": 1
+    },
+    {
+      "category_key": "workbench",
+      "question": "Warum sind konsistente Keys (z.B. tab_key/place/row) wichtig? (Variante 26)",
+      "options": [
+        "Damit Updates/Queries eindeutig zugeordnet werden",
+        "Damit das Logo größer wirkt",
+        "Damit Excel schneller ist",
+        "Damit WLAN stabiler ist"
+      ],
+      "correct_index": 0,
+      "difficulty": 2
+    }
+  ]
+}

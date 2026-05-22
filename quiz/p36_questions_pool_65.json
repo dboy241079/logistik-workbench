@@ -1,0 +1,721 @@
+{
+  "generated_at": "2026-01-26T21:43:59.640906Z",
+  "version": "P36-Zollfachkraft-Quizpool-65",
+  "questions": [
+    {
+      "category_key": "zoll_p36",
+      "question": "Wofür steht die EORI-Nummer in der Zollpraxis?",
+      "options": [
+        "Eindeutige Identifikation eines Wirtschaftsbeteiligten gegenüber dem Zoll",
+        "Exportrechnung-Nummer",
+        "Fahrzeugregistrierung",
+        "EU-Steuernummer für Privatpersonen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Wofür wird die Warentarifnummer (HS/CN/TARIC) primär genutzt?",
+      "options": [
+        "Bestimmung von Zollsatz, Maßnahmen und Verboten/Beschränkungen",
+        "Berechnung der Maut",
+        "Zuweisung eines Lagerplatzes",
+        "Erstellung der CMR"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist eine MRN?",
+      "options": [
+        "Referenznummer für bestimmte Zollvorgänge (z.B. Ausfuhr/Transit)",
+        "Material-Referenznummer",
+        "Maut-Registrierungsnummer",
+        "Mitarbeiter-Rufnummer"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Kombination ist typisch für Export-Dokumente? (1 richtige)",
+      "options": [
+        "Handelsrechnung + Packliste (+ ggf. Ausfuhranmeldung)",
+        "Nur CMR reicht immer",
+        "Nur Lieferschein reicht immer",
+        "Nur E-Mail an den Fahrer"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Warum ist der Ausfuhrnachweis im Unternehmen wichtig?",
+      "options": [
+        "Für die umsatzsteuerfreie Ausfuhr (0% USt) und als Nachweis",
+        "Für die Fahrzeugwartung",
+        "Für die Pausenregelung",
+        "Für die Lagerinventur"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist ein häufiger Zoll-Fehler auf Rechnungen?",
+      "options": [
+        "Unklare Warenbeschreibung oder falscher Wert / fehlende Incoterms",
+        "Zu große Schrift",
+        "Zu viele Seiten",
+        "Zu wenig Farben"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was bedeutet 'zollrechtlich freier Verkehr' (vereinfacht)?",
+      "options": [
+        "Ware ist in der EU zum Verkehr zugelassen, Abgaben/Verfahren erledigt",
+        "Ware ist zollfrei weltweit",
+        "Ware ist nur im Transit",
+        "Ware ist nur im Zolllager"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Aussage zu Incoterms ist korrekt?",
+      "options": [
+        "Sie regeln Aufgaben/Risiko/Kosten zwischen Käufer und Verkäufer, nicht direkt die Eigentumsübertragung",
+        "Sie ersetzen Zollrecht",
+        "Sie sind nur für Inland relevant",
+        "Sie sind immer Pflicht auf der CMR"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "EXW (Ex Works) bedeutet grob:",
+      "options": [
+        "Ab Werk: Käufer organisiert/übernimmt vieles, Verkäufer stellt bereit",
+        "Verkäufer verzollt immer Import (DDP)",
+        "Nur Luftfracht",
+        "Nur EU-Inland"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "DDP bedeutet grob:",
+      "options": [
+        "Verkäufer liefert bis Bestimmungsort inkl. Importabgaben/Importformalitäten (hohes Risiko)",
+        "Käufer übernimmt alles ab Werk",
+        "Nur Transitverfahren",
+        "Nur Seefracht"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist der Zollwert im Import grob?",
+      "options": [
+        "Warenwert plus bestimmte Kosten bis zur EU-Grenze (z.B. Transport/Versicherung bis Grenze)",
+        "Nur Materialkosten",
+        "Nur LKW-Kosten",
+        "Immer identisch mit Listenpreis"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Abgaben sind beim Import typischerweise relevant?",
+      "options": [
+        "Zoll und Einfuhrumsatzsteuer (EUSt)",
+        "Kirchensteuer und Rundfunkbeitrag",
+        "Nur EUSt, nie Zoll",
+        "Nur Zoll, nie EUSt"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was beschreibt 'präferenzieller Ursprung'?",
+      "options": [
+        "Möglichkeit von Zollvorteilen durch Abkommen, wenn Nachweise/Regeln erfüllt sind",
+        "Versandland",
+        "Immer zollfrei ohne Nachweise",
+        "Nur Marketing-Angabe"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist der Unterschied Ursprung vs. Versandland?",
+      "options": [
+        "Ursprung: Herstellung/Regeln; Versandland: Transport/Abgang",
+        "Immer identisch",
+        "Ursprung steht nur auf Packliste",
+        "Versandland bestimmt Zollsatz immer"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Wofür ist das Transitverfahren (z.B. T1) da?",
+      "options": [
+        "Ware unverzollt durch ein Gebiet bewegen bis Bestimmungszollstelle",
+        "Zoll und EUSt sparen dauerhaft",
+        "Rechnungspflicht umgehen",
+        "Nur für Inlandsfahrten"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist beim Transit in der Praxis besonders kritisch?",
+      "options": [
+        "Fristen, Unversehrtheit/Verschlüsse und korrekte MRN/Dokumente",
+        "Farbe der Plane",
+        "Reifendruck",
+        "Radio-Lautstärke"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "ATLAS (Deutschland) ist grob:",
+      "options": [
+        "IT-System für elektronische Zollabwicklung",
+        "Navigations-App",
+        "Lagerverwaltung",
+        "Telefonanlage"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist ein Zolllager (vereinfacht)?",
+      "options": [
+        "Lagerung unter zollamtlicher Überwachung, Abgaben werden aufgeschoben",
+        "Lager ohne Regeln",
+        "Lager nur für Gefahrgut",
+        "Lager nur für Retouren"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was bedeutet 'Vorübergehende Verwahrung'?",
+      "options": [
+        "Zwischenstatus nach Ankunft bis zur zollrechtlichen Bestimmung",
+        "Zollfreier Verkehr",
+        "Dauerhaftes Zolllager",
+        "Transit abgeschlossen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Direkte vs. indirekte Vertretung beim Zoll: korrekt ist:",
+      "options": [
+        "Bei indirekter Vertretung haftet der Vertreter typischerweise stärker (z.B. Zollschuld)",
+        "Es gibt keinen Unterschied",
+        "Indirekt ist immer verboten",
+        "Direkt heißt: ohne Vollmacht"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Angabe gehört sauber auf die Handelsrechnung (international)?",
+      "options": [
+        "Warenbeschreibung, Menge, Wert, Währung, Incoterm, Parteien",
+        "Nur Lagerplatz",
+        "Nur Kennzeichen",
+        "Nur Unterschrift Fahrer"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Aussage zu 'Dual-Use' ist korrekt?",
+      "options": [
+        "Güter können zivil und militärisch nutzbar sein und ggf. genehmigungspflichtig",
+        "Das ist ein Verpackungsthema",
+        "Nur für Lebensmittel",
+        "Nur für Inland"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist ein typischer 'Proof of Export' Prozessbaustein?",
+      "options": [
+        "Ausgangsvermerk/elektronischer Ausfuhrnachweis archivieren",
+        "CMR wegwerfen",
+        "Nur Screenshot vom Tracking",
+        "Nur mündliche Bestätigung"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Angabe hilft bei Zollprüfungen besonders, um 'was ist das?' klar zu machen?",
+      "options": [
+        "Präzise Warenbeschreibung inkl. Material, Verwendungszweck, ggf. Zeichnung/Artikelnummer",
+        "Nur Produktfoto ohne Text",
+        "Nur Gewicht",
+        "Nur Versandlabel"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist TARIC in der EU grob?",
+      "options": [
+        "EU-Datenbank/Erweiterung zum Zolltarif mit Maßnahmen (z.B. Antidumping)",
+        "Speditions-App",
+        "Zollamt im Hafen",
+        "Transportversicherung"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Aussage zu Antidumping ist korrekt?",
+      "options": [
+        "Kann zusätzliche Abgaben auslösen, abhängig von Ware/Ursprung",
+        "Ist immer 0%",
+        "Gilt nur innerhalb Deutschlands",
+        "Hat nichts mit Ursprung zu tun"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist ein AEO (Authorised Economic Operator) grob?",
+      "options": [
+        "Zertifizierter Wirtschaftsbeteiligter mit bestimmten Vereinfachungen/Vertrauensstatus",
+        "Zollbeamter im Außendienst",
+        "Zolltarifnummer",
+        "LKW-Führerschein"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Daten sollten im Zollkontext besonders konsistent sein (Stammdaten)?",
+      "options": [
+        "EORI, Warentarifnummer, Ursprung, Warenbeschreibung, Werte",
+        "Nur Logo-Farbe",
+        "Nur User-Passwort",
+        "Nur Browser-Version"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist eine Ausfuhranmeldung (vereinfacht)?",
+      "options": [
+        "Elektronische Anmeldung von Ausfuhrwaren beim Zoll (je nach Schwelle/Regel)",
+        "CMR-Satz",
+        "Lagerauftrag",
+        "Frachtkostenrechnung"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Worauf wirkt sich eine falsche Warentarifnummer am stärksten aus?",
+      "options": [
+        "Falscher Zollsatz, Maßnahmen/Verbote, Genehmigungen → Nachforderungen/Stopper",
+        "Nur Drucklayout",
+        "Nur Fahrerzeit",
+        "Nur Palettenhöhe"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Info ist bei Lieferungen nach UK/CH/NO (Drittland) besonders wichtig für Dispo?",
+      "options": [
+        "Dass Zollunterlagen/Referenzen (Rechnung, Packliste, MRN/Export/Transit) vollständig sind",
+        "Nur Autokennzeichen",
+        "Nur Musikliste",
+        "Nur Kantine geöffnet"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist eine Lieferantenerklärung (LE) typischerweise?",
+      "options": [
+        "Dokument zur Ursprungseigenschaft/Präferenz, Grundlage für Präferenznachweise",
+        "Zahlungsbeleg",
+        "Frachtvertrag",
+        "Gefahrgutkarte"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "REX-System wird typischerweise gebraucht für:",
+      "options": [
+        "Bestimmte Präferenznachweise/Erklärungen zum Ursprung in Abkommen (je nach Land/Regel)",
+        "LKW-Maut",
+        "Lagerplatzverwaltung",
+        "Fahrerprüfung"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Angabe ist auf Packlisten besonders hilfreich?",
+      "options": [
+        "Packstücke, Gewichte, Maße, Markierungen, Zuordnung zu Rechnungspositionen",
+        "Nur Firmenlogo",
+        "Nur Fahrername",
+        "Nur Datum"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Wenn Zollunterlagen fehlen, ist die häufigste Folge:",
+      "options": [
+        "Stopp/Verzögerung, Nachforderung von Dokumenten, ggf. Zurückweisung",
+        "Automatische Durchfahrt",
+        "Zoll erledigt alles selbst",
+        "Nur ein Warnhinweis ohne Folgen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Aussage zu 'Zollschuld' ist am ehesten korrekt (vereinfacht)?",
+      "options": [
+        "Entsteht u.a. durch Anmeldung/Überführung oder durch Verstöße; kann Verantwortliche treffen",
+        "Gibt es nicht mehr",
+        "Trifft immer nur den Fahrer",
+        "Ist immer 0€"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Maßnahme reduziert Zoll-Risiko im Alltag am stärksten?",
+      "options": [
+        "Checkliste pro Sendung: HS-Code, Ursprung, Werte, Incoterm, Doks, Screening",
+        "Mehr Emojis in Notizen",
+        "Nur schnellere LKW",
+        "Alles per WhatsApp"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist ein typischer Trigger für Exportkontroll-Prüfung?",
+      "options": [
+        "Endverwendung/Endkunde auffällig, Dual-Use, Sanktionsland/gelistete Partei",
+        "Palette ist blau",
+        "Fahrer ist neu",
+        "Lieferung ist klein"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was gehört NICHT zu typischen P36-Inhalten?",
+      "options": [
+        "Zolltarif, Ursprung, Importabgaben, USt-Basis, Exportkontrolle",
+        "Tennisregeln",
+        "Zollverfahren in der Praxis",
+        "Haftungsrisiken"
+      ],
+      "correct_index": 1
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Aussage zu 'Zoll-Compliance' passt am besten?",
+      "options": [
+        "Prozesse, Dokumentation und Kontrollen, damit Zoll/Export rechtssicher läuft",
+        "Nur schnell liefern",
+        "Nur Kosten drücken",
+        "Nur Fahreranweisungen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Wenn Incoterm und Rechnungswert nicht zusammenpassen, droht:",
+      "options": [
+        "Nachfragen/Prüfung, falscher Zollwert, Verzögerungen und Nachforderungen",
+        "Gar nichts",
+        "Nur hübscher Ausdruck",
+        "Nur Zoll gibt Rabatt"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was ist bei Sanktionslisten-Screening korrekt?",
+      "options": [
+        "Vor Auftragsannahme/Lieferung prüfen und Treffer dokumentiert klären",
+        "Nur nach Lieferung prüfen",
+        "Nur bei Bestandskunden prüfen",
+        "Nie prüfen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Du findest einen möglichen Treffer (Name ähnlich) in einer Sanktionsliste. Was tust du zuerst?",
+      "options": [
+        "Stop/hold und Compliance/Exportkontrolle einschalten (False Positive prüfen)",
+        "Ignorieren und versenden",
+        "Name abkürzen und versenden",
+        "Rechnung weglassen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was bedeutet 'Embargo' in der Praxis am ehesten?",
+      "options": [
+        "Beschränkung/Verbot bestimmter Geschäfte/Exporte mit Ländern/Personen/Gütern",
+        "Nur ein Zollrabatt",
+        "Nur eine Mautregel",
+        "Nur ein Lagerverbot"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Dual-Use: welcher Satz passt?",
+      "options": [
+        "Kann genehmigungspflichtig sein; technische Daten/Endverwendung sind wichtig",
+        "Ist immer unkritisch",
+        "Gilt nur für Lebensmittel",
+        "Betrifft nur Palettenanzahl"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was ist ein typisches Red Flag im Export?",
+      "options": [
+        "Unklare Endverwendung/Endkunde, Umwege, ungewöhnliche Zahlungswege",
+        "Sauberer Vertrag",
+        "Klare technische Spezifikation",
+        "Transparenter Empfänger"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was ist 'Catch-all' (vereinfacht)?",
+      "options": [
+        "Genehmigungspflicht kann auch ohne Listenposition entstehen, wenn kritische Endverwendung/Empfänger bekannt ist",
+        "Nur ein Verpackungsbegriff",
+        "Immer zollfrei",
+        "Nur für EU-Inland"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Welche Maßnahme ist bei Verdacht auf Umgehung (Umleitungsland) richtig?",
+      "options": [
+        "Auftrag stoppen, Klärung/Prüfung dokumentieren, ggf. ablehnen",
+        "Einfach anderes Land auf Rechnung schreiben",
+        "Neutralen Absender nutzen",
+        "Weiterfahren lassen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was ist bei technischen Daten (z.B. Datenblätter) zoll-/exportkontrollrelevant?",
+      "options": [
+        "Sie können Einreihung und Dual-Use-Bewertung beeinflussen",
+        "Sie sind nur Marketing",
+        "Sie sind nur für Lager",
+        "Sie sind geheim und nie nötig"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Welche Aussage zu 'End-Use/End-User' stimmt am ehesten?",
+      "options": [
+        "Endverwendung und Endnutzer sind zentrale Prüfmerkmale in der Exportkontrolle",
+        "Spielt nie eine Rolle",
+        "Nur der Preis zählt",
+        "Nur Gewicht zählt"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was ist bei Verstößen gegen Sanktionen typischerweise möglich?",
+      "options": [
+        "Hohe Bußgelder/Strafrisiken und Geschäftsstopp",
+        "Nur eine Verwarnung ohne Folgen",
+        "Rabatt vom Zoll",
+        "Nur Fahrer bekommt Ärger"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Welche Option ist im Zoll/Export-Kontext NIEMALS ok?",
+      "options": [
+        "Dokumente absichtlich ändern/verschleiern, um Beschränkungen zu umgehen",
+        "Compliance fragen",
+        "Lieferung pausieren",
+        "Sachverhalt dokumentieren"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Wenn ein Kunde die Endverwendung nicht nennen will, ist sinnvoll:",
+      "options": [
+        "Als Red Flag behandeln, Klärung verlangen, ggf. Auftrag stoppen",
+        "Trotzdem liefern",
+        "Endverwendung raten",
+        "Rechnung ohne Empfänger"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was ist 'Gelistete Partei' (vereinfacht)?",
+      "options": [
+        "Person/Firma/Organisation auf Sanktions-/Restriktionslisten",
+        "Nur ein VIP-Kunde",
+        "Nur ein Spediteur",
+        "Nur Zollamt"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Welche Aussage zu 'Genehmigung' ist korrekt?",
+      "options": [
+        "Lieferung darf erst nach gültiger Genehmigung erfolgen, wenn erforderlich",
+        "Genehmigung kann nach Lieferung kommen",
+        "Genehmigung ist nur mündlich",
+        "Genehmigung ist nur für Inlandsverkehr"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was ist beim Re-Export/Weiterverkauf ins Drittland ein Risiko?",
+      "options": [
+        "Exportkontroll-/Sanktionspflichten können erneut greifen (Kette)",
+        "Es gibt keine Regeln",
+        "Nur Lager ist verantwortlich",
+        "Nur Fahrer entscheidet"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Wenn du unsicher bist, ob Dual-Use vorliegt, ist best practice:",
+      "options": [
+        "Exportkontrolle/Compliance einschalten und dokumentieren",
+        "Einfach als harmlos einstufen",
+        "Unterlagen löschen",
+        "Kunden fragen und sonst egal"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Ein Auftrag wirkt 'zu gut, zu schnell, zu anonym'. Was ist korrekt?",
+      "options": [
+        "Als Red Flag behandeln, zusätzliche Prüfungen durchführen",
+        "Sofort liefern",
+        "Rabatt geben",
+        "Nur die Packliste kürzen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Welche Info ist für Sanktionsprüfung am wichtigsten?",
+      "options": [
+        "Genaue Firmierung/Adresse, Land, ggf. UBO/Endkunde, Zweck",
+        "Fahrername",
+        "LKW-Farbe",
+        "Ladehöhe"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Was ist ein typischer Compliance-Nachweis im Audit?",
+      "options": [
+        "Dokumentiertes Screening + Entscheidung + Freigabeprozess",
+        "Nur mündliche Zusage",
+        "Nur Screenshot ohne Kontext",
+        "Gar keine Dokumentation"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Welche Rolle hat Dispo hier am meisten?",
+      "options": [
+        "Früh Red Flags erkennen und die Lieferung stoppen/eskalieren, bevor der LKW rollt",
+        "Ignorieren, solange es schnell ist",
+        "Nur Fahrer anrufen",
+        "Nur Kosten zählen"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist ein 'Carnet ATA' grob?",
+      "options": [
+        "Zolldokument für vorübergehende Ein-/Ausfuhr bestimmter Waren (z.B. Messe)",
+        "Zolltarifnummer",
+        "Transit MRN",
+        "Importsteuer"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Welche Aussage zu 'Güterbeschreibungen' ist am besten?",
+      "options": [
+        "Je präziser, desto weniger Rückfragen und bessere Tarifierung/Prüfung",
+        "Kurz und vage ist immer besser",
+        "Nur Markenname reicht",
+        "Nur Foto reicht"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_p36",
+      "question": "Was ist ein typischer Bestandteil der Importabgaben-Berechnung?",
+      "options": [
+        "Zollwertbasis + Zollsatz + EUSt-Basis (vereinfacht)",
+        "Nur Anzahl Paletten",
+        "Nur Fahrerzeit",
+        "Nur Lagerplatz"
+      ],
+      "correct_index": 0
+    },
+    {
+      "category_key": "zoll_high_risk",
+      "question": "Ein Kunde bittet dich, den wahren Empfänger nicht zu nennen. Was ist korrekt?",
+      "options": [
+        "Red Flag → stoppen und Compliance einschalten",
+        "Machen, wenn es schneller geht",
+        "Empfänger durch Initialen ersetzen",
+        "CMR ohne Empfänger erstellen"
+      ],
+      "correct_index": 0
+    }
+  ]
+}

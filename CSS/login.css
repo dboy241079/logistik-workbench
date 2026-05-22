@@ -1,0 +1,335 @@
+/* =============================================================================
+   BASIS: BODY + VIDEO-HINTERGRUND
+   ========================================================================== */
+
+body.login-body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #020617; /* Fallback, falls Video nicht lädt */
+  color: #e5e7eb;
+  overflow: hidden;
+}
+
+.login-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.login-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  filter: brightness(0.4); /* abgedunkelt */
+  z-index: 0;
+}
+
+.login-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top,
+    rgba(15, 23, 42, 0.4),
+    rgba(15, 23, 42, 0.9)
+  );
+  z-index: 1;
+}
+
+
+/* =============================================================================
+   VARIANTE A: LANDING + TOPBAR + LOGIN-TOGGLE
+   (HTML: .login-topbar, .login-center, #landingContent, #loginBox)
+   ========================================================================== */
+
+.login-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  color: #e5e7eb;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.85),
+    rgba(15, 23, 42, 0)
+  );
+  backdrop-filter: blur(8px);
+}
+
+.login-topbar img {
+  display: block;
+}
+
+/* Container für Hero-Text + Login-Card in Variante A */
+.login-center {
+  /* Positionierung (absolute + translate) kommt über die Bootstrap-Klassen
+     position-absolute top-50 start-50 translate-middle im HTML */
+  position: relative;
+  z-index: 2;
+  max-width: 740px;
+  width: 100%;
+}
+
+/* Hero-Text */
+.landing-content h1 {
+  text-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.landing-content p {
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* Wrapper für die Login-Card, die per Button eingeblendet wird */
+.login-card-wrapper {
+  max-width: 420px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  pointer-events: none;
+}
+
+.login-card-wrapper.show {
+  animation: fadeInUp 0.35s ease-out forwards;
+  pointer-events: auto;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =============================================================================
+   VARIANTE B: DIREKTES LOGIN-ZENTRUM
+   (HTML: .login-content mit position-absolute top-50 start-50 translate-middle)
+   ========================================================================== */
+
+.login-content {
+  /* Positionierung wieder durch Bootstrap-Klassen im HTML */
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  width: 100%;
+  padding-inline: 1.5rem;
+}
+
+
+/* =============================================================================
+   LOGIN-CARD (GLAS-EFFEKT) – FÜR BEIDE VARIANTEN
+   ========================================================================== */
+
+.login-card {
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  backdrop-filter: blur(12px);
+  color: #e5e7eb;
+  border-radius: 1rem;
+}
+
+.login-card .card-body {
+  padding: 1.5rem 1.75rem;
+}
+
+.login-card h1,
+.login-card h2,
+.login-card .form-label {
+  color: #e5e7eb;
+}
+
+/* Formular-Felder */
+.login-card .form-control {
+  background-color: rgba(15, 23, 42, 0.95);
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+.login-card .form-control::placeholder {
+  color: #9ca3af;
+}
+
+.login-card .form-control:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 0.15rem rgba(59, 130, 246, 0.25);
+}
+
+/* Primärer Button */
+.login-card .btn-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+}
+
+.login-card .btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.login-card .btn-primary:active,
+.login-card .btn-primary:focus-visible {
+  transform: translateY(1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+}
+
+/* Fehlermeldung */
+.login-card .alert-danger {
+  margin-bottom: 0.75rem;
+}
+
+
+/* =============================================================================
+   TYPEWRITER-TEXT + CURSOR
+   ========================================================================== */
+
+.login-welcome {
+  margin-top: 1.5rem;
+}
+
+.typewriter-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  opacity: 1;
+  animation: blinkCursor 0.8s infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 100% {
+    opacity: 1;
+  }
+  40%, 60% {
+    opacity: 0;
+  }
+}
+
+
+/* =============================================================================
+   SHAKE-ANIMATION BEI LOGIN-FEHLER
+   ========================================================================== */
+
+.login-card.shake {
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-6px); }
+  30%  { transform: translateX(5px); }
+  45%  { transform: translateX(-4px); }
+  60%  { transform: translateX(3px); }
+  75%  { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+
+/* =============================================================================
+   RESPONSIVE ANPASSUNGEN
+   ========================================================================== */
+
+@media (max-width: 575.98px) {
+  .login-content {
+    padding-inline: 0.75rem;
+  }
+
+  .login-card .card-body {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .typewriter-title {
+    font-size: 1rem;
+  }
+
+  .login-welcome p,
+  .landing-content p {
+    font-size: 0.9rem;
+  }
+
+  .landing-content h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Topbar-Button "Workbench betreten" */
+.login-topbar .btn-outline-light {
+  border-radius: 999px;
+  padding-inline: 1.25rem;
+  padding-block: 0.35rem;
+  border-width: 1px;
+  border-color: rgba(248, 250, 252, 0.8);
+  background-color: rgba(15, 23, 42, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  font-weight: 500;
+}
+
+.login-topbar .btn-outline-light:hover {
+  background-color: rgba(248, 250, 252, 0.12);
+  border-color: rgba(248, 250, 252, 1);
+  transform: translateY(-1px);
+}
+
+.login-topbar .btn-outline-light:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+.landing-content {
+  animation: landingFade 0.7s ease-out forwards;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+@keyframes landingFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landing-content .typewriter-title {
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+}
+/* Hero-Headline (H1) – max 740px Breite, große Schrift */
+.landing-content .typewriter-title {
+  max-width: 840px;
+  margin: 0 auto 1rem;     /* zentriert + Abstand nach unten */
+  font-size: 3.75rem;      /* gewünschte Größe */
+  line-height: 1.05;       /* etwas kompakter für Hero */
+}
+
+/* Hero-Text darunter – max 540px Breite */
+.landing-content p {
+  max-width: 440px;
+  margin: 0 auto;          /* zentriert */
+}
+@media (max-width: 575.98px) {
+  .landing-content .typewriter-title {
+    font-size: 1.6rem;
+  }
+  .landing-content p {
+    font-size: 0.95rem;
+  }
+}

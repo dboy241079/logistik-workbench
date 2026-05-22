@@ -1,0 +1,783 @@
+[
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist im Brandfall grundsätzlich als Erstes wichtig?",
+    "options": [
+      { "text": "Ruhe bewahren, alarmieren, Personen warnen und nur gefahrlos handeln", "correct": true },
+      { "text": "Erst die Arbeit beenden", "correct": false },
+      { "text": "Nur den direkten Kollegen informieren", "correct": false },
+      { "text": "Warten, bis jemand anders etwas unternimmt", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum müssen Fluchtwege immer frei bleiben?",
+    "options": [
+      { "text": "Damit Menschen den Bereich im Notfall schnell und sicher verlassen können", "correct": true },
+      { "text": "Damit Reinigungsmaschinen besser durchkommen", "correct": false },
+      { "text": "Damit dort Ware zwischengelagert werden kann", "correct": false },
+      { "text": "Damit Stapler dort wenden können", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was gilt für Feuerlöscher im Betrieb?",
+    "options": [
+      { "text": "Sie müssen frei zugänglich und einsatzbereit sein", "correct": true },
+      { "text": "Sie dürfen zugestellt werden, wenn man sie kennt", "correct": false },
+      { "text": "Sie sind nur für die Feuerwehr gedacht", "correct": false },
+      { "text": "Sie müssen nur im Büro frei stehen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei Rauchentwicklung richtig?",
+    "options": [
+      { "text": "Bereich nicht betreten, warnen und zuständige Stelle informieren", "correct": true },
+      { "text": "Sofort ohne Schutz nachsehen", "correct": false },
+      { "text": "Fenster öffnen und sonst nichts tun", "correct": false },
+      { "text": "Erst weiterarbeiten, bis man Flammen sieht", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum sollten Türen im Brandfall möglichst geschlossen werden?",
+    "options": [
+      { "text": "Weil sich Feuer und Rauch so langsamer ausbreiten", "correct": true },
+      { "text": "Damit mehr Sauerstoff an den Brand gelangt", "correct": false },
+      { "text": "Damit man schneller wieder hineinlaufen kann", "correct": false },
+      { "text": "Weil offene Türen den Alarm stoppen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist ein Sammelplatz?",
+    "options": [
+      { "text": "Ein festgelegter Ort, an dem sich alle nach der Räumung treffen", "correct": true },
+      { "text": "Ein Lagerort für Feuerlöscher", "correct": false },
+      { "text": "Ein Bereich für beschädigte Ware", "correct": false },
+      { "text": "Ein Warteplatz für LKW", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was gilt bei Bränden an elektrischen Geräten?",
+    "options": [
+      { "text": "Nur geeignete Löschmittel verwenden und nicht unüberlegt mit Wasser löschen", "correct": true },
+      { "text": "Immer mit Wasser löschen", "correct": false },
+      { "text": "Gerät weiterlaufen lassen", "correct": false },
+      { "text": "Nur den Stecker ziehen und sonst nichts melden", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Wann darf ein Löschversuch unternommen werden?",
+    "options": [
+      { "text": "Nur wenn keine Eigengefährdung besteht und der Brand klein ist", "correct": true },
+      { "text": "Immer, egal wie groß der Brand ist", "correct": false },
+      { "text": "Nur nach Ende der Arbeitszeit", "correct": false },
+      { "text": "Nur wenn kein Alarm ausgelöst wurde", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei einer Evakuierung wichtig?",
+    "options": [
+      { "text": "Den Bereich geordnet verlassen und keine Gegenstände mehr suchen", "correct": true },
+      { "text": "Erst private Sachen zusammenpacken", "correct": false },
+      { "text": "Zurücklaufen, wenn etwas vergessen wurde", "correct": false },
+      { "text": "Auf Anweisung von Kollegen warten, auch wenn Gefahr besteht", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum ist Brandschutz im Lager besonders wichtig?",
+    "options": [
+      { "text": "Weil viele Materialien, Verpackungen und Verkehrswege betroffen sein können", "correct": true },
+      { "text": "Weil dort keine Regeln gelten", "correct": false },
+      { "text": "Weil Feuer im Lager ungefährlich ist", "correct": false },
+      { "text": "Weil nur Büros brandgefährdet sind", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist eine häufige Brandursache im Betrieb?",
+    "options": [
+      { "text": "Defekte elektrische Geräte oder unsachgemäßer Umgang mit Wärmequellen", "correct": true },
+      { "text": "Saubere Arbeitsplätze", "correct": false },
+      { "text": "Beschriftete Regale", "correct": false },
+      { "text": "Ordentlich gestapelte Ware", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was bedeutet vorbeugender Brandschutz?",
+    "options": [
+      { "text": "Maßnahmen, die Brände verhindern oder ihre Folgen verringern sollen", "correct": true },
+      { "text": "Nur das Löschen nach einem Brand", "correct": false },
+      { "text": "Nur das Aufräumen nach einem Feuer", "correct": false },
+      { "text": "Nur Anweisungen für Besucher", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei brennbaren Materialien zu beachten?",
+    "options": [
+      { "text": "Sie müssen sicher gelagert und von Zündquellen ferngehalten werden", "correct": true },
+      { "text": "Sie können beliebig neben Steckdosen gelagert werden", "correct": false },
+      { "text": "Sie brauchen keine besondere Beachtung", "correct": false },
+      { "text": "Sie dürfen in Fluchtwegen stehen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Wie sollte man sich in verrauchten Bereichen bewegen, wenn ein Durchgang unvermeidbar ist?",
+    "options": [
+      { "text": "Möglichst tief bleiben, weil unten oft weniger Rauch ist", "correct": true },
+      { "text": "Aufrecht und schnell rennen", "correct": false },
+      { "text": "Mit offenen Armen laufen", "correct": false },
+      { "text": "Nur rückwärts gehen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei einer ausgelösten Brandmeldeanlage zu tun?",
+    "options": [
+      { "text": "Den Anweisungen folgen und die vorgesehenen Abläufe einhalten", "correct": true },
+      { "text": "Den Alarm ignorieren, wenn man nichts sieht", "correct": false },
+      { "text": "Weiterarbeiten, bis jemand persönlich etwas sagt", "correct": false },
+      { "text": "Nur Kollegen per Handy fragen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum dürfen Brandschutztüren nicht blockiert werden?",
+    "options": [
+      { "text": "Weil sie Feuer und Rauch zurückhalten sollen", "correct": true },
+      { "text": "Weil sie nur für Besucher gedacht sind", "correct": false },
+      { "text": "Weil sie sonst quietschen", "correct": false },
+      { "text": "Weil sie nur im Winter geschlossen bleiben müssen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei einem kleinen Entstehungsbrand besonders wichtig?",
+    "options": [
+      { "text": "Schnell richtig melden und nur mit geeignetem Mittel eingreifen", "correct": true },
+      { "text": "Erst andere Aufgaben beenden", "correct": false },
+      { "text": "Das Feuer mit Luft anfächeln", "correct": false },
+      { "text": "Nur ein Foto machen und weitergehen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist der Unterschied zwischen Fluchtweg und Rettungsweg?",
+    "options": [
+      { "text": "Fluchtwege dienen dem Verlassen, Rettungswege auch dem Zugang für Rettungskräfte", "correct": true },
+      { "text": "Es gibt keinen Unterschied und keine Bedeutung", "correct": false },
+      { "text": "Rettungswege sind nur für Stapler", "correct": false },
+      { "text": "Fluchtwege gelten nur draußen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei Feuerlöscheinrichtungen im Betrieb wichtig?",
+    "options": [
+      { "text": "Standorte kennen und Geräte nicht verstellen", "correct": true },
+      { "text": "Nur der Meister darf wissen, wo sie sind", "correct": false },
+      { "text": "Sie sind nur im Büro wichtig", "correct": false },
+      { "text": "Sie dürfen zum Abstellen kleiner Gegenstände genutzt werden", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was sollte man bei einem Brand auf keinen Fall tun?",
+    "options": [
+      { "text": "Sich selbst unnötig in Gefahr bringen", "correct": true },
+      { "text": "Andere warnen", "correct": false },
+      { "text": "Den Notfall melden", "correct": false },
+      { "text": "Den Sammelplatz aufsuchen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum ist Ordnung am Arbeitsplatz auch Brandschutz?",
+    "options": [
+      { "text": "Weil weniger Stolperstellen, Zündquellen und Brandlasten entstehen", "correct": true },
+      { "text": "Weil Ordnung Brände automatisch löscht", "correct": false },
+      { "text": "Weil damit keine Fluchtwege mehr nötig sind", "correct": false },
+      { "text": "Weil Papier dann nicht mehr brennen kann", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist mit beschädigten elektrischen Kabeln oder Geräten zu tun?",
+    "options": [
+      { "text": "Nicht weiter benutzen und sofort melden", "correct": true },
+      { "text": "Mit Klebeband provisorisch weiter nutzen", "correct": false },
+      { "text": "Erst nach Feierabend melden", "correct": false },
+      { "text": "Ignorieren, solange es noch funktioniert", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum darf in gekennzeichneten Bereichen nicht geraucht werden?",
+    "options": [
+      { "text": "Weil dort erhöhte Brand- oder Explosionsgefahr bestehen kann", "correct": true },
+      { "text": "Weil es nur unhöflich wirkt", "correct": false },
+      { "text": "Weil dort Kameras hängen", "correct": false },
+      { "text": "Weil Rauchen nur im Winter verboten ist", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist eine Brandlast?",
+    "options": [
+      { "text": "Material, das im Brandfall zur Entstehung oder Ausbreitung beitragen kann", "correct": true },
+      { "text": "Die Stromstärke eines Feuerlöschers", "correct": false },
+      { "text": "Der Alarmton einer Brandmeldeanlage", "correct": false },
+      { "text": "Ein anderes Wort für Sammelplatz", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Wie sollte ein Notruf oder eine Meldung im Brandfall sein?",
+    "options": [
+      { "text": "Klar, ruhig und mit den wichtigsten Informationen", "correct": true },
+      { "text": "Möglichst kurz ohne Details", "correct": false },
+      { "text": "Nur per Chatnachricht", "correct": false },
+      { "text": "Nur wenn das Feuer schon groß ist", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei Druckgasflaschen oder ähnlichen Stoffen im Brandfall wichtig?",
+    "options": [
+      { "text": "Abstand halten und sofort zuständige Kräfte informieren", "correct": true },
+      { "text": "Sofort anfassen und wegrollen", "correct": false },
+      { "text": "Mit Wasser übergießen ohne Rücksprache", "correct": false },
+      { "text": "In Fluchtwege bringen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Wann ist eine Räumung sofort ernst zu nehmen?",
+    "options": [
+      { "text": "Immer, wenn Alarm ausgelöst wird oder eine Anweisung dazu erfolgt", "correct": true },
+      { "text": "Nur wenn man selbst Rauch sieht", "correct": false },
+      { "text": "Nur am Tagesende", "correct": false },
+      { "text": "Nur wenn Besucher im Gebäude sind", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum ist regelmäßige Unterweisung im Brandschutz wichtig?",
+    "options": [
+      { "text": "Damit alle im Notfall sicher und richtig handeln können", "correct": true },
+      { "text": "Nur damit Formulare ausgefüllt werden", "correct": false },
+      { "text": "Weil das Gesetz nur Theorie verlangt", "correct": false },
+      { "text": "Damit Feuerlöscher seltener geprüft werden", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was gilt für das Freihalten von Zufahrten für Rettungskräfte?",
+    "options": [
+      { "text": "Sie dürfen nicht blockiert werden", "correct": true },
+      { "text": "Sie sind nur bei Nacht wichtig", "correct": false },
+      { "text": "Dort darf kurzzeitig Ware stehen", "correct": false },
+      { "text": "Sie gelten nur für Besucherparkplätze", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was bedeutet es, andere Personen im Notfall zu warnen?",
+    "options": [
+      { "text": "Gefährdete Personen schnell und verständlich auf die Gefahr aufmerksam machen", "correct": true },
+      { "text": "Nur den direkten Vorgesetzten informieren", "correct": false },
+      { "text": "Nur per E-Mail Bescheid geben", "correct": false },
+      { "text": "Abwarten, bis jeder es selbst merkt", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was sollte nach dem Verlassen des Gebäudes vermieden werden?",
+    "options": [
+      { "text": "Eigenmächtiges Zurückgehen in den Gefahrenbereich", "correct": true },
+      { "text": "Am Sammelplatz zu warten", "correct": false },
+      { "text": "Auf Vollständigkeit zu achten", "correct": false },
+      { "text": "Meldungen entgegenzunehmen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei brennender Kleidung grundsätzlich richtig?",
+    "options": [
+      { "text": "Nicht wegrennen, Flammen ersticken und Hilfe holen", "correct": true },
+      { "text": "Schnell laufen, damit der Wind kühlt", "correct": false },
+      { "text": "In den Fluchtweg rennen und rufen", "correct": false },
+      { "text": "Sich mit Papier abdecken", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Weshalb ist offenes Feuer im Betrieb oft besonders kritisch?",
+    "options": [
+      { "text": "Weil dadurch leicht brennbare Stoffe oder Verpackungen entzündet werden können", "correct": true },
+      { "text": "Weil es die Beleuchtung ersetzt", "correct": false },
+      { "text": "Weil es nur draußen erlaubt ist", "correct": false },
+      { "text": "Weil Feuerlöscher dann nicht funktionieren", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was sollte man tun, wenn man einen ausgelösten Alarm für einen Fehlalarm hält?",
+    "options": [
+      { "text": "Trotzdem die vorgesehenen Sicherheitsmaßnahmen einhalten", "correct": true },
+      { "text": "Den Alarm ignorieren", "correct": false },
+      { "text": "Erst mit Kollegen diskutieren", "correct": false },
+      { "text": "Die Sirene selbst ausschalten", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei Löschdecken oder ähnlichen Hilfsmitteln wichtig?",
+    "options": [
+      { "text": "Nur sinnvoll und passend einsetzen, wenn es sicher möglich ist", "correct": true },
+      { "text": "Immer statt Feuerlöscher verwenden", "correct": false },
+      { "text": "Nur zur Reinigung nutzen", "correct": false },
+      { "text": "Sie ersetzen jede Alarmierung", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum müssen Mitarbeitende den Standort von Notausgängen kennen?",
+    "options": [
+      { "text": "Damit sie im Ernstfall ohne Zeitverlust den sicheren Weg finden", "correct": true },
+      { "text": "Damit sie dort Pausen machen können", "correct": false },
+      { "text": "Damit Ware schneller ausgelagert werden kann", "correct": false },
+      { "text": "Damit Besucher geführt werden", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Was ist bei einem Brand in einem Regal- oder Lagerbereich zu beachten?",
+    "options": [
+      { "text": "Abstand halten, alarmieren und nicht unüberlegt zwischen Lagergassen laufen", "correct": true },
+      { "text": "Sofort in jede Gasse gehen und nachsehen", "correct": false },
+      { "text": "Nur die Ware sichern", "correct": false },
+      { "text": "Erst zählen, wie viele Packstücke betroffen sind", "correct": false }
+    ]
+  },
+  {
+    "category_key": "brandschutz",
+    "category_title": "Brandschutz",
+    "text": "Warum ist das Zusammenspiel von Meldung, Warnung und Räumung so wichtig?",
+    "options": [
+      { "text": "Weil nur so Menschen schnell geschützt und Schäden begrenzt werden können", "correct": true },
+      { "text": "Weil dadurch keine Feuerwehr mehr nötig ist", "correct": false },
+      { "text": "Weil es nur auf dem Papier gut aussieht", "correct": false },
+      { "text": "Weil dann Feuerlöscher überflüssig werden", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Woran erkennt man Gefahrgut im Arbeitsalltag?",
+    "options": [
+      { "text": "An Kennzeichnungen wie Gefahrzetteln, Symbolen und UN-Nummern", "correct": true },
+      { "text": "Nur an der Größe der Verpackung", "correct": false },
+      { "text": "Nur an der Farbe der Palette", "correct": false },
+      { "text": "Gar nicht, das sieht man erst beim Öffnen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was bedeutet die UN-Nummer bei Gefahrgut?",
+    "options": [
+      { "text": "Sie dient der eindeutigen Identifikation eines gefährlichen Stoffes oder Artikels", "correct": true },
+      { "text": "Sie zeigt nur das Versandland", "correct": false },
+      { "text": "Sie ist nur eine interne Lagerplatznummer", "correct": false },
+      { "text": "Sie ersetzt alle anderen Angaben", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei beschädigter Gefahrgut-Verpackung richtig?",
+    "options": [
+      { "text": "Nicht weitertransportieren, sichern und zuständige Person informieren", "correct": true },
+      { "text": "Einfach neu etikettieren und weitergeben", "correct": false },
+      { "text": "Direkt öffnen und prüfen", "correct": false },
+      { "text": "Mit anderer Ware mischen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Warum sind Begleitpapiere bei Gefahrgut wichtig?",
+    "options": [
+      { "text": "Weil Transport, Lager und Einsatzkräfte genaue Informationen brauchen", "correct": true },
+      { "text": "Nur für die Ablage im Büro", "correct": false },
+      { "text": "Damit keine Kennzeichnung nötig ist", "correct": false },
+      { "text": "Sie sind nur bei normaler Ware wichtig", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Darf Gefahrgut ohne korrekte Kennzeichnung weitertransportiert werden?",
+    "options": [
+      { "text": "Nein, fehlende oder falsche Kennzeichnung muss vorab geklärt werden", "correct": true },
+      { "text": "Ja, wenn es schnell gehen muss", "correct": false },
+      { "text": "Ja, wenn die Ware nicht tropft", "correct": false },
+      { "text": "Nur bei Inlandssendungen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was hat bei austretendem oder verdächtigem Gefahrgut Vorrang?",
+    "options": [
+      { "text": "Eigenschutz, Absicherung und sofortige Meldung", "correct": true },
+      { "text": "Schnelles Umladen ohne Rückfrage", "correct": false },
+      { "text": "Wegwischen ohne Schutz", "correct": false },
+      { "text": "Nur Fotos machen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist ein Gefahrzettel?",
+    "options": [
+      { "text": "Ein Kennzeichen, das auf die Art der Gefahr hinweist", "correct": true },
+      { "text": "Ein Lieferschein-Ersatz", "correct": false },
+      { "text": "Nur ein internes Lageretikett", "correct": false },
+      { "text": "Ein Nachweis über die Beladezeit", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Warum ist Gefahrgut im Lager und Versand besonders sensibel?",
+    "options": [
+      { "text": "Weil von falscher Handhabung Gefahren für Menschen, Umwelt und Betrieb ausgehen können", "correct": true },
+      { "text": "Weil es nur teurer ist als normale Ware", "correct": false },
+      { "text": "Weil es nicht gekennzeichnet werden darf", "correct": false },
+      { "text": "Weil dafür keine Regeln gelten", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei unbekannten austretenden Stoffen richtig?",
+    "options": [
+      { "text": "Abstand halten, Bereich sichern und nicht eigenmächtig handeln", "correct": true },
+      { "text": "Daran riechen, um es einzuordnen", "correct": false },
+      { "text": "Es mit Wasser verdünnen", "correct": false },
+      { "text": "Die Verpackung sofort öffnen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Warum müssen Verpackungen bei Gefahrgut unbeschädigt sein?",
+    "options": [
+      { "text": "Damit gefährliche Stoffe nicht austreten oder falsch reagieren", "correct": true },
+      { "text": "Nur damit die Ware besser aussieht", "correct": false },
+      { "text": "Nur wegen der Inventur", "correct": false },
+      { "text": "Damit keine Lieferscheine nötig sind", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei der Annahme von Gefahrgut besonders zu beachten?",
+    "options": [
+      { "text": "Kennzeichnung, Verpackungszustand und Unterlagen prüfen", "correct": true },
+      { "text": "Nur die Stückzahl zählen", "correct": false },
+      { "text": "Nur auf den Fahrer hören", "correct": false },
+      { "text": "Nur den äußeren Karton anschauen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei der Bereitstellung von Gefahrgut wichtig?",
+    "options": [
+      { "text": "Korrekte Kennzeichnung, sichere Verpackung und vollständige Informationen", "correct": true },
+      { "text": "Nur schneller Abtransport", "correct": false },
+      { "text": "Nur gleiche Palettenhöhe", "correct": false },
+      { "text": "Nur eine schöne Folierung", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Warum dürfen Gefahrgut und normale Ware nicht immer beliebig zusammengestellt werden?",
+    "options": [
+      { "text": "Weil Trenn- und Zusammenladevorschriften beachtet werden müssen", "correct": true },
+      { "text": "Weil normale Ware schmutzig werden könnte", "correct": false },
+      { "text": "Weil Gefahrgut immer leichter ist", "correct": false },
+      { "text": "Weil nur die Farbe entscheidend ist", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei einem Leck an einem Gefahrgutstückgut zu tun?",
+    "options": [
+      { "text": "Sofort melden, sichern und Abstand halten", "correct": true },
+      { "text": "Direkt mit Tüchern ohne Schutz anfassen", "correct": false },
+      { "text": "Mit anderer Ware abdecken", "correct": false },
+      { "text": "Erst zum Feierabend melden", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Wozu dienen Gefahrensymbole und Kennzeichnungen?",
+    "options": [
+      { "text": "Sie warnen vor Art und Ausmaß möglicher Gefahren", "correct": true },
+      { "text": "Sie dienen nur der Dekoration", "correct": false },
+      { "text": "Sie zeigen nur den Hersteller", "correct": false },
+      { "text": "Sie ersetzen die Verpackung", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei der internen Meldung von Gefahrgut-Vorfällen wichtig?",
+    "options": [
+      { "text": "Schnell, klar und vollständig melden", "correct": true },
+      { "text": "Nur mündlich im Vorbeigehen erwähnen", "correct": false },
+      { "text": "Nur am nächsten Tag Bescheid geben", "correct": false },
+      { "text": "Nur melden, wenn bereits ein Schaden entstanden ist", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Warum ist Eigenschutz bei Gefahrgut besonders wichtig?",
+    "options": [
+      { "text": "Weil Stoffe gesundheits-, brand- oder umweltgefährlich sein können", "correct": true },
+      { "text": "Weil die Ware sonst langsamer ankommt", "correct": false },
+      { "text": "Weil Etiketten sonst unlesbar werden", "correct": false },
+      { "text": "Weil normale Schutzausrüstung verboten ist", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Wann darf beschädigtes Gefahrgut weiter in den Versandprozess gehen?",
+    "options": [
+      { "text": "Erst nachdem der Fall geklärt und sicher bewertet wurde", "correct": true },
+      { "text": "Sofort, wenn die Palette noch stabil steht", "correct": false },
+      { "text": "Immer, solange das Etikett lesbar ist", "correct": false },
+      { "text": "Nur mit neuer Folie ohne weitere Prüfung", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Welche Rolle spielt die Schulung beim Umgang mit Gefahrgut?",
+    "options": [
+      { "text": "Sie hilft, Risiken zu erkennen und korrekt zu handeln", "correct": true },
+      { "text": "Sie ersetzt alle Vorschriften", "correct": false },
+      { "text": "Sie ist nur für Führungskräfte relevant", "correct": false },
+      { "text": "Sie dient nur der Theorie ohne Praxisbezug", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei fehlenden Unterlagen zu Gefahrgut zu tun?",
+    "options": [
+      { "text": "Vorgang stoppen und klären lassen", "correct": true },
+      { "text": "Einfach wie normale Ware behandeln", "correct": false },
+      { "text": "Nur den Namen abschreiben", "correct": false },
+      { "text": "Später nachreichen lassen und jetzt schon verladen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Warum ist die richtige Lagerung von Gefahrgut wichtig?",
+    "options": [
+      { "text": "Weil Stoffe je nach Art getrennt, gesichert oder besonders gelagert werden müssen", "correct": true },
+      { "text": "Nur damit Regale gleichmäßig gefüllt sind", "correct": false },
+      { "text": "Nur weil Paletten sonst schwerer werden", "correct": false },
+      { "text": "Weil Gefahrgut nur draußen gelagert werden darf", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei entzündlichen Stoffen besonders wichtig?",
+    "options": [
+      { "text": "Zündquellen fernhalten und sicher lagern bzw. handhaben", "correct": true },
+      { "text": "Nur auf die Menge achten", "correct": false },
+      { "text": "Immer im direkten Sonnenlicht lagern", "correct": false },
+      { "text": "Mit anderen Stoffen mischen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei korrosiven oder ätzenden Stoffen wichtig?",
+    "options": [
+      { "text": "Kontakt vermeiden und Beschädigungen an Verpackung besonders ernst nehmen", "correct": true },
+      { "text": "Sie sind ungefährlich, solange sie verschlossen sind", "correct": false },
+      { "text": "Sie dürfen ohne Kennzeichnung transportiert werden", "correct": false },
+      { "text": "Sie brauchen keine Unterweisung", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was sollte man bei unklarer Gefahrgut-Kennzeichnung tun?",
+    "options": [
+      { "text": "Nicht weitermachen, sondern die Kennzeichnung prüfen oder klären lassen", "correct": true },
+      { "text": "Einfach die nächstbeste Kennzeichnung wählen", "correct": false },
+      { "text": "Das Etikett entfernen", "correct": false },
+      { "text": "Die Ware als normal behandeln", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Warum ist das Zusammenspiel von Versand, Lager und Disposition bei Gefahrgut wichtig?",
+    "options": [
+      { "text": "Weil nur mit vollständigen Informationen sichere Abläufe möglich sind", "correct": true },
+      { "text": "Weil dann keine Dokumente mehr nötig sind", "correct": false },
+      { "text": "Weil nur die Disposition Verantwortung trägt", "correct": false },
+      { "text": "Weil Gefahrgut nur den Fahrer betrifft", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was gilt für beschädigte oder unlesbare Gefahrzettel?",
+    "options": [
+      { "text": "Das muss vor Weitergabe oder Transport geklärt und behoben werden", "correct": true },
+      { "text": "Das ist nicht wichtig, solange die Verpackung zu ist", "correct": false },
+      { "text": "Nur die Farbe der Folie zählt", "correct": false },
+      { "text": "Sie dürfen entfernt werden", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Wann ist besondere Vorsicht bei Batterien oder ähnlichen Produkten geboten?",
+    "options": [
+      { "text": "Wenn Beschädigung, Erwärmung, Auslaufen oder falsche Kennzeichnung erkennbar ist", "correct": true },
+      { "text": "Nur wenn die Palette schwer ist", "correct": false },
+      { "text": "Nur wenn sie im Büro gelagert werden", "correct": false },
+      { "text": "Nie, Batterien gelten immer als ungefährlich", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei einem Gefahrgutvorfall für spätere Hilfe besonders wichtig?",
+    "options": [
+      { "text": "Dass Kennzeichnung, Stoffdaten und Ort schnell verfügbar sind", "correct": true },
+      { "text": "Dass die Palette sofort umverpackt wird, egal wie", "correct": false },
+      { "text": "Dass niemand den Vorfall meldet", "correct": false },
+      { "text": "Dass nur Fotos ohne Informationen gemacht werden", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Warum ist es gefährlich, unbekannte Stoffe eigenmächtig zu reinigen oder aufzunehmen?",
+    "options": [
+      { "text": "Weil unklare Reaktionen oder Gesundheitsgefahren entstehen können", "correct": true },
+      { "text": "Weil der Boden dann zu sauber wird", "correct": false },
+      { "text": "Weil dadurch Etiketten schöner werden", "correct": false },
+      { "text": "Weil es nur Zeit kostet", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei der Übergabe von Gefahrgut an Fahrer oder weitere Stellen wichtig?",
+    "options": [
+      { "text": "Dass Ware, Kennzeichnung und Informationen vollständig und richtig sind", "correct": true },
+      { "text": "Nur dass die Palette sauber aussieht", "correct": false },
+      { "text": "Nur dass der Fahrer pünktlich ist", "correct": false },
+      { "text": "Nur dass die Ware foliert ist", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei Leckage, Rauch oder ungewöhnlichem Geruch an einer Sendung richtig?",
+    "options": [
+      { "text": "Nicht weiter bearbeiten, sichern und sofort melden", "correct": true },
+      { "text": "Erst normal einlagern und später prüfen", "correct": false },
+      { "text": "Die Folie schließen und ignorieren", "correct": false },
+      { "text": "Die Sendung in einen Fluchtweg stellen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Wozu dient eine klare Zuordnung von Verantwortung bei Gefahrgut?",
+    "options": [
+      { "text": "Damit im Alltag und im Störfall schnell korrekt gehandelt werden kann", "correct": true },
+      { "text": "Damit niemand nachfragen muss", "correct": false },
+      { "text": "Damit Kennzeichnungen unwichtig werden", "correct": false },
+      { "text": "Damit Schulungen entfallen", "correct": false }
+    ]
+  },
+  {
+    "category_key": "gefahrgut",
+    "category_title": "Gefahrgut",
+    "text": "Was ist bei Nachschulungen zu Gefahrgut sinnvoll?",
+    "options": [
+      { "text": "Neue Themen, Fehlerquellen und Praxisfälle regelmäßig aufgreifen", "correct": true },
+      { "text": "Nur dieselbe Folie ohne Bezug zum Alltag zeigen", "correct": false },
+      { "text": "Nur neue Mitarbeitende schulen", "correct": false },
+      { "text": "Nur alle fünf Jahre darüber sprechen", "correct": false }
+    ]
+  }
+]

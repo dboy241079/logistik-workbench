@@ -1,0 +1,206 @@
+
+/* Mobile: <= 768px */
+@media (max-width: 768px) {
+
+  /* Cards/Controls sauber untereinander */
+  .container-fluid { padding-left: 10px !important; padding-right: 10px !important; }
+  .card { border-radius: 14px; }
+  .card-header { top: 0; z-index: 50; }
+
+  /* Planbereich: Vollbreite + gut scrollbar */
+  #planViewport {
+    height: calc(100vh - 220px);   /* passt du ggf. an */
+    min-height: 420px;
+    border-radius: 14px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Plan: Plätze als responsive Grid (2–3 Spalten statt 10 nebeneinander) */
+  #w1-block-16-19 .platz-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    padding: 8px 0;
+  }
+
+  /* Platz-Kachel größer für Finger */
+  #w1-block-16-19 .platz {
+    min-height: 86px;
+    border-radius: 12px;
+  }
+
+  /* Slot grid: 2x2 auf Mobile, Reihe 20 bleibt durch dein Spezial-CSS */
+  #w1-block-16-19 .platz-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 26px;
+    gap: 3px;
+  }
+
+  /* Label kompakter */
+  #w1-block-16-19 .platz-label {
+    font-size: 11px;
+    line-height: 1.15;
+    white-space: pre-line;
+    margin-top: 4px;
+  }
+
+  /* Overlay/Bubble: auf Mobile besser als “Bottom Sheet” */
+  #lager-info {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 16px 16px 0 0 !important;
+    box-shadow: 0 -10px 30px rgba(0,0,0,.18);
+  }
+
+  /* Buttons im Overlay größer */
+  #lager-info button {
+    padding: 10px 12px !important;
+    font-size: 13px !important;
+  }
+
+  /* Toolbars/Reihe-Drucken nicht riesig */
+  .row-toolbar {
+    /* position: sticky; */
+    z-index: 40;
+    border-radius: 10px;
+  }
+}
+@media (max-width: 768px){
+
+  /* 1) Wichtigster Fix: Body nicht zentrieren, sondern strecken */
+  body{
+    align-items: stretch !important;   /* überschreibt Tailwind items-center */
+    padding: 10px !important;
+  }
+
+  /* 2) Alles was direkt im Body liegt: volle Breite */
+  body > *{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 3) Deine Haupt-Boxen/Cards: volle Breite */
+  .card{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .container-fluid,
+  .container{
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* 4) Bootstrap Rows: weniger „Rand“, aber noch Abstand */
+  .row{
+    --bs-gutter-x: .75rem;
+    --bs-gutter-y: .75rem;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* 5) Spalten sollen nicht nochmal „einrücken“ */
+  [class*="col-"]{
+    padding-left: .375rem !important;
+    padding-right: .375rem !important;
+  }
+
+  /* 6) Spezifische Bereiche, die oft schmal werden */
+  #multiAssignContainer{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Suchbereich (falls du da ein Wrap hast) */
+  #searchWrap,
+  #searchWrap .input-group,
+  #searchRefInput{
+    width: 100% !important;
+  }
+
+  /* Reihen-Umbuchen Card: falls es eine Card ist -> reicht oben.
+     Falls es ein eigener Container ist, hier ID/Class ergänzen. */
+}
+@media (max-width: 768px){
+  body .max-w-sm,
+  body .max-w-md,
+  body .max-w-lg{
+    max-width: 100% !important;
+  }
+}
+@media (max-width: 768px){
+  body { padding: 1px !important; margin: 0 !important; }
+  body.p-4 { padding: 1px !important; } /* killt Tailwind p-4 sicher */
+}
+
+/* =========================================
+   Nur Handy: bestimmte Bereiche ausblenden
+========================================= */
+@media (max-width: 768px) {
+  .mobile-phone-hide {
+    display: none !important;
+  }
+
+  .mobile-plan-switch {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 10px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .mobile-plan-switch-title {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1rem !important;
+  }
+
+  .mobile-plan-switch-select {
+    width: 100% !important;
+    margin-left: 0 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .mobile-plan-switch-select .form-select {
+    width: 100% !important;
+    max-width: 340px !important;
+    min-height: 46px !important;
+    font-size: 1rem !important;
+    border-radius: 14px !important;
+    text-align: center !important;
+  }
+}
+/* =========================================
+   Nur Handy: gezielt ausblenden
+========================================= */
+@media (max-width: 768px) {
+  .mobile-phone-hide,
+  .mobile-phone-hide.d-flex,
+  .mobile-phone-hide[class*="d-flex"],
+  .mobile-phone-hide.col-12,
+  .mobile-phone-hide.col-lg-4,
+  .mobile-phone-hide.h3-panel {
+    display: none !important;
+  }
+
+  #lgFilterCard {
+    display: none !important;
+  }
+
+  .h3-rightcol > .mobile-phone-hide {
+    display: none !important;
+  }
+}

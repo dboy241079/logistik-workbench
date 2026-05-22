@@ -1,0 +1,341 @@
+/* Allgemeine Zonen – falls noch nicht vorhanden */
+.zone {
+  font-size: 10px;
+}
+
+/* vertikale Staplerstraßen (links und in der Mitte) */
+.stapler-strasse-v {
+  writing-mode: vertical-rl;      /* Text hochkant lesen */
+  text-orientation: mixed;
+}
+
+/* Muster für alle Staplerstraßen */
+.stapler-strasse,
+.quer-strasse {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(148,163,184,0.85) 0,
+    rgba(148,163,184,0.85) 4px,
+    rgba(226,232,240,0.95) 4px,
+    rgba(226,232,240,0.95) 8px
+  );
+}
+
+/* Hover-Markierung für Regale – optional */
+.lager-reihe:hover {
+  outline: 2px solid #22c55e;  /* emerald-500 */
+  outline-offset: 1px;
+  cursor: pointer;
+}
+/* Container der Plätze in einer Reihe */
+/* Container der Plätze in einer Reihe */
+.platz-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+}
+
+/* äußerer Stellplatz: 120 x 100 */
+.platz {
+  width: 120px;
+  height: 100px;
+  box-sizing: border-box;
+  border: 1px solid #475569;    /* Außenrahmen */
+  background-color: #facc15;    /* Regal-Gelb */
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+  gap: 2px;
+}
+
+/* das 2x2-Raster für 4 Paletten */
+.platz-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2px;
+}
+
+/* einzelne Paletten-Stellplätze */
+.palette-slot {
+  border: 1px solid #64748b;
+  background-color: #fef9c3; /* frei */
+}
+
+.palette-slot-used {
+  background-color: #4ade80; /* belegt */
+}
+
+/* kleine Beschriftung unten */
+.platz-label {
+  font-size: 7px;
+  line-height: 1.1;
+  text-align: center;
+  white-space: pre-line;   /* mehrere Zeilen mit "\n" */
+}
+
+
+/* Blink-Animation beim Suchen */
+@keyframes platz-blink {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(248, 113, 113, 0);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.9);
+    opacity: 0.6;
+  }
+}
+
+
+
+/* vertikale Staplerstraße (Text hochkant) */
+.stapler-strasse-v {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Muster für Staplerstraßen */
+.stapler-strasse,
+.quer-strasse {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(148,163,184,0.85) 0,
+    rgba(148,163,184,0.85) 4px,
+    rgba(226,232,240,0.95) 4px,
+    rgba(226,232,240,0.95) 8px
+  );
+}
+
+/* Hover-Markierung für Regale */
+.lager-reihe:hover {
+  outline: 2px solid #22c55e;
+  outline-offset: 1px;
+  cursor: pointer;
+}
+
+/* Blink-Animation beim Suchen */
+@keyframes platz-blink {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(248, 113, 113, 0);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.9);
+    opacity: 0.6;
+  }
+}
+
+.platz-blink {
+  animation: platz-blink 0.7s ease-in-out 4; /* ca. 3 Sekunden */
+}
+
+/* 6 Slots in einer Reihe */
+/* .platz-grid{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+} */
+
+/* Optional: leere Slots zeigen ihr Label (20-01..20-06) */
+.palette-slot:not(.palette-slot-used)::after{
+  content: attr(data-slot-label);
+  font-size: 8px;
+  line-height: 1;
+  color: #64748b; /* slate-ish */
+  display: block;
+  text-align: center;
+  padding-top: 2px;
+}
+
+/* =========================================================
+   ✅ SMARTPHONE / TABLET: Lagerplan wischbar + kompakter
+   -> ganz unten in halle3.css einfügen
+========================================================= */
+
+/* Standard: keine harte Begrenzung -> alle Reihen sichtbar */
+#w1-block-16-19{
+  width: max-content;      /* nimmt echte Breite an */
+  overflow: visible;       /* wichtig bei Desktop/Zoom */
+}
+
+/* Nur Handy: wischbar */
+@media (max-width: 768px){
+  #w1-block-16-19{
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+}
+
+
+/* Auf kleinen Screens: Spalten NICHT "zusammenquetschen", sondern scrollbar */
+@media (max-width: 768px){
+  /* Tailwind body p-4 etwas kleiner */
+  body{ padding: .75rem !important; }
+
+  /* Zonen/Spalten sollen fixe Breite haben -> wischen statt quetschen */
+  #w1-block-16-19 .lager-reihe{
+    flex: 0 0 auto;
+    width: 165px;
+  }
+
+  /* Staplerstraße schmaler (dein w-20 wird so überschrieben) */
+  #w1-block-16-19 .stapler-strasse-v{
+    flex: 0 0 auto;
+    width: 30px;
+    font-size: 8px;
+  }
+
+  /* Querstraße etwas kleiner */
+  #w1-block-16-19 .quer-strasse{
+    height: 14px;
+    font-size: 8px;
+  }
+
+  /* Kacheln kleiner */
+  .platz-container{
+    gap: 3px;
+    padding: 2px;
+  }
+
+  .platz{
+    width: 96px;
+    height: 84px;
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .platz-label{
+    font-size: 6px;
+    line-height: 1.05;
+  }
+
+  /* Slot-Label (dein ::after) kleiner */
+  .palette-slot:not(.palette-slot-used)::after{
+    font-size: 6px;
+  }
+}
+
+/* Extra klein (sehr schmale Handys) */
+@media (max-width: 420px){
+  #w1-block-16-19 .lager-reihe{ width: 150px; }
+  .platz{ width: 88px; height: 76px; }
+  .zone{ font-size: 9px; }
+}
+
+/* =========================================================
+   ✅ Reihe 20: Platz-Grid als 1x6 (nur CSS)
+   (funktioniert natürlich nur, wenn JS dort 6 Slots erzeugt)
+========================================================= */
+.platz[data-row="20"] .platz-grid{
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr;
+}
+.plan-viewport{
+  height: 70vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  background: #0f1115;
+}
+
+.plan-content{
+  transform-origin: 0 0;
+  will-change: transform;
+  cursor: grab;
+}
+
+.plan-content.dragging{
+  cursor: grabbing;
+  user-select: none;
+}
+#assignModal,
+#editModal,
+#confirmDeleteModal,
+#moveModal,
+#outbookModal,
+#cartonModal{
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999999 !important;
+}
+
+#lager-info{
+  position: fixed;
+  z-index: 999999;
+  pointer-events: auto;
+  max-width: 420px;
+}
+.row-toolbar.inv-done{
+  background: #ecfdf5 !important; /* grünlich */
+}
+.row-toolbar.inv-done .fw-semibold::after{
+  content: " ✓";
+  color: #059669;
+  font-weight: 700;
+}
+.row-toolbar { align-items: flex-start !important; }
+.inv-status { display:inline-flex; gap:6px; flex-wrap:wrap; }
+.inv-b { font-size:11px; padding:2px 6px; border-radius:999px; border:1px solid #cbd5e1; }
+.inv-b-miss { background:#f1f5f9; color:#334155; }
+.inv-b-ok   { background:#ecfdf5; color:#065f46; border-color:#a7f3d0; }
+.inv-b-bad  { background:#fff7ed; color:#9a3412; border-color:#fed7aa; }
+body.inv-live .row-toolbar .inv-live-only { display:block !important; }
+
+body.inv-disabled [data-inv-panel="1"] { display:none !important; }
+
+.row-toolbar .w-100{
+  text-align: center;
+}
+
+.row-toolbar .d-flex{
+  justify-content: center !important;
+}
+.inv-b{
+  min-width:120px;
+  text-align:center;
+}
+
+.inv-status{
+  justify-content:center;
+}
+.row-title{
+  padding: 0.25rem 0.5rem;          /* px-2 py-1 */
+  border-bottom: 1px solid #94a3b8;  /* border-slate-400 */
+  font-size: 11px;                  /* text-[11px] */
+  font-weight: 600;                 /* font-semibold */
+  color: #1e293b;                   /* text-slate-800 */
+  text-align: center;               /* ✅ zentriert */
+}
+/* Kopfzeile in jeder row-toolbar: Titel + Switch exakt gleich hoch */
+.row-toolbar .d-flex.align-items-center.justify-content-between {
+  align-items: center !important;
+  min-height: 24px;          /* gleiche Zeilenhöhe */
+}
+
+/* Text: gleiche Höhe durch line-height */
+.row-toolbar .fw-semibold {
+  line-height: 24px;         /* muss zu min-height passen */
+}
+
+/* Switch-Wrapper: auch gleiche Höhe + vertikal mittig */
+.row-toolbar .form-check.form-switch {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
+}
+
+/* Bootstrap gibt dem Switch manchmal margin-top -> weg damit */
+.row-toolbar .form-check.form-switch .form-check-input {
+  margin-top: 0 !important;
+}
