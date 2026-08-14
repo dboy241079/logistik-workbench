@@ -22,10 +22,6 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    /*
-      Die Web-App belegt jetzt die komplette echte Displayfläche.
-      Kein künstlicher Außenabstand, kein zusätzlicher Handy-Rahmen.
-    */
     .device-shell {
       position: fixed;
       inset: 0;
@@ -39,7 +35,6 @@
       box-shadow: none;
     }
 
-    /* Kamera-/Sensor-Aussparung nur als mobile App-Optik. */
     .camera-cutout {
       position: absolute;
       top: max(8px, env(safe-area-inset-top));
@@ -78,10 +73,6 @@
       background: #f7f7f8;
     }
 
-    /*
-      Auf Smartphones bleibt oben Platz für die simulierte Kamera.
-      Der Hintergrund selbst geht trotzdem über die volle Displaygröße.
-    */
     @media (max-width: 575.98px) {
       iframe {
         top: 36px;
@@ -89,7 +80,6 @@
       }
     }
 
-    /* Tablet/Desktop: normale Vollbild-Webansicht ohne Kameraelement. */
     @media (min-width: 576px) {
       .camera-cutout { display: none; }
       iframe {
@@ -102,7 +92,29 @@
 <body>
   <main class="device-shell" aria-label="Fahrer Kiosk App">
     <div class="camera-cutout" aria-hidden="true"></div>
-    <iframe src="/drivers-kiosik.html" title="Fahrer Kiosk" loading="eager"></iframe>
+    <iframe id="driverKioskFrame" src="/drivers-kiosik.html" title="Fahrer Kiosk" loading="eager"></iframe>
   </main>
+
+  <script>
+    // drivers-kiosik.html liegt auf derselben Domain. Deshalb kann der mobile
+    // Full-Width-Override sicher in das Dokument der WebView eingebunden werden,
+    // ohne die umfangreiche Fahrer-/Stempellogik der Originaldatei zu verändern.
+    const driverKioskFrame = document.getElementById('driverKioskFrame');
+
+    driverKioskFrame.addEventListener('load', () => {
+      try {
+        const doc = driverKioskFrame.contentDocument;
+        if (!doc || doc.getElementById('driversKioskMobileCss')) return;
+
+        const link = doc.createElement('link');
+        link.id = 'driversKioskMobileCss';
+        link.rel = 'stylesheet';
+        link.href = '/CSS/drivers-kiosik-mobile.css?v=20260814-1';
+        doc.head.appendChild(link);
+      } catch (err) {
+        console.warn('Mobile Kiosk CSS konnte nicht eingebunden werden:', err);
+      }
+    });
+  </script>
 </body>
 </html>
