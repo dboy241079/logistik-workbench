@@ -38,7 +38,7 @@
     iframe {
       position: absolute;
       inset: 0;
-      display: block;
+      display: none;
       width: 100%;
       height: 100%;
       border: 0;
@@ -47,8 +47,141 @@
       background: #f7f7f8;
     }
 
+    iframe.is-ready {
+      display: block;
+    }
+
+    .pairing-screen {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+      padding: max(24px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom));
+      background: linear-gradient(180deg, #f7f7f8 0%, #eef2f7 100%);
+    }
+
+    .pairing-screen[hidden] {
+      display: none !important;
+    }
+
+    .pairing-card {
+      width: min(100%, 430px);
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 22px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, .14);
+      padding: 28px 24px;
+    }
+
+    .pairing-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #e8f1ff;
+      color: #0d6efd;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .pairing-title {
+      margin: 0;
+      text-align: center;
+      font-size: 1.35rem;
+      color: #172033;
+    }
+
+    .pairing-subtitle {
+      margin: 8px 0 22px;
+      text-align: center;
+      color: #657184;
+      line-height: 1.45;
+      font-size: .94rem;
+    }
+
+    .pairing-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #263244;
+      font-weight: 700;
+      font-size: .88rem;
+    }
+
+    .pairing-code {
+      width: 100%;
+      height: 58px;
+      border: 2px solid #cfd6df;
+      border-radius: 12px;
+      padding: 0 14px;
+      text-align: center;
+      font: 800 1.65rem/1 system-ui, sans-serif;
+      letter-spacing: .28rem;
+      color: #111827;
+      background: #fff;
+      outline: none;
+    }
+
+    .pairing-code:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 4px rgba(13, 110, 253, .12);
+    }
+
+    .pairing-device-name {
+      width: 100%;
+      height: 44px;
+      border: 1px solid #cfd6df;
+      border-radius: 10px;
+      padding: 0 12px;
+      color: #111827;
+      background: #fff;
+      outline: none;
+    }
+
+    .pairing-btn {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 12px;
+      background: #0d6efd;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .pairing-btn:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    .pairing-message {
+      min-height: 22px;
+      margin-top: 14px;
+      text-align: center;
+      font-size: .88rem;
+    }
+
+    .pairing-message.error { color: #b42318; }
+    .pairing-message.success { color: #067647; }
+
+    .pairing-admin-note {
+      margin: 18px 0 0;
+      padding-top: 14px;
+      border-top: 1px solid #edf0f3;
+      text-align: center;
+      color: #7b8492;
+      font-size: .78rem;
+      line-height: 1.4;
+    }
+
     @media (max-width: 575.98px) {
-      .device-shell::before {
+      .device-shell.kiosk-active::before {
         content: "";
         position: absolute;
         top: 0;
@@ -66,6 +199,11 @@
         top: 0;
         height: 100%;
       }
+
+      .pairing-card {
+        padding: 24px 18px;
+        border-radius: 18px;
+      }
     }
 
     @media (min-width: 576px) {
@@ -74,12 +212,62 @@
   </style>
 </head>
 <body>
-  <main class="device-shell" aria-label="Fahrer Kiosk App">
-    <iframe id="driverKioskFrame" src="/drivers-kiosik.html" title="Fahrer Kiosk" loading="eager"></iframe>
+  <main class="device-shell" id="deviceShell" aria-label="Fahrer Kiosk App">
+    <section class="pairing-screen" id="pairingScreen" aria-label="Fahrer-App einrichten">
+      <form class="pairing-card" id="pairingForm" autocomplete="off">
+        <div class="pairing-icon">🔐</div>
+        <h1 class="pairing-title">Fahrer-App einrichten</h1>
+        <p class="pairing-subtitle">
+          Dieses Smartphone wird einmalig einem Fahrzeug zugeordnet. Danach kann die App nur noch Touren dieses Fahrzeugs bearbeiten.
+        </p>
+
+        <label class="pairing-label" for="pairingCode">6-stelliger Einrichtungscode</label>
+        <input
+          class="pairing-code"
+          id="pairingCode"
+          name="pairingCode"
+          inputmode="numeric"
+          pattern="[0-9]{6}"
+          maxlength="6"
+          placeholder="000000"
+          aria-describedby="pairingMessage"
+          required
+        >
+
+        <label class="pairing-label" for="pairingDeviceName" style="margin-top:16px;">Gerätename <span style="font-weight:400;color:#7b8492;">(optional)</span></label>
+        <input
+          class="pairing-device-name"
+          id="pairingDeviceName"
+          name="pairingDeviceName"
+          maxlength="160"
+          placeholder="z. B. Samsung Fahrer-Handy"
+        >
+
+        <button class="pairing-btn" id="pairingButton" type="submit">Gerät koppeln</button>
+        <div class="pairing-message" id="pairingMessage" role="status" aria-live="polite"></div>
+
+        <p class="pairing-admin-note">
+          Den Einrichtungscode erhältst du vom Standortleiter / Admin der Logistik-Workbench.
+        </p>
+      </form>
+    </section>
+
+    <iframe id="driverKioskFrame" src="about:blank" title="Fahrer Kiosk" loading="eager"></iframe>
   </main>
 
   <script>
     const driverKioskFrame = document.getElementById('driverKioskFrame');
+    const deviceShell = document.getElementById('deviceShell');
+    const pairingScreen = document.getElementById('pairingScreen');
+    const pairingForm = document.getElementById('pairingForm');
+    const pairingCode = document.getElementById('pairingCode');
+    const pairingDeviceName = document.getElementById('pairingDeviceName');
+    const pairingButton = document.getElementById('pairingButton');
+    const pairingMessage = document.getElementById('pairingMessage');
+
+    let pairedVehicle = null;
+    let kioskLoaded = false;
+    let statusPoll = null;
 
     const KIOSK_LANGUAGE_FLAGS = {
       de: '🇩🇪',
@@ -90,6 +278,24 @@
       uk: '🇺🇦',
       lt: '🇱🇹'
     };
+
+    function escapeHtml(text) {
+      return String(text ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function setPairingMessage(text, type = '') {
+      pairingMessage.textContent = text || '';
+      pairingMessage.className = 'pairing-message' + (type ? ` ${type}` : '');
+    }
+
+    function vehicleLabel(vehicle) {
+      return String(vehicle?.plate || vehicle?.title || vehicle?.id || 'Fahrzeug').trim();
+    }
 
     function stripLanguageFlag(text) {
       return String(text || '')
@@ -201,7 +407,51 @@
       host.querySelectorAll('.dropdown-item, [role="menuitem"], option').forEach(addFlag);
     }
 
-    driverKioskFrame.addEventListener('load', () => {
+    function lockVehicleSelection(doc) {
+      if (!doc || !pairedVehicle?.id) return false;
+
+      const select = doc.getElementById('vehSelect');
+      if (!select || !select.options?.length) return false;
+
+      const hasVehicle = [...select.options].some(option => option.value === pairedVehicle.id);
+      if (!hasVehicle) return false;
+
+      try {
+        localStorage.setItem('drv_last_veh', pairedVehicle.id);
+        driverKioskFrame.contentWindow?.localStorage?.setItem('drv_last_veh', pairedVehicle.id);
+      } catch {}
+
+      const needsChange = select.value !== pairedVehicle.id;
+      select.value = pairedVehicle.id;
+      select.disabled = true;
+      select.setAttribute('aria-disabled', 'true');
+
+      const host = select.closest('.col-12') || select.parentElement;
+      if (host && !host.querySelector('.paired-vehicle-display')) {
+        const label = host.querySelector('label');
+        if (label) label.style.display = 'none';
+        select.style.display = 'none';
+
+        const fixed = doc.createElement('div');
+        fixed.className = 'paired-vehicle-display';
+        fixed.innerHTML = `
+          <div style="border:1px solid #b9d4ff;background:#eef6ff;border-radius:10px;padding:8px 10px;line-height:1.2;">
+            <div style="font-size:.72rem;color:#5d6b7c;margin-bottom:3px;">Dieses Gerät ist fest zugeordnet</div>
+            <div style="font-size:1rem;font-weight:800;color:#0d6efd;">🚛 ${escapeHtml(vehicleLabel(pairedVehicle))}</div>
+          </div>
+        `;
+        host.appendChild(fixed);
+      }
+
+      if (needsChange && select.dataset.pairingVehicleApplied !== pairedVehicle.id) {
+        select.dataset.pairingVehicleApplied = pairedVehicle.id;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+
+      return true;
+    }
+
+    function finishKioskEnhancements() {
       try {
         const doc = driverKioskFrame.contentDocument;
         if (!doc) return;
@@ -216,13 +466,153 @@
 
         setupExistingLanguageControl(doc);
 
+        let attempts = 0;
+        const applyVehicle = () => {
+          attempts++;
+          if (lockVehicleSelection(doc) || attempts >= 30) return;
+          window.setTimeout(applyVehicle, 100);
+        };
+        applyVehicle();
+
         doc.addEventListener('click', () => {
-          window.setTimeout(() => setupExistingLanguageControl(doc), 60);
+          window.setTimeout(() => {
+            setupExistingLanguageControl(doc);
+            lockVehicleSelection(doc);
+          }, 60);
         });
       } catch (err) {
         console.warn('Kiosk-Erweiterungen konnten nicht eingebunden werden:', err);
       }
+    }
+
+    function showPairing(reason = '') {
+      pairedVehicle = null;
+      kioskLoaded = false;
+      driverKioskFrame.classList.remove('is-ready');
+      driverKioskFrame.src = 'about:blank';
+      deviceShell.classList.remove('kiosk-active');
+      pairingScreen.hidden = false;
+
+      if (reason === 'invalid_or_revoked') {
+        setPairingMessage('Die bisherige Gerätefreigabe wurde aufgehoben. Bitte neu koppeln.', 'error');
+      } else if (reason === 'connection_error') {
+        setPairingMessage('Verbindung zur Workbench nicht möglich. Bitte Internetverbindung prüfen.', 'error');
+      } else {
+        setPairingMessage('');
+      }
+
+      window.setTimeout(() => pairingCode.focus(), 100);
+    }
+
+    function showKiosk(vehicle) {
+      pairedVehicle = vehicle;
+      pairingScreen.hidden = true;
+      deviceShell.classList.add('kiosk-active');
+
+      try {
+        localStorage.setItem('drv_last_veh', vehicle.id);
+      } catch {}
+
+      if (!kioskLoaded) {
+        kioskLoaded = true;
+        driverKioskFrame.src = '/drivers-kiosik.html';
+      } else {
+        driverKioskFrame.classList.add('is-ready');
+        finishKioskEnhancements();
+      }
+    }
+
+    async function fetchDeviceStatus() {
+      const response = await fetch('/api/driver_device_status.php', {
+        credentials: 'include',
+        cache: 'no-store'
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data?.ok !== true) {
+        throw new Error(data?.error || `HTTP ${response.status}`);
+      }
+      return data;
+    }
+
+    async function initializeDevice() {
+      try {
+        const status = await fetchDeviceStatus();
+        if (status.paired && status.vehicle?.id) {
+          showKiosk(status.vehicle);
+        } else {
+          showPairing(status.reason || 'missing_token');
+        }
+      } catch (err) {
+        console.error('Gerätestatus konnte nicht geladen werden:', err);
+        showPairing('connection_error');
+      }
+    }
+
+    pairingCode.addEventListener('input', () => {
+      pairingCode.value = pairingCode.value.replace(/\D+/g, '').slice(0, 6);
+      if (pairingMessage.classList.contains('error')) setPairingMessage('');
     });
+
+    pairingForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const code = pairingCode.value.replace(/\D+/g, '');
+      if (!/^\d{6}$/.test(code)) {
+        setPairingMessage('Bitte den 6-stelligen Einrichtungscode eingeben.', 'error');
+        pairingCode.focus();
+        return;
+      }
+
+      pairingButton.disabled = true;
+      pairingButton.textContent = 'Gerät wird gekoppelt…';
+      setPairingMessage('');
+
+      try {
+        const response = await fetch('/api/driver_device_pair.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          cache: 'no-store',
+          body: JSON.stringify({
+            code,
+            device_name: pairingDeviceName.value.trim()
+          })
+        });
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || data?.ok !== true || !data?.paired || !data?.vehicle?.id) {
+          throw new Error(data?.error || 'Gerät konnte nicht gekoppelt werden.');
+        }
+
+        setPairingMessage(`${vehicleLabel(data.vehicle)} erfolgreich gekoppelt.`, 'success');
+        pairingCode.value = '';
+        window.setTimeout(() => showKiosk(data.vehicle), 500);
+      } catch (err) {
+        setPairingMessage(err?.message || 'Gerät konnte nicht gekoppelt werden.', 'error');
+      } finally {
+        pairingButton.disabled = false;
+        pairingButton.textContent = 'Gerät koppeln';
+      }
+    });
+
+    driverKioskFrame.addEventListener('load', () => {
+      if (!kioskLoaded || driverKioskFrame.src.endsWith('about:blank')) return;
+      driverKioskFrame.classList.add('is-ready');
+      finishKioskEnhancements();
+    });
+
+    statusPoll = window.setInterval(async () => {
+      if (!pairedVehicle) return;
+      try {
+        const status = await fetchDeviceStatus();
+        if (!status.paired || !status.vehicle?.id || status.vehicle.id !== pairedVehicle.id) {
+          showPairing(status.reason || 'invalid_or_revoked');
+        }
+      } catch (err) {
+        console.warn('Geräteprüfung fehlgeschlagen:', err);
+      }
+    }, 60000);
+
+    initializeDevice();
   </script>
 </body>
 </html>
