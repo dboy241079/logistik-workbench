@@ -85,23 +85,126 @@
   </main>
 
   <script>
-    // drivers-kiosik.html liegt auf derselben Domain. Deshalb kann der mobile
-    // Full-Width-Override sicher in das Dokument der WebView eingebunden werden,
-    // ohne die umfangreiche Fahrer-/Stempellogik der Originaldatei zu verändern.
+    // drivers-kiosik.html liegt auf derselben Domain. Deshalb können wir die
+    // mobile Darstellung und die bereits vorhandene Sprachauswahl anpassen,
+    // ohne eine zweite Sprachauswahl zu erzeugen oder die Fahrerlogik zu ändern.
     const driverKioskFrame = document.getElementById('driverKioskFrame');
+
+    function languageFlag(text) {
+      const value = String(text || '')
+        .replace(/^(🇩🇪|🇬🇧|🇵🇱)\s*/u, '')
+        .trim()
+        .toLowerCase();
+
+      if (value.includes('deutsch') || value.includes('german')) return '🇩🇪';
+      if (value.includes('english') || value.includes('englisch')) return '🇬🇧';
+      if (value.includes('polski') || value.includes('polish') || value.includes('polnisch')) return '🇵🇱';
+      return '';
+    }
+
+    function addFlag(element) {
+      if (!element) return;
+
+      const original = String(element.textContent || '')
+        .replace(/^(🇩🇪|🇬🇧|🇵🇱)\s*/u, '')
+        .trim();
+      const flag = languageFlag(original);
+
+      if (flag && original) {
+        element.textContent = `${flag} ${original}`;
+      }
+    }
+
+    function setupExistingLanguageControl(doc) {
+      if (!doc) return;
+
+      if (!doc.getElementById('driversKioskExistingLanguageCss')) {
+        const style = doc.createElement('style');
+        style.id = 'driversKioskExistingLanguageCss';
+        style.textContent = `
+          .kiosk-existing-language-host {
+            position: fixed !important;
+            top: 12px !important;
+            left: 75% !important;
+            right: auto !important;
+            transform: translateX(-50%) !important;
+            margin: 0 !important;
+            z-index: 1090 !important;
+          }
+
+          .kiosk-existing-language-host select,
+          select.kiosk-existing-language-host {
+            min-width: 145px;
+          }
+
+          @media (max-width: 575.98px) {
+            .kiosk-existing-language-host {
+              top: 12px !important;
+            }
+          }
+        `;
+        doc.head.appendChild(style);
+      }
+
+      const languageSelect = [...doc.querySelectorAll('select')].find(select => {
+        const optionTexts = [...select.options].map(option =>
+          String(option.textContent || '').trim().toLowerCase()
+        );
+
+        const hasGerman = optionTexts.some(text => text.includes('deutsch') || text.includes('german'));
+        const hasEnglish = optionTexts.some(text => text.includes('english') || text.includes('englisch'));
+        const hasPolish = optionTexts.some(text => text.includes('polski') || text.includes('polish') || text.includes('polnisch'));
+
+        return hasGerman && (hasEnglish || hasPolish);
+      });
+
+      if (languageSelect) {
+        languageSelect.classList.add('kiosk-existing-language-host');
+        [...languageSelect.options].forEach(addFlag);
+        return;
+      }
+
+      const languageButton = [...doc.querySelectorAll('button, [role="button"]')].find(button => {
+        const text = String(button.textContent || '').trim().toLowerCase();
+        return text.includes('deutsch') || text.includes('german') ||
+               text.includes('english') || text.includes('englisch') ||
+               text.includes('polski') || text.includes('polish') || text.includes('polnisch');
+      });
+
+      if (!languageButton) return;
+
+      const host = languageButton.closest(
+        '.dropdown, .btn-group, [class*="language" i], [class*="lang" i], [class*="sprach" i]'
+      ) || languageButton;
+
+      host.classList.add('kiosk-existing-language-host');
+      addFlag(languageButton);
+
+      host.querySelectorAll('.dropdown-item, [role="menuitem"]').forEach(addFlag);
+    }
 
     driverKioskFrame.addEventListener('load', () => {
       try {
         const doc = driverKioskFrame.contentDocument;
-        if (!doc || doc.getElementById('driversKioskMobileCss')) return;
+        if (!doc) return;
 
-        const link = doc.createElement('link');
-        link.id = 'driversKioskMobileCss';
-        link.rel = 'stylesheet';
-        link.href = '/CSS/drivers-kiosik-mobile.css?v=20260814-3';
-        doc.head.appendChild(link);
+        if (!doc.getElementById('driversKioskMobileCss')) {
+          const link = doc.createElement('link');
+          link.id = 'driversKioskMobileCss';
+          link.rel = 'stylesheet';
+          link.href = '/CSS/drivers-kiosik-mobile.css?v=20260814-3';
+          doc.head.appendChild(link);
+        }
+
+        setupExistingLanguageControl(doc);
+
+        // Falls die vorhandene Sprachlogik den Buttontext nach einer Auswahl
+        // neu setzt, werden Position und Flagge direkt danach wieder angewendet.
+        doc.addEventListener('click', () => {
+          window.setTimeout(() => setupExistingLanguageControl(doc), 60);
+        });
       } catch (err) {
-        console.warn('Mobile Kiosk CSS konnte nicht eingebunden werden:', err);
+        console.warn('Kiosk-Erweiterungen konnten nicht eingebunden werden:', err);
       }
     });
   </script>
