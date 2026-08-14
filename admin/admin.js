@@ -186,3 +186,40 @@ function renderLkwInfo(js) {
   // Initial
   safeReload();
 })();
+
+// =================== Fahrer-App Geräte: Admin-Kachel ===================
+(() => {
+  function addDriverDeviceTile() {
+    const host = document.querySelector('.admin-sidebar .d-grid.gap-2');
+    if (!host || host.querySelector('[data-driver-device-admin-link]')) return;
+
+    const link = document.createElement('a');
+    link.href = '/admin/driver_devices.php';
+    link.className = 'tile-card compact text-decoration-none';
+    link.setAttribute('data-driver-device-admin-link', '1');
+    link.setAttribute('title', 'Fahrer-App Geräte koppeln, sperren und neu zuordnen');
+    link.innerHTML = `
+      <div class="tile-icon"><i class="bi bi-phone-fill-lock"></i></div>
+      <div class="flex-grow-1">
+        <div class="tile-title">Fahrer-App Geräte</div>
+        <div class="tile-text">Handys sicher einem LKW zuordnen.</div>
+        <div class="d-flex align-items-center gap-2 mt-1">
+          <span class="tile-badge"><i class="bi bi-key-fill"></i> Geräte &amp; Kopplung</span>
+        </div>
+      </div>
+    `;
+
+    const vehiclesTile = host.querySelector('[data-admin-tile="vehicles"]');
+    if (vehiclesTile) {
+      vehiclesTile.insertAdjacentElement('afterend', link);
+    } else {
+      host.appendChild(link);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addDriverDeviceTile, { once: true });
+  } else {
+    addDriverDeviceTile();
+  }
+})();
