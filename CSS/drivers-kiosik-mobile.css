@@ -33,6 +33,12 @@
     padding: 14px 14px 20px !important;
   }
 
+  /* Im App-Modus nicht benötigt: Titel + technischer Hinweistext */
+  .wrap > .card > .card-body > .card-title,
+  .wrap > .card > .card-body > .card-title + p.text-muted.small {
+    display: none !important;
+  }
+
   .row-preview,
   .table-responsive {
     width: 100% !important;
