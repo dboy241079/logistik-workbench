@@ -239,3 +239,9 @@ $stmt->execute([
 // --- View rendern ---
 require __DIR__ . '/index.view.php';
 
+// Realtime-Client nur für angemeldete Benutzer mit Fahrer-Berechtigung laden.
+// Er arbeitet parallel zum bestehenden Polling und kann jederzeit per realtime_cfg.json deaktiviert werden.
+if ($isLoggedIn && canSeeTab('drivers', $currentRole, $tabPermissions)) {
+  $rtVer = @filemtime(__DIR__ . '/js/workbench_realtime.js') ?: time();
+  echo '<script type="module" src="/js/workbench_realtime.js?v=' . (int)$rtVer . '"></script>';
+}
