@@ -1,8 +1,7 @@
 <?php
 declare(strict_types=1);
 require __DIR__.'/_bootstrap.php';
-
-
+require_once __DIR__ . '/driver_device_auth.php';
 
 try{
   $in   = json_decode(file_get_contents('php://input'), true) ?: [];
@@ -15,6 +14,8 @@ try{
     throw new RuntimeException('Bad params');
   }
 
+  driverDeviceAuthorizeVehicle($pdo, $veh);
+
   // existierende Zeile sicherstellen
   $pdo->prepare("INSERT IGNORE INTO driver_stamps (veh_id,date,tour) VALUES (:v,:d,:t)")
       ->execute([':v'=>$veh,':d'=>$date,':t'=>$tour]);
@@ -22,11 +23,10 @@ try{
  $allowed = [
   'workStart','arriveWU','departWU',
   'arriveH','departH','hannoverHall',
-  'arriveH2','departH2','hannoverHall2',   // 🆕
+  'arriveH2','departH2','hannoverHall2',
   'note','reported','reportedWhy',
   'workEnd','pauseStart','pauseEnd'
 ];
-
 
   $set = []; $par = [':v'=>$veh,':d'=>$date,':t'=>$tour];
   foreach ($f as $k=>$val){
