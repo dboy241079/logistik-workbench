@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "default_location": "WUN",
+  "ws_path": "/realtime/ws",
+  "fallback_connected_ms": 180000,
+  "fallback_disconnected_ms": 60000,
+  "reconnect_base_ms": 1500,
+  "reconnect_max_ms": 30000,
+  "token_ttl_seconds": 300
+}
