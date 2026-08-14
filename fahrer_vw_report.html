@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <style>
     body {
       background: #f5f7fa;
@@ -194,7 +195,7 @@
         </div>
       </div>
       <div class="small text-muted mt-2" id="reportHint">
-        Standardmäßig wird die Vorwoche geladen. Für VW kannst du die fünf Tagesbilder oder alternativ den kompletten Bericht als PDF anhängen.
+        Standardmäßig wird die Vorwoche geladen. Die PDF für die E-Mail wird nach dem Laden automatisch vorbereitet.
       </div>
     </div>
   </div>
@@ -230,6 +231,9 @@
     let reportWeekOffset = -1;
     let currentVehicles = [];
     let currentReport = null;
+    let cachedPdfFile = null;
+    let cachedPdfKey = '';
+    let pdfBuildPromise = null;
 
     function pad2(n) {
       return String(n).padStart(2, '0');
@@ -493,10 +497,113 @@
       `;
     }
 
+    function resetPdfCache() {
+      cachedPdfFile = null;
+      cachedPdfKey = '';
+      pdfBuildPromise = null;
+    }
+
+    function currentPdfKey() {
+      if (!currentReport) return '';
+      return `${currentReport.year}-${currentReport.weekNumber}-${currentReport.monday}-${currentReport.friday}`;
+    }
+
+    async function buildReportPdfFile() {
+      if (!currentReport) throw new Error('Kein Wochenreport geladen.');
+      if (typeof html2canvas !== 'function') throw new Error('PDF-Komponente html2canvas ist nicht geladen.');
+      if (!window.jspdf?.jsPDF) throw new Error('PDF-Komponente jsPDF ist nicht geladen.');
+
+      const key = currentPdfKey();
+      if (cachedPdfFile && cachedPdfKey === key) return cachedPdfFile;
+      if (pdfBuildPromise) return pdfBuildPromise;
+
+      pdfBuildPromise = (async () => {
+        const cards = [...document.querySelectorAll('.vw-day-report')];
+        if (!cards.length) throw new Error('Keine Tagesseiten für die PDF gefunden.');
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'mm',
+          format: 'a4',
+          compress: true
+        });
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 6;
+        const maxWidth = pageWidth - margin * 2;
+        const maxHeight = pageHeight - margin * 2;
+
+        for (let i = 0; i < cards.length; i++) {
+          const canvas = await html2canvas(cards[i], {
+            scale: 1.6,
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            logging: false,
+            windowWidth: Math.max(document.documentElement.clientWidth, cards[i].scrollWidth)
+          });
+
+          const imgData = canvas.toDataURL('image/jpeg', 0.92);
+          const ratio = Math.min(maxWidth / canvas.width, maxHeight / canvas.height);
+          const imgWidth = canvas.width * ratio;
+          const imgHeight = canvas.height * ratio;
+          const x = (pageWidth - imgWidth) / 2;
+          const y = (pageHeight - imgHeight) / 2;
+
+          if (i > 0) pdf.addPage('a4', 'landscape');
+          pdf.addImage(imgData, 'JPEG', x, y, imgWidth, imgHeight, undefined, 'FAST');
+        }
+
+        const blob = pdf.output('blob');
+        const filename = `VW_Fahrer-Wochenreport_KW${currentReport.weekNumber}_${currentReport.year}.pdf`;
+        const file = new File([blob], filename, {
+          type: 'application/pdf',
+          lastModified: Date.now()
+        });
+
+        cachedPdfFile = file;
+        cachedPdfKey = key;
+        return file;
+      })();
+
+      try {
+        return await pdfBuildPromise;
+      } finally {
+        pdfBuildPromise = null;
+      }
+    }
+
+    function downloadFile(file) {
+      const url = URL.createObjectURL(file);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file.name || 'VW_Fahrer-Wochenreport.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    }
+
+    function preparePdfInBackground() {
+      const hint = document.getElementById('reportHint');
+      setTimeout(async () => {
+        try {
+          if (hint) hint.textContent = 'PDF für die E-Mail wird vorbereitet…';
+          await buildReportPdfFile();
+          if (hint) hint.textContent = 'PDF ist bereit. „E-Mail vorbereiten“ übergibt sie direkt an die Windows-Freigabe.';
+        } catch (err) {
+          console.warn('PDF konnte nicht im Hintergrund vorbereitet werden:', err);
+          if (hint) hint.textContent = 'Report ist bereit. Die PDF wird beim Klick auf „E-Mail vorbereiten“ erzeugt.';
+        }
+      }, 350);
+    }
+
     async function loadReport() {
       const content = document.getElementById('reportContent');
       const warning = document.getElementById('reportWarning');
       warning.classList.add('d-none');
+      resetPdfCache();
       content.className = 'report-loading';
       content.innerHTML = `
         <div class="text-center text-muted">
@@ -547,6 +654,8 @@
           warning.classList.remove('d-none');
           warning.innerHTML = `<strong>Hinweis:</strong> ${errors.length} Datensatz/Datensätze konnten nicht geladen werden. Bitte vor dem Versand prüfen.`;
         }
+
+        preparePdfInBackground();
       } catch (err) {
         content.className = '';
         content.innerHTML = `<div class="alert alert-danger">VW-Wochenreport konnte nicht geladen werden: ${escapeHtml(err.message)}</div>`;
@@ -568,20 +677,79 @@
       return lines.join('\n');
     }
 
-    function openMail() {
-      if (!currentReport) return;
-
+    function getMailRecipient() {
       let recipient = '';
       try {
         const cfg = JSON.parse(localStorage.getItem('drv_cfg_v1') || '{}');
         if (Array.isArray(cfg.emailTo)) recipient = cfg.emailTo.join(';');
         else if (cfg.emailTo) recipient = String(cfg.emailTo).replace(/,/g, ';');
       } catch {}
+      return recipient;
+    }
 
-      const subject = `VW Fahrer-Wochenreport KW ${currentReport.weekNumber}/${currentReport.year}`;
-      const body = buildMailBody();
+    function openMailtoFallback(recipient, subject, body) {
       const href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = href;
+    }
+
+    async function openMail() {
+      if (!currentReport) return;
+
+      const button = document.getElementById('btnMailReport');
+      const hint = document.getElementById('reportHint');
+      const oldHtml = button.innerHTML;
+      const recipient = getMailRecipient();
+      const subject = `VW Fahrer-Wochenreport KW ${currentReport.weekNumber}/${currentReport.year}`;
+      const body = buildMailBody();
+
+      button.disabled = true;
+      button.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>PDF vorbereiten…';
+
+      try {
+        const pdfFile = await buildReportPdfFile();
+        const shareData = {
+          title: subject,
+          text: body,
+          files: [pdfFile]
+        };
+
+        let canShareFile = false;
+        try {
+          canShareFile = !!navigator.share && (!navigator.canShare || navigator.canShare({ files: [pdfFile] }));
+        } catch {
+          canShareFile = false;
+        }
+
+        if (canShareFile) {
+          button.innerHTML = '<i class="bi bi-share-fill me-1"></i>Outlook auswählen…';
+          if (hint) hint.textContent = 'Windows-Freigabe wird geöffnet. Dort Outlook auswählen – die PDF ist bereits beigefügt.';
+          await navigator.share(shareData);
+          if (hint) hint.textContent = 'PDF wurde an die ausgewählte E-Mail-App übergeben.';
+          return;
+        }
+
+        downloadFile(pdfFile);
+        if (hint) hint.textContent = 'Dein Browser unterstützt keine Datei-Freigabe. Die PDF wurde deshalb heruntergeladen und Outlook wird normal geöffnet.';
+        openMailtoFallback(recipient, subject, body);
+      } catch (err) {
+        if (err?.name === 'AbortError') {
+          if (hint) hint.textContent = 'E-Mail-Freigabe wurde abgebrochen. Die vorbereitete PDF bleibt im Speicher und kann erneut geteilt werden.';
+          return;
+        }
+
+        console.error('E-Mail/PDF Vorbereitung fehlgeschlagen:', err);
+        try {
+          const pdfFile = cachedPdfFile || await buildReportPdfFile();
+          downloadFile(pdfFile);
+          if (hint) hint.textContent = 'Direkte Übergabe war nicht möglich. Die PDF wurde heruntergeladen; Outlook wird jetzt geöffnet.';
+          openMailtoFallback(recipient, subject, body);
+        } catch (fallbackErr) {
+          alert('E-Mail konnte nicht vorbereitet werden: ' + (fallbackErr?.message || err?.message || 'Unbekannter Fehler'));
+        }
+      } finally {
+        button.disabled = false;
+        button.innerHTML = oldHtml;
+      }
     }
 
     async function downloadDayImages() {
