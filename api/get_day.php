@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require __DIR__.'/_bootstrap.php';
+require_once __DIR__ . '/driver_device_auth.php';
 
 const TOURS_PER_DAY = 4;
 
@@ -9,6 +10,8 @@ try {
   $date   = $_GET['date']   ?? '';
   if (!preg_match('~^[\w\-]{1,64}$~',$veh_id)) throw new RuntimeException("veh_id ungültig");
   if (!preg_match('~^\d{4}-\d{2}-\d{2}$~',$date)) throw new RuntimeException("date ungültig");
+
+  driverDeviceAuthorizeVehicle($pdo, (string)$veh_id);
 
   $pdo->exec("CREATE TABLE IF NOT EXISTS driver_stamps (
     veh_id        VARCHAR(64)  NOT NULL,
@@ -65,7 +68,6 @@ try {
     ];
   }
 
-  // 🔹 Dashboard-Erweiterung – beeinflusst alte Seiten NICHT
   $active = 0;
   $firstStamp = null;
   $totalMinutes = 0;
@@ -94,7 +96,6 @@ try {
   echo json_encode([
     'ok'=>true,
     'rows'=>$rows,
-    // Zusatzfelder für Dashboard:
     'active'=>$active,
     'avgShiftMin'=>$countShifts ? round($totalMinutes/$countShifts) : null,
     'firstStamp'=>$firstStamp,
