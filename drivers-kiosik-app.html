@@ -3,75 +3,98 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#15171a">
+  <meta name="theme-color" content="#f7f7f8">
   <title>Fahrer Kiosk</title>
   <style>
     :root { color-scheme: light; }
+
     * { box-sizing: border-box; }
-    html, body { margin:0; min-height:100%; background:#15171a; }
+
+    html,
     body {
-      min-height:100dvh;
-      padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100dvh;
+      overflow: hidden;
+      background: #f7f7f8;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+
+    /*
+      Die Web-App belegt jetzt die komplette echte Displayfläche.
+      Kein künstlicher Außenabstand, kein zusätzlicher Handy-Rahmen.
+    */
     .device-shell {
-      position:relative;
-      width:min(100%, 860px);
-      height:calc(100dvh - max(20px, env(safe-area-inset-top)) - max(20px, env(safe-area-inset-bottom)));
-      margin:0 auto;
-      overflow:hidden;
-      border-radius:30px;
-      background:#fff;
-      box-shadow:0 18px 60px rgba(0,0,0,.34), inset 0 0 0 1px rgba(255,255,255,.06);
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100dvh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 0;
+      background: #f7f7f8;
+      box-shadow: none;
     }
+
+    /* Kamera-/Sensor-Aussparung nur als mobile App-Optik. */
     .camera-cutout {
-      position:absolute;
-      top:8px;
-      left:50%;
-      z-index:10;
-      width:88px;
-      height:24px;
-      transform:translateX(-50%);
-      border-radius:999px;
-      background:#0b0d0f;
-      pointer-events:none;
-      box-shadow:inset 0 -1px 0 rgba(255,255,255,.08);
+      position: absolute;
+      top: max(8px, env(safe-area-inset-top));
+      left: 50%;
+      z-index: 10;
+      width: 88px;
+      height: 24px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: #0b0d0f;
+      pointer-events: none;
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,.08);
     }
+
     .camera-cutout::after {
-      content:"";
-      position:absolute;
-      right:12px;
-      top:8px;
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:#202b39;
-      box-shadow:0 0 0 2px #050607;
+      content: "";
+      position: absolute;
+      right: 12px;
+      top: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #202b39;
+      box-shadow: 0 0 0 2px #050607;
     }
+
     iframe {
-      display:block;
-      width:100%;
-      height:100%;
-      border:0;
-      background:#f7f7f8;
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: #f7f7f8;
     }
-    @media (min-width: 576px) {
-      body { padding:16px; background:#f7f7f8; }
-      .device-shell {
-        height:calc(100dvh - 32px);
-        border-radius:18px;
-        box-shadow:0 8px 28px rgba(0,0,0,.10);
+
+    /*
+      Auf Smartphones bleibt oben Platz für die simulierte Kamera.
+      Der Hintergrund selbst geht trotzdem über die volle Displaygröße.
+    */
+    @media (max-width: 575.98px) {
+      iframe {
+        top: 36px;
+        height: calc(100% - 36px);
       }
-      .camera-cutout { display:none; }
     }
-    @media (min-width: 992px) {
-      body { padding:0; }
-      .device-shell {
-        width:100%;
-        max-width:none;
-        height:100dvh;
-        border-radius:0;
-        box-shadow:none;
+
+    /* Tablet/Desktop: normale Vollbild-Webansicht ohne Kameraelement. */
+    @media (min-width: 576px) {
+      .camera-cutout { display: none; }
+      iframe {
+        top: 0;
+        height: 100%;
       }
     }
   </style>
