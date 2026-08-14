@@ -48,6 +48,7 @@ try {
   $rows = [];
   while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $rows[] = [
+      'veh_id'       => (string)$veh_id,
       'tour'         => (int)$r['tour'],
       'date'         => $r['date'],
       'workStart'    => $r['workStart']    ?? '',
