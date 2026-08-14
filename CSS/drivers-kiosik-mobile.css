@@ -30,7 +30,7 @@
 
   .wrap > .card > .card-body {
     width: 100% !important;
-    padding: 14px 14px 20px !important;
+    padding: 12px 12px 14px !important;
   }
 
   /* Im App-Modus nicht benötigt: Titel + technischer Hinweistext */
@@ -39,9 +39,83 @@
     display: none !important;
   }
 
+  /* Oberen Bedienbereich kompakter halten */
+  #ctrlForm {
+    margin-bottom: .55rem !important;
+  }
+
+  #ctrlForm .form-label {
+    margin-bottom: .2rem !important;
+    font-size: .88rem;
+  }
+
+  #ctrlForm .form-select,
+  #ctrlForm .btn {
+    min-height: 40px;
+    padding-top: .4rem;
+    padding-bottom: .4rem;
+    font-size: .92rem;
+  }
+
+  .wrap > .card > .card-body > .d-flex.justify-content-between {
+    margin-bottom: .5rem !important;
+  }
+
+  .bigtime {
+    font-size: 1.65rem !important;
+  }
+
+  #currentStepLbl {
+    padding: 5px 8px !important;
+    font-size: .78rem !important;
+    line-height: 1.25;
+  }
+
+  /* Startzeit bleibt als einzelner, breiter Hauptbutton. */
+  #blockStart.btn-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    margin-bottom: .55rem !important;
+  }
+
+  /* Fahr-/Aktionsbuttons: immer zwei nebeneinander. */
+  #blockRest.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-bottom: .55rem !important;
+  }
+
+  #blockStart .btn,
+  #blockRest .btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: .55rem .4rem !important;
+    font-size: .9rem !important;
+    line-height: 1.15;
+    white-space: normal;
+  }
+
+  /* Tourübersicht ebenfalls etwas kompakter, aber weiter gut lesbar. */
   .row-preview,
   .table-responsive {
     width: 100% !important;
     max-width: 100% !important;
+  }
+
+  .table {
+    margin-bottom: 0 !important;
+    font-size: .84rem !important;
+  }
+
+  .table th,
+  .table td {
+    padding: .38rem .32rem !important;
+    vertical-align: middle;
+  }
+
+  .details-badges {
+    gap: 4px !important;
   }
 }
