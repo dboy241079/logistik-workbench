@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require __DIR__.'/_bootstrap.php';
 require_once __DIR__ . '/driver_device_auth.php';
+require_once __DIR__ . '/realtime_outbox.php';
 
 try {
   $j = json_decode(file_get_contents('php://input'), true) ?: [];
@@ -15,6 +16,15 @@ try {
 
   $stmt = $pdo->prepare("DELETE FROM driver_stamps WHERE veh_id=:v AND date=:d");
   $stmt->execute([':v'=>$vehId, ':d'=>$date]);
+
+  realtimeEmit($pdo, 'drivers:update', [
+    'veh_id' => $vehId,
+    'date' => $date,
+    'tour' => null,
+    'fields' => [],
+    'action' => 'clear_day',
+    'source' => 'kiosk',
+  ], null, 'driver_day', $vehId . ':' . $date);
 
   echo json_encode(['ok'=>true]);
 } catch (Throwable $e) {
