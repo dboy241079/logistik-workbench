@@ -85,23 +85,90 @@
   </main>
 
   <script>
-    // drivers-kiosik.html liegt auf derselben Domain. Deshalb kann der mobile
-    // Full-Width-Override sicher in das Dokument der WebView eingebunden werden,
+    // drivers-kiosik.html liegt auf derselben Domain. Deshalb können die
+    // Kiosk-spezifischen Ergänzungen sicher in die WebView eingebunden werden,
     // ohne die umfangreiche Fahrer-/Stempellogik der Originaldatei zu verändern.
     const driverKioskFrame = document.getElementById('driverKioskFrame');
 
     driverKioskFrame.addEventListener('load', () => {
       try {
         const doc = driverKioskFrame.contentDocument;
-        if (!doc || doc.getElementById('driversKioskMobileCss')) return;
+        if (!doc) return;
 
-        const link = doc.createElement('link');
-        link.id = 'driversKioskMobileCss';
-        link.rel = 'stylesheet';
-        link.href = '/CSS/drivers-kiosik-mobile.css?v=20260814-3';
-        doc.head.appendChild(link);
+        if (!doc.getElementById('driversKioskMobileCss')) {
+          const link = doc.createElement('link');
+          link.id = 'driversKioskMobileCss';
+          link.rel = 'stylesheet';
+          link.href = '/CSS/drivers-kiosik-mobile.css?v=20260814-3';
+          doc.head.appendChild(link);
+        }
+
+        if (!doc.getElementById('driversKioskLanguageCss')) {
+          const style = doc.createElement('style');
+          style.id = 'driversKioskLanguageCss';
+          style.textContent = `
+            .kiosk-language-row {
+              display: flex;
+              width: 100%;
+              align-items: center;
+              margin-bottom: .75rem;
+            }
+
+            .kiosk-language-left,
+            .kiosk-language-right {
+              width: 50%;
+              min-width: 0;
+            }
+
+            .kiosk-language-right {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .kiosk-language-select {
+              width: auto;
+              min-width: 150px;
+              max-width: 100%;
+              text-align: left;
+            }
+
+            @media (max-width: 575.98px) {
+              .kiosk-language-row {
+                margin-bottom: .5rem;
+              }
+
+              .kiosk-language-select {
+                min-width: 145px;
+                font-size: .9rem;
+              }
+            }
+          `;
+          doc.head.appendChild(style);
+        }
+
+        if (!doc.getElementById('languageSelect')) {
+          const ctrlForm = doc.getElementById('ctrlForm');
+          const cardBody = ctrlForm?.parentElement;
+
+          if (ctrlForm && cardBody) {
+            const languageRow = doc.createElement('div');
+            languageRow.className = 'kiosk-language-row';
+            languageRow.innerHTML = `
+              <div class="kiosk-language-left" aria-hidden="true"></div>
+              <div class="kiosk-language-right">
+                <select id="languageSelect" class="form-select form-select-sm kiosk-language-select" aria-label="Sprache auswählen">
+                  <option value="de">🇩🇪 Deutsch</option>
+                  <option value="en">🇬🇧 English</option>
+                  <option value="pl">🇵🇱 Polski</option>
+                </select>
+              </div>
+            `;
+            cardBody.insertBefore(languageRow, ctrlForm);
+          }
+        }
       } catch (err) {
-        console.warn('Mobile Kiosk CSS konnte nicht eingebunden werden:', err);
+        console.warn('Kiosk-Erweiterungen konnten nicht eingebunden werden:', err);
       }
     });
   </script>
