@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VW-Wochenreport Fahrer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    body {
+      background: #f5f7fa;
+      color: #1f2937;
+    }
+
+    .report-shell {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .report-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+      background: rgba(245, 247, 250, .96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .vw-day-report {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, .06);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .vw-day-header {
+      background: #eaf2fb;
+      border-bottom: 1px solid #cfe0f4;
+      padding: 14px 18px;
+    }
+
+    .vw-vehicle-block {
+      padding: 16px 18px 18px;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .vw-vehicle-block:last-child {
+      border-bottom: 0;
+    }
+
+    .vw-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .vw-kpi {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: .86rem;
+    }
+
+    .vw-kpi strong {
+      display: block;
+      margin-top: 2px;
+      color: #111827;
+    }
+
+    .report-table {
+      font-size: .78rem;
+      white-space: nowrap;
+      margin-bottom: 0;
+    }
+
+    .report-table th,
+    .report-table td {
+      padding: .33rem .38rem;
+      vertical-align: middle;
+    }
+
+    .report-table thead th {
+      background: #f8f9fa;
+    }
+
+    .report-empty {
+      color: #6c757d;
+      font-style: italic;
+    }
+
+    .report-loading {
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 991.98px) {
+      .vw-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
+      }
+
+      body {
+        background: #fff !important;
+      }
+
+      .no-print,
+      .report-toolbar {
+        display: none !important;
+      }
+
+      .report-shell {
+        max-width: none;
+        padding: 0;
+      }
+
+      .vw-day-report {
+        box-shadow: none;
+        border: 0;
+        border-radius: 0;
+        margin: 0;
+        break-after: page;
+        page-break-after: always;
+      }
+
+      .vw-day-report:last-child {
+        break-after: auto;
+        page-break-after: auto;
+      }
+
+      .vw-day-header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .vw-vehicle-block {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .report-table {
+        font-size: 7.5pt;
+      }
+
+      .vw-summary-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-toolbar no-print">
+    <div class="report-shell py-2">
+      <div class="d-flex flex-column flex-xl-row align-items-stretch align-items-xl-center justify-content-between gap-2">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <a class="btn btn-outline-secondary btn-sm" href="/" title="Zur Workbench">
+            <i class="bi bi-arrow-left me-1"></i>Workbench
+          </a>
+          <button class="btn btn-outline-secondary btn-sm" id="btnReportPrev" type="button" title="Eine Woche zurück">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <strong id="reportWeekLabel">VW-Wochenreport</strong>
+          <button class="btn btn-outline-secondary btn-sm" id="btnReportNext" type="button" title="Eine Woche weiter">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+          <button class="btn btn-outline-primary btn-sm" id="btnPreviousWeek" type="button">
+            <i class="bi bi-calendar-week me-1"></i>Vorwoche
+          </button>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <button class="btn btn-outline-primary btn-sm" id="btnDayImages" type="button">
+            <i class="bi bi-images me-1"></i>5 Tagesbilder erstellen
+          </button>
+          <button class="btn btn-outline-dark btn-sm" id="btnPrintReport" type="button">
+            <i class="bi bi-file-earmark-pdf me-1"></i>Drucken / PDF
+          </button>
+          <button class="btn btn-primary btn-sm" id="btnMailReport" type="button">
+            <i class="bi bi-envelope-fill me-1"></i>E-Mail vorbereiten
+          </button>
+        </div>
+      </div>
+      <div class="small text-muted mt-2" id="reportHint">
+        Standardmäßig wird die Vorwoche geladen. Für VW kannst du die fünf Tagesbilder oder alternativ den kompletten Bericht als PDF anhängen.
+      </div>
+    </div>
+  </div>
+
+  <main class="report-shell">
+    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-2 mb-3">
+      <div>
+        <h2 class="h4 mb-1"><i class="bi bi-truck me-2 text-primary"></i>VW-Wochenreport Fahrer</h2>
+        <div class="text-muted" id="reportPeriod"></div>
+      </div>
+      <div class="text-md-end small text-muted">
+        Erstellt: <span id="reportCreatedAt"></span>
+      </div>
+    </div>
+
+    <div class="alert alert-warning py-2 px-3 no-print d-none" id="reportWarning"></div>
+
+    <div id="reportContent" class="report-loading">
+      <div class="text-center text-muted">
+        <div class="spinner-border text-primary mb-2" role="status"></div>
+        <div>VW-Wochenreport wird geladen…</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_BASE = '/api';
+    const ENDPOINTS = {
+      GET_DAY: 'get_day.php',
+      VEHICLES: 'veh_cfg_get.php'
+    };
+
+    let reportWeekOffset = -1;
+    let currentVehicles = [];
+    let currentReport = null;
+
+    function pad2(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function isoDate(d) {
+      return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+    }
+
+    function formatDateDE(dateISO) {
+      const d = new Date(dateISO + 'T00:00:00');
+      return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+
+    function mondayOf(date) {
+      const d = new Date(date);
+      const day = d.getDay();
+      const diff = (day === 0 ? -6 : 1) - day;
+      d.setDate(d.getDate() + diff);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
+
+    function weekBaseDate(offset = reportWeekOffset) {
+      const monday = mondayOf(new Date());
+      monday.setDate(monday.getDate() + offset * 7);
+      return monday;
+    }
+
+    function weekDays(offset = reportWeekOffset) {
+      const monday = weekBaseDate(offset);
+      return Array.from({ length: 5 }, (_, i) => {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        return {
+          date: isoDate(d),
+          label: d.toLocaleDateString('de-DE', { weekday: 'long' })
+        };
+      });
+    }
+
+    function getWeekNumber(date) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    }
+
+    function diffMinutes(start, end) {
+      if (!start || !end) return 0;
+      const [h1, m1] = String(start).split(':').map(Number);
+      const [h2, m2] = String(end).split(':').map(Number);
+      if ([h1, m1, h2, m2].some(Number.isNaN)) return 0;
+      const diff = (h2 * 60 + m2) - (h1 * 60 + m1);
+      return diff >= 0 ? diff : 0;
+    }
+
+    function fmtMinutes(minutes) {
+      const m = Number(minutes) || 0;
+      if (!m) return '–';
+      return `${Math.floor(m / 60)}h ${pad2(m % 60)}m`;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function plateOf(vehicle) {
+      if (vehicle?.plate && String(vehicle.plate).trim()) return String(vehicle.plate).trim();
+      return String(vehicle?.title || vehicle?.id || 'Fahrzeug').trim();
+    }
+
+    async function getVehicles() {
+      try {
+        const res = await fetch(`${API_BASE}/${ENDPOINTS.VEHICLES}`, {
+          cache: 'no-store',
+          credentials: 'include'
+        });
+        const json = await res.json().catch(() => ({}));
+        if (json.ok && Array.isArray(json.cfg?.vehicles) && json.cfg.vehicles.length) {
+          try { localStorage.setItem('drv_cfg_v1', JSON.stringify(json.cfg)); } catch {}
+          return json.cfg.vehicles;
+        }
+      } catch (err) {
+        console.warn('Fahrzeugkonfiguration konnte nicht vom Server geladen werden.', err);
+      }
+
+      try {
+        const cfg = JSON.parse(localStorage.getItem('drv_cfg_v1') || '{}');
+        if (Array.isArray(cfg.vehicles) && cfg.vehicles.length) return cfg.vehicles;
+      } catch {}
+
+      return [
+        { id: 'veh1', title: 'BOH - DT 328', plate: 'BOH - DT 328' },
+        { id: 'veh2', title: 'BOH - DT 988', plate: 'BOH - DT 988' },
+        { id: 'veh3', title: 'BOH - DT 964', plate: 'BOH - DT 964' }
+      ];
+    }
+
+    async function apiGetDay(vehId, dateISO) {
+      const url = `${API_BASE}/${ENDPOINTS.GET_DAY}?veh_id=${encodeURIComponent(vehId)}&date=${encodeURIComponent(dateISO)}`;
+      const res = await fetch(url, { credentials: 'include', cache: 'no-store' });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || `HTTP ${res.status}`);
+      if (json.ok && Array.isArray(json.rows)) return json.rows;
+      if (Array.isArray(json)) return json;
+      throw new Error(json.error || 'Fehler beim Laden');
+    }
+
+    function analyzeDayRows(rows) {
+      let totalWU = 0;
+      let totalH = 0;
+      let totalH2 = 0;
+      let totalPause = 0;
+      let totalWUtoH = 0;
+      let totalHtoWU = 0;
+      let tourCount = 0;
+      let workStart = '';
+      let workEnd = '';
+
+      rows.forEach(row => {
+        if (row.workStart && !workStart) workStart = row.workStart;
+        if (row.workEnd) workEnd = row.workEnd;
+
+        if (
+          row.workStart || row.arriveWU || row.departWU ||
+          row.arriveH || row.departH || row.arriveH2 || row.departH2
+        ) {
+          tourCount++;
+        }
+
+        totalWU += diffMinutes(row.arriveWU, row.departWU);
+        totalWUtoH += diffMinutes(row.departWU, row.arriveH);
+        totalH += diffMinutes(row.arriveH, row.departH);
+        totalH2 += diffMinutes(row.arriveH2, row.departH2);
+        totalPause += diffMinutes(row.pauseStart, row.pauseEnd);
+      });
+
+      for (let i = 0; i < rows.length; i++) {
+        const departure = rows[i].departH2 || rows[i].departH;
+        if (!departure) continue;
+        const next = rows.slice(i + 1).find(row => row.arriveWU);
+        if (next?.arriveWU) totalHtoWU += diffMinutes(departure, next.arriveWU);
+      }
+
+      return {
+        tourCount,
+        totalWU,
+        totalWUtoH,
+        totalH,
+        totalH2,
+        totalHtoWU,
+        totalPause,
+        workStart,
+        workEnd,
+        totalWork: workStart && workEnd ? diffMinutes(workStart, workEnd) : 0
+      };
+    }
+
+    function renderRows(rows) {
+      if (!rows.length) {
+        return '<div class="report-empty small">Keine Tagesdaten vorhanden.</div>';
+      }
+
+      return `
+        <div class="table-responsive mt-2">
+          <table class="table table-bordered table-sm report-table">
+            <thead>
+              <tr>
+                <th>Tour</th>
+                <th>Start</th>
+                <th>WU an</th>
+                <th>WU ab</th>
+                <th>Dauer WU</th>
+                <th>H an</th>
+                <th>Halle</th>
+                <th>H ab</th>
+                <th>Dauer H</th>
+                <th>H2 an</th>
+                <th>Halle 2</th>
+                <th>H2 ab</th>
+                <th>Dauer H2</th>
+                <th>Pause Start</th>
+                <th>Pause Ende</th>
+                <th>Feierabend</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(row => `
+                <tr>
+                  <td>${escapeHtml(row.tour)}</td>
+                  <td>${escapeHtml(row.workStart)}</td>
+                  <td>${escapeHtml(row.arriveWU)}</td>
+                  <td>${escapeHtml(row.departWU)}</td>
+                  <td>${escapeHtml(row.arriveWU && row.departWU ? fmtMinutes(diffMinutes(row.arriveWU, row.departWU)) : '')}</td>
+                  <td>${escapeHtml(row.arriveH)}</td>
+                  <td>${escapeHtml(row.hannoverHall)}</td>
+                  <td>${escapeHtml(row.departH)}</td>
+                  <td>${escapeHtml(row.arriveH && row.departH ? fmtMinutes(diffMinutes(row.arriveH, row.departH)) : '')}</td>
+                  <td>${escapeHtml(row.arriveH2)}</td>
+                  <td>${escapeHtml(row.hannoverHall2)}</td>
+                  <td>${escapeHtml(row.departH2)}</td>
+                  <td>${escapeHtml(row.arriveH2 && row.departH2 ? fmtMinutes(diffMinutes(row.arriveH2, row.departH2)) : '')}</td>
+                  <td>${escapeHtml(row.pauseStart)}</td>
+                  <td>${escapeHtml(row.pauseEnd)}</td>
+                  <td>${escapeHtml(row.workEnd)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderVehicle(vehicle, rows) {
+      const stats = analyzeDayRows(rows);
+      return `
+        <section class="vw-vehicle-block">
+          <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <h3 class="h6 mb-0 text-primary">
+              <i class="bi bi-truck me-1"></i>${escapeHtml(plateOf(vehicle))}
+            </h3>
+            <span class="badge ${stats.workEnd ? 'text-bg-success' : stats.workStart ? 'text-bg-warning' : 'text-bg-secondary'}">
+              ${stats.workEnd ? `Feierabend ${escapeHtml(stats.workEnd)}` : stats.workStart ? 'Tag nicht abgeschlossen' : 'Keine Fahrt'}
+            </span>
+          </div>
+
+          ${renderRows(rows)}
+
+          <div class="vw-summary-grid">
+            <div class="vw-kpi">Gefahrene Touren<strong>${stats.tourCount}</strong></div>
+            <div class="vw-kpi">In Halle Wunstorf<strong>${fmtMinutes(stats.totalWU)}</strong></div>
+            <div class="vw-kpi">Fahrt WU → H<strong>${fmtMinutes(stats.totalWUtoH)}</strong></div>
+            <div class="vw-kpi">In Halle Hannover<strong>${fmtMinutes(stats.totalH)}</strong></div>
+            <div class="vw-kpi">Halle Hannover 2<strong>${fmtMinutes(stats.totalH2)}</strong></div>
+            <div class="vw-kpi">Fahrt H → WU<strong>${fmtMinutes(stats.totalHtoWU)}</strong></div>
+            <div class="vw-kpi">Pausenzeit<strong>${fmtMinutes(stats.totalPause)}</strong></div>
+            <div class="vw-kpi">Gesamtarbeitszeit<strong>${fmtMinutes(stats.totalWork)}</strong></div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderDay(day) {
+      return `
+        <article class="vw-day-report" data-date="${escapeHtml(day.date)}" data-day="${escapeHtml(day.label)}">
+          <header class="vw-day-header d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <div>
+              <div class="small text-muted">VW Fahrerreport</div>
+              <h2 class="h5 mb-0">${escapeHtml(day.label)}, ${escapeHtml(formatDateDE(day.date))}</h2>
+            </div>
+            <span class="badge text-bg-primary">KW ${currentReport.weekNumber}</span>
+          </header>
+          ${day.vehicles.map(item => renderVehicle(item.vehicle, item.rows)).join('')}
+        </article>
+      `;
+    }
+
+    async function loadReport() {
+      const content = document.getElementById('reportContent');
+      const warning = document.getElementById('reportWarning');
+      warning.classList.add('d-none');
+      content.className = 'report-loading';
+      content.innerHTML = `
+        <div class="text-center text-muted">
+          <div class="spinner-border text-primary mb-2" role="status"></div>
+          <div>VW-Wochenreport wird geladen…</div>
+        </div>`;
+
+      try {
+        currentVehicles = await getVehicles();
+        const days = weekDays();
+        const monday = weekBaseDate();
+        const friday = new Date(monday);
+        friday.setDate(monday.getDate() + 4);
+
+        const reportDays = [];
+        const errors = [];
+
+        for (const day of days) {
+          const dayVehicles = [];
+          for (const vehicle of currentVehicles) {
+            try {
+              const rows = await apiGetDay(vehicle.id, day.date);
+              dayVehicles.push({ vehicle, rows });
+            } catch (err) {
+              errors.push(`${plateOf(vehicle)} / ${day.date}: ${err.message}`);
+              dayVehicles.push({ vehicle, rows: [] });
+            }
+          }
+          reportDays.push({ ...day, vehicles: dayVehicles });
+        }
+
+        currentReport = {
+          weekNumber: getWeekNumber(monday),
+          year: monday.getFullYear(),
+          monday: isoDate(monday),
+          friday: isoDate(friday),
+          days: reportDays
+        };
+
+        document.getElementById('reportWeekLabel').textContent = `KW ${currentReport.weekNumber} / ${currentReport.year}`;
+        document.getElementById('reportPeriod').textContent = `${formatDateDE(currentReport.monday)} – ${formatDateDE(currentReport.friday)}`;
+        document.getElementById('reportCreatedAt').textContent = new Date().toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' });
+
+        content.className = '';
+        content.innerHTML = reportDays.map(renderDay).join('');
+
+        if (errors.length) {
+          warning.classList.remove('d-none');
+          warning.innerHTML = `<strong>Hinweis:</strong> ${errors.length} Datensatz/Datensätze konnten nicht geladen werden. Bitte vor dem Versand prüfen.`;
+        }
+      } catch (err) {
+        content.className = '';
+        content.innerHTML = `<div class="alert alert-danger">VW-Wochenreport konnte nicht geladen werden: ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    function buildMailBody() {
+      if (!currentReport) return '';
+      const lines = [
+        'Guten Morgen,',
+        '',
+        `anbei übersende ich den Fahrer-Wochenreport für KW ${currentReport.weekNumber}/${currentReport.year}`,
+        `Zeitraum: ${formatDateDE(currentReport.monday)} bis ${formatDateDE(currentReport.friday)}.`,
+        '',
+        'Enthalten sind die Tagesübersichten von Montag bis Freitag für unsere eingesetzten LKW.',
+        '',
+        'Mit freundlichen Grüßen'
+      ];
+      return lines.join('\n');
+    }
+
+    function openMail() {
+      if (!currentReport) return;
+
+      let recipient = '';
+      try {
+        const cfg = JSON.parse(localStorage.getItem('drv_cfg_v1') || '{}');
+        if (Array.isArray(cfg.emailTo)) recipient = cfg.emailTo.join(';');
+        else if (cfg.emailTo) recipient = String(cfg.emailTo).replace(/,/g, ';');
+      } catch {}
+
+      const subject = `VW Fahrer-Wochenreport KW ${currentReport.weekNumber}/${currentReport.year}`;
+      const body = buildMailBody();
+      const href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = href;
+    }
+
+    async function downloadDayImages() {
+      if (!currentReport || typeof html2canvas !== 'function') {
+        alert('Die Bildfunktion ist noch nicht geladen. Bitte die Seite einmal neu laden.');
+        return;
+      }
+
+      const button = document.getElementById('btnDayImages');
+      const oldHtml = button.innerHTML;
+      button.disabled = true;
+
+      try {
+        const cards = [...document.querySelectorAll('.vw-day-report')];
+        for (let i = 0; i < cards.length; i++) {
+          button.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Bild ${i + 1}/5`;
+          const card = cards[i];
+          const canvas = await html2canvas(card, {
+            scale: 2,
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            logging: false
+          });
+
+          const link = document.createElement('a');
+          const dayName = String(card.dataset.day || `Tag-${i + 1}`).replace(/[^A-Za-z0-9ÄÖÜäöüß_-]+/g, '_');
+          link.download = `VW_Fahrerreport_KW${currentReport.weekNumber}_${dayName}_${card.dataset.date}.png`;
+          link.href = canvas.toDataURL('image/png');
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          await new Promise(resolve => setTimeout(resolve, 250));
+        }
+
+        document.getElementById('reportHint').textContent = 'Die fünf Tagesbilder wurden erstellt. Falls der Browser Mehrfachdownloads blockiert, bitte „Mehrere Downloads zulassen“ bestätigen.';
+      } catch (err) {
+        alert('Tagesbilder konnten nicht vollständig erzeugt werden: ' + err.message);
+      } finally {
+        button.disabled = false;
+        button.innerHTML = oldHtml;
+      }
+    }
+
+    document.getElementById('btnReportPrev').addEventListener('click', async () => {
+      reportWeekOffset--;
+      await loadReport();
+    });
+
+    document.getElementById('btnReportNext').addEventListener('click', async () => {
+      reportWeekOffset++;
+      await loadReport();
+    });
+
+    document.getElementById('btnPreviousWeek').addEventListener('click', async () => {
+      reportWeekOffset = -1;
+      await loadReport();
+    });
+
+    document.getElementById('btnPrintReport').addEventListener('click', () => window.print());
+    document.getElementById('btnMailReport').addEventListener('click', openMail);
+    document.getElementById('btnDayImages').addEventListener('click', downloadDayImages);
+
+    loadReport();
+  </script>
+</body>
+</html>
