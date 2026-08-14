@@ -90,25 +90,65 @@
     // ohne eine zweite Sprachauswahl zu erzeugen oder die Fahrerlogik zu ändern.
     const driverKioskFrame = document.getElementById('driverKioskFrame');
 
-    function languageFlag(text) {
-      const value = String(text || '')
-        .replace(/^(🇩🇪|🇬🇧|🇵🇱)\s*/u, '')
-        .trim()
-        .toLowerCase();
+    const KIOSK_LANGUAGE_FLAGS = {
+      de: '🇩🇪',
+      en: '🇬🇧',
+      ru: '🇷🇺',
+      sr: '🇷🇸',
+      pl: '🇵🇱',
+      uk: '🇺🇦',
+      lt: '🇱🇹'
+    };
 
-      if (value.includes('deutsch') || value.includes('german')) return '🇩🇪';
-      if (value.includes('english') || value.includes('englisch')) return '🇬🇧';
-      if (value.includes('polski') || value.includes('polish') || value.includes('polnisch')) return '🇵🇱';
+    function stripLanguageFlag(text) {
+      return String(text || '')
+        .replace(/^(🇩🇪|🇬🇧|🇷🇺|🇷🇸|🇵🇱|🇺🇦|🇱🇹)\s*/u, '')
+        .trim();
+    }
+
+    function languageCodeFromText(text) {
+      const value = stripLanguageFlag(text).toLowerCase();
+
+      if (value.includes('deutsch') || value.includes('german')) return 'de';
+      if (value.includes('english') || value.includes('englisch')) return 'en';
+      if (value.includes('русский') || value.includes('russian') || value.includes('russisch')) return 'ru';
+      if (value.includes('srpski') || value.includes('српски') || value.includes('serbian') || value.includes('serbisch')) return 'sr';
+      if (value.includes('polski') || value.includes('polish') || value.includes('polnisch')) return 'pl';
+      if (value.includes('україн') || value.includes('ukrainian') || value.includes('ukrainisch')) return 'uk';
+      if (value.includes('lietuvi') || value.includes('lithuanian') || value.includes('litauisch')) return 'lt';
+
       return '';
+    }
+
+    function languageCodeFromElement(element) {
+      if (!element) return '';
+
+      const candidates = [
+        element.value,
+        element.getAttribute?.('value'),
+        element.dataset?.lang,
+        element.dataset?.language,
+        element.dataset?.locale,
+        element.getAttribute?.('data-lang'),
+        element.getAttribute?.('data-language'),
+        element.getAttribute?.('data-locale')
+      ];
+
+      for (const candidate of candidates) {
+        const value = String(candidate || '').trim().toLowerCase();
+        const shortCode = value.split(/[-_]/)[0];
+        if (KIOSK_LANGUAGE_FLAGS[shortCode]) return shortCode;
+      }
+
+      return languageCodeFromText(element.textContent || '');
     }
 
     function addFlag(element) {
       if (!element) return;
 
-      const original = String(element.textContent || '')
-        .replace(/^(🇩🇪|🇬🇧|🇵🇱)\s*/u, '')
-        .trim();
-      const flag = languageFlag(original);
+      const original = stripLanguageFlag(element.textContent || '');
+      const code = languageCodeFromElement(element) || languageCodeFromText(original);
+      const flag = KIOSK_LANGUAGE_FLAGS[code] || '';
 
       if (flag && original) {
         element.textContent = `${flag} ${original}`;
@@ -146,16 +186,14 @@
         doc.head.appendChild(style);
       }
 
+      const knownCodes = new Set(['de', 'en', 'ru', 'sr', 'pl', 'uk', 'lt']);
+
       const languageSelect = [...doc.querySelectorAll('select')].find(select => {
-        const optionTexts = [...select.options].map(option =>
-          String(option.textContent || '').trim().toLowerCase()
-        );
+        const optionCodes = [...select.options]
+          .map(option => languageCodeFromElement(option))
+          .filter(code => knownCodes.has(code));
 
-        const hasGerman = optionTexts.some(text => text.includes('deutsch') || text.includes('german'));
-        const hasEnglish = optionTexts.some(text => text.includes('english') || text.includes('englisch'));
-        const hasPolish = optionTexts.some(text => text.includes('polski') || text.includes('polish') || text.includes('polnisch'));
-
-        return hasGerman && (hasEnglish || hasPolish);
+        return new Set(optionCodes).size >= 4;
       });
 
       if (languageSelect) {
@@ -165,10 +203,7 @@
       }
 
       const languageButton = [...doc.querySelectorAll('button, [role="button"]')].find(button => {
-        const text = String(button.textContent || '').trim().toLowerCase();
-        return text.includes('deutsch') || text.includes('german') ||
-               text.includes('english') || text.includes('englisch') ||
-               text.includes('polski') || text.includes('polish') || text.includes('polnisch');
+        return Boolean(languageCodeFromElement(button));
       });
 
       if (!languageButton) return;
@@ -180,7 +215,7 @@
       host.classList.add('kiosk-existing-language-host');
       addFlag(languageButton);
 
-      host.querySelectorAll('.dropdown-item, [role="menuitem"]').forEach(addFlag);
+      host.querySelectorAll('.dropdown-item, [role="menuitem"], option').forEach(addFlag);
     }
 
     driverKioskFrame.addEventListener('load', () => {
@@ -199,7 +234,7 @@
         setupExistingLanguageControl(doc);
 
         // Falls die vorhandene Sprachlogik den Buttontext nach einer Auswahl
-        // neu setzt, werden Position und Flagge direkt danach wieder angewendet.
+        // neu setzt, werden Position und Flaggen direkt danach wieder angewendet.
         doc.addEventListener('click', () => {
           window.setTimeout(() => setupExistingLanguageControl(doc), 60);
         });
