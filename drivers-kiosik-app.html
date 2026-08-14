@@ -47,11 +47,6 @@
       background: #f7f7f8;
     }
 
-    /*
-      Smartphone: Die echte Display-Kamera bleibt frei.
-      Es wird KEINE Kamera gezeichnet. Stattdessen bekommt die weiße
-      App-Fläche oben mittig eine dunkle, gebogene Aussparung.
-    */
     @media (max-width: 575.98px) {
       .device-shell::before {
         content: "";
@@ -73,7 +68,6 @@
       }
     }
 
-    /* Tablet/Desktop: keine Kamera-Aussparung simulieren. */
     @media (min-width: 576px) {
       .device-shell::before { display: none; }
     }
@@ -85,9 +79,6 @@
   </main>
 
   <script>
-    // drivers-kiosik.html liegt auf derselben Domain. Deshalb können wir die
-    // mobile Darstellung und die bereits vorhandene Sprachauswahl anpassen,
-    // ohne eine zweite Sprachauswahl zu erzeugen oder die Fahrerlogik zu ändern.
     const driverKioskFrame = document.getElementById('driverKioskFrame');
 
     const KIOSK_LANGUAGE_FLAGS = {
@@ -108,7 +99,6 @@
 
     function languageCodeFromText(text) {
       const value = stripLanguageFlag(text).toLowerCase();
-
       if (value.includes('deutsch') || value.includes('german')) return 'de';
       if (value.includes('english') || value.includes('englisch')) return 'en';
       if (value.includes('русский') || value.includes('russian') || value.includes('russisch')) return 'ru';
@@ -116,13 +106,11 @@
       if (value.includes('polski') || value.includes('polish') || value.includes('polnisch')) return 'pl';
       if (value.includes('україн') || value.includes('ukrainian') || value.includes('ukrainisch')) return 'uk';
       if (value.includes('lietuvi') || value.includes('lithuanian') || value.includes('litauisch')) return 'lt';
-
       return '';
     }
 
     function languageCodeFromElement(element) {
       if (!element) return '';
-
       const candidates = [
         element.value,
         element.getAttribute?.('value'),
@@ -145,14 +133,10 @@
 
     function addFlag(element) {
       if (!element) return;
-
       const original = stripLanguageFlag(element.textContent || '');
       const code = languageCodeFromElement(element) || languageCodeFromText(original);
       const flag = KIOSK_LANGUAGE_FLAGS[code] || '';
-
-      if (flag && original) {
-        element.textContent = `${flag} ${original}`;
-      }
+      if (flag && original) element.textContent = `${flag} ${original}`;
     }
 
     function setupExistingLanguageControl(doc) {
@@ -195,12 +179,10 @@
       }
 
       const knownCodes = new Set(['de', 'en', 'ru', 'sr', 'pl', 'uk', 'lt']);
-
       const languageSelect = [...doc.querySelectorAll('select')].find(select => {
         const optionCodes = [...select.options]
           .map(option => languageCodeFromElement(option))
           .filter(code => knownCodes.has(code));
-
         return new Set(optionCodes).size >= 4;
       });
 
@@ -210,19 +192,12 @@
         return;
       }
 
-      const languageButton = [...doc.querySelectorAll('button, [role="button"]')].find(button => {
-        return Boolean(languageCodeFromElement(button));
-      });
-
+      const languageButton = [...doc.querySelectorAll('button, [role="button"]')].find(button => Boolean(languageCodeFromElement(button)));
       if (!languageButton) return;
 
-      const host = languageButton.closest(
-        '.dropdown, .btn-group, [class*="language" i], [class*="lang" i], [class*="sprach" i]'
-      ) || languageButton;
-
+      const host = languageButton.closest('.dropdown, .btn-group, [class*="language" i], [class*="lang" i], [class*="sprach" i]') || languageButton;
       host.classList.add('kiosk-existing-language-host');
       addFlag(languageButton);
-
       host.querySelectorAll('.dropdown-item, [role="menuitem"], option').forEach(addFlag);
     }
 
@@ -235,14 +210,12 @@
           const link = doc.createElement('link');
           link.id = 'driversKioskMobileCss';
           link.rel = 'stylesheet';
-          link.href = '/CSS/drivers-kiosik-mobile.css?v=20260814-3';
+          link.href = '/CSS/drivers-kiosik-mobile.css?v=20260814-4';
           doc.head.appendChild(link);
         }
 
         setupExistingLanguageControl(doc);
 
-        // Falls die vorhandene Sprachlogik den Buttontext nach einer Auswahl
-        // neu setzt, werden Position und Flaggen direkt danach wieder angewendet.
         doc.addEventListener('click', () => {
           window.setTimeout(() => setupExistingLanguageControl(doc), 60);
         });
