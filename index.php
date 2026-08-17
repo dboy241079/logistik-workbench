@@ -239,9 +239,13 @@ $stmt->execute([
 // --- View rendern ---
 require __DIR__ . '/index.view.php';
 
-// Realtime-Client nur für angemeldete Benutzer mit Fahrer-Berechtigung laden.
-// Er arbeitet parallel zum bestehenden Polling und kann jederzeit per realtime_cfg.json deaktiviert werden.
 if ($isLoggedIn && canSeeTab('drivers', $currentRole, $tabPermissions)) {
+  // Separater Reparatur-Layer für manuelle Zeitänderungen in den drei Fahrer-Tabs.
+  // Cache-Busting über filemtime, damit Browser sicher die aktuelle Fassung laden.
+  $manualSaveVer = @filemtime(__DIR__ . '/js/fahrer_ubersicht_manual_save.js') ?: time();
+  echo '<script src="/js/fahrer_ubersicht_manual_save.js?v=' . (int)$manualSaveVer . '"></script>';
+
+  // Realtime bleibt davon unabhängig und kann jederzeit deaktiviert werden.
   $rtVer = @filemtime(__DIR__ . '/js/workbench_realtime.js') ?: time();
   echo '<script type="module" src="/js/workbench_realtime.js?v=' . (int)$rtVer . '"></script>';
 }
