@@ -2,7 +2,6 @@
 declare(strict_types=1);
 require __DIR__.'/_bootstrap.php';
 require_once __DIR__ . '/driver_device_auth.php';
-require_once __DIR__ . '/realtime_outbox.php';
 
 try{
   $in   = json_decode(file_get_contents('php://input'), true) ?: [];
@@ -30,26 +29,15 @@ try{
 ];
 
   $set = []; $par = [':v'=>$veh,':d'=>$date,':t'=>$tour];
-  $changedFields = [];
   foreach ($f as $k=>$val){
     if (!in_array($k, $allowed, true)) continue;
     $set[] = "`$k` = :$k";
     $par[":$k"] = ($val === '' ? null : (string)$val);
-    $changedFields[$k] = ($val === '' ? null : (string)$val);
   }
   if (!$set) throw new RuntimeException('No fields');
 
   $sql = "UPDATE driver_stamps SET ".implode(',',$set)." WHERE veh_id=:v AND date=:d AND tour=:t";
   $pdo->prepare($sql)->execute($par);
-
-  // Realtime ist nur Zusatzfunktion. Fehler hier blockieren das Stempeln nicht.
-  realtimeEmit($pdo, 'drivers:update', [
-    'veh_id' => $veh,
-    'date' => $date,
-    'tour' => $tour,
-    'fields' => $changedFields,
-    'source' => 'kiosk',
-  ], null, 'driver_stamp', $veh . ':' . $date . ':' . $tour);
 
   echo json_encode(['ok'=>true]);
 }catch(Throwable $e){
