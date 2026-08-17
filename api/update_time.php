@@ -1,18 +1,23 @@
 <?php
 declare(strict_types=1);
-require __DIR__ . '/_bootstrap.php';
+header('Content-Type: application/json; charset=utf-8');
+ini_set('display_errors', '0');
+error_reporting(E_ALL);
+
+require_once __DIR__ . '/_db.php'; // deine DB-Verbindung
 
 try {
-  $veh_id = trim((string)($_POST['veh_id'] ?? ''));
-  $date   = trim((string)($_POST['date'] ?? ''));
-  $tour   = (int)($_POST['tour'] ?? 0);
-  $field  = trim((string)($_POST['field'] ?? ''));
-  $value  = trim((string)($_POST['value'] ?? ''));
+  $veh_id = $_POST['veh_id'] ?? '';
+  $date = $_POST['date'] ?? '';
+  $tour = $_POST['tour'] ?? '';
+  $field = $_POST['field'] ?? '';
+  $value = trim($_POST['value'] ?? '');
 
-  if ($veh_id === '' || !preg_match('~^\d{4}-\d{2}-\d{2}$~', $date) || $tour < 1 || $field === '') {
-    api_err('Fehlende oder ungültige Parameter', 400);
+  if (!$veh_id || !$date || !$tour || !$field) {
+    throw new Exception('Fehlende Parameter');
   }
 
+  // Whitelist erlaubter Felder
   $allowed = [
     'workStart','arriveWU','departWU',
     'arriveH','departH','arriveH2','departH2',
@@ -21,40 +26,36 @@ try {
   ];
 
   if (!in_array($field, $allowed, true)) {
-    api_err('Ungültiges Feld: ' . $field, 400);
+    throw new Exception('Ungültiges Feld: ' . $field);
   }
 
-  // Zeile sicherstellen. Dadurch funktioniert auch eine manuelle Eingabe,
-  // wenn für die Tour vorher noch kein Stempel vorhanden war.
-  $ins = $pdo->prepare(
-    'INSERT IGNORE INTO driver_stamps (veh_id, date, tour) VALUES (:veh_id, :date, :tour)'
-  );
-  $ins->execute([
-    ':veh_id' => $veh_id,
-    ':date'   => $date,
-    ':tour'   => $tour,
-  ]);
+  // Existiert der Datensatz?
+  $stmt = $pdo->prepare("SELECT COUNT(*) FROM driver_stamps WHERE veh_id=? AND date=? AND tour=?");
+  $stmt->execute([$veh_id, $date, $tour]);
+  $exists = $stmt->fetchColumn() > 0;
 
-  $sql = "UPDATE driver_stamps
-          SET `$field` = :value, updated_at = NOW()
-          WHERE veh_id = :veh_id AND date = :date AND tour = :tour";
+  if ($exists) {
+    // Update bestehender Eintrag
+    $sql = "UPDATE driver_stamps 
+            SET `$field` = :value, updated_at = NOW() 
+            WHERE veh_id = :veh_id AND date = :date AND tour = :tour";
+  } else {
+    // Neu anlegen (wenn z. B. Fahrer vergessen hat zu starten)
+    $sql = "INSERT INTO driver_stamps (veh_id, date, tour, `$field`, created_at, updated_at)
+            VALUES (:veh_id, :date, :tour, :value, NOW(), NOW())";
+  }
 
   $stmt = $pdo->prepare($sql);
   $stmt->execute([
-    ':veh_id' => $veh_id,
-    ':date'   => $date,
-    ':tour'   => $tour,
-    ':value'  => ($value === '' ? null : $value),
-  ]);
-
-  api_ok([
-    'msg' => 'Gespeichert',
     'veh_id' => $veh_id,
     'date' => $date,
     'tour' => $tour,
-    'field' => $field,
-    'value' => $value,
+    'value' => $value
   ]);
+
+  echo json_encode(['ok' => true, 'msg' => 'Gespeichert']);
+
 } catch (Throwable $e) {
-  api_err($e->getMessage(), 500);
+  http_response_code(500);
+  echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
 }
