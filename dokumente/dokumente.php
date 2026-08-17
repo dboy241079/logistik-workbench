@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../inc/session.php';
 require_once __DIR__ . '/../api/_db.php';
+require_once __DIR__ . '/controlled_documents_bootstrap.php';
 
 if (!isset($_SESSION['username'])) {
     http_response_code(403);
@@ -14,6 +15,16 @@ if (isset($pdo) && $pdo instanceof PDO) {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 
+$controlledSummary = null;
+$controlledError = null;
+try {
+    if (isset($pdo) && $pdo instanceof PDO) {
+        $controlledSummary = qcControlledBootstrap($pdo);
+    }
+} catch (Throwable $controlledException) {
+    $controlledError = $controlledException->getMessage();
+}
+
 // Debug nur für Admin & nur wenn ?debug=1
 if (isset($_GET['debug']) && (($_SESSION['role'] ?? '') === 'admin')) {
     ini_set('display_errors', '1');
@@ -21,7 +32,9 @@ if (isset($_GET['debug']) && (($_SESSION['role'] ?? '') === 'admin')) {
     error_reporting(E_ALL);
 }
 
-$currentRole = (string)($_SESSION['role'] ?? '');
+$currentRole = (string)($_SESSION['role'] ?? $_SESSION['app_role'] ?? $_SESSION['currentRole'] ?? '');
+$currentRoleLower = strtolower(trim($currentRole));
+$canUseDamageReports = in_array($currentRoleLower, ['admin', 'standortleiter', 'dispo', 'disposition'], true);
 
 function e(?string $value): string
 {
@@ -202,6 +215,88 @@ try {
         </p>
     </header>
 
+    <section class="grid grid-cols-1 gap-3">
+        <a href="/dokumente/dokumentenlenkung.php?embed=1"
+           class="rounded-xl border border-violet-200 bg-white p-4 shadow-sm hover:bg-violet-50 transition block">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                    <div class="text-sm font-semibold text-slate-900">
+                        📋 Dokumentenlenkung
+                    </div>
+                    <div class="text-xs text-slate-500 mt-1">
+                        Gelenkte Dokumente, Revisionen, Dateistände, Prüfungen und Freigaben verwalten.
+                    </div>
+                    <div class="mt-3 text-xs font-semibold text-violet-700">
+                        Dokumentenlenkung öffnen →
+                    </div>
+                </div>
+
+                <?php if (is_array($controlledSummary)): ?>
+                    <div class="flex flex-wrap gap-2 text-[10px] sm:justify-end">
+                        <span class="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 font-semibold text-emerald-700">
+                            <?= (int)$controlledSummary['released'] ?> freigegeben
+                        </span>
+                        <span class="rounded-full border border-sky-200 bg-sky-50 px-2 py-1 font-semibold text-sky-700">
+                            <?= (int)$controlledSummary['draft'] ?> Entwurf
+                        </span>
+                        <span class="rounded-full border border-amber-200 bg-amber-50 px-2 py-1 font-semibold text-amber-700">
+                            <?= (int)$controlledSummary['in_review'] ?> in Prüfung
+                        </span>
+                        <span class="rounded-full border <?= ((int)$controlledSummary['changed'] > 0) ? 'border-red-200 bg-red-50 text-red-700' : 'border-slate-200 bg-slate-50 text-slate-600' ?> px-2 py-1 font-semibold">
+                            <?= (int)$controlledSummary['changed'] ?> Änderung(en)
+                        </span>
+                    </div>
+                <?php elseif ($controlledError !== null): ?>
+                    <div class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-[10px] text-amber-800">
+                        Initialisierung beim Öffnen der Dokumentenlenkung.
+                    </div>
+                <?php endif; ?>
+            </div>
+        </a>
+    </section>
+
+   <?php
+$currentRoleLower = strtolower(trim((string)($_SESSION['role'] ?? $_SESSION['app_role'] ?? $_SESSION['currentRole'] ?? '')));
+
+$canUseDamageReports = in_array($currentRoleLower, [
+    'admin',
+    'standortleiter',
+    'dispo',
+    'disposition'
+], true);
+?>
+
+<?php if ($canUseDamageReports): ?>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+
+    <a href="/dokumente/schadensmeldung-generator.php?embed=1"
+       class="rounded-xl border border-red-200 bg-white p-4 shadow-sm hover:bg-red-50 transition block">
+        <div class="text-sm font-semibold text-slate-900">
+            Neue Schadensmeldung
+        </div>
+        <div class="text-xs text-slate-500 mt-1">
+            Schadensmeldung erstellen, speichern und drucken.
+        </div>
+        <div class="mt-3 text-xs font-semibold text-red-600">
+            Öffnen →
+        </div>
+    </a>
+
+    <a href="/dokumente/schadensmeldungen_archiv.php?embed=1"
+       class="rounded-xl border border-sky-200 bg-white p-4 shadow-sm hover:bg-sky-50 transition block">
+        <div class="text-sm font-semibold text-slate-900">
+            Schadensmeldungen Archiv
+        </div>
+        <div class="text-xs text-slate-500 mt-1">
+            Gespeicherte Schadensmeldungen anzeigen, öffnen und erneut drucken.
+        </div>
+        <div class="mt-3 text-xs font-semibold text-sky-600">
+            Archiv öffnen →
+        </div>
+    </a>
+
+</section>
+<?php endif; ?>
     <?php if (!$docs && !$categories): ?>
         <section class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <p class="text-xs text-slate-500">
