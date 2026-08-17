@@ -5,9 +5,14 @@ require_once __DIR__ . '/controlled_documents_bootstrap.php';
 
 function qcWorkflowColumnExists(PDO $pdo, string $table, string $column): bool
 {
-    $stmt = $pdo->prepare("SHOW COLUMNS FROM `$table` LIKE ?");
-    $stmt->execute([$column]);
-    return (bool)$stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt = $pdo->prepare("SELECT 1
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_SCHEMA = DATABASE()
+          AND TABLE_NAME = ?
+          AND COLUMN_NAME = ?
+        LIMIT 1");
+    $stmt->execute([$table, $column]);
+    return (bool)$stmt->fetchColumn();
 }
 
 function qcWorkflowEnsureSchema(PDO $pdo): void
