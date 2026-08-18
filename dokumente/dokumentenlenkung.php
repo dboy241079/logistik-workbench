@@ -167,7 +167,7 @@ try {
         </div>
         <div class="flex flex-wrap gap-2">
             <a href="/dokumente/gelenkte_downloads.php?embed=1" class="inline-flex items-center rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-800">Notfall-Download-Center</a>
-            <a href="/?tab=docs" class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700">← Dokumentencenter</a>
+            <a href="/dokumente/dokumente.php" class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700">← Dokumentencenter</a>
         </div>
     </header>
 
