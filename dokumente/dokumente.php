@@ -369,7 +369,7 @@ try {
                                 <th class="px-3 py-2 text-left">Halle</th>
                                 <th class="px-3 py-2 text-left whitespace-nowrap">Hochgeladen am</th>
                                 <th class="px-3 py-2 text-left">von</th>
-                                <th class="px-3 py-2 text-left">Download</th>
+                                <th class="px-3 py-2 text-left">Vorschau / Druck</th>
                             </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
@@ -479,7 +479,7 @@ try {
                                                         href="/dokumente/gelenkte_download.php?doc=<?= rawurlencode((string)$d['document_no']) ?>&rev=<?= rawurlencode((string)$d['current_revision']) ?>"
                                                         class="inline-flex items-center gap-1 rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1.5 font-semibold text-emerald-700 hover:bg-emerald-100"
                                                     >
-                                                        ⬇️ Aktuelle Rev. <?= e((string)$d['current_revision']) ?>
+                                                        👁 Vorschau Rev. <?= e((string)$d['current_revision']) ?>
                                                     </a>
                                                 <?php else: ?>
                                                     <span class="text-amber-700">Archiv der aktuellen Revision fehlt</span>
@@ -508,7 +508,7 @@ try {
                                                                                 href="/dokumente/gelenkte_download.php?doc=<?= rawurlencode((string)$d['document_no']) ?>&rev=<?= rawurlencode((string)($olderRevision['revision'] ?? '')) ?>"
                                                                                 class="whitespace-nowrap text-sky-600 hover:text-sky-800 font-semibold"
                                                                             >
-                                                                                ⬇ Download
+                                                                                👁 Vorschau
                                                                             </a>
                                                                         <?php else: ?>
                                                                             <span class="text-[9px] text-amber-700">Archiv fehlt</span>
