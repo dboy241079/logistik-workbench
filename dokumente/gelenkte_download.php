@@ -105,8 +105,7 @@ try {
     $approvedDate = qcPdfGermanDate((string)($manifest['approved_at'] ?? ''));
     $downloadName = qcPdfDownloadName($doc, $title, $rev);
 
-    // Die archivierten Assets werden inline eingebettet. Damit verwendet jede Revision
-    // exakt ihren eigenen CSS-/JS-Stand und nicht versehentlich die aktuelle Live-Datei.
+    // Jede Revision rendert ausschließlich ihren archivierten CSS-/JS-Stand.
     $html = preg_replace(
         '~<link\b[^>]*href=["\'][^"\']*drucken\.css[^"\']*["\'][^>]*>~i',
         '',
@@ -128,7 +127,12 @@ try {
 
     $pdfCss = <<<'CSS'
 <style id="qc-controlled-pdf-style">
-/* PDF-Referenz: nur die eigentlichen A4-Seiten, keine Bedienoberfläche. */
+.qc-pdf-wrapper {
+    width: 210mm;
+    margin: 0 auto;
+    padding: 0;
+    background: #fff;
+}
 .qc-pdf-wrapper .no-print,
 .qc-pdf-wrapper .toolbar,
 .qc-pdf-wrapper .row-controls,
@@ -137,8 +141,10 @@ try {
     display: none !important;
 }
 .qc-pdf-wrapper .page.a4 {
+    width: 210mm !important;
     margin: 0 !important;
     outline: none !important;
+    background: #fff !important;
     break-after: page !important;
     page-break-after: always !important;
 }
@@ -206,6 +212,7 @@ CSS;
     const downloadName = {$downloadNameJs};
     const revision = {$revisionJs};
     const approvedDate = {$approvedDateJs};
+    const overlay = document.getElementById('qc-pdf-overlay');
     const statusEl = document.getElementById('qc-pdf-status');
 
     function setStatus(text) {
@@ -235,6 +242,10 @@ CSS;
         });
     }
 
+    function nextPaint() {
+        return new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    }
+
     async function createPdf() {
         try {
             if (document.fonts && document.fonts.ready) {
@@ -252,36 +263,51 @@ CSS;
                 throw new Error('In der archivierten Revision wurden keine A4-Seiten gefunden.');
             }
 
+            // WICHTIG: Keine Offscreen-Kopie mehr. Die tatsächlich gerenderten Seiten
+            // werden in einen sichtbaren Wrapper verschoben und genau so gerendert.
+            const firstPage = sourcePages[0];
+            const parent = firstPage.parentNode;
+            if (!parent) {
+                throw new Error('Dokumentseiten konnten nicht vorbereitet werden.');
+            }
+
             const wrapper = document.createElement('div');
             wrapper.className = 'qc-pdf-wrapper';
-            wrapper.style.position = 'absolute';
-            wrapper.style.left = '-10000px';
-            wrapper.style.top = '0';
-            wrapper.style.background = '#fff';
+            parent.insertBefore(wrapper, firstPage);
 
             sourcePages.forEach(page => {
-                const clone = page.cloneNode(true);
-                clone.querySelectorAll('.no-print, .toolbar, .row-controls, .tiny-hint, button').forEach(el => el.remove());
-                wrapper.appendChild(clone);
+                page.querySelectorAll('.no-print, .toolbar, .row-controls, .tiny-hint, button').forEach(el => el.remove());
+                wrapper.appendChild(page);
             });
 
             stampRevision(wrapper);
-            document.body.appendChild(wrapper);
 
-            setStatus('PDF wird gerendert …');
+            // Overlay ausblenden, damit der Browser die echten Seiten normal zeichnet.
+            if (overlay) overlay.style.display = 'none';
+            window.scrollTo(0, 0);
+            await nextPaint();
+
             await window.html2pdf()
                 .set({
                     margin: 0,
                     filename: downloadName,
                     image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, useCORS: true, logging: false },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#ffffff',
+                        scrollX: 0,
+                        scrollY: 0,
+                        windowWidth: Math.max(document.documentElement.clientWidth, 900)
+                    },
                     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
                     pagebreak: { mode: ['css', 'legacy'] }
                 })
                 .from(wrapper)
                 .save();
 
-            wrapper.remove();
+            if (overlay) overlay.style.display = 'flex';
             setStatus('PDF wurde heruntergeladen. Du wirst zurück zum Dokumentencenter geleitet.');
             setTimeout(() => {
                 if (window.history.length > 1) {
@@ -290,6 +316,7 @@ CSS;
             }, 900);
         } catch (error) {
             console.error(error);
+            if (overlay) overlay.style.display = 'flex';
             setStatus('PDF konnte nicht erstellt werden: ' + (error && error.message ? error.message : String(error)));
         }
     }
