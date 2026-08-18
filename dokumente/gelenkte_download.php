@@ -82,7 +82,7 @@ try {
     }
     $zip->close();
 
-    $downloadName = $doc . '_Rev_' . $rev . '_Notfallstand.zip';
+    $downloadName = $doc . '_Rev_' . $rev . '.zip';
     header('Content-Type: application/zip');
     header('Content-Disposition: attachment; filename="' . $downloadName . '"');
     header('Content-Length: ' . filesize($tmp));
