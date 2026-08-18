@@ -1,0 +1,14 @@
+{
+  "document_no": "F_059_0001",
+  "title": "Laufzettel Wareneingang",
+  "revision": "1.0",
+  "status": "released",
+  "source": "historical repository snapshot",
+  "source_commit": "ff4519dbf66c74aaaac3e65bcae3bfcd140d15f5",
+  "files": [
+    "/druck_wa.html",
+    "/CSS/drucken.css",
+    "/js/drucken.js"
+  ],
+  "note": "Freigegebener Altstand als Notfall- und Downloadkopie. Nicht als aktuelle Arbeitsversion verwenden, sobald eine neuere Revision freigegeben ist."
+}

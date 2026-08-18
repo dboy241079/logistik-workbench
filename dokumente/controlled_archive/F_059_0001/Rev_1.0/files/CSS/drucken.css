@@ -1,0 +1,246 @@
+/* ——— Basis ——— */
+:root{
+  --ink:#111;
+  --grid:#444;
+  --muted:#6d6d6d;
+  --line:#cfcfcf;
+  --accent:#0a0a0a;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; color:var(--ink); font:12px/1.3 "Inter", system-ui, Arial, sans-serif; }
+
+/* ——— Seitenlayout (A4, Druck) ——— */
+.page.a4{
+  width:210mm;
+  min-height:297mm;
+  padding:12mm 12mm 16mm;
+  margin:0 auto 8mm;
+  position:relative;
+  background:#fff;
+  outline:1px solid #eee;
+}
+@media print{
+  body{ background:#fff; }
+  .page.a4{ margin:0; outline:none; break-after:page; }
+  .row-controls, .tiny-hint{ display:none !important; }
+}
+
+/* ——— Kopf ——— */
+.head{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:8mm;
+  align-items:start;
+  margin-bottom:6mm;
+}
+.head.small{ grid-template-columns:1fr; }
+.brand{ display:flex; gap:10mm; align-items:flex-end; }
+.logo{
+  font-weight:800; letter-spacing:.5px; line-height:1.05;
+}
+.logo span{ font-weight:600; font-size:.9em; color:var(--muted); }
+.addr{ font-size:10px; color:var(--muted); }
+.title{
+  font-weight:800; letter-spacing:.8px; align-self:flex-start;
+  padding:2mm 4mm; border:1px solid var(--line);
+}
+
+/* ——— Blöcke ——— */
+.block{ border:1px solid var(--line); margin-bottom:6mm; }
+.block-head{
+  background:#f6f6f6; padding:2.5mm 3mm; border-bottom:1px solid var(--line);
+  font-weight:700; letter-spacing:.2px;
+}
+.grid{ display:grid; gap:3mm; padding:3mm; }
+.grid-1{ grid-template-columns:1fr; }
+.grid-2{ grid-template-columns:1fr 1fr; }
+.grid-3{ grid-template-columns:1fr 1fr 1fr; }
+.grid-3-2{ grid-template-columns:2fr 1fr; }
+
+.lbl{ display:flex; align-items:center; gap:2mm; }
+.lbl > .inp{ flex:1; }
+.inp{
+  width:100%; padding:2.5mm; border:1px solid var(--line); background:#fff;
+}
+.inp.right{ text-align:right; }
+.check-inline{ margin-left:6mm; margin-right:6mm; }
+
+.checkgrid{
+  display:grid; grid-template-columns:repeat(3, max-content); gap:2mm 6mm;
+  align-content:start; padding-top:1mm;
+}
+.checkgrid label{ white-space:nowrap; }
+
+/* ——— Seitenhinweis rechts ——— */
+.side-note{
+  position:absolute; right:0; top:40%; transform:translate(50%,-50%);
+  border:1px solid var(--line); width:36mm; text-align:center;
+  padding:4mm 2mm; background:#fff;
+  font-weight:700; line-height:1.25;
+}
+.side-note .arrow{ font-size:20px; margin-top:2mm; }
+
+/* ——— Tabelle (Seite 2) ——— */
+.table-wrap{ margin-top:4mm; }
+.tbl{ width:100%; border-collapse:collapse; }
+.tbl th, .tbl td{
+  border:1px solid var(--line); padding:2mm; vertical-align:middle;
+}
+.tbl thead th{ background:#f6f6f6; font-weight:700; }
+.tbl tfoot td{ background:#fafafa; }
+.tbl input.cell{
+  width:100%; border:none; background:transparent; padding:0; height:20px;
+}
+.tbl input.cell:focus{ outline:none; }
+.tbl .num{ text-align:right; }
+.center{ text-align:center; }
+.right{ text-align:right; }
+
+/* ——— Buttons ——— */
+.btn{
+  border:1px solid var(--grid); background:#fff; padding:6px 10px; cursor:pointer;
+  margin-right:8px; font-weight:600;
+}
+.btn:hover{ background:#f2f2f2; }
+.btn.ghost{ border-style:dashed; }
+.btn-del{
+  border:1px solid var(--line); background:#fff; width:26px; height:26px; cursor:pointer;
+  line-height:1; font-size:16px;
+}
+.row-controls{ margin-top:8mm; }
+
+/* ——— Kleiner Hinweis ——— */
+.tiny-hint{ color:var(--muted); font-size:11px; margin-top:4mm; }
+/* Logo-Größe und Ausrichtung */
+.brand-logo{
+  height: 28mm;         /* optisch wie in der Vorlage – bei Bedarf anpassen */
+  width: 350px;
+  display: block;
+}
+@media print{
+  .brand-logo{ filter: none; }
+}
+/* ===== Toolbar & Utilities ===== */
+.no-print{ display: block; }
+@media print{ .no-print{ display:none !important; } }
+
+/* Optik für Readonly/Locked */
+input[readonly], textarea[readonly]{
+  background:#f9f9f9;
+  color:#333;
+}
+input[type="checkbox"][disabled],
+input[type="radio"][disabled]{
+  filter: grayscale(1) opacity(.7);
+  cursor: not-allowed;
+}
+
+/* ===== Druck: Seitenränder auf A4 ===== */
+@page{
+  size: A4;
+  margin: 8mm 10mm;
+}
+/* Beim echten Druck übernimmt @page die Ränder; die innere Polsterung daher reduzieren */
+@media print{
+  .page.a4{
+    padding: 0;
+    margin: 0;
+    outline: none;
+  }
+  .head{
+    break-inside: avoid;
+  }
+}
+
+/* ===== Kopf “sticky” beim Scrollen am Bildschirm ===== */
+@media screen{
+  .page.a4{ position: relative; }
+  .head{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    box-shadow: 0 1px 0 var(--line);
+  }
+}
+
+/* kleine Zusatzoptik für Toolbar */
+.toolbar{
+  width:210mm; margin: 8mm auto 4mm; display:flex; gap:8px; align-items:center;
+}
+.toolbar .spacer{ flex:1; }
+/* harte Seitenumbrüche erzwingen (falls du mal manuell brauchst) */
+.page-break{ break-before: page; }
+
+/* Flash-Highlight beim Sync */
+.flash { animation: flash 0.9s ease; }
+@keyframes flash {
+  0%   { box-shadow: 0 0 0 3px rgba(255,200,0,.9); }
+  100% { box-shadow: none; }
+}
+/* Büro-Block grau hinterlegen */
+.block.office {
+  background: #f6f6f6;
+}
+
+/* Optional: leichter Kontrast für Inputs auf Grau */
+.block.office .inp {
+  background: #fff;
+}
+/* Zwei Spalten je 50% */
+.grid-2-50 { 
+  grid-template-columns: 1fr 1fr; 
+}
+
+/* Optional: auf sehr schmalen Screens untereinander */
+@media (max-width: 700px){
+  .grid-2-50 { grid-template-columns: 1fr; }
+
+}
+.grid-2-50 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 700px){ .grid-2-50 { grid-template-columns: 1fr; } }
+
+.grid-2-50 { 
+  grid-template-columns: 1fr 1fr; 
+}
+@media (max-width: 700px){
+  .grid-2-50 { grid-template-columns: 1fr; }
+}
+/* 33% / 66% Aufteilung */
+.grid-2-33-66 { grid-template-columns: 1fr 2fr; }
+
+@media (max-width: 700px){
+  .grid-2-33-66 { grid-template-columns: 1fr; }
+}
+
+.full-span { grid-column: 1 / -1; }
+
+.grid-2-50 { 
+  grid-template-columns: 1fr 1fr; 
+}
+@media (max-width: 700px){
+  .grid-2-50 { grid-template-columns: 1fr; }
+}
+/* Alles in der Tabelle mittig ausrichten */
+.tbl th,
+.tbl td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Eingabefelder in Zellen ebenfalls mittig */
+.tbl input.cell {
+  text-align: center;
+}
+
+/* Zahlenfelder (überschreibt evtl. vorhandenes .num { text-align:right }) */
+.tbl .num {
+  text-align: center !important;
+}
+
+/* Sicherheitsnetz: Checkbox- und Button-Spalten mittig */
+.tbl td.center,
+.tbl th.center {
+  text-align: center !important;
+}
+
