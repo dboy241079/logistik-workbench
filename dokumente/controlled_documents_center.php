@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/controlled_legacy_snapshots.php';
+require_once __DIR__ . '/controlled_legacy_materialize.php';
 
 function qcCenterStageOrder(): array
 {
@@ -34,11 +34,16 @@ function qcCenterArchiveExists(string $documentNo, string $revision): bool
         return false;
     }
 
-    if (is_dir(__DIR__ . '/controlled_archive/' . $safeDoc . '/Rev_' . $safeRev . '/files')) {
+    $filesDir = __DIR__ . '/controlled_archive/' . $safeDoc . '/Rev_' . $safeRev . '/files';
+    if (is_dir($filesDir)) {
         return true;
     }
 
-    return qcLegacySnapshotAvailable($documentNo, $revision);
+    if (qcLegacySnapshotAvailable($documentNo, $revision)) {
+        return qcLegacyMaterializeArchive($documentNo, $revision) && is_dir($filesDir);
+    }
+
+    return false;
 }
 
 function qcCenterLoadApprovals(PDO $pdo, int $revisionId): array
