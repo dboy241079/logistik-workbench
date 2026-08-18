@@ -9,21 +9,245 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="/CSS/dashboard.css">
 </head>
-<body class="p-3 p-md-4">
-  <div class="container-fluid" id="dashboard">
+<body id="dashboard" class="p-3 p-md-4">
+  <main class="container-fluid dashboard-shell" data-tab-root>
+
+    <!--
+      Dashboard-spezifischer Responsive- und Info-Layer.
+      Liegt absichtlich innerhalb von data-tab-root, damit die Styles auch beim
+      Lazy-Loading in die Workbench übernommen werden.
+    -->
+    <style>
+      .dashboard-shell {
+        width: 100%;
+        max-width: 1800px;
+        margin-inline: auto;
+      }
+
+      .dashboard-shell .stat-card {
+        overflow: visible;
+      }
+
+      .dashboard-section-title {
+        display: inline-flex;
+        align-items: center;
+        gap: .45rem;
+        min-width: 0;
+      }
+
+      .dashboard-section-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: .75rem;
+        flex-wrap: wrap;
+      }
+
+      .dashboard-info {
+        position: relative;
+        display: inline-flex;
+        flex: 0 0 auto;
+        z-index: 20;
+      }
+
+      .dashboard-info > summary {
+        list-style: none;
+      }
+
+      .dashboard-info > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .dashboard-info-btn {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: var(--bs-primary, #0d6efd);
+        color: #fff;
+        font-size: 1rem;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 0 .18rem .45rem rgba(13, 110, 253, .22);
+        transition: transform .16s ease, box-shadow .16s ease, background-color .16s ease;
+      }
+
+      .dashboard-info-btn:hover,
+      .dashboard-info-btn:focus-visible {
+        background: #0b5ed7;
+        transform: translateY(-1px);
+        box-shadow: 0 .28rem .65rem rgba(13, 110, 253, .3);
+        outline: none;
+      }
+
+      .dashboard-info-btn:focus-visible {
+        box-shadow: 0 0 0 .22rem rgba(13, 110, 253, .2), 0 .28rem .65rem rgba(13, 110, 253, .3);
+      }
+
+      .dashboard-info-panel {
+        position: absolute;
+        top: calc(100% + .55rem);
+        right: 0;
+        width: min(360px, calc(100vw - 2rem));
+        padding: .9rem 1rem;
+        border: 1px solid rgba(0, 0, 0, .1);
+        border-radius: .85rem;
+        background: #fff;
+        color: #212529;
+        font-size: .88rem;
+        line-height: 1.45;
+        text-align: left;
+        box-shadow: 0 .75rem 2rem rgba(0, 0, 0, .16);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-5px);
+        pointer-events: none;
+        transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+        z-index: 1090;
+      }
+
+      .dashboard-info-panel::before {
+        content: "";
+        position: absolute;
+        top: -7px;
+        right: 10px;
+        width: 13px;
+        height: 13px;
+        background: #fff;
+        border-left: 1px solid rgba(0, 0, 0, .1);
+        border-top: 1px solid rgba(0, 0, 0, .1);
+        transform: rotate(45deg);
+      }
+
+      .dashboard-info[open] .dashboard-info-panel {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .dashboard-info:not([open]):hover .dashboard-info-panel {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+      }
+
+      .dashboard-info-title {
+        display: flex;
+        align-items: center;
+        gap: .4rem;
+        margin-bottom: .4rem;
+        color: #212529;
+        font-size: .95rem;
+        font-weight: 700;
+      }
+
+      .dashboard-info-panel p {
+        margin: 0 0 .55rem;
+      }
+
+      .dashboard-info-hint {
+        padding-top: .5rem;
+        border-top: 1px solid rgba(0, 0, 0, .07);
+        color: #6c757d;
+        font-size: .78rem;
+      }
+
+      .dashboard-swipe-note {
+        display: flex;
+        align-items: center;
+        gap: .35rem;
+        margin-top: .6rem;
+        color: #6c757d;
+        font-size: .78rem;
+      }
+
+      .dashboard-filter-wrap {
+        min-width: 0;
+      }
+
+      .we-trend-table,
+      .wa-trend-table,
+      #dashboardLagerBestand .table-responsive,
+      #dashboardLagerTransport .table-responsive,
+      #sdTrendWrap {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+      }
+
+      @media (max-width: 1199.98px) {
+        .dashboard-shell .stat-card {
+          height: auto !important;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .dashboard-shell {
+          padding-inline: 0;
+        }
+
+        .dashboard-section-head {
+          gap: .6rem;
+        }
+
+        .dashboard-info-panel {
+          font-size: .84rem;
+        }
+      }
+
+      @media (max-width: 575.98px) {
+        .dashboard-filter-wrap {
+          width: 100%;
+          align-items: stretch !important;
+        }
+
+        .dashboard-filter-wrap .dashboard-filter-select {
+          width: 100%;
+          min-width: 0;
+        }
+
+        .dashboard-info-btn {
+          width: 42px;
+          height: 42px;
+          font-size: 1.15rem;
+        }
+
+        .dashboard-info-panel {
+          width: min(330px, calc(100vw - 1.5rem));
+          padding: .8rem .85rem;
+        }
+
+        .dashboard-toolbar-compact .btn {
+          min-height: 42px;
+        }
+      }
+
+      @media (hover: none), (pointer: coarse) {
+        .dashboard-info-btn {
+          min-width: 42px;
+          min-height: 42px;
+        }
+      }
+    </style>
 
     <!-- Kopfzeile -->
-    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2 mb-2 dashboard-toolbar dashboard-toolbar-compact">
-  <div class="text-center text-sm-start">
-    <h1 class="h6 mb-0">Dashboard</h1>
-    <div id="dashboardLastUpdate" class="small text-muted">Zuletzt aktualisiert: 05:44 Uhr</div>
-  </div>
+    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2 mb-3 dashboard-toolbar dashboard-toolbar-compact">
+      <div class="text-center text-sm-start">
+        <h1 class="h6 mb-0">Dashboard</h1>
+        <div id="dashboardLastUpdate" class="small text-muted">Zuletzt aktualisiert: –</div>
+      </div>
 
-  <button type="button" class="btn btn-primary btn-sm px-3" id="btnReload" data-bound="1">
-    <i class="bi bi-arrow-clockwise me-1"></i>Reload
-  </button>
-</div>
-</div>
+      <button type="button" class="btn btn-primary btn-sm px-3" id="btnReload">
+        <i class="bi bi-arrow-clockwise me-1" aria-hidden="true"></i>Reload
+      </button>
+    </div>
 
     <!-- OBERER BEREICH: Wareneingang / Warenausgang -->
     <div class="row g-3 mb-3">
@@ -32,18 +256,39 @@
       <div class="col-12">
         <div class="card stat-card">
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="dashboard-section-head">
               <div>
-                <div class="sub fw-semibold">Wareneingang</div>
+                <div class="dashboard-section-title">
+                  <div class="sub fw-semibold">Wareneingang</div>
+                  <details class="dashboard-info">
+                    <summary class="dashboard-info-btn" aria-label="Informationen zum Wareneingang">
+                      <i class="bi bi-info-lg" aria-hidden="true"></i>
+                    </summary>
+                    <div class="dashboard-info-panel">
+                      <div class="dashboard-info-title">
+                        <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i>
+                        Wareneingang
+                      </div>
+                      <p>Zeigt die Wareneingänge für <b>heute</b>, die <b>letzten 7 Tage</b>, den <b>aktuellen Monat</b> und die <b>letzten 12 Monate</b>. Jeder Zeitraum wird mit dem entsprechenden Vorjahreszeitraum verglichen.</p>
+                      <p>Ausgewertet werden <b>Eingänge</b>, <b>Paletten</b>, <b>KLTs</b> und <b>Stückzahl</b>. Über die Lagergruppe lässt sich die Statistik gezielt eingrenzen.</p>
+                      <div class="dashboard-info-hint"><i class="bi bi-mouse me-1" aria-hidden="true"></i>PC: Maus auf das i · iPad/Smartphone: i antippen</div>
+                    </div>
+                  </details>
+                </div>
                 <div class="small text-muted">Tages- &amp; Jahresstatistik</div>
               </div>
 
-              <div class="d-flex align-items-center gap-2 flex-wrap">
+              <div class="d-flex align-items-center gap-2 flex-wrap dashboard-filter-wrap">
                 <label for="weLgFilter" class="small text-muted mb-0">Lagergruppe:</label>
                 <select id="weLgFilter" class="form-select form-select-sm dashboard-filter-select">
                   <option value="ALL">Alle</option>
                 </select>
               </div>
+            </div>
+
+            <div class="dashboard-swipe-note d-xl-none">
+              <i class="bi bi-hand-index-thumb" aria-hidden="true"></i>
+              Tabelle bei Bedarf horizontal wischen.
             </div>
 
             <div id="weTrend" class="mt-3">
@@ -57,25 +302,46 @@
       <div class="col-12">
         <div class="card stat-card">
           <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center gap-2">
-  <div>
-    <div class="sub fw-semibold">Warenausgang</div>
-    <div class="small text-muted">Tages- &amp; Jahresstatistik</div>
-  </div>
+            <div class="dashboard-section-head">
+              <div>
+                <div class="dashboard-section-title">
+                  <div class="sub fw-semibold">Warenausgang</div>
+                  <details class="dashboard-info">
+                    <summary class="dashboard-info-btn" aria-label="Informationen zum Warenausgang">
+                      <i class="bi bi-info-lg" aria-hidden="true"></i>
+                    </summary>
+                    <div class="dashboard-info-panel">
+                      <div class="dashboard-info-title">
+                        <i class="bi bi-box-arrow-up" aria-hidden="true"></i>
+                        Warenausgang
+                      </div>
+                      <p>Zeigt die Warenausgänge für <b>heute</b>, die <b>letzten 7 Tage</b>, den <b>aktuellen Monat</b> und die <b>letzten 12 Monate</b>. Jeder Zeitraum wird mit dem entsprechenden Vorjahreszeitraum verglichen.</p>
+                      <p>Ausgewertet werden <b>Ausgänge</b>, <b>Paletten</b>, <b>KLTs</b> und das <b>Bruttogewicht</b>. Der Lagergruppen-Filter grenzt die Statistik ein.</p>
+                      <div class="dashboard-info-hint"><i class="bi bi-mouse me-1" aria-hidden="true"></i>PC: Maus auf das i · iPad/Smartphone: i antippen</div>
+                    </div>
+                  </details>
+                </div>
+                <div class="small text-muted">Tages- &amp; Jahresstatistik</div>
+              </div>
 
-  <div class="d-flex flex-column align-items-start">
-  <label for="waLgFilter" class="small text-muted mb-1">Lagergruppe:</label>
-  <select id="waLgFilter" class="form-select form-select-sm dashboard-filter-select">
-    <option value="ALL">Alle</option>
-    <option value="G9">G9</option>
-    <option value="Müll">Müll</option>
-    <option value="UNBEKANNT">UNBEKANNT</option>
-    <option value="W1">W1</option>
-    <option value="X3">X3</option>
-    <option value="X3(B)">X3(B)</option>
-  </select>
-</div>
-</div>
+              <div class="d-flex align-items-center gap-2 flex-wrap dashboard-filter-wrap">
+                <label for="waLgFilter" class="small text-muted mb-0">Lagergruppe:</label>
+                <select id="waLgFilter" class="form-select form-select-sm dashboard-filter-select">
+                  <option value="ALL">Alle</option>
+                  <option value="G9">G9</option>
+                  <option value="Müll">Müll</option>
+                  <option value="UNBEKANNT">UNBEKANNT</option>
+                  <option value="W1">W1</option>
+                  <option value="X3">X3</option>
+                  <option value="X3(B)">X3(B)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="dashboard-swipe-note d-xl-none">
+              <i class="bi bi-hand-index-thumb" aria-hidden="true"></i>
+              Tabelle bei Bedarf horizontal wischen.
+            </div>
 
             <div id="waTrend" class="mt-3">
               <div class="text-muted small">– lädt –</div>
@@ -88,10 +354,27 @@
 
     <!-- MITTLERER BEREICH: Lagerbestand / Transport -->
     <div class="row g-3 mb-4">
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-xl-6">
         <div class="card stat-card h-100">
           <div class="card-body">
-            <div class="sub fw-semibold mb-2">Lagerbestand</div>
+            <div class="dashboard-section-title mb-2">
+              <div class="sub fw-semibold">Lagerbestand</div>
+              <details class="dashboard-info">
+                <summary class="dashboard-info-btn" aria-label="Informationen zum Lagerbestand">
+                  <i class="bi bi-info-lg" aria-hidden="true"></i>
+                </summary>
+                <div class="dashboard-info-panel">
+                  <div class="dashboard-info-title">
+                    <i class="bi bi-box-seam" aria-hidden="true"></i>
+                    Lagerbestand
+                  </div>
+                  <p>Zeigt den <b>aktuellen Bestand je Lagergruppe</b>. Paletten bilden die aktiven Lagerplätze ab, Stück ist die summierte Lagermenge und Sachnr. zeigt die Anzahl unterschiedlicher Sachnummern.</p>
+                  <p><b>Anteil %</b> zeigt den Palettenanteil einer Lagergruppe am Gesamtbestand. Eine Lagergruppe anklicken bzw. antippen öffnet die enthaltenen Sachnummern als Detailansicht.</p>
+                  <div class="dashboard-info-hint"><i class="bi bi-mouse me-1" aria-hidden="true"></i>PC: Maus auf das i · iPad/Smartphone: i antippen</div>
+                </div>
+              </details>
+            </div>
+
             <div id="dashboardLagerBestand">
               <div class="text-muted small">– lädt –</div>
             </div>
@@ -99,10 +382,32 @@
         </div>
       </div>
 
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-xl-6">
         <div class="card stat-card h-100">
           <div class="card-body">
-            <div class="sub fw-semibold mb-2">Transport / LKW</div>
+            <div class="dashboard-section-title mb-2">
+              <div class="sub fw-semibold">Transport / LKW</div>
+              <details class="dashboard-info">
+                <summary class="dashboard-info-btn" aria-label="Informationen zu Transport und LKW">
+                  <i class="bi bi-info-lg" aria-hidden="true"></i>
+                </summary>
+                <div class="dashboard-info-panel">
+                  <div class="dashboard-info-title">
+                    <i class="bi bi-truck" aria-hidden="true"></i>
+                    Transport / LKW
+                  </div>
+                  <p>Zeigt die <b>transportrelevanten Verpackungen je Lagergruppe</b> und die daraus nach hinterlegter Verpackungslogik berechneten vollen LKW.</p>
+                  <p>Berücksichtigt werden u. a. <b>GT14488 / GT14491</b>, <b>VW0012 / 114003</b>, <b>VW0001</b> und <b>Karton</b>. <b>LKW-relevant</b> ist deren Summe; <b>offen</b> zeigt Bestands-Paletten ohne transportrelevante Zuordnung.</p>
+                  <div class="dashboard-info-hint"><i class="bi bi-mouse me-1" aria-hidden="true"></i>PC: Maus auf das i · iPad/Smartphone: i antippen</div>
+                </div>
+              </details>
+            </div>
+
+            <div class="dashboard-swipe-note d-xl-none">
+              <i class="bi bi-hand-index-thumb" aria-hidden="true"></i>
+              Breite Tabelle horizontal wischen.
+            </div>
+
             <div id="dashboardLagerTransport">
               <div class="text-muted small">– lädt –</div>
             </div>
@@ -115,47 +420,79 @@
     <div class="row g-3 mb-4">
 
       <!-- Stammdaten -->
-      <div class="col-12 col-lg-8">
-  <div class="card stat-card h-100">
-    <div class="card-body">
-      <div class="sub fw-semibold mb-2">Stammdaten</div>
+      <div class="col-12 col-xl-8">
+        <div class="card stat-card h-100">
+          <div class="card-body">
+            <div class="dashboard-section-title mb-2">
+              <div class="sub fw-semibold">Stammdaten</div>
+              <details class="dashboard-info">
+                <summary class="dashboard-info-btn" aria-label="Informationen zu den Stammdaten">
+                  <i class="bi bi-info-lg" aria-hidden="true"></i>
+                </summary>
+                <div class="dashboard-info-panel">
+                  <div class="dashboard-info-title">
+                    <i class="bi bi-database" aria-hidden="true"></i>
+                    Stammdaten
+                  </div>
+                  <p>Zeigt die Entwicklung der hinterlegten <b>Speditionen</b>, <b>Behälter</b> und <b>Sachnummern</b>.</p>
+                  <p>Auf PC und iPad werden die aktuellen Werte mit gestern, Vorwoche und – abhängig von der Displaybreite – Vorjahr verglichen. Auf dem Smartphone erscheint eine kompakte Gesamtübersicht.</p>
+                  <div class="dashboard-info-hint"><i class="bi bi-mouse me-1" aria-hidden="true"></i>PC: Maus auf das i · iPad/Smartphone: i antippen</div>
+                </div>
+              </details>
+            </div>
 
-      <!-- Nur Smartphone -->
-      <div id="sdMobileSummary" class="d-block d-sm-none">
-        <div class="text-muted small">– lädt –</div>
-      </div>
+            <!-- Nur Smartphone -->
+            <div id="sdMobileSummary" class="d-block d-sm-none">
+              <div class="text-muted small">– lädt –</div>
+            </div>
 
-      <!-- Ab Small / Desktop -->
-      <div class="table-responsive dashboard-stammdaten-wrap d-none d-sm-block" id="sdTrendWrap">
-        <table class="table table-sm table-borderless mb-1 align-middle text-nowrap" id="sdTrend">
-          <thead class="text-muted small">
-            <tr>
-              <th>Typ</th>
-              <th class="text-end">Heute</th>
-              <th class="text-end d-none d-sm-table-cell">Gestern</th>
-              <th class="text-end d-none d-md-table-cell">Vorwoche</th>
-              <th class="text-end d-none d-lg-table-cell">Vorjahr</th>
-            </tr>
-          </thead>
-          <tbody id="sdTrendBody">
-            <tr>
-              <td colspan="5" class="text-muted">– lädt –</td>
-            </tr>
-          </tbody>
-        </table>
+            <!-- Ab Small / Tablet / Desktop -->
+            <div class="table-responsive dashboard-stammdaten-wrap d-none d-sm-block" id="sdTrendWrap">
+              <table class="table table-sm table-borderless mb-1 align-middle text-nowrap" id="sdTrend">
+                <thead class="text-muted small">
+                  <tr>
+                    <th>Typ</th>
+                    <th class="text-end">Heute</th>
+                    <th class="text-end d-none d-sm-table-cell">Gestern</th>
+                    <th class="text-end d-none d-md-table-cell">Vorwoche</th>
+                    <th class="text-end d-none d-lg-table-cell">Vorjahr</th>
+                  </tr>
+                </thead>
+                <tbody id="sdTrendBody">
+                  <tr>
+                    <td colspan="5" class="text-muted">– lädt –</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       <!-- Fahrerübersicht -->
-      <div class="col-12 col-lg-4">
+      <div class="col-12 col-xl-4">
         <div class="card stat-card h-100">
-          <div class="card-body position-relative overflow-hidden">
-            <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="card-body position-relative">
+            <div class="dashboard-section-head mb-2">
               <div>
-                <div class="sub fw-semibold">Fahrerübersicht</div>
-                <div class="small text-muted">Aktive Touren &amp; Positionen</div>
+                <div class="dashboard-section-title">
+                  <div class="sub fw-semibold">Fahrerübersicht</div>
+                  <details class="dashboard-info">
+                    <summary class="dashboard-info-btn" aria-label="Informationen zur Fahrerübersicht">
+                      <i class="bi bi-info-lg" aria-hidden="true"></i>
+                    </summary>
+                    <div class="dashboard-info-panel">
+                      <div class="dashboard-info-title">
+                        <i class="bi bi-person-badge" aria-hidden="true"></i>
+                        Fahrerübersicht
+                      </div>
+                      <p>Zeigt den <b>heutigen Tour- und Standortstatus</b> der konfigurierten Fahrzeuge/Fahrer sowie die erkannte Touranzahl und Arbeitsdauer.</p>
+                      <p>Der Status wird aus den im Fahrerbereich erfassten Start-, Ankunfts-, Abfahrts-, Pausen- und Endzeiten abgeleitet. Es handelt sich dabei nicht um eine GPS-Liveortung.</p>
+                      <div class="dashboard-info-hint"><i class="bi bi-mouse me-1" aria-hidden="true"></i>PC: Maus auf das i · iPad/Smartphone: i antippen</div>
+                    </div>
+                  </details>
+                </div>
+                <div class="small text-muted">Aktive Touren &amp; Status</div>
               </div>
             </div>
 
@@ -168,7 +505,7 @@
 
     </div>
 
-  </div>
+  </main>
 
   <script type="module">
     import { initDashboard } from '/js/dashboard.js';
