@@ -39,10 +39,12 @@ function qcSequentialNotifyApprover(PDO $pdo, int $revisionId, string $code): ar
         throw new RuntimeException('Unbekannte Freigabestufe.');
     }
 
+    $stageLabel = qcSequentialStageLabels()[$code] ?? $code;
+
     $stmt = $pdo->prepare("SELECT r.id AS revision_id, r.revision, r.status, r.document_id, r.source_combined_hash,
             d.document_no, d.title,
             a.id AS approval_id, a.decision,
-            c.user_id, c.email, c.display_name
+            c.user_id, c.email
         FROM qc_document_revisions r
         JOIN qc_controlled_documents d ON d.id = r.document_id
         JOIN qc_document_approvals a ON a.revision_id = r.id AND a.approver_code = ?
@@ -63,7 +65,7 @@ function qcSequentialNotifyApprover(PDO $pdo, int $revisionId, string $code): ar
     $userId = (int)($row['user_id'] ?? 0);
     $email = trim((string)($row['email'] ?? ''));
     if ($userId <= 0 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        throw new RuntimeException((string)$row['display_name'] . ' ist noch nicht vollständig mit Workbench-Benutzer und E-Mail-Adresse konfiguriert.');
+        throw new RuntimeException($stageLabel . ' ist noch nicht vollständig mit Workbench-Benutzer und E-Mail-Adresse konfiguriert.');
     }
 
     $rawToken = bin2hex(random_bytes(32));
@@ -75,12 +77,12 @@ function qcSequentialNotifyApprover(PDO $pdo, int $revisionId, string $code): ar
         ->execute([$userId, $email, $tokenHash, (int)$row['approval_id']]);
 
     $link = qcWorkflowBaseUrl() . '/dokumente/dokumentenfreigabe.php?token=' . rawurlencode($rawToken);
-    $subject = 'Dokumentenfreigabe – ' . $row['document_no'] . ' Rev. ' . $row['revision'] . ' – ' . $row['display_name'];
+    $subject = 'Dokumentenfreigabe – ' . $row['document_no'] . ' Rev. ' . $row['revision'] . ' – ' . $stageLabel;
     $html = '<!doctype html><html><body style="font-family:Arial,sans-serif;color:#111">'
         . '<h2>Dokumentenfreigabe</h2>'
         . '<p>Die Revision <b>' . htmlspecialchars((string)$row['revision']) . '</b> des gelenkten Dokuments '
         . '<b>' . htmlspecialchars((string)$row['document_no']) . ' – ' . htmlspecialchars((string)$row['title']) . '</b> '
-        . 'ist jetzt bei dir als <b>' . htmlspecialchars((string)$row['display_name']) . '</b> zur Prüfung.</p>'
+        . 'ist jetzt bei dir als <b>' . htmlspecialchars($stageLabel) . '</b> zur Prüfung.</p>'
         . '<p><a href="' . htmlspecialchars($link) . '" style="display:inline-block;padding:10px 16px;background:#0ea5e9;color:#fff;text-decoration:none;border-radius:6px">Dokument prüfen</a></p>'
         . '<p style="font-size:12px;color:#666">Erst nach deiner Bestätigung wird automatisch die nächste Freigabestufe informiert. Änderungen am Dateistand machen die laufende Prüfung ungültig.</p>'
         . '</body></html>';
@@ -111,12 +113,12 @@ function qcSequentialNotifyApprover(PDO $pdo, int $revisionId, string $code): ar
         $revisionId,
         'approval_stage_notified',
         'notify:' . $revisionId . ':' . $code . ':' . $tokenHash,
-        ['approver_code' => $code, 'stage' => $row['display_name'], 'email' => $email, 'mail_ok' => $ok]
+        ['approver_code' => $code, 'stage' => $stageLabel, 'email' => $email, 'mail_ok' => $ok]
     );
 
     return [
         'code' => $code,
-        'stage' => (string)$row['display_name'],
+        'stage' => $stageLabel,
         'email' => $email,
         'ok' => $ok,
         'error' => $error,
