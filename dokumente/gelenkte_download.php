@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
-function qcPdfSafeSegment(string $value): string
+function qcPreviewSafeSegment(string $value): string
 {
     $value = trim($value);
     if ($value === '' || str_contains($value, '..') || preg_match('/[^A-Za-z0-9_.-]/', $value)) {
@@ -18,7 +18,7 @@ function qcPdfSafeSegment(string $value): string
     return $value;
 }
 
-function qcPdfFindFirstFile(string $root, string $extension, ?string $preferredBasename = null): ?string
+function qcPreviewFindFirstFile(string $root, string $extension, ?string $preferredBasename = null): ?string
 {
     if ($preferredBasename !== null) {
         $iterator = new RecursiveIteratorIterator(
@@ -43,7 +43,7 @@ function qcPdfFindFirstFile(string $root, string $extension, ?string $preferredB
     return null;
 }
 
-function qcPdfGermanDate(?string $value): string
+function qcPreviewGermanDate(?string $value): string
 {
     if (!$value) {
         return '';
@@ -52,23 +52,9 @@ function qcPdfGermanDate(?string $value): string
     return $ts === false ? '' : date('d.m.Y', $ts);
 }
 
-function qcPdfDownloadName(string $documentNo, string $title, string $revision): string
-{
-    $title = trim($title);
-    if (function_exists('iconv')) {
-        $converted = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $title);
-        if (is_string($converted) && $converted !== '') {
-            $title = $converted;
-        }
-    }
-    $title = preg_replace('/[^A-Za-z0-9_.-]+/', '-', $title) ?: 'Dokument';
-    $title = trim($title, '-_.');
-    return $documentNo . '_' . $title . '_Rev_' . $revision . '.pdf';
-}
-
 try {
-    $doc = qcPdfSafeSegment((string)($_GET['doc'] ?? ''));
-    $rev = qcPdfSafeSegment((string)($_GET['rev'] ?? ''));
+    $doc = qcPreviewSafeSegment((string)($_GET['doc'] ?? ''));
+    $rev = qcPreviewSafeSegment((string)($_GET['rev'] ?? ''));
 
     $base = __DIR__ . '/controlled_archive/' . $doc . '/Rev_' . $rev;
     $filesDir = $base . '/files';
@@ -76,13 +62,13 @@ try {
         throw new RuntimeException('Archivierte Revision wurde nicht gefunden.');
     }
 
-    $htmlPath = qcPdfFindFirstFile($filesDir, 'html', 'druck_wa.html');
+    $htmlPath = qcPreviewFindFirstFile($filesDir, 'html', 'druck_wa.html');
     if ($htmlPath === null || !is_file($htmlPath)) {
         throw new RuntimeException('Für diese Revision wurde keine druckbare HTML-Datei gefunden.');
     }
 
-    $cssPath = qcPdfFindFirstFile($filesDir, 'css', 'drucken.css');
-    $jsPath = qcPdfFindFirstFile($filesDir, 'js', 'drucken.js');
+    $cssPath = qcPreviewFindFirstFile($filesDir, 'css', 'drucken.css');
+    $jsPath = qcPreviewFindFirstFile($filesDir, 'js', 'drucken.js');
 
     $html = (string)file_get_contents($htmlPath);
     if ($html === '') {
@@ -102,10 +88,10 @@ try {
     if ($title === '') {
         $title = 'Dokument';
     }
-    $approvedDate = qcPdfGermanDate((string)($manifest['approved_at'] ?? ''));
-    $downloadName = qcPdfDownloadName($doc, $title, $rev);
+    $approvedDate = qcPreviewGermanDate((string)($manifest['approved_at'] ?? ''));
 
-    // Jede Revision rendert ausschließlich ihren archivierten CSS-/JS-Stand.
+    // Live-Assets entfernen: Die Vorschau verwendet ausschließlich die Dateien
+    // aus dem Archiv der ausgewählten Revision.
     $html = preg_replace(
         '~<link\b[^>]*href=["\'][^"\']*drucken\.css[^"\']*["\'][^>]*>~i',
         '',
@@ -125,113 +111,201 @@ try {
     $archivedCss = $cssPath !== null ? (string)file_get_contents($cssPath) : '';
     $archivedCss = str_ireplace('</style', '<\/style', $archivedCss);
 
-    $pdfCss = <<<'CSS'
-<style id="qc-controlled-pdf-style">
-.qc-pdf-wrapper {
-    width: 210mm;
-    margin: 0 auto;
-    padding: 0;
-    background: #fff;
-}
-.qc-pdf-wrapper .no-print,
-.qc-pdf-wrapper .toolbar,
-.qc-pdf-wrapper .row-controls,
-.qc-pdf-wrapper .tiny-hint,
-.qc-pdf-wrapper button {
+    $previewCss = <<<'CSS'
+<style id="qc-controlled-preview-style">
+/* Alte Formular-Toolbar nicht anzeigen; die Dokumentenlenkung bekommt eine eigene Vorschau-Leiste. */
+body > .toolbar.no-print,
+body > .toolbar {
     display: none !important;
 }
-.qc-pdf-wrapper .page.a4 {
-    width: 210mm !important;
-    margin: 0 !important;
-    outline: none !important;
-    background: #fff !important;
-    break-after: page !important;
-    page-break-after: always !important;
+
+body {
+    background: #e2e8f0 !important;
+    padding-bottom: 24px !important;
 }
-.qc-pdf-wrapper .page.a4:last-child {
-    break-after: auto !important;
-    page-break-after: auto !important;
-}
-.qc-pdf-wrapper .head {
-    position: static !important;
-    top: auto !important;
-    box-shadow: none !important;
-}
-#qc-pdf-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 999999;
+
+.qc-preview-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100000;
+    width: 210mm;
+    max-width: calc(100vw - 24px);
+    margin: 0 auto 12px;
+    padding: 10px 12px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: #f8fafc;
-    color: #0f172a;
+    justify-content: space-between;
+    gap: 12px;
+    background: rgba(15, 23, 42, .96);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .18);
     font-family: Arial, sans-serif;
 }
-#qc-pdf-overlay > div {
-    max-width: 520px;
-    margin: 20px;
-    padding: 24px;
-    border: 1px solid #cbd5e1;
-    border-radius: 14px;
-    background: #fff;
-    box-shadow: 0 12px 35px rgba(15, 23, 42, .12);
-    text-align: center;
+
+.qc-preview-meta {
+    min-width: 0;
 }
-#qc-pdf-overlay strong { display:block; font-size:18px; margin-bottom:8px; }
-#qc-pdf-overlay span { display:block; font-size:13px; color:#475569; line-height:1.5; }
+.qc-preview-meta strong {
+    display: block;
+    font-size: 13px;
+    line-height: 1.35;
+}
+.qc-preview-meta span {
+    display: block;
+    margin-top: 2px;
+    font-size: 11px;
+    color: #cbd5e1;
+}
+.qc-preview-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.qc-preview-btn {
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 7px;
+    padding: 8px 12px;
+    background: #fff;
+    color: #0f172a;
+    font: 600 12px/1.2 Arial, sans-serif;
+    cursor: pointer;
+}
+.qc-preview-btn:hover {
+    background: #f1f5f9;
+}
+.qc-preview-btn.primary {
+    border-color: #16a34a;
+    background: #16a34a;
+    color: #fff;
+}
+.qc-preview-btn.primary:hover {
+    background: #15803d;
+}
+
+/* Bildschirmvorschau möglichst nah an der vorhandenen A4-Druckansicht. */
+@media screen {
+    .page.a4 {
+        width: 210mm !important;
+        min-height: 297mm !important;
+        height: 297mm !important;
+        padding: 10mm 10mm 30mm !important;
+        margin: 0 auto 8mm !important;
+        overflow: hidden !important;
+        background: #fff !important;
+        outline: 1px solid #cbd5e1 !important;
+        box-shadow: 0 6px 24px rgba(15, 23, 42, .12);
+    }
+    .page.a4 .head {
+        position: static !important;
+        top: auto !important;
+        box-shadow: none !important;
+    }
+    .page.a4 .doc-footer {
+        left: 10mm !important;
+        right: 10mm !important;
+        bottom: 8mm !important;
+    }
+}
+
+@media print {
+    .qc-preview-toolbar,
+    body > .toolbar.no-print,
+    body > .toolbar {
+        display: none !important;
+    }
+    html,
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+    }
+}
+
+@media (max-width: 860px) {
+    .qc-preview-toolbar {
+        position: relative;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .qc-preview-actions {
+        justify-content: stretch;
+    }
+    .qc-preview-btn {
+        flex: 1;
+    }
+}
 </style>
 CSS;
 
-    $styleBlock = '<style id="qc-archived-document-css">' . $archivedCss . '</style>' . $pdfCss;
+    $styleBlock = '<style id="qc-archived-document-css">' . $archivedCss . '</style>' . $previewCss;
     if (stripos($html, '</head>') !== false) {
         $html = str_ireplace('</head>', $styleBlock . '</head>', $html);
     } else {
         $html = $styleBlock . $html;
     }
 
-    $overlay = '<div id="qc-pdf-overlay"><div><strong>PDF wird erstellt …</strong><span id="qc-pdf-status">Rev. '
-        . htmlspecialchars($rev, ENT_QUOTES, 'UTF-8')
-        . ' wird aus dem freigegebenen Archivstand erzeugt.</span></div></div>';
-    $html = preg_replace('~<body([^>]*)>~i', '<body$1>' . $overlay, $html, 1) ?? $html;
+    $safeDoc = htmlspecialchars($doc, ENT_QUOTES, 'UTF-8');
+    $safeRev = htmlspecialchars($rev, ENT_QUOTES, 'UTF-8');
+    $safeTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+    $safeApprovedDate = htmlspecialchars($approvedDate, ENT_QUOTES, 'UTF-8');
+
+    $metaLine = 'Freigegebene Revision ' . $safeRev;
+    if ($safeApprovedDate !== '') {
+        $metaLine .= ' · freigegeben am ' . $safeApprovedDate;
+    }
+
+    $toolbar = '<div class="qc-preview-toolbar no-print">'
+        . '<div class="qc-preview-meta">'
+        . '<strong>Vorschau · ' . $safeDoc . ' – ' . $safeTitle . '</strong>'
+        . '<span>' . $metaLine . ' · archivierter Dokumentstand</span>'
+        . '</div>'
+        . '<div class="qc-preview-actions">'
+        . '<button type="button" class="qc-preview-btn" id="qcPreviewBack">← Zurück</button>'
+        . '<button type="button" class="qc-preview-btn primary" id="qcPreviewPrint">🖨 Drucken / als PDF speichern</button>'
+        . '</div>'
+        . '</div>';
+
+    $html = preg_replace('~<body([^>]*)>~i', '<body$1>' . $toolbar, $html, 1) ?? $html;
 
     $archivedJs = $jsPath !== null ? (string)file_get_contents($jsPath) : '';
     $archivedJs = str_ireplace('</script', '<\/script', $archivedJs);
 
-    $downloadNameJs = json_encode($downloadName, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     $revisionJs = json_encode($rev, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     $approvedDateJs = json_encode($approvedDate, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $docTitleJs = json_encode($doc . ' – ' . $title . ' – Rev. ' . $rev, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-    $generatorJs = <<<HTML
-<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+    $previewJs = <<<HTML
+<script>
+// Eine Dokumentencenter-Vorschau ist immer die leere freigegebene Vorlage.
+// Eventuell vorhandene Wareneingangs-Druckdaten aus einer früheren Sitzung dürfen
+// den archivierten Dokumentstand nicht unbeabsichtigt befüllen.
+try {
+    sessionStorage.removeItem('waPrintPayload');
+} catch (_) {}
+try {
+    if (window.name) {
+        const parsed = JSON.parse(window.name);
+        if (parsed && typeof parsed === 'object' && parsed.waPrintPayload) {
+            delete parsed.waPrintPayload;
+            window.name = JSON.stringify(parsed);
+        }
+    }
+} catch (_) {}
+</script>
 <script>
 {$archivedJs}
 </script>
 <script>
 (() => {
-    const downloadName = {$downloadNameJs};
     const revision = {$revisionJs};
     const approvedDate = {$approvedDateJs};
-    const overlay = document.getElementById('qc-pdf-overlay');
-    const statusEl = document.getElementById('qc-pdf-status');
+    const previewTitle = {$docTitleJs};
 
-    function setStatus(text) {
-        if (statusEl) statusEl.textContent = text;
-    }
+    document.title = previewTitle;
 
-    function waitForImages() {
-        const images = Array.from(document.images || []);
-        return Promise.all(images.map(img => {
-            if (img.complete) return Promise.resolve();
-            return new Promise(resolve => {
-                img.addEventListener('load', resolve, { once: true });
-                img.addEventListener('error', resolve, { once: true });
-            });
-        }));
-    }
-
-    function stampRevision(root) {
-        root.querySelectorAll('.doc-footer-left div').forEach(el => {
+    function stampRevision() {
+        document.querySelectorAll('.doc-footer-left div').forEach(el => {
             const text = (el.textContent || '').trim();
             if (/^Rev-Nr\.?/i.test(text)) {
                 el.textContent = 'Rev-Nr. ' + revision;
@@ -242,94 +316,38 @@ CSS;
         });
     }
 
-    function nextPaint() {
-        return new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-    }
-
-    async function createPdf() {
-        try {
-            if (document.fonts && document.fonts.ready) {
-                await document.fonts.ready;
-            }
-            await waitForImages();
-            await new Promise(resolve => setTimeout(resolve, 250));
-
-            if (typeof window.html2pdf !== 'function') {
-                throw new Error('PDF-Bibliothek konnte nicht geladen werden.');
-            }
-
-            const sourcePages = Array.from(document.querySelectorAll('.page.a4'));
-            if (!sourcePages.length) {
-                throw new Error('In der archivierten Revision wurden keine A4-Seiten gefunden.');
-            }
-
-            // WICHTIG: Keine Offscreen-Kopie mehr. Die tatsächlich gerenderten Seiten
-            // werden in einen sichtbaren Wrapper verschoben und genau so gerendert.
-            const firstPage = sourcePages[0];
-            const parent = firstPage.parentNode;
-            if (!parent) {
-                throw new Error('Dokumentseiten konnten nicht vorbereitet werden.');
-            }
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'qc-pdf-wrapper';
-            parent.insertBefore(wrapper, firstPage);
-
-            sourcePages.forEach(page => {
-                page.querySelectorAll('.no-print, .toolbar, .row-controls, .tiny-hint, button').forEach(el => el.remove());
-                wrapper.appendChild(page);
-            });
-
-            stampRevision(wrapper);
-
-            // Overlay ausblenden, damit der Browser die echten Seiten normal zeichnet.
-            if (overlay) overlay.style.display = 'none';
-            window.scrollTo(0, 0);
-            await nextPaint();
-
-            await window.html2pdf()
-                .set({
-                    margin: 0,
-                    filename: downloadName,
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: {
-                        scale: 2,
-                        useCORS: true,
-                        logging: false,
-                        backgroundColor: '#ffffff',
-                        scrollX: 0,
-                        scrollY: 0,
-                        windowWidth: Math.max(document.documentElement.clientWidth, 900)
-                    },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                    pagebreak: { mode: ['css', 'legacy'] }
-                })
-                .from(wrapper)
-                .save();
-
-            if (overlay) overlay.style.display = 'flex';
-            setStatus('PDF wurde heruntergeladen. Du wirst zurück zum Dokumentencenter geleitet.');
-            setTimeout(() => {
-                if (window.history.length > 1) {
-                    window.history.back();
-                }
-            }, 900);
-        } catch (error) {
-            console.error(error);
-            if (overlay) overlay.style.display = 'flex';
-            setStatus('PDF konnte nicht erstellt werden: ' + (error && error.message ? error.message : String(error)));
+    function goBack() {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = '/?tab=docs';
         }
     }
 
-    window.addEventListener('load', createPdf, { once: true });
+    const backButton = document.getElementById('qcPreviewBack');
+    const printButton = document.getElementById('qcPreviewPrint');
+
+    if (backButton) {
+        backButton.addEventListener('click', goBack);
+    }
+    if (printButton) {
+        printButton.addEventListener('click', () => {
+            stampRevision();
+            window.print();
+        });
+    }
+
+    stampRevision();
+    window.addEventListener('load', stampRevision, { once: true });
+    window.addEventListener('beforeprint', stampRevision);
 })();
 </script>
 HTML;
 
     if (stripos($html, '</body>') !== false) {
-        $html = str_ireplace('</body>', $generatorJs . '</body>', $html);
+        $html = str_ireplace('</body>', $previewJs . '</body>', $html);
     } else {
-        $html .= $generatorJs;
+        $html .= $previewJs;
     }
 
     header('Content-Type: text/html; charset=UTF-8');
@@ -339,9 +357,9 @@ HTML;
 } catch (Throwable $e) {
     http_response_code(404);
     header('Content-Type: text/html; charset=UTF-8');
-    echo '<!doctype html><html lang="de"><head><meta charset="utf-8"><title>PDF-Download</title></head>';
+    echo '<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Dokumentvorschau</title></head>';
     echo '<body style="font-family:Arial,sans-serif;padding:24px;background:#f8fafc;color:#0f172a">';
-    echo '<h2>PDF konnte nicht erstellt werden</h2>';
+    echo '<h2>Dokumentvorschau konnte nicht geöffnet werden</h2>';
     echo '<p>' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . '</p>';
     echo '<p><a href="/?tab=docs">Zurück zum Dokumentencenter</a></p>';
     echo '</body></html>';
