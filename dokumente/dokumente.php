@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../inc/session.php';
 require_once __DIR__ . '/../api/_db.php';
 require_once __DIR__ . '/controlled_documents_bootstrap.php';
+require_once __DIR__ . '/controlled_documents_center.php';
 
 if (!isset($_SESSION['username'])) {
     http_response_code(403);
@@ -81,7 +82,6 @@ function isDocVisibleForRole(array $doc, string $currentRole): bool
 
     $raw = trim((string)$raw);
 
-    // JSON?
     if (
         (str_starts_with($raw, '[') && str_ends_with($raw, ']')) ||
         (str_starts_with($raw, '{') && str_ends_with($raw, '}'))
@@ -94,7 +94,6 @@ function isDocVisibleForRole(array $doc, string $currentRole): bool
         }
     }
 
-    // CSV-Fallback
     $roles = array_filter(array_map('trim', explode(',', $raw)));
     if (!$roles) {
         return true;
@@ -112,7 +111,7 @@ try {
     ");
     $categories = $stmtCats->fetchAll(PDO::FETCH_ASSOC);
 
-    // Aktive Dokumente laden
+    // Bestehende normale Dokumente laden
     $stmtDocs = $pdo->query("
         SELECT
             d.id,
@@ -133,10 +132,17 @@ try {
     ");
     $allDocs = $stmtDocs->fetchAll(PDO::FETCH_ASSOC);
 
-    // Sichtbarkeit nach Rolle filtern
     $docs = array_values(array_filter($allDocs, static function (array $doc) use ($currentRole): bool {
         return isDocVisibleForRole($doc, $currentRole);
     }));
+
+    // Freigegebene gelenkte Dokumente zusätzlich in dasselbe Dokumentencenter einblenden.
+    $controlledDocs = qcCenterLoadControlledDocuments($pdo);
+    foreach ($controlledDocs as $controlledDoc) {
+        if (isDocVisibleForRole($controlledDoc, $currentRole)) {
+            $docs[] = $controlledDoc;
+        }
+    }
 
     // Kategorien-Mapping
     $catMap = [];
@@ -150,6 +156,22 @@ try {
             'meta' => $c,
             'docs' => [],
         ];
+    }
+
+    // Falls ein gelenktes Dokument eine vorhandene fachliche Kategorie benötigt,
+    // die Kategorie aber noch nicht in qc_doc_categories existiert, bleibt sie trotzdem sichtbar.
+    foreach ($controlledDocs as $controlledDoc) {
+        $controlledCategory = trim((string)($controlledDoc['category'] ?? ''));
+        if ($controlledCategory !== '' && $controlledCategory !== 'Allgemein / ohne Kategorie' && !isset($catMap[$controlledCategory])) {
+            $catMap[$controlledCategory] = [
+                'meta' => [
+                    'name' => $controlledCategory,
+                    'description' => 'Freigegebene gelenkte Dokumente für ' . $controlledCategory,
+                    'sort_order' => 999,
+                ],
+                'docs' => [],
+            ];
+        }
     }
 
     // Dokumente zuordnen
@@ -183,7 +205,6 @@ try {
     <title>Dokumentencenter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Tailwind nur in diesem Bereich -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <script>
         tailwind.config = {
@@ -255,57 +276,30 @@ try {
         </a>
     </section>
 
-   <?php
-$currentRoleLower = strtolower(trim((string)($_SESSION['role'] ?? $_SESSION['app_role'] ?? $_SESSION['currentRole'] ?? '')));
+    <?php if ($canUseDamageReports): ?>
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+            <a href="/dokumente/schadensmeldung-generator.php?embed=1"
+               class="rounded-xl border border-red-200 bg-white p-4 shadow-sm hover:bg-red-50 transition block">
+                <div class="text-sm font-semibold text-slate-900">Neue Schadensmeldung</div>
+                <div class="text-xs text-slate-500 mt-1">Schadensmeldung erstellen, speichern und drucken.</div>
+                <div class="mt-3 text-xs font-semibold text-red-600">Öffnen →</div>
+            </a>
 
-$canUseDamageReports = in_array($currentRoleLower, [
-    'admin',
-    'standortleiter',
-    'dispo',
-    'disposition'
-], true);
-?>
+            <a href="/dokumente/schadensmeldungen_archiv.php?embed=1"
+               class="rounded-xl border border-sky-200 bg-white p-4 shadow-sm hover:bg-sky-50 transition block">
+                <div class="text-sm font-semibold text-slate-900">Schadensmeldungen Archiv</div>
+                <div class="text-xs text-slate-500 mt-1">Gespeicherte Schadensmeldungen anzeigen, öffnen und erneut drucken.</div>
+                <div class="mt-3 text-xs font-semibold text-sky-600">Archiv öffnen →</div>
+            </a>
+        </section>
+    <?php endif; ?>
 
-<?php if ($canUseDamageReports): ?>
-<section class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-
-    <a href="/dokumente/schadensmeldung-generator.php?embed=1"
-       class="rounded-xl border border-red-200 bg-white p-4 shadow-sm hover:bg-red-50 transition block">
-        <div class="text-sm font-semibold text-slate-900">
-            Neue Schadensmeldung
-        </div>
-        <div class="text-xs text-slate-500 mt-1">
-            Schadensmeldung erstellen, speichern und drucken.
-        </div>
-        <div class="mt-3 text-xs font-semibold text-red-600">
-            Öffnen →
-        </div>
-    </a>
-
-    <a href="/dokumente/schadensmeldungen_archiv.php?embed=1"
-       class="rounded-xl border border-sky-200 bg-white p-4 shadow-sm hover:bg-sky-50 transition block">
-        <div class="text-sm font-semibold text-slate-900">
-            Schadensmeldungen Archiv
-        </div>
-        <div class="text-xs text-slate-500 mt-1">
-            Gespeicherte Schadensmeldungen anzeigen, öffnen und erneut drucken.
-        </div>
-        <div class="mt-3 text-xs font-semibold text-sky-600">
-            Archiv öffnen →
-        </div>
-    </a>
-
-</section>
-<?php endif; ?>
     <?php if (!$docs && !$categories): ?>
         <section class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <p class="text-xs text-slate-500">
-                Es sind noch keine Kategorien oder Dokumente hinterlegt.
-            </p>
+            <p class="text-xs text-slate-500">Es sind noch keine Kategorien oder Dokumente hinterlegt.</p>
         </section>
     <?php else: ?>
         <section class="space-y-4">
-            <!-- Filterleiste -->
             <div class="rounded-xl border border-slate-200 bg-white p-3 shadow-sm flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div class="flex flex-wrap items-center gap-2 text-xs">
                     <span class="font-medium text-slate-700">Kategorie:</span>
@@ -331,7 +325,6 @@ $canUseDamageReports = in_array($currentRoleLower, [
                 </div>
             </div>
 
-            <!-- Kategorien -->
             <?php foreach ($catMap as $catName => $bucket): ?>
                 <?php
                 $meta = $bucket['meta'];
@@ -340,10 +333,8 @@ $canUseDamageReports = in_array($currentRoleLower, [
 
                 $lastRaw = null;
                 foreach ($catDocs as $d) {
-                    if (!empty($d['created_at'])) {
-                        if ($lastRaw === null || $d['created_at'] > $lastRaw) {
-                            $lastRaw = $d['created_at'];
-                        }
+                    if (!empty($d['created_at']) && ($lastRaw === null || $d['created_at'] > $lastRaw)) {
+                        $lastRaw = $d['created_at'];
                     }
                 }
                 $lastLabel = $lastRaw ? formatDateTime($lastRaw) : null;
@@ -356,26 +347,18 @@ $canUseDamageReports = in_array($currentRoleLower, [
                 >
                     <div class="mb-2 flex items-center justify-between gap-3">
                         <div>
-                            <h2 class="text-sm font-semibold text-slate-900">
-                                <?= e($catName) ?>
-                            </h2>
+                            <h2 class="text-sm font-semibold text-slate-900"><?= e($catName) ?></h2>
 
                             <?php if (!empty($meta['description'])): ?>
-                                <p class="text-[11px] text-slate-500">
-                                    <?= e((string)$meta['description']) ?>
-                                </p>
+                                <p class="text-[11px] text-slate-500"><?= e((string)$meta['description']) ?></p>
                             <?php endif; ?>
 
                             <?php if ($lastLabel): ?>
-                                <p class="text-[11px] text-slate-500">
-                                    Zuletzt geändert: <?= e($lastLabel) ?>
-                                </p>
+                                <p class="text-[11px] text-slate-500">Zuletzt geändert: <?= e($lastLabel) ?></p>
                             <?php endif; ?>
                         </div>
 
-                        <span class="text-[11px] text-slate-500 whitespace-nowrap">
-                            <?= $docCount ?> Dokument(e)
-                        </span>
+                        <span class="text-[11px] text-slate-500 whitespace-nowrap"><?= $docCount ?> Dokument(e)</span>
                     </div>
 
                     <div class="overflow-x-auto">
@@ -399,7 +382,18 @@ $canUseDamageReports = in_array($currentRoleLower, [
                             <?php else: ?>
                                 <?php foreach ($catDocs as $d): ?>
                                     <?php
-                                    $searchText = toSearchText((string)(($d['title'] ?? '') . ' ' . ($d['original_name'] ?? '')));
+                                    $isControlled = !empty($d['_controlled']);
+                                    $olderRevisions = $isControlled && isset($d['older_revisions']) && is_array($d['older_revisions'])
+                                        ? $d['older_revisions']
+                                        : [];
+                                    $searchExtra = '';
+                                    if ($isControlled) {
+                                        $searchExtra .= ' ' . ($d['document_no'] ?? '') . ' rev ' . ($d['current_revision'] ?? '') . ' freigegeben';
+                                        foreach ($olderRevisions as $olderRevision) {
+                                            $searchExtra .= ' rev ' . ($olderRevision['revision'] ?? '');
+                                        }
+                                    }
+                                    $searchText = toSearchText((string)(($d['title'] ?? '') . ' ' . ($d['original_name'] ?? '') . $searchExtra));
                                     $createdLabel = formatDateTime($d['created_at'] ?? null);
                                     $downloadFile = trim((string)($d['filename'] ?? ''));
                                     ?>
@@ -407,26 +401,125 @@ $canUseDamageReports = in_array($currentRoleLower, [
                                         data-doc-row
                                         data-category="<?= e($catName) ?>"
                                         data-search="<?= e($searchText) ?>"
+                                        class="<?= $isControlled ? 'bg-violet-50/30' : '' ?>"
                                     >
-                                        <td class="px-3 py-1.5">
-                                            <div class="text-[12px] font-medium text-slate-900">
-                                                <?= e((string)($d['title'] ?? '')) ?>
+                                        <td class="px-3 py-2 align-top">
+                                            <div class="flex flex-wrap items-center gap-1.5">
+                                                <div class="text-[12px] font-medium text-slate-900">
+                                                    <?= e((string)($d['title'] ?? '')) ?>
+                                                </div>
+                                                <?php if ($isControlled): ?>
+                                                    <span class="rounded-full border border-violet-200 bg-violet-50 px-2 py-0.5 text-[9px] font-semibold text-violet-700">
+                                                        GELENKT
+                                                    </span>
+                                                    <span class="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[9px] font-semibold text-emerald-700">
+                                                        Rev. <?= e((string)($d['current_revision'] ?? '')) ?> · Freigegeben
+                                                    </span>
+                                                <?php endif; ?>
                                             </div>
-                                            <div class="text-[10px] text-slate-500">
+
+                                            <div class="text-[10px] text-slate-500 mt-0.5">
                                                 <?= e((string)($d['original_name'] ?? '')) ?>
                                             </div>
+
+                                            <?php if ($isControlled): ?>
+                                                <?php if (!empty($d['description'])): ?>
+                                                    <div class="mt-1 text-[10px] text-slate-600">
+                                                        <?= e((string)$d['description']) ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <details class="mt-2 text-[10px]">
+                                                    <summary class="cursor-pointer font-semibold text-violet-700 hover:text-violet-900">
+                                                        Freigabe- und Revisionsdaten
+                                                    </summary>
+                                                    <div class="mt-2 rounded-lg border border-violet-100 bg-white p-2.5 space-y-1.5 text-slate-600 min-w-[320px]">
+                                                        <div><span class="font-semibold text-slate-700">Dokument:</span> <?= e((string)($d['document_no'] ?? '')) ?></div>
+                                                        <div><span class="font-semibold text-slate-700">Aktuelle Revision:</span> <?= e((string)($d['current_revision'] ?? '')) ?></div>
+                                                        <div><span class="font-semibold text-slate-700">Freigegeben am:</span> <?= e(formatDateTime($d['current_approved_at'] ?? null)) ?></div>
+
+                                                        <?php if (!empty($d['current_change_reason'])): ?>
+                                                            <div><span class="font-semibold text-slate-700">Änderungsgrund:</span> <?= e((string)$d['current_change_reason']) ?></div>
+                                                        <?php endif; ?>
+                                                        <?php if (!empty($d['current_change_description'])): ?>
+                                                            <div><span class="font-semibold text-slate-700">Änderung:</span> <?= e((string)$d['current_change_description']) ?></div>
+                                                        <?php endif; ?>
+
+                                                        <?php if (!empty($d['approvals']) && is_array($d['approvals'])): ?>
+                                                            <div class="pt-1 font-semibold text-slate-700">Freigabekette</div>
+                                                            <?php foreach ($d['approvals'] as $approval): ?>
+                                                                <div class="flex flex-wrap gap-x-1">
+                                                                    <span class="text-emerald-700">✓</span>
+                                                                    <span class="font-medium"><?= e((string)($approval['stage_label'] ?? $approval['approval_role'] ?? $approval['approver_code'] ?? '')) ?></span>
+                                                                    <span>· <?= e((string)($approval['approver_name'] ?? '')) ?></span>
+                                                                    <?php if (!empty($approval['decided_at'])): ?>
+                                                                        <span>· <?= e(formatDateTime((string)$approval['decided_at'])) ?></span>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </details>
+                                            <?php endif; ?>
                                         </td>
-                                        <td class="px-3 py-1.5 text-[11px] text-slate-700">
+
+                                        <td class="px-3 py-2 text-[11px] text-slate-700 align-top">
                                             <?= e((string)($d['hall'] ?? '')) ?>
                                         </td>
-                                        <td class="px-3 py-1.5 text-[11px] text-slate-700 whitespace-nowrap">
+                                        <td class="px-3 py-2 text-[11px] text-slate-700 whitespace-nowrap align-top">
                                             <?= e($createdLabel) ?>
                                         </td>
-                                        <td class="px-3 py-1.5 text-[11px] text-slate-700 whitespace-nowrap">
+                                        <td class="px-3 py-2 text-[11px] text-slate-700 whitespace-nowrap align-top">
                                             <?= e((string)($d['uploader'] ?? '–')) ?>
                                         </td>
-                                        <td class="px-3 py-1.5 text-[11px]">
-                                            <?php if ($downloadFile !== ''): ?>
+                                        <td class="px-3 py-2 text-[11px] align-top min-w-[210px]">
+                                            <?php if ($isControlled): ?>
+                                                <?php if (!empty($d['current_archive_available'])): ?>
+                                                    <a
+                                                        href="/dokumente/gelenkte_download.php?doc=<?= rawurlencode((string)$d['document_no']) ?>&rev=<?= rawurlencode((string)$d['current_revision']) ?>"
+                                                        class="inline-flex items-center gap-1 rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1.5 font-semibold text-emerald-700 hover:bg-emerald-100"
+                                                    >
+                                                        ⬇️ Aktuelle Rev. <?= e((string)$d['current_revision']) ?>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <span class="text-amber-700">Archiv der aktuellen Revision fehlt</span>
+                                                <?php endif; ?>
+
+                                                <?php if ($olderRevisions): ?>
+                                                    <details class="mt-2">
+                                                        <summary class="cursor-pointer font-semibold text-slate-600 hover:text-slate-900">
+                                                            Ältere Revisionen (<?= count($olderRevisions) ?>) ▾
+                                                        </summary>
+                                                        <div class="mt-2 rounded-lg border border-slate-200 bg-white p-2 space-y-2 shadow-sm">
+                                                            <?php foreach ($olderRevisions as $olderRevision): ?>
+                                                                <div class="border-b border-slate-100 pb-2 last:border-b-0 last:pb-0">
+                                                                    <div class="flex items-center justify-between gap-3">
+                                                                        <div>
+                                                                            <div class="font-semibold text-slate-700">
+                                                                                Rev. <?= e((string)($olderRevision['revision'] ?? '')) ?>
+                                                                            </div>
+                                                                            <div class="text-[9px] text-slate-500">
+                                                                                Ersetzt · freigegeben <?= e(formatDateTime($olderRevision['approved_at'] ?? null)) ?>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <?php if (!empty($olderRevision['archive_available'])): ?>
+                                                                            <a
+                                                                                href="/dokumente/gelenkte_download.php?doc=<?= rawurlencode((string)$d['document_no']) ?>&rev=<?= rawurlencode((string)($olderRevision['revision'] ?? '')) ?>"
+                                                                                class="whitespace-nowrap text-sky-600 hover:text-sky-800 font-semibold"
+                                                                            >
+                                                                                ⬇ Download
+                                                                            </a>
+                                                                        <?php else: ?>
+                                                                            <span class="text-[9px] text-amber-700">Archiv fehlt</span>
+                                                                        <?php endif; ?>
+                                                                    </div>
+                                                                </div>
+                                                            <?php endforeach; ?>
+                                                        </div>
+                                                    </details>
+                                                <?php endif; ?>
+                                            <?php elseif ($downloadFile !== ''): ?>
                                                 <a
                                                     href="docs/<?= rawurlencode($downloadFile) ?>"
                                                     download="<?= e((string)($d['original_name'] ?? $downloadFile)) ?>"
@@ -447,7 +540,6 @@ $canUseDamageReports = in_array($currentRoleLower, [
                 </div>
             <?php endforeach; ?>
 
-            <!-- Allgemein / ohne Kategorie -->
             <?php if ($hasUncategorized): ?>
                 <?php $docCount = count($uncategorized); ?>
                 <div
@@ -457,12 +549,8 @@ $canUseDamageReports = in_array($currentRoleLower, [
                     data-doc-count="<?= $docCount ?>"
                 >
                     <div class="mb-2 flex items-center justify-between gap-3">
-                        <h2 class="text-sm font-semibold text-slate-900">
-                            Allgemein / ohne Kategorie
-                        </h2>
-                        <span class="text-[11px] text-slate-500 whitespace-nowrap">
-                            <?= $docCount ?> Dokument(e)
-                        </span>
+                        <h2 class="text-sm font-semibold text-slate-900">Allgemein / ohne Kategorie</h2>
+                        <span class="text-[11px] text-slate-500 whitespace-nowrap"><?= $docCount ?> Dokument(e)</span>
                     </div>
 
                     <div class="overflow-x-auto">
@@ -489,22 +577,12 @@ $canUseDamageReports = in_array($currentRoleLower, [
                                     data-search="<?= e($searchText) ?>"
                                 >
                                     <td class="px-3 py-1.5">
-                                        <div class="text-[12px] font-medium text-slate-900">
-                                            <?= e((string)($d['title'] ?? '')) ?>
-                                        </div>
-                                        <div class="text-[10px] text-slate-500">
-                                            <?= e((string)($d['original_name'] ?? '')) ?>
-                                        </div>
+                                        <div class="text-[12px] font-medium text-slate-900"><?= e((string)($d['title'] ?? '')) ?></div>
+                                        <div class="text-[10px] text-slate-500"><?= e((string)($d['original_name'] ?? '')) ?></div>
                                     </td>
-                                    <td class="px-3 py-1.5 text-[11px] text-slate-700">
-                                        <?= e((string)($d['hall'] ?? '')) ?>
-                                    </td>
-                                    <td class="px-3 py-1.5 text-[11px] text-slate-700 whitespace-nowrap">
-                                        <?= e($createdLabel) ?>
-                                    </td>
-                                    <td class="px-3 py-1.5 text-[11px] text-slate-700 whitespace-nowrap">
-                                        <?= e((string)($d['uploader'] ?? '–')) ?>
-                                    </td>
+                                    <td class="px-3 py-1.5 text-[11px] text-slate-700"><?= e((string)($d['hall'] ?? '')) ?></td>
+                                    <td class="px-3 py-1.5 text-[11px] text-slate-700 whitespace-nowrap"><?= e($createdLabel) ?></td>
+                                    <td class="px-3 py-1.5 text-[11px] text-slate-700 whitespace-nowrap"><?= e((string)($d['uploader'] ?? '–')) ?></td>
                                     <td class="px-3 py-1.5 text-[11px]">
                                         <?php if ($downloadFile !== ''): ?>
                                             <a
