@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/controlled_legacy_snapshots.php';
+
 function qcCenterStageOrder(): array
 {
     return ['MAD', 'MED', 'CBE'];
@@ -32,7 +34,11 @@ function qcCenterArchiveExists(string $documentNo, string $revision): bool
         return false;
     }
 
-    return is_dir(__DIR__ . '/controlled_archive/' . $safeDoc . '/Rev_' . $safeRev . '/files');
+    if (is_dir(__DIR__ . '/controlled_archive/' . $safeDoc . '/Rev_' . $safeRev . '/files')) {
+        return true;
+    }
+
+    return qcLegacySnapshotAvailable($documentNo, $revision);
 }
 
 function qcCenterLoadApprovals(PDO $pdo, int $revisionId): array
